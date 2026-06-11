@@ -83,6 +83,21 @@ function sortMatchesByStart(a: Match, b: Match) {
   );
 }
 
+function sortDayGroups(
+  left: [string, Match[]],
+  right: [string, Match[]],
+  todayKey: string
+) {
+  const leftIsPast = left[0] < todayKey;
+  const rightIsPast = right[0] < todayKey;
+
+  if (leftIsPast !== rightIsPast) {
+    return leftIsPast ? 1 : -1;
+  }
+
+  return left[0].localeCompare(right[0]);
+}
+
 function toScoreState(
   matchId: string,
   saved?: MatchPrediction,
@@ -308,8 +323,10 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
       days.set(key, bucket);
     }
 
+    const todayKey = localDayKey(new Date(now).toISOString());
+
     return [...days.entries()]
-      .sort(([left], [right]) => left.localeCompare(right))
+      .sort((left, right) => sortDayGroups(left, right, todayKey))
       .map(([dayKey, dayMatches]) => ({
         dayKey,
         heading: dayHeading(dayMatches[0]?.starts_at ?? dayKey),

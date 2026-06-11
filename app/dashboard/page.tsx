@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { shouldShowMatchInPalpites } from "@/lib/match-visibility";
 import { getOrCreatePredictionDocument } from "@/repositories/predictions.repo";
 import { listMatches } from "@/repositories/worldcup.repo";
 import { getCurrentUser } from "@/services/auth.service";
@@ -16,9 +17,19 @@ export default async function DashboardPage() {
     listMatches()
   ]);
   const document = normalizePredictionDocument(row.predictions);
+  const savedMatchIds = new Set(Object.keys(document.matches));
+  const visibleMatches = matches.filter((match) =>
+    shouldShowMatchInPalpites(match, savedMatchIds)
+  );
   const savedMatches = Object.keys(document.matches).length;
-  const pendingMatches = Math.max(matches.length - savedMatches, 0);
-  const progress = matches.length > 0 ? Math.round((savedMatches / matches.length) * 100) : 0;
+  const savedOnVisible = visibleMatches.filter((match) =>
+    savedMatchIds.has(match.external_id)
+  ).length;
+  const pendingMatches = Math.max(visibleMatches.length - savedOnVisible, 0);
+  const progress =
+    visibleMatches.length > 0
+      ? Math.round((savedOnVisible / visibleMatches.length) * 100)
+      : 0;
 
   return (
     <main className="container">
@@ -35,8 +46,8 @@ export default async function DashboardPage() {
           <Link className="button" href="/palpites">
             Abrir palpites
           </Link>
-          <Link className="button secondary" href="/top-4">
-            Editar Top 4
+          <Link className="button secondary" href="/comunidade">
+            Ver palpites da galera
           </Link>
         </div>
       </section>

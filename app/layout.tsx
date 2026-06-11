@@ -17,13 +17,14 @@ export default async function RootLayout({
   const publicLinks = [
     { href: "/", label: "Visao geral" },
     { href: "/ranking", label: "Ranking" },
+    { href: "/comunidade", label: "Palpites da galera" },
     { href: "/selecoes", label: "Selecoes e grupos" },
     { href: "/chaveamento", label: "Chaveamento" }
   ];
   const playerLinks = user
     ? [
         { href: "/dashboard", label: "Painel" },
-        { href: "/palpites", label: "Palpites" },
+        { href: "/palpites", label: "Meus palpites" },
         { href: "/top-4", label: "Top 4" }
       ]
     : [{ href: "/login", label: "Entrar" }];

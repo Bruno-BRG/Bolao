@@ -9,87 +9,82 @@ function getTeamLabel(match: LiveMatch, side: "home" | "away") {
   const team = side === "home" ? match.home_team : match.away_team;
   const labelKey = side === "home" ? "home_team_label" : "away_team_label";
   const fallback = typeof payload[labelKey] === "string" ? payload[labelKey] : null;
-  const name = team?.name ?? fallback ?? "TBD";
-  const code = team?.fifa_code ?? team?.iso2;
-  return code ? code.toUpperCase() : name.slice(0, 3).toUpperCase();
-}
-
-function getTeamTitle(match: LiveMatch, side: "home" | "away") {
-  const payload = match.payload ?? {};
-  const team = side === "home" ? match.home_team : match.away_team;
-  const labelKey = side === "home" ? "home_team_label" : "away_team_label";
-  const fallback = typeof payload[labelKey] === "string" ? payload[labelKey] : null;
   return team?.name ?? fallback ?? "A definir";
 }
 
-function getStatusLabel(match: LiveMatch) {
+function formatMatchTime(match: LiveMatch) {
   if (match.status === "LIVE") {
-    return match.minute_label ? `${match.minute_label}'` : "Ao vivo";
+    return match.minute_label ? `Ao vivo ${match.minute_label}'` : "Ao vivo";
   }
-  if (FINISHED_STATUSES.has(match.status)) return "FT";
-  return formatDateTime(match.starts_at);
+  if (FINISHED_STATUSES.has(match.status)) return "Encerrado";
+
+  const date = new Date(match.starts_at);
+  if (Number.isNaN(date.getTime())) return formatDateTime(match.starts_at);
+
+  const day = date.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
+  const time = date.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+  return `${day}, ${time}`;
 }
 
 function statusClass(match: LiveMatch) {
-  if (match.status === "LIVE") return "bracket-node--live";
-  if (FINISHED_STATUSES.has(match.status)) return "bracket-node--done";
+  if (match.status === "LIVE") return "bracket-match--live";
+  if (FINISHED_STATUSES.has(match.status)) return "bracket-match--done";
   return "";
 }
 
-function BracketNode({
-  match,
-  x,
-  y,
-  width,
-  height
-}: {
-  match: LiveMatch;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}) {
-  const venue = match.venue_name
-    ? `${match.venue_name}${match.city_name ? `, ${match.city_name}` : ""}`
-    : null;
+function TeamShield({ flagUrl }: { flagUrl: string | null | undefined }) {
+  if (flagUrl) {
+    return <img className="bracket-match__shield" src={flagUrl} alt="" loading="lazy" />;
+  }
 
   return (
-    <foreignObject x={x} y={y} width={width} height={height}>
-      <article
-        className={`bracket-node ${statusClass(match)}`}
-        title={venue ?? undefined}
-      >
-        <header className="bracket-node__head">
-          <span className="bracket-node__status">{getStatusLabel(match)}</span>
-          {match.stage === PLACEMENT_STAGE ? (
-            <span className="bracket-node__tag">3o</span>
-          ) : null}
-        </header>
-        <div className="bracket-node__teams">
-          <div className="bracket-node__team">
-            {match.home_team?.flag_url ? (
-              <img src={match.home_team.flag_url} alt="" loading="lazy" />
-            ) : null}
-            <span title={getTeamTitle(match, "home")}>{getTeamLabel(match, "home")}</span>
-            <strong>{match.current_score_home ?? "-"}</strong>
-          </div>
-          <div className="bracket-node__team">
-            {match.away_team?.flag_url ? (
-              <img src={match.away_team.flag_url} alt="" loading="lazy" />
-            ) : null}
-            <span title={getTeamTitle(match, "away")}>{getTeamLabel(match, "away")}</span>
-            <strong>{match.current_score_away ?? "-"}</strong>
-          </div>
-        </div>
-      </article>
-    </foreignObject>
+    <span className="bracket-match__shield bracket-match__shield--empty" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z" />
+      </svg>
+    </span>
+  );
+}
+
+function BracketMatchCard({ match }: { match: LiveMatch }) {
+  const venue = match.venue_name
+    ? `${match.venue_name}${match.city_name ? ` · ${match.city_name}` : ""}`
+    : null;
+  const hasScore =
+    match.current_score_home !== null &&
+    match.current_score_home !== undefined &&
+    match.current_score_away !== null &&
+    match.current_score_away !== undefined;
+
+  return (
+    <article
+      className={`bracket-match ${statusClass(match)}`}
+      title={venue ?? undefined}
+    >
+      <header className="bracket-match__head">
+        <time>{formatMatchTime(match)}</time>
+        {match.stage === PLACEMENT_STAGE ? (
+          <span className="bracket-match__tag">3o lugar</span>
+        ) : null}
+      </header>
+
+      <div className="bracket-match__row">
+        <TeamShield flagUrl={match.home_team?.flag_url} />
+        <span className="bracket-match__name">{getTeamLabel(match, "home")}</span>
+        {hasScore ? <strong>{match.current_score_home}</strong> : null}
+      </div>
+
+      <div className="bracket-match__row">
+        <TeamShield flagUrl={match.away_team?.flag_url} />
+        <span className="bracket-match__name">{getTeamLabel(match, "away")}</span>
+        {hasScore ? <strong>{match.current_score_away}</strong> : null}
+      </div>
+    </article>
   );
 }
 
 export function BracketGraph({ layout }: { layout: BracketLayout }) {
-  const { nodes, edges, width, height } = layout;
-  const nodeWidth = 148;
-  const nodeHeight = 44;
+  const { nodes, edges, width, height, config } = layout;
 
   if (nodes.length === 0) {
     return (
@@ -100,53 +95,42 @@ export function BracketGraph({ layout }: { layout: BracketLayout }) {
   }
 
   return (
-    <div className="bracket-graph-wrap">
+    <div className="bracket-tree" style={{ width, height }}>
       <svg
-        className="bracket-graph"
+        className="bracket-tree__lines"
         viewBox={`0 0 ${width} ${height}`}
         width={width}
         height={height}
-        role="img"
-        aria-label="Chaveamento do mata-mata em formato de grafo"
+        aria-hidden="true"
       >
-        <defs>
-          <linearGradient id="bracket-edge-glow" x1="0%" x2="100%" y1="0%" y2="0%">
-            <stop offset="0%" stopColor="rgba(151, 166, 186, 0.05)" />
-            <stop offset="100%" stopColor="rgba(151, 166, 186, 0.35)" />
-          </linearGradient>
-        </defs>
-
         {edges.map((edge, index) => (
           <path
             key={`edge-${index}`}
-            className="bracket-edge"
             d={edge.d}
             fill="none"
             stroke={edge.tone}
             strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            strokeLinecap="square"
+            strokeLinejoin="miter"
           />
         ))}
-
-        {nodes.map((node) => (
-          <g key={node.match.external_id}>
-            <circle
-              className="bracket-anchor"
-              cx={node.x}
-              cy={node.y + nodeHeight / 2}
-              r="2.5"
-            />
-            <BracketNode
-              match={node.match}
-              x={node.x}
-              y={node.y}
-              width={nodeWidth}
-              height={nodeHeight}
-            />
-          </g>
-        ))}
       </svg>
+
+      <div className="bracket-tree__nodes">
+        {nodes.map((node) => (
+          <div
+            key={node.match.external_id}
+            className="bracket-tree__node"
+            style={{
+              width: config.nodeWidth,
+              height: config.nodeHeight,
+              transform: `translate(${node.x}px, ${node.y}px)`
+            }}
+          >
+            <BracketMatchCard match={node.match} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

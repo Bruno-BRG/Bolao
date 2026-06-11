@@ -14,7 +14,7 @@ export type BracketLayoutConfig = {
   nodeWidth: number;
   nodeHeight: number;
   columnGap: number;
-  baseRowGap: number;
+  matchGap: number;
   padding: number;
 };
 
@@ -37,14 +37,15 @@ export type BracketLayout = {
   edges: BracketLayoutEdge[];
   width: number;
   height: number;
+  config: BracketLayoutConfig;
 };
 
-const DEFAULT_CONFIG: BracketLayoutConfig = {
-  nodeWidth: 148,
-  nodeHeight: 44,
-  columnGap: 36,
-  baseRowGap: 48,
-  padding: 24
+export const BRACKET_LAYOUT_CONFIG: BracketLayoutConfig = {
+  nodeWidth: 196,
+  nodeHeight: 78,
+  columnGap: 44,
+  matchGap: 10,
+  padding: 16
 };
 
 function sortMatches(matches: LiveMatch[]) {
@@ -54,19 +55,34 @@ function sortMatches(matches: LiveMatch[]) {
 }
 
 function connectorTone(match: LiveMatch) {
-  if (match.status === "LIVE") return "rgba(46, 194, 126, 0.5)";
-  return "rgba(151, 166, 186, 0.22)";
+  if (match.status === "LIVE") return "rgba(46, 194, 126, 0.55)";
+  return "rgba(151, 166, 186, 0.28)";
 }
 
 function columnWidth(config: BracketLayoutConfig) {
   return config.nodeWidth + config.columnGap;
 }
 
+function buildConnectorPath(
+  childTop: BracketLayoutNode,
+  childBottom: BracketLayoutNode,
+  parent: BracketLayoutNode,
+  config: BracketLayoutConfig
+) {
+  const fork = parent.x - config.columnGap / 2;
+  const right = childTop.x + config.nodeWidth;
+  const topY = childTop.y + config.nodeHeight / 2;
+  const bottomY = childBottom.y + config.nodeHeight / 2;
+  const parentY = parent.y + config.nodeHeight / 2;
+
+  return `M ${right} ${topY} H ${fork} V ${parentY} H ${parent.x} M ${right} ${bottomY} H ${fork}`;
+}
+
 export function buildBracketLayout(
   matches: LiveMatch[],
-  config: Partial<BracketLayoutConfig> = {}
+  partialConfig: Partial<BracketLayoutConfig> = {}
 ): BracketLayout {
-  const resolved = { ...DEFAULT_CONFIG, ...config };
+  const config = { ...BRACKET_LAYOUT_CONFIG, ...partialConfig };
   const byStage = new Map<string, LiveMatch[]>();
 
   for (const match of matches) {
@@ -78,56 +94,107 @@ export function buildBracketLayout(
 
   const nodes: BracketLayoutNode[] = [];
   const edges: BracketLayoutEdge[] = [];
-  const colW = columnWidth(resolved);
+  const colW = columnWidth(config);
+  const slot = config.nodeHeight + config.matchGap;
 
-  let seedCount = 0;
-  for (const stage of MAIN_BRACKET_STAGES) {
-    const count = byStage.get(stage)?.length ?? 0;
-    if (count > 0) {
-      seedCount = count;
+  let firstColumn = -1;
+  for (let column = 0; column < MAIN_BRACKET_STAGES.length; column += 1) {
+    if ((byStage.get(MAIN_BRACKET_STAGES[column])?.length ?? 0) > 0) {
+      firstColumn = column;
       break;
     }
   }
-  if (seedCount === 0) seedCount = 1;
 
-  const treeHeight =
-    seedCount * resolved.baseRowGap * Math.pow(2, MAIN_BRACKET_STAGES.length - 1) +
-    resolved.nodeHeight;
+  if (firstColumn === -1) {
+    return {
+      nodes,
+      edges,
+      width: config.padding * 2,
+      height: config.padding * 2,
+      config
+    };
+  }
+
+  const yByMatchId = new Map<string, number>();
+
+  function findPreviousStageMatches(column: number) {
+    for (let index = column - 1; index >= 0; index -= 1) {
+      const stage = MAIN_BRACKET_STAGES[index];
+      const matches = sortMatches(byStage.get(stage) ?? []);
+      if (matches.length > 0) return { matches, column: index };
+    }
+    return null;
+  }
+
+  function resolveChildMatches(
+    row: number,
+    column: number,
+    previous: { matches: LiveMatch[]; column: number }
+  ) {
+    if (previous.column === firstColumn) {
+      const depth = column - firstColumn;
+      const block = Math.pow(2, depth + 1);
+      const topIndex = row * block;
+      const bottomIndex = row * block + Math.pow(2, depth) - 1;
+      return {
+        childTop: previous.matches[topIndex],
+        childBottom: previous.matches[bottomIndex]
+      };
+    }
+
+    return {
+      childTop: previous.matches[row * 2],
+      childBottom: previous.matches[row * 2 + 1]
+    };
+  }
 
   MAIN_BRACKET_STAGES.forEach((stage, column) => {
     const stageMatches = sortMatches(byStage.get(stage) ?? []);
-    const span = resolved.baseRowGap * Math.pow(2, column);
+    if (stageMatches.length === 0) return;
+
+    const x = config.padding + column * colW;
+
+    if (column === firstColumn) {
+      stageMatches.forEach((match, row) => {
+        const y = config.padding + row * slot;
+        yByMatchId.set(match.external_id, y);
+        nodes.push({ match, x, y, stage, column, row });
+      });
+      return;
+    }
+
+    const previous = findPreviousStageMatches(column);
+    if (!previous) return;
 
     stageMatches.forEach((match, row) => {
-      const x = resolved.padding + column * colW;
-      const y =
-        resolved.padding + row * span * 2 + span / 2 - resolved.nodeHeight / 2;
+      const { childTop, childBottom } = resolveChildMatches(row, column, previous);
+      let y = config.padding + row * slot;
 
+      if (childTop && childBottom) {
+        const topY = yByMatchId.get(childTop.external_id);
+        const bottomY = yByMatchId.get(childBottom.external_id);
+        if (topY !== undefined && bottomY !== undefined) {
+          y = (topY + bottomY) / 2;
+        }
+      } else if (childTop) {
+        const topY = yByMatchId.get(childTop.external_id);
+        if (topY !== undefined) y = topY;
+      }
+
+      yByMatchId.set(match.external_id, y);
       nodes.push({ match, x, y, stage, column, row });
 
-      if (column === 0) return;
-
-      const prevMatches = sortMatches(
-        byStage.get(MAIN_BRACKET_STAGES[column - 1]) ?? []
-      );
-      const childTop = prevMatches[row * 2];
-      const childBottom = prevMatches[row * 2 + 1];
       if (!childTop || !childBottom) return;
 
       const topNode = nodes.find((node) => node.match.external_id === childTop.external_id);
       const bottomNode = nodes.find(
         (node) => node.match.external_id === childBottom.external_id
       );
+      const parentNode = nodes[nodes.length - 1];
       if (!topNode || !bottomNode) return;
 
-      const fork = x - resolved.columnGap / 2;
-      const right = topNode.x + resolved.nodeWidth;
-      const topY = topNode.y + resolved.nodeHeight / 2;
-      const bottomY = bottomNode.y + resolved.nodeHeight / 2;
-      const parentY = y + resolved.nodeHeight / 2;
-
       edges.push({
-        d: `M ${right} ${topY} H ${fork} V ${parentY} H ${x} M ${right} ${bottomY} H ${fork}`,
+        d: buildConnectorPath(topNode, bottomNode, parentNode, config),
         tone: connectorTone(match)
       });
     });
@@ -137,9 +204,23 @@ export function buildBracketLayout(
   if (placementMatches[0]) {
     const match = placementMatches[0];
     const finalColumn = MAIN_BRACKET_STAGES.length - 1;
-    const x = resolved.padding + finalColumn * colW;
-    const y = resolved.padding + treeHeight + resolved.baseRowGap * 0.35;
+    const finalMatches = sortMatches(byStage.get("Final") ?? []);
+    const semiMatches = sortMatches(byStage.get("Semifinal") ?? []);
+    const x = config.padding + finalColumn * colW;
 
+    let y = config.padding;
+    if (finalMatches[0]) {
+      const finalY = yByMatchId.get(finalMatches[0].external_id);
+      if (finalY !== undefined) {
+        y = finalY + config.nodeHeight + config.matchGap * 3;
+      }
+    } else if (semiMatches.length > 0) {
+      const lastSemi = semiMatches[semiMatches.length - 1];
+      const semiY = yByMatchId.get(lastSemi.external_id);
+      if (semiY !== undefined) y = semiY + slot;
+    }
+
+    yByMatchId.set(match.external_id, y);
     nodes.push({
       match,
       x,
@@ -148,40 +229,22 @@ export function buildBracketLayout(
       column: finalColumn,
       row: 0
     });
-
-    const semiMatches = sortMatches(
-      byStage.get("Semifinal") ?? []
-    );
-    if (semiMatches.length > 0) {
-      const semiNodes = nodes.filter((node) => node.stage === "Semifinal");
-      const anchor = semiNodes[semiNodes.length - 1];
-      if (anchor) {
-        const fork = x - resolved.columnGap / 2;
-        const right = anchor.x + resolved.nodeWidth;
-        const anchorY = anchor.y + resolved.nodeHeight / 2;
-        const placementY = y + resolved.nodeHeight / 2;
-
-        edges.push({
-          d: `M ${right} ${anchorY} H ${fork} V ${placementY} H ${x}`,
-          tone: connectorTone(match)
-        });
-      }
-    }
   }
 
   const maxX = Math.max(
-    resolved.padding,
-    ...nodes.map((node) => node.x + resolved.nodeWidth)
+    config.padding,
+    ...nodes.map((node) => node.x + config.nodeWidth)
   );
   const maxY = Math.max(
-    resolved.padding + treeHeight,
-    ...nodes.map((node) => node.y + resolved.nodeHeight)
+    config.padding,
+    ...nodes.map((node) => node.y + config.nodeHeight)
   );
 
   return {
     nodes,
     edges,
-    width: maxX + resolved.padding,
-    height: maxY + resolved.padding
+    width: maxX + config.padding,
+    height: maxY + config.padding,
+    config
   };
 }

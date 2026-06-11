@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
-import { PredictionForm } from "@/components/PredictionForm";
+import { PalpitesWorkspace } from "@/components/PalpitesWorkspace";
+import { shouldShowMatchInPalpites } from "@/lib/match-visibility";
 import { getOrCreatePredictionDocument } from "@/repositories/predictions.repo";
-import { getLatestSyncLog, listMatches } from "@/repositories/worldcup.repo";
+import { listMatches } from "@/repositories/worldcup.repo";
 import { getCurrentUser } from "@/services/auth.service";
 import { normalizePredictionDocument } from "@/services/prediction-document";
 
@@ -16,60 +17,52 @@ export default async function PalpitesPage({
   if (!user) redirect("/login");
 
   const params = await searchParams;
-  const [row, matches, latestSyncLog] = await Promise.all([
+  const [row, matches] = await Promise.all([
     getOrCreatePredictionDocument(user.id),
-    listMatches(),
-    getLatestSyncLog().catch(() => null)
+    listMatches()
   ]);
   const document = normalizePredictionDocument(row.predictions);
-  const hasSampleMatches =
-    matches.length > 0 && matches.every((match) => match.external_id.startsWith("wc2026-"));
-  const savedMatches = Object.keys(document.matches).length;
+  const savedMatchIds = new Set(Object.keys(document.matches));
+  const visibleMatches = matches.filter((match) =>
+    shouldShowMatchInPalpites(match, savedMatchIds)
+  );
+  const hiddenCount = matches.length - visibleMatches.length;
 
   return (
-    <main className="container">
+    <main className="container container--palpites">
       <section className="page-header">
         <div>
-          <span className="eyebrow">Palpites por jogo</span>
-          <h1>Monte seus placares</h1>
+          <span className="eyebrow">Seus palpites</span>
+          <h1>Placares</h1>
           <p className="muted">
-            Os palpites travam automaticamente no horario de inicio de cada partida.
-            Hoje voce ja salvou {savedMatches} jogos.
+            Preencha com calma. Os rascunhos ficam salvos no navegador ate voce
+            clicar em salvar.
           </p>
-        </div>
-        <div className="topbar-actions">
-          <span className="status-pill">{matches.length} jogos carregados</span>
         </div>
       </section>
 
       {params.error ? <p className="error">{params.error}</p> : null}
       {params.saved ? (
         <p className="success">
-          {params.unchanged ? "Palpite ja estava atualizado." : "Palpite salvo."}
+          {params.unchanged ? "Palpite ja estava salvo." : "Palpite salvo."}
         </p>
-      ) : null}
-      {hasSampleMatches ? (
-        <p className="error">
-          O banco ainda esta com a grade mockada de exemplo. Rode a migration de
-          limpeza e depois o sync automatico para carregar a Copa real.
-        </p>
-      ) : null}
-      {latestSyncLog?.status === "error" ? (
-        <p className="error">Erro no sync automatico: {latestSyncLog.message}</p>
-      ) : null}
-      {matches.length === 0 ? (
-        <p className="muted">Nenhum jogo oficial foi sincronizado ainda.</p>
       ) : null}
 
-      <div className="match-list">
-        {matches.map((match) => (
-          <PredictionForm
-            key={match.external_id}
-            match={match}
-            prediction={document.matches[match.external_id]}
-          />
-        ))}
-      </div>
+      {hiddenCount > 0 ? (
+        <p className="muted palpites-note">
+          {hiddenCount} jogo{hiddenCount === 1 ? "" : "s"} de mata-mata ainda sem
+          confronto definido. Eles aparecem aqui quando as selecoes forem
+          conhecidas.
+        </p>
+      ) : null}
+
+      {visibleMatches.length === 0 ? (
+        <section className="card">
+          <p className="muted">Nenhum jogo liberado para palpite no momento.</p>
+        </section>
+      ) : (
+        <PalpitesWorkspace matches={visibleMatches} savedPredictions={document.matches} />
+      )}
     </main>
   );
 }

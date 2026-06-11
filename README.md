@@ -20,15 +20,19 @@ No PowerShell com execution policy restritiva, use `npm.cmd` no lugar de `npm`.
 SUPABASE_URL=
 SUPABASE_SERVICE_ROLE_KEY=
 ADMIN_SYNC_TOKEN=
+CRON_SECRET=
 FOOTBALL_PROVIDER=api-football
 FOOTBALL_API_KEY=
 API_FOOTBALL_BASE_URL=https://v3.football.api-sports.io
 API_FOOTBALL_LEAGUE_ID=1
 API_FOOTBALL_SEASON=2026
+AUTO_SYNC_MAX_AGE_MINUTES=360
 ```
 
 O frontend nao usa chave publica do Supabase. Todas as consultas passam pelo
 servidor com a service role.
+
+Sem `FOOTBALL_API_KEY`, a aplicacao nao consegue auto-sincronizar a Copa.
 
 ## Banco
 
@@ -56,7 +60,14 @@ com valores de 1 a 4 para as selecoes finalistas e recalcule o ranking.
 ## Endpoints admin
 
 - `POST /api/admin/recalculate-ranking` com header `x-admin-sync-token`.
-- `GET|POST /api/admin/sync-worldcup` com header `x-admin-sync-token`.
+- `GET|POST /api/admin/sync-worldcup` com `x-admin-sync-token` ou `Authorization: Bearer $CRON_SECRET`.
 
 O sync da Copa usa API-Football com `league=1` e `season=2026`, conforme o guia
 oficial da Copa 2026 da API-Sports.
+
+## Sync automatico
+
+- Quando `matches_cache` estiver vazio, a primeira leitura de jogos tenta sincronizar automaticamente.
+- Se o ultimo sync bem-sucedido tiver mais que `AUTO_SYNC_MAX_AGE_MINUTES`, a leitura pode renovar os dados.
+- Em producao, `vercel.json` agenda `/api/admin/sync-worldcup` diariamente as `05:00 UTC`.
+- Na Vercel Hobby, cron mais frequente que diario falha no deploy segundo a documentacao oficial.

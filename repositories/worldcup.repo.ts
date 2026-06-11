@@ -1,5 +1,6 @@
 import { TOURNAMENT_CODE } from "@/lib/constants";
 import { getSupabaseAdmin } from "@/lib/supabase-server";
+import { ensureWorldCupData } from "@/services/api-football.service";
 import type { Match, Team } from "@/types/domain";
 
 export async function listTeams(): Promise<Team[]> {
@@ -13,7 +14,13 @@ export async function listTeams(): Promise<Team[]> {
   return (data ?? []) as Team[];
 }
 
-export async function listMatches(): Promise<Match[]> {
+export async function listMatches(options?: {
+  autoSyncIfEmpty?: boolean;
+}): Promise<Match[]> {
+  if (options?.autoSyncIfEmpty !== false) {
+    await ensureWorldCupData().catch(() => undefined);
+  }
+
   const supabase = getSupabaseAdmin();
   const { data, error } = await supabase
     .from("matches_cache")
@@ -37,6 +44,6 @@ export async function listMatches(): Promise<Match[]> {
 }
 
 export async function findMatch(matchId: string): Promise<Match | null> {
-  const matches = await listMatches();
+  const matches = await listMatches({ autoSyncIfEmpty: false });
   return matches.find((match) => match.external_id === matchId) ?? null;
 }

@@ -19,7 +19,7 @@ function getUserInfo(row: PredictionRow) {
 
 export async function recalculateRanking() {
   const [matches, teams, rows] = await Promise.all([
-    listMatches(),
+    listMatches({ autoSyncIfEmpty: false }),
     listTeams(),
     listPredictionRows()
   ]);

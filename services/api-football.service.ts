@@ -52,6 +52,9 @@ const API_FOOTBALL_BASE_URL =
   process.env.API_FOOTBALL_BASE_URL ?? "https://v3.football.api-sports.io";
 const API_FOOTBALL_LEAGUE_ID = Number(process.env.API_FOOTBALL_LEAGUE_ID ?? "1");
 const API_FOOTBALL_SEASON = Number(process.env.API_FOOTBALL_SEASON ?? "2026");
+const AUTO_SYNC_MAX_AGE_MINUTES = Number(
+  process.env.AUTO_SYNC_MAX_AGE_MINUTES ?? "360"
+);
 
 function getApiFootballKey() {
   const key = process.env.FOOTBALL_API_KEY;
@@ -233,5 +236,51 @@ export async function syncWorldCupFromApiFootball() {
   return {
     teams: teams.length,
     fixtures: matches.length
+  };
+}
+
+export async function ensureWorldCupData(options?: { force?: boolean }) {
+  if (!process.env.FOOTBALL_API_KEY) {
+    return { ran: false, reason: "missing-key" as const };
+  }
+
+  const supabase = getSupabaseAdmin();
+  const now = Date.now();
+  const staleThreshold = new Date(
+    now - AUTO_SYNC_MAX_AGE_MINUTES * 60 * 1000
+  ).toISOString();
+
+  const [{ count: matchesCount, error: countError }, { data: latestSync, error: syncError }] =
+    await Promise.all([
+      supabase
+        .from("matches_cache")
+        .select("external_id", { count: "exact", head: true })
+        .eq("tournament_code", TOURNAMENT_CODE),
+      supabase
+        .from("sync_logs")
+        .select("created_at, status")
+        .eq("provider", "api-football")
+        .eq("status", "success")
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle()
+    ]);
+
+  if (countError) throw countError;
+  if (syncError) throw syncError;
+
+  const shouldSyncBecauseEmpty = (matchesCount ?? 0) === 0;
+  const shouldSyncBecauseStale =
+    !latestSync || latestSync.created_at < staleThreshold;
+
+  if (!options?.force && !shouldSyncBecauseEmpty && !shouldSyncBecauseStale) {
+    return { ran: false, reason: "fresh" as const };
+  }
+
+  const syncResult = await syncWorldCupFromApiFootball();
+  return {
+    ran: true,
+    reason: shouldSyncBecauseEmpty ? ("empty" as const) : ("stale" as const),
+    syncResult
   };
 }

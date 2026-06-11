@@ -66,6 +66,23 @@ export type PredictionDocument = {
   };
 };
 
+export type GroupStanding = {
+  team: Team | null;
+  mp: number;
+  w: number;
+  d: number;
+  l: number;
+  pts: number;
+  gf: number;
+  ga: number;
+  gd: number;
+};
+
+export type GroupTable = {
+  group: string;
+  standings: GroupStanding[];
+};
+
 export type RankingRow = {
   position: number;
   userId: string;

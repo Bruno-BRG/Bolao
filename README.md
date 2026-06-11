@@ -45,13 +45,32 @@ API_FOOTBALL_SEASON=2026
 Rode as migrations em `supabase/migrations` no Supabase antes do deploy:
 
 1. `202606110001_initial_schema.sql`
-2. `202606110002_seed_sample_worldcup_data.sql`
-3. `202606110003_remove_sample_worldcup_data.sql`
+2. `202606110002_seed_sample_worldcup_data.sql` (legado)
+3. `202606110003_remove_sample_worldcup_data.sql` (legado)
+4. `202606110004_groups_cache.sql`
+5. `202606110005_seed_worldcup_baseline.sql`
 
-As migrations `2` e `3` existem por legado do setup inicial. A `3` apaga os
-dados mockados da Copa. Depois disso, o app sincroniza a grade real usando
-`worldcup26.ir`, com fallback para os JSON publicos do GitHub do projeto
-`rezarahiminia/worldcup2026`.
+Antes de rodar a `005`, edite o arquivo e preencha times, jogos ja realizados
+e classificacao dos grupos usando os mesmos IDs da API `worldcup26.ir`. O sync
+em background faz upsert por `external_id` sem apagar linhas manuais.
+
+### Apos o seed manual
+
+1. Usuarios salvam palpites normalmente.
+2. Gere o primeiro ranking com uma das opcoes:
+   - Botao **Recalcular ranking** na pagina `/ranking` (token admin), ou
+   - `POST /api/admin/sync-worldcup` com `x-admin-sync-token` ou `CRON_SECRET`, ou
+   - Aguarde o cron (a cada 5 min em producao).
+
+Sem esse passo, o ranking usa o fallback de `user_predictions` ate existir um
+`snapshot` em `ranking_snapshots`.
+
+### Modelo DB-first
+
+- **Leitura (paginas):** consulta apenas `matches_cache`, `teams_cache`,
+  `groups_cache` e `ranking_snapshots`.
+- **Escrita (background):** cron ou admin chama `/api/admin/sync-worldcup`, que
+  puxa `worldcup26.ir`, grava no banco e recalcula o ranking quando necessario.
 
 ## Pontuacao
 
@@ -75,7 +94,9 @@ os JSON brutos do GitHub do mesmo projeto.
 
 ## Sync automatico
 
-- Quando `matches_cache` estiver vazio, a primeira leitura de jogos tenta sincronizar automaticamente.
-- Se o ultimo sync bem-sucedido tiver mais que `AUTO_SYNC_MAX_AGE_MINUTES`, a leitura pode renovar os dados.
-- Em producao, `vercel.json` agenda `/api/admin/sync-worldcup` diariamente as `05:00 UTC`.
-- Na Vercel Hobby, cron mais frequente que diario falha no deploy segundo a documentacao oficial.
+- As paginas **nao** chamam a API externa nem recalculam ranking na abertura.
+- O cron em `vercel.json` chama `/api/admin/sync-worldcup` a cada 5 minutos.
+- `ensureWorldCupData` respeita `AUTO_SYNC_MAX_AGE_MINUTES` (padrao 360) e
+  `LIVE_SYNC_MAX_AGE_MINUTES` (padrao 5) durante jogos ao vivo.
+- Na Vercel Hobby, cron mais frequente que diario pode exigir plano Pro; se o
+  deploy falhar, volte para `0 5 * * *` e dispare o sync manualmente durante os jogos.

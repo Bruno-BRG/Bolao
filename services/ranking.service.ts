@@ -75,7 +75,7 @@ const RANKING_REFRESH_MAX_AGE_MS = Number(
   process.env.RANKING_REFRESH_MAX_AGE_MINUTES ?? "2"
 ) * 60 * 1000;
 
-async function shouldRefreshRanking() {
+export async function shouldRefreshRanking() {
   const supabase = getSupabaseAdmin();
   const { data: latestSnapshot, error: snapshotError } = await supabase
     .from("ranking_snapshots")

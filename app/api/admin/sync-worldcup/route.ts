@@ -5,7 +5,11 @@ import {
   getWorldCupProvider,
   syncWorldCupData
 } from "@/services/worldcup-sync.service";
-import { recalculateRanking } from "@/services/ranking.service";
+import {
+  getLatestRanking,
+  recalculateRanking,
+  shouldRefreshRanking
+} from "@/services/ranking.service";
 
 export const dynamic = "force-dynamic";
 
@@ -36,13 +40,16 @@ export async function POST(request: NextRequest) {
     const ensured = force
       ? { ran: true, reason: "forced" as const, syncResult: await syncWorldCupData() }
       : await ensureWorldCupData({ force: false });
-    const ranking = await recalculateRanking();
+    const ranking =
+      force || ensured.ran || (await shouldRefreshRanking())
+        ? await recalculateRanking()
+        : await getLatestRanking();
 
     return NextResponse.json({
       ok: true,
       message: ensured.ran
         ? "Sync concluido e ranking recalculado."
-        : "Dados ja estavam recentes; ranking recalculado.",
+        : "Dados ja estavam recentes; ranking mantido ou recalculado se necessario.",
       provider,
       syncResult: ensured.ran ? ensured.syncResult : null,
       reason: ensured.reason,

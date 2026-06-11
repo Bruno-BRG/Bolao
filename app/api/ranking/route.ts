@@ -4,6 +4,6 @@ import { getLatestRanking } from "@/services/ranking.service";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const ranking = await getLatestRanking({ refreshIfStale: true });
+  const ranking = await getLatestRanking();
   return NextResponse.json({ ranking });
 }

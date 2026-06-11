@@ -5,7 +5,7 @@ import {
   ensureWorldCupData,
   getWorldCupProvider
 } from "@/services/worldcup-sync.service";
-import type { Match, Team } from "@/types/domain";
+import type { GroupTable, Match, Team } from "@/types/domain";
 
 export async function listTeams(): Promise<Team[]> {
   const supabase = getSupabaseAdmin();
@@ -24,7 +24,7 @@ export async function listTeams(): Promise<Team[]> {
 export async function listMatches(options?: {
   autoSyncIfEmpty?: boolean;
 }): Promise<Match[]> {
-  if (options?.autoSyncIfEmpty !== false) {
+  if (options?.autoSyncIfEmpty) {
     await ensureWorldCupData().catch(() => undefined);
   }
 
@@ -54,6 +54,59 @@ export async function listMatches(options?: {
 export async function findMatch(matchId: string): Promise<Match | null> {
   const matches = await listMatches({ autoSyncIfEmpty: false });
   return matches.find((match) => match.external_id === matchId) ?? null;
+}
+
+function sortStandings(
+  a: { pts: number; gd: number; gf: number; team: Team | null },
+  b: { pts: number; gd: number; gf: number; team: Team | null }
+) {
+  return (
+    b.pts - a.pts ||
+    b.gd - a.gd ||
+    b.gf - a.gf ||
+    (a.team?.name ?? "").localeCompare(b.team?.name ?? "", "pt-BR")
+  );
+}
+
+export async function listGroupStandings(): Promise<GroupTable[]> {
+  const supabase = getSupabaseAdmin();
+  const { data, error } = await supabase
+    .from("groups_cache")
+    .select(
+      "group_name, team_id, position, mp, w, d, l, pts, gf, ga, gd"
+    )
+    .eq("tournament_code", TOURNAMENT_CODE)
+    .order("group_name")
+    .order("position");
+
+  if (error) throw error;
+
+  const teams = await listTeams();
+  const teamsById = new Map(teams.map((team) => [team.external_id, team]));
+  const byGroup = new Map<string, GroupTable["standings"]>();
+
+  for (const row of data ?? []) {
+    const standings = byGroup.get(row.group_name) ?? [];
+    standings.push({
+      team: teamsById.get(row.team_id) ?? null,
+      mp: row.mp,
+      w: row.w,
+      d: row.d,
+      l: row.l,
+      pts: row.pts,
+      gf: row.gf,
+      ga: row.ga,
+      gd: row.gd
+    });
+    byGroup.set(row.group_name, standings);
+  }
+
+  return [...byGroup.entries()]
+    .map(([group, standings]) => ({
+      group,
+      standings: [...standings].sort(sortStandings)
+    }))
+    .sort((a, b) => a.group.localeCompare(b.group));
 }
 
 export async function getLatestSyncLog() {

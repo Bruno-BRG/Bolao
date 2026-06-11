@@ -166,12 +166,6 @@ export async function syncWorldCupFromApiFootball() {
   const supabase = getSupabaseAdmin();
   const syncedTeamIds = teamsResponse.map(({ team }) => String(team.id));
 
-  const { error: deleteMatchesError } = await supabase
-    .from("matches_cache")
-    .delete()
-    .eq("tournament_code", TOURNAMENT_CODE);
-  if (deleteMatchesError) throw deleteMatchesError;
-
   const teams = teamsResponse.map(({ team }) => ({
     external_id: String(team.id),
     fifa_code: team.code,

@@ -6,8 +6,6 @@ import { getOrCreatePredictionDocument } from "@/repositories/predictions.repo";
 import { listMatches } from "@/repositories/worldcup.repo";
 import { getCurrentUser } from "@/services/auth.service";
 import { normalizePredictionDocument } from "@/services/prediction-document";
-import { getLatestRanking } from "@/services/ranking.service";
-
 export const dynamic = "force-dynamic";
 
 export default async function PalpitesPage({
@@ -19,11 +17,10 @@ export default async function PalpitesPage({
   if (!user) redirect("/login");
 
   const params = await searchParams;
-  await getLatestRanking({ refreshIfStale: true }).catch(() => undefined);
 
   const [row, matches] = await Promise.all([
     getOrCreatePredictionDocument(user.id),
-    listMatches()
+    listMatches({ autoSyncIfEmpty: false })
   ]);
   const document = normalizePredictionDocument(row.predictions);
   const savedMatchIds = new Set(Object.keys(document.matches));

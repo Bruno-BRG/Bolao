@@ -33,9 +33,26 @@ type WorldCup26Game = {
 
 type WorldCup26GameLike = Pick<WorldCup26Game, "local_date" | "stadium_id">;
 
+type WorldCup26Group = {
+  group?: string;
+  name?: string;
+  teams: Array<{
+    team_id: string;
+    mp: string;
+    w: string;
+    l: string;
+    d: string;
+    pts: string;
+    gf: string;
+    ga: string;
+    gd: string;
+  }>;
+};
+
 type WrappedResponse<T> = {
   games?: T[];
   teams?: T[];
+  groups?: T[];
 };
 
 const WORLDCUP26_API_BASE_URL =
@@ -96,6 +113,31 @@ async function fetchGames(): Promise<WorldCup26Game[]> {
   }
 
   return fetchJson<WorldCup26Game[]>(`${WORLDCUP26_GITHUB_BASE_URL}/football.matches.json`);
+}
+
+async function fetchGroups(): Promise<WorldCup26Group[]> {
+  try {
+    const payload = await fetchJson<WrappedResponse<WorldCup26Group>>(
+      `${WORLDCUP26_API_BASE_URL}/get/groups`
+    );
+    if (payload.groups && payload.groups.length > 0) return payload.groups;
+  } catch {
+    // Fallback handled below.
+  }
+
+  return fetchJson<WorldCup26Group[]>(`${WORLDCUP26_GITHUB_BASE_URL}/worldcup2026.groups.json`);
+}
+
+function sortGroupStandings(
+  a: { pts: number; gd: number; gf: number; team_id: string },
+  b: { pts: number; gd: number; gf: number; team_id: string }
+) {
+  return (
+    b.pts - a.pts ||
+    b.gd - a.gd ||
+    b.gf - a.gf ||
+    a.team_id.localeCompare(b.team_id)
+  );
 }
 
 function getTimeZoneOffsetMilliseconds(date: Date, timeZone: string) {
@@ -199,14 +241,12 @@ function parseScore(value: string, finished: boolean) {
 }
 
 export async function syncWorldCupFromWorldCup26() {
-  const [teamsResponse, gamesResponse] = await Promise.all([fetchTeams(), fetchGames()]);
+  const [teamsResponse, gamesResponse, groupsResponse] = await Promise.all([
+    fetchTeams(),
+    fetchGames(),
+    fetchGroups()
+  ]);
   const supabase = getSupabaseAdmin();
-
-  const { error: deleteMatchesError } = await supabase
-    .from("matches_cache")
-    .delete()
-    .eq("tournament_code", TOURNAMENT_CODE);
-  if (deleteMatchesError) throw deleteMatchesError;
 
   const teams = teamsResponse.map((team) => ({
     external_id: team.id,
@@ -267,10 +307,50 @@ export async function syncWorldCupFromWorldCup26() {
     if (error) throw error;
   }
 
+  const groupRows = groupsResponse.flatMap((group) => {
+    const groupName = group.group ?? group.name ?? "?";
+    const sorted = group.teams
+      .map((row) => ({
+        team_id: row.team_id,
+        mp: Number(row.mp) || 0,
+        w: Number(row.w) || 0,
+        d: Number(row.d) || 0,
+        l: Number(row.l) || 0,
+        pts: Number(row.pts) || 0,
+        gf: Number(row.gf) || 0,
+        ga: Number(row.ga) || 0,
+        gd: Number(row.gd) || 0
+      }))
+      .sort(sortGroupStandings);
+
+    return sorted.map((row, index) => ({
+      tournament_code: TOURNAMENT_CODE,
+      group_name: groupName,
+      team_id: row.team_id,
+      position: index + 1,
+      mp: row.mp,
+      w: row.w,
+      d: row.d,
+      l: row.l,
+      pts: row.pts,
+      gf: row.gf,
+      ga: row.ga,
+      gd: row.gd,
+      updated_at: new Date().toISOString()
+    }));
+  });
+
+  if (groupRows.length > 0) {
+    const { error } = await supabase.from("groups_cache").upsert(groupRows, {
+      onConflict: "tournament_code,group_name,team_id"
+    });
+    if (error) throw error;
+  }
+
   await supabase.from("sync_logs").insert({
     provider: "worldcup26",
     status: "success",
-    message: `Synced ${teams.length} teams and ${matches.length} fixtures.`,
+    message: `Synced ${teams.length} teams, ${matches.length} fixtures and ${groupRows.length} group rows.`,
     payload: {
       source: WORLDCUP26_API_BASE_URL
     }
@@ -278,6 +358,7 @@ export async function syncWorldCupFromWorldCup26() {
 
   return {
     teams: teams.length,
-    fixtures: matches.length
+    fixtures: matches.length,
+    groups: groupRows.length
   };
 }

@@ -1,4 +1,4 @@
-import { TOURNAMENT_CODE } from "@/lib/constants";
+import { FINISHED_STATUSES, TOURNAMENT_CODE } from "@/lib/constants";
 import { getSupabaseAdmin } from "@/lib/supabase-server";
 import { syncWorldCupFromApiFootball } from "@/services/api-football.service";
 import {
@@ -9,6 +9,38 @@ import {
 const AUTO_SYNC_MAX_AGE_MINUTES = Number(
   process.env.AUTO_SYNC_MAX_AGE_MINUTES ?? "360"
 );
+const LIVE_SYNC_MAX_AGE_MINUTES = Number(
+  process.env.LIVE_SYNC_MAX_AGE_MINUTES ?? "5"
+);
+
+async function resolveSyncMaxAgeMinutes() {
+  const supabase = getSupabaseAdmin();
+  const { data: matches, error } = await supabase
+    .from("matches_cache")
+    .select("starts_at, status")
+    .eq("tournament_code", TOURNAMENT_CODE);
+
+  if (error) throw error;
+
+  const now = Date.now();
+  const inActiveWindow = (matches ?? []).some((match) => {
+    const status = String(match.status).toUpperCase();
+    if (status === "LIVE") return true;
+
+    const startsAt = new Date(match.starts_at).getTime();
+    if (Number.isNaN(startsAt)) return false;
+
+    const hoursFromKickoff = (now - startsAt) / (60 * 60 * 1000);
+    if (FINISHED_STATUSES.has(status)) {
+      return hoursFromKickoff >= 0 && hoursFromKickoff <= 12;
+    }
+
+    const hoursUntilKickoff = (startsAt - now) / (60 * 60 * 1000);
+    return hoursUntilKickoff >= 0 && hoursUntilKickoff <= 3;
+  });
+
+  return inActiveWindow ? LIVE_SYNC_MAX_AGE_MINUTES : AUTO_SYNC_MAX_AGE_MINUTES;
+}
 
 export function getWorldCupProvider() {
   return (process.env.FOOTBALL_PROVIDER ?? "worldcup26").toLowerCase();
@@ -35,8 +67,9 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
   }
 
   const supabase = getSupabaseAdmin();
+  const syncMaxAgeMinutes = await resolveSyncMaxAgeMinutes();
   const staleThreshold = new Date(
-    Date.now() - AUTO_SYNC_MAX_AGE_MINUTES * 60 * 1000
+    Date.now() - syncMaxAgeMinutes * 60 * 1000
   ).toISOString();
 
   const [

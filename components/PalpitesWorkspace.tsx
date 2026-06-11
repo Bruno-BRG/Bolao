@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { saveMatchPredictionAction } from "@/actions/predictions.actions";
 import { formatDateTime } from "@/lib/date";
 import { isMatchLockedForPrediction } from "@/lib/match-lock";
+import { getDisplayOfficialScore } from "@/lib/match-score";
 import { getMatchTeamLabel } from "@/lib/match-visibility";
 import {
   readPredictionDrafts,
@@ -38,6 +39,28 @@ function stageChip(match: Match) {
   return match.stage ?? "Jogo";
 }
 
+function isSameLocalDay(left: Date, right: Date) {
+  return (
+    left.getFullYear() === right.getFullYear() &&
+    left.getMonth() === right.getMonth() &&
+    left.getDate() === right.getDate()
+  );
+}
+
+function isMatchToday(match: Match, now: number) {
+  const startsAt = new Date(match.starts_at);
+  if (Number.isNaN(startsAt.getTime())) return false;
+  return isSameLocalDay(startsAt, new Date(now));
+}
+
+function todayHeading(now: number) {
+  return new Date(now).toLocaleDateString("pt-BR", {
+    weekday: "long",
+    day: "2-digit",
+    month: "long"
+  });
+}
+
 function toScoreState(
   matchId: string,
   saved?: MatchPrediction,
@@ -68,6 +91,122 @@ function parseScore(value: string) {
   return parsed;
 }
 
+function statusLabel(matchId: string, locked: boolean, hasSaved: boolean, status?: RowStatus) {
+  if (locked) return null;
+  if (status === "saving") return <span className="badge">Salvando...</span>;
+  if (status === "error") return <span className="badge locked">Erro ao salvar</span>;
+  if (status === "saved" || hasSaved) return <span className="badge">Salvo</span>;
+  return null;
+}
+
+function PalpiteMatchRow({
+  match,
+  now,
+  saved,
+  current,
+  status,
+  showGroupLabel,
+  onUpdateScore
+}: {
+  match: Match;
+  now: number;
+  saved?: MatchPrediction;
+  current: ScoreState;
+  status?: RowStatus;
+  showGroupLabel?: boolean;
+  onUpdateScore: (match: Match, side: "homeGoals" | "awayGoals", value: string) => void;
+}) {
+  const locked = isMatchLockedForPrediction(match, now);
+  const homeName = getMatchTeamLabel(match, "home");
+  const awayName = getMatchTeamLabel(match, "away");
+  const officialScore = getDisplayOfficialScore(match);
+
+  return (
+    <article className={`palpite-row ${locked ? "palpite-row--locked" : ""}`}>
+      <div className="palpite-row__meta">
+        <time>{compactDate(match.starts_at)}</time>
+        {showGroupLabel ? <span className="badge">{stageChip(match)}</span> : null}
+        {locked ? <span className="badge locked">Fechado</span> : null}
+        {statusLabel(match.external_id, locked, Boolean(saved), status)}
+        {saved?.points !== null && saved?.points !== undefined ? (
+          <span className="badge warning">{saved.points} pts</span>
+        ) : null}
+      </div>
+
+      <div className="palpite-row__match">
+        <div className="palpite-row__team">
+          {match.home_team?.flag_url ? (
+            <img
+              className="flag-icon flag-icon--sm"
+              src={match.home_team.flag_url}
+              alt=""
+              loading="lazy"
+            />
+          ) : (
+            <span className="palpite-row__shield" aria-hidden="true" />
+          )}
+          <span>{homeName}</span>
+        </div>
+
+        <div className="palpite-row__score">
+          <div className="palpite-row__prediction">
+            <span className="palpite-row__score-label">Palpite</span>
+            <div className="palpite-row__prediction-inputs">
+              <input
+                aria-label={`Gols de ${homeName}`}
+                disabled={locked}
+                inputMode="numeric"
+                max={30}
+                min={0}
+                onChange={(event) => onUpdateScore(match, "homeGoals", event.target.value)}
+                type="number"
+                value={current.homeGoals}
+              />
+              <span>x</span>
+              <input
+                aria-label={`Gols de ${awayName}`}
+                disabled={locked}
+                inputMode="numeric"
+                max={30}
+                min={0}
+                onChange={(event) => onUpdateScore(match, "awayGoals", event.target.value)}
+                type="number"
+                value={current.awayGoals}
+              />
+            </div>
+          </div>
+
+          {officialScore ? (
+            <div
+              aria-label={`${officialScore.label}: ${officialScore.home} a ${officialScore.away}`}
+              className="palpite-row__official"
+            >
+              <span className="palpite-row__score-label">{officialScore.label}</span>
+              <strong>
+                {officialScore.home} x {officialScore.away}
+              </strong>
+            </div>
+          ) : null}
+        </div>
+
+        <div className="palpite-row__team palpite-row__team--away">
+          {match.away_team?.flag_url ? (
+            <img
+              className="flag-icon flag-icon--sm"
+              src={match.away_team.flag_url}
+              alt=""
+              loading="lazy"
+            />
+          ) : (
+            <span className="palpite-row__shield" aria-hidden="true" />
+          )}
+          <span>{awayName}</span>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspaceProps) {
   const router = useRouter();
   const draftsBootstrapped = useRef(false);
@@ -93,6 +232,16 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
     const timer = setInterval(() => setNow(Date.now()), 30_000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      void fetch("/api/ranking", { cache: "no-store" }).then((response) => {
+        if (response.ok) router.refresh();
+      });
+    }, 60_000);
+
+    return () => clearInterval(timer);
+  }, [router]);
 
   useEffect(() => {
     if (draftsBootstrapped.current) return;
@@ -121,6 +270,18 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
       }
     };
   }, []);
+
+  const todayMatches = useMemo(
+    () =>
+      matches
+        .filter((match) => isMatchToday(match, now))
+        .sort(
+          (a, b) =>
+            new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime() ||
+            a.external_id.localeCompare(b.external_id)
+        ),
+    [matches, now]
+  );
 
   const groupedMatches = useMemo(() => {
     const groups = new Map<string, Match[]>();
@@ -198,17 +359,35 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
     });
   }
 
-  function statusLabel(matchId: string, locked: boolean, hasSaved: boolean) {
-    if (locked) return null;
-    const status = rowStatus[matchId];
-    if (status === "saving") return <span className="badge">Salvando...</span>;
-    if (status === "error") return <span className="badge locked">Erro ao salvar</span>;
-    if (status === "saved" || hasSaved) return <span className="badge">Salvo</span>;
-    return null;
-  }
-
   return (
     <div className="palpites-groups">
+      {todayMatches.length > 0 ? (
+        <section className="palpites-group palpites-group--today">
+          <header className="palpites-group__head">
+            <div>
+              <h2>Jogos de hoje</h2>
+              <p className="palpites-group__subhead">{todayHeading(now)}</p>
+            </div>
+            <span>{todayMatches.length} jogos</span>
+          </header>
+
+          <div className="palpites-rows">
+            {todayMatches.map((match) => (
+              <PalpiteMatchRow
+                key={`today-${match.external_id}`}
+                current={scores[match.external_id] ?? { homeGoals: "", awayGoals: "" }}
+                match={match}
+                now={now}
+                onUpdateScore={updateScore}
+                saved={savedPredictions[match.external_id]}
+                showGroupLabel
+                status={rowStatus[match.external_id]}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       {groupedMatches.map(([groupLabel, groupMatches]) => (
         <section key={groupLabel} className="palpites-group">
           <header className="palpites-group__head">
@@ -217,87 +396,17 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
           </header>
 
           <div className="palpites-rows">
-            {groupMatches.map((match) => {
-              const locked = isMatchLockedForPrediction(match, now);
-              const saved = savedPredictions[match.external_id];
-              const current = scores[match.external_id] ?? { homeGoals: "", awayGoals: "" };
-              const homeName = getMatchTeamLabel(match, "home");
-              const awayName = getMatchTeamLabel(match, "away");
-
-              return (
-                <article
-                  key={match.external_id}
-                  className={`palpite-row ${locked ? "palpite-row--locked" : ""}`}
-                >
-                  <div className="palpite-row__meta">
-                    <time>{compactDate(match.starts_at)}</time>
-                    {locked ? <span className="badge locked">Fechado</span> : null}
-                    {statusLabel(match.external_id, locked, Boolean(saved))}
-                    {saved?.points !== null && saved?.points !== undefined ? (
-                      <span className="badge warning">{saved.points} pts</span>
-                    ) : null}
-                  </div>
-
-                  <div className="palpite-row__match">
-                    <div className="palpite-row__team">
-                      {match.home_team?.flag_url ? (
-                        <img
-                          className="flag-icon flag-icon--sm"
-                          src={match.home_team.flag_url}
-                          alt=""
-                          loading="lazy"
-                        />
-                      ) : (
-                        <span className="palpite-row__shield" aria-hidden="true" />
-                      )}
-                      <span>{homeName}</span>
-                    </div>
-
-                    <div className="palpite-row__score">
-                      <input
-                        aria-label={`Gols de ${homeName}`}
-                        disabled={locked}
-                        inputMode="numeric"
-                        max={30}
-                        min={0}
-                        onChange={(event) =>
-                          updateScore(match, "homeGoals", event.target.value)
-                        }
-                        type="number"
-                        value={current.homeGoals}
-                      />
-                      <span>x</span>
-                      <input
-                        aria-label={`Gols de ${awayName}`}
-                        disabled={locked}
-                        inputMode="numeric"
-                        max={30}
-                        min={0}
-                        onChange={(event) =>
-                          updateScore(match, "awayGoals", event.target.value)
-                        }
-                        type="number"
-                        value={current.awayGoals}
-                      />
-                    </div>
-
-                    <div className="palpite-row__team palpite-row__team--away">
-                      {match.away_team?.flag_url ? (
-                        <img
-                          className="flag-icon flag-icon--sm"
-                          src={match.away_team.flag_url}
-                          alt=""
-                          loading="lazy"
-                        />
-                      ) : (
-                        <span className="palpite-row__shield" aria-hidden="true" />
-                      )}
-                      <span>{awayName}</span>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
+            {groupMatches.map((match) => (
+              <PalpiteMatchRow
+                key={match.external_id}
+                current={scores[match.external_id] ?? { homeGoals: "", awayGoals: "" }}
+                match={match}
+                now={now}
+                onUpdateScore={updateScore}
+                saved={savedPredictions[match.external_id]}
+                status={rowStatus[match.external_id]}
+              />
+            ))}
           </div>
         </section>
       ))}

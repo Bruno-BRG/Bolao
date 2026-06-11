@@ -1067,6 +1067,24 @@ tbody tr:hover {
   gap: 18px;
 }
 
+.palpites-group--today {
+  background: #f7fbff;
+  border: 2px solid rgba(21, 101, 192, 0.18);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.palpites-group--today .palpites-group__head h2 {
+  color: var(--primary-strong);
+}
+
+.palpites-group__subhead {
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin: 2px 0 0;
+  text-transform: capitalize;
+}
+
 .palpites-group__head {
   align-items: baseline;
   display: flex;
@@ -1167,9 +1185,38 @@ tbody tr:hover {
 }
 
 .palpite-row__score {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  min-width: 156px;
+}
+
+.palpite-row__prediction,
+.palpite-row__official {
+  align-items: center;
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+}
+
+.palpite-row__prediction-inputs {
   align-items: center;
   display: flex;
   gap: 8px;
+}
+
+.palpite-row__score-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.palpite-row__official strong {
+  color: var(--primary-strong);
+  font-size: 1.2rem;
+  font-weight: 800;
 }
 
 .palpite-row__score input {
@@ -1184,7 +1231,7 @@ tbody tr:hover {
   width: 60px;
 }
 
-.palpite-row__score span {
+.palpite-row__prediction-inputs span {
   color: var(--muted);
   font-weight: 700;
 }

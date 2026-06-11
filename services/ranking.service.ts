@@ -3,6 +3,7 @@ import { getSupabaseAdmin } from "@/lib/supabase-server";
 import { listPredictionRows, updatePredictionDocument } from "@/repositories/predictions.repo";
 import { listMatches, listTeams } from "@/repositories/worldcup.repo";
 import { calculatePredictionScore } from "@/services/scoring.service";
+import { ensureWorldCupData } from "@/services/worldcup-sync.service";
 import type { RankingRow } from "@/types/domain";
 
 type PredictionRow = Awaited<ReturnType<typeof listPredictionRows>>[number] & {
@@ -18,6 +19,8 @@ function getUserInfo(row: PredictionRow) {
 }
 
 export async function recalculateRanking() {
+  await ensureWorldCupData().catch(() => undefined);
+
   const [matches, teams, rows] = await Promise.all([
     listMatches({ autoSyncIfEmpty: false }),
     listTeams(),

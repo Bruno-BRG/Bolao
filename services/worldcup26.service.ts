@@ -239,6 +239,8 @@ export async function syncWorldCupFromWorldCup26() {
 
   const matches = gamesResponse.map((game) => {
     const finished = game.finished === "TRUE";
+    const status = mapWorldCup26Status(game);
+    const hasCurrentScore = finished || status === "LIVE";
     const homeTeamId = game.home_team_id === "0" ? null : game.home_team_id;
     const awayTeamId = game.away_team_id === "0" ? null : game.away_team_id;
 
@@ -250,9 +252,9 @@ export async function syncWorldCupFromWorldCup26() {
       starts_at: normalizeWorldCup26Kickoff(game.local_date, game.stadium_id),
       stage: mapWorldCup26Stage(game.type, game.group),
       group_name: game.type === "group" ? `Grupo ${game.group}` : null,
-      status: mapWorldCup26Status(game),
-      score_home: parseScore(game.home_score, finished),
-      score_away: parseScore(game.away_score, finished),
+      status,
+      score_home: parseScore(game.home_score, hasCurrentScore),
+      score_away: parseScore(game.away_score, hasCurrentScore),
       payload: game,
       updated_at: new Date().toISOString()
     };

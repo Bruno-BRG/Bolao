@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { PredictionForm } from "@/components/PredictionForm";
 import { getOrCreatePredictionDocument } from "@/repositories/predictions.repo";
-import { listMatches } from "@/repositories/worldcup.repo";
+import { getLatestSyncLog, listMatches } from "@/repositories/worldcup.repo";
 import { getCurrentUser } from "@/services/auth.service";
 import { normalizePredictionDocument } from "@/services/prediction-document";
 
@@ -16,9 +16,10 @@ export default async function PalpitesPage({
   if (!user) redirect("/login");
 
   const params = await searchParams;
-  const [row, matches] = await Promise.all([
+  const [row, matches, latestSyncLog] = await Promise.all([
     getOrCreatePredictionDocument(user.id),
-    listMatches()
+    listMatches(),
+    getLatestSyncLog().catch(() => null)
   ]);
   const document = normalizePredictionDocument(row.predictions);
   const hasSampleMatches =
@@ -38,9 +39,12 @@ export default async function PalpitesPage({
           depois o sync da API-Football para carregar a Copa real.
         </p>
       ) : null}
+      {latestSyncLog?.status === "error" ? (
+        <p className="error">Erro no sync automatico: {latestSyncLog.message}</p>
+      ) : null}
       {matches.length === 0 ? (
         <p className="muted">
-          Nenhum jogo oficial foi sincronizado ainda. Rode o endpoint de sync da API-Football.
+          Nenhum jogo oficial foi sincronizado ainda.
         </p>
       ) : null}
       <div className="grid">

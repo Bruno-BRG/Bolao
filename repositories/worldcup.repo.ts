@@ -47,3 +47,17 @@ export async function findMatch(matchId: string): Promise<Match | null> {
   const matches = await listMatches({ autoSyncIfEmpty: false });
   return matches.find((match) => match.external_id === matchId) ?? null;
 }
+
+export async function getLatestSyncLog() {
+  const supabase = getSupabaseAdmin();
+  const { data, error } = await supabase
+    .from("sync_logs")
+    .select("provider, status, message, created_at")
+    .eq("provider", "api-football")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data;
+}

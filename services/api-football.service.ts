@@ -277,10 +277,29 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
     return { ran: false, reason: "fresh" as const };
   }
 
-  const syncResult = await syncWorldCupFromApiFootball();
-  return {
-    ran: true,
-    reason: shouldSyncBecauseEmpty ? ("empty" as const) : ("stale" as const),
-    syncResult
-  };
+  try {
+    const syncResult = await syncWorldCupFromApiFootball();
+    return {
+      ran: true,
+      reason: shouldSyncBecauseEmpty ? ("empty" as const) : ("stale" as const),
+      syncResult
+    };
+  } catch (error) {
+    await supabase.from("sync_logs").insert({
+      provider: "api-football",
+      status: "error",
+      message: (error as Error).message,
+      payload: {
+        league: API_FOOTBALL_LEAGUE_ID,
+        season: API_FOOTBALL_SEASON,
+        auto: true
+      }
+    });
+
+    return {
+      ran: false,
+      reason: "error" as const,
+      error: (error as Error).message
+    };
+  }
 }

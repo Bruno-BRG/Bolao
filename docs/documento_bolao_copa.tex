@@ -1,0 +1,985 @@
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\usepackage[portuguese]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{multicol}
+\usepackage{ragged2e}
+\usepackage{pdflscape}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows.meta,positioning}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!45!black,
+  urlcolor=blue!45!black,
+  citecolor=blue!45!black,
+  pdftitle={Documento de Desenvolvimento de Software - Bolao da Copa},
+  pdfauthor={Momobubu / ChatGPT}
+}
+
+\definecolor{primary}{HTML}{12355B}
+\definecolor{accent}{HTML}{1D7A8C}
+\definecolor{softblue}{HTML}{EEF6FF}
+\definecolor{softgreen}{HTML}{ECFFF3}
+\definecolor{softred}{HTML}{FFF0F0}
+\definecolor{softyellow}{HTML}{FFF7E6}
+\definecolor{codebg}{HTML}{F7F7F7}
+
+\titleformat{\section}{\Large\bfseries\color{primary}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\large\bfseries\color{accent}}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{primary}}{\thesubsubsection}{0.7em}{}
+
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Bolão da Copa - Documento de Desenvolvimento}
+\rhead{Next.js + Vercel + Supabase}
+\cfoot{\thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\setlist[itemize]{topsep=3pt,itemsep=2pt,parsep=0pt}
+\setlist[enumerate]{topsep=3pt,itemsep=2pt,parsep=0pt}
+\renewcommand{\arraystretch}{1.25}
+\captionsetup{labelfont=bf,font=small}
+
+\lstdefinelanguage{json}{
+  basicstyle=\ttfamily\small,
+  showstringspaces=false,
+  breaklines=true,
+  string=[s]{"}{"},
+  stringstyle=\color{blue!40!black},
+  comment=[l]{//},
+  commentstyle=\color{gray!70!black},
+  morekeywords={true,false,null},
+  keywordstyle=\color{purple!60!black}
+}
+\lstdefinelanguage{SQL}{
+  morekeywords={CREATE,TABLE,PRIMARY,KEY,NOT,NULL,DEFAULT,UNIQUE,REFERENCES,INSERT,INTO,VALUES,ON,CONFLICT,DO,UPDATE,SET,WHERE,INDEX,USING,GIN,EXTENSION,IF,EXISTS,UUID,JSONB,TEXT,INT,TIMESTAMPTZ,BOOLEAN,ALTER,ENABLE,ROW,LEVEL,SECURITY},
+  sensitive=false,
+  morecomment=[l]--,
+  morestring=[b]',
+}
+\lstset{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small,
+  frame=single,
+  rulecolor=\color{gray!35},
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  tabsize=2,
+  captionpos=b
+}
+
+\newtcolorbox{decisionbox}{colback=softblue,colframe=primary,title=Decisão técnica,arc=2mm,boxrule=0.7pt}
+\newtcolorbox{riskbox}{colback=softred,colframe=red!55!black,title=Risco / cuidado,arc=2mm,boxrule=0.7pt}
+\newtcolorbox{notebox}{colback=softyellow,colframe=orange!65!black,title=Nota,arc=2mm,boxrule=0.7pt}
+\newtcolorbox{okbox}{colback=softgreen,colframe=green!45!black,title=Recomendação,arc=2mm,boxrule=0.7pt}
+
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{1.2cm}
+{\Huge\bfseries Documento de Desenvolvimento de Software\\[0.35cm]}
+{\LARGE Sistema Web de Bolão da Copa do Mundo 2026\\[0.4cm]}
+\vspace{0.8cm}
+{\Large Stack: Next.js, Vercel, Supabase/Postgres e APIs de Futebol\\}
+\vfill
+\begin{tcolorbox}[colback=softblue,colframe=primary,width=0.9\textwidth,arc=2mm]
+\textbf{Objetivo do documento.} Definir escopo, requisitos, arquitetura, modelo de dados, fluxos, APIs externas, endpoints internos, estratégia de autenticação simples e plano de desenvolvimento para um site de bolão da Copa do Mundo com usuários por nome/senha e palpites salvos em JSONB no Supabase.
+\end{tcolorbox}
+\vfill
+{\large Versão 1.0\\}
+{\large Data: 11 de junho de 2026\\}
+{\large Autor: Momobubu / ChatGPT\\}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Resumo executivo}
+
+Este documento propõe um sistema web de bolão da Copa do Mundo executando em \textbf{Next.js} e hospedado na \textbf{Vercel}, com persistência em \textbf{Supabase/Postgres}. O sistema terá cadastro simples por \textbf{nome de usuário e senha}, sem usar Supabase Auth, e armazenará os palpites dos usuários em uma coluna \textbf{JSONB} associada ao usuário. A aplicação também manterá um cache interno dos dados da Copa, vindo de uma API de futebol, para evitar dependência direta e excessiva de chamadas externas.
+
+\begin{decisionbox}
+A decisão principal é separar três responsabilidades: \textbf{produto} (bolão, ranking, palpites), \textbf{dados oficiais} (fixtures, resultados e seleções vindos de API externa) e \textbf{identidade simples} (usuário/senha customizados com sessão própria). Isso mantém o MVP simples sem sacrificar segurança básica.
+\end{decisionbox}
+
+\subsection{Escopo do MVP}
+
+O MVP deve permitir:
+\begin{itemize}
+  \item cadastro e login por nome de usuário e senha;
+  \item listagem dos jogos da Copa com datas, fases, seleções e placar oficial quando disponível;
+  \item cadastro e edição de palpites antes do bloqueio de cada partida;
+  \item armazenamento dos palpites como JSONB por usuário;
+  \item cálculo de pontuação após resultados oficiais;
+  \item ranking geral dos participantes;
+  \item sincronização periódica dos dados da Copa via API externa;
+  \item exibição de bandeiras das seleções.
+\end{itemize}
+
+\subsection{Fora do escopo inicial}
+
+\begin{itemize}
+  \item pagamento, premiação financeira, carteira, apostas reais ou qualquer mecânica de gambling;
+  \item login social, e-mail transacional e recuperação automática de senha;
+  \item painel administrativo complexo com múltiplas ligas privadas;
+  \item chat em tempo real;
+  \item app mobile nativo.
+\end{itemize}
+
+\section{Contexto do torneio e premissas}
+
+A Copa do Mundo de 2026 é utilizada como torneio-alvo. A aplicação deve considerar o formato expandido com 48 seleções, 104 partidas e fase de grupos com 12 grupos de 4 equipes. A arquitetura deve ser suficientemente genérica para aceitar outros torneios no futuro, mas sem aumentar a complexidade do MVP.
+
+\begin{notebox}
+Como os dados de jogos e resultados mudam durante o torneio, a aplicação não deve depender de informações hardcoded. O recomendado é manter um cache interno no banco e atualizar esse cache por jobs de sincronização.
+\end{notebox}
+
+\section{Stack tecnológica recomendada}
+
+\begin{longtable}{p{0.23\textwidth}p{0.27\textwidth}p{0.42\textwidth}}
+\toprule
+\textbf{Camada} & \textbf{Tecnologia} & \textbf{Justificativa} \\
+\midrule
+Frontend e backend web & Next.js com App Router e TypeScript & Permite Server Components, Route Handlers e Server Actions no mesmo projeto, reduzindo boilerplate e mantendo segredos no servidor. \\
+Hospedagem & Vercel & Deploy simples para Next.js, preview deployments e cron jobs para sincronização. \\
+Banco de dados & Supabase Postgres & Postgres gerenciado, JSONB, índices, SQL, backups e boa integração com aplicações serverless. \\
+Persistência flexível & JSONB & Ideal para salvar o conjunto de palpites do usuário em um documento único, validando com schema no servidor. \\
+UI & Tailwind CSS + shadcn/ui opcional & Criação rápida de interface limpa, responsiva e com componentes reutilizáveis. \\
+Validação & Zod & Validação de payloads, formulário de login, schema de palpites e variáveis de ambiente. \\
+Hash de senha & Argon2id ou bcrypt & Senhas nunca devem ser salvas em texto puro. O hash deve ser calculado apenas no servidor. \\
+APIs de futebol & Sportmonks, API-Football ou football-data.org & Fornecem fixtures, resultados, equipes, standings e dados de partida. \\
+Bandeiras & FlagCDN + tabela ISO2 local; REST Countries como apoio & Permite renderizar bandeiras via CDN usando códigos ISO 3166-1 alpha-2. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Decisão sobre Next.js: Route Handlers e Server Actions}
+
+Use \textbf{Server Actions} para mutações chamadas diretamente pela UI, como salvar palpite, login e logout. Use \textbf{Route Handlers} para endpoints HTTP explícitos, como sync admin, webhooks, healthcheck e APIs consumidas por scripts.
+
+\begin{okbox}
+Regra prática: se a ação nasce de um formulário da própria aplicação, use Server Action. Se a rota precisa ser chamada por cron, integração externa ou cliente HTTP independente, use Route Handler.
+\end{okbox}
+
+\section{Arquitetura geral}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth]{diagramas/arquitetura_geral.png}
+\caption{Arquitetura geral do sistema de bolão.}
+\end{figure}
+
+\subsection{Princípios arquiteturais}
+
+\begin{enumerate}
+  \item \textbf{Segredos só no servidor}: tokens de API, chave service role do Supabase e segredo de sessão nunca vão para o browser.
+  \item \textbf{Banco como fonte da aplicação}: a UI lê dados normalizados/cacheados no Supabase, não diretamente da API externa.
+  \item \textbf{Palpites editáveis até o bloqueio}: o servidor valida se a partida ainda aceita alterações.
+  \item \textbf{Pontuação idempotente}: recalcular ranking várias vezes deve produzir o mesmo resultado.
+  \item \textbf{MVP simples, crescimento possível}: JSONB para palpites agora; tabelas auxiliares permitem otimizar ranking depois.
+\end{enumerate}
+
+\section{Módulos do sistema}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{diagramas/componentes_next.png}
+\caption{Organização sugerida dos módulos no projeto Next.js.}
+\end{figure}
+
+\subsection{Estrutura de diretórios sugerida}
+
+\begin{lstlisting}[language={},caption={Estrutura inicial do projeto}]
+/app
+  /(public)
+    page.tsx
+    login/page.tsx
+    ranking/page.tsx
+  /(protected)
+    dashboard/page.tsx
+    palpites/page.tsx
+  /api
+    /health/route.ts
+    /admin/sync-worldcup/route.ts
+    /ranking/route.ts
+/actions
+  auth.actions.ts
+  predictions.actions.ts
+/components
+  ui/
+  match-card.tsx
+  prediction-form.tsx
+  ranking-table.tsx
+/lib
+  env.ts
+  supabase-server.ts
+  session.ts
+/services
+  auth.service.ts
+  worldcup.service.ts
+  scoring.service.ts
+  flags.service.ts
+/repositories
+  users.repo.ts
+  predictions.repo.ts
+  matches.repo.ts
+  ranking.repo.ts
+/types
+  prediction.ts
+  worldcup.ts
+\end{lstlisting}
+
+\section{Requisitos funcionais}
+
+\begin{longtable}{p{0.12\textwidth}p{0.54\textwidth}p{0.22\textwidth}}
+\toprule
+\textbf{ID} & \textbf{Requisito funcional} & \textbf{Prioridade} \\
+\midrule
+RF-01 & O sistema deve permitir cadastro de usuário por nome único e senha. & Obrigatório \\
+RF-02 & O sistema deve permitir login e logout com sessão persistida em cookie HTTP-only. & Obrigatório \\
+RF-03 & O sistema deve listar partidas da Copa com fase, data, horário, seleções, bandeiras e status. & Obrigatório \\
+RF-04 & O sistema deve permitir que o usuário salve ou edite palpites antes do bloqueio da partida. & Obrigatório \\
+RF-05 & O sistema deve armazenar os palpites em JSONB atrelado ao usuário e ao torneio. & Obrigatório \\
+RF-06 & O sistema deve impedir alteração de palpite quando a partida já estiver bloqueada. & Obrigatório \\
+RF-07 & O sistema deve sincronizar dados da Copa via API externa em rotina agendada. & Obrigatório \\
+RF-08 & O sistema deve calcular pontuação dos usuários conforme regra definida. & Obrigatório \\
+RF-09 & O sistema deve exibir ranking geral ordenado por pontuação e critérios de desempate. & Obrigatório \\
+RF-10 & O sistema deve permitir visualização dos próprios palpites salvos. & Obrigatório \\
+RF-11 & O sistema deve permitir recalcular ranking manualmente via endpoint protegido de admin. & Desejável \\
+RF-12 & O sistema deve exibir histórico simples de atualização dos dados externos. & Desejável \\
+RF-13 & O sistema deve ter página de healthcheck para verificar ambiente e banco. & Desejável \\
+RF-14 & O sistema deve suportar múltiplos torneios no modelo de dados, ainda que o MVP use apenas WC2026. & Futuro \\
+\bottomrule
+\end{longtable}
+
+\section{Requisitos não funcionais}
+
+\begin{longtable}{p{0.12\textwidth}p{0.54\textwidth}p{0.22\textwidth}}
+\toprule
+\textbf{ID} & \textbf{Requisito não funcional} & \textbf{Critério} \\
+\midrule
+RNF-01 & Segurança de senha & Senhas armazenadas somente com hash Argon2id ou bcrypt; nunca texto puro. \\
+RNF-02 & Sessão segura & Cookie HTTP-only, Secure em produção, SameSite=Lax, expiração e hash de token no banco. \\
+RNF-03 & Segredos protegidos & Tokens de APIs e service role do Supabase somente em variáveis de ambiente no servidor. \\
+RNF-04 & Disponibilidade & A aplicação deve continuar listando dados já cacheados se a API externa falhar. \\
+RNF-05 & Performance & Ranking e listagem de jogos devem carregar usando dados do banco/cache, evitando fan-out externo. \\
+RNF-06 & Observabilidade & Logs mínimos para login falho, sync de API, erro de cálculo e update de palpite. \\
+RNF-07 & Escalabilidade & O modelo deve suportar ao menos centenas de usuários sem mudança estrutural. \\
+RNF-08 & Manutenibilidade & Código com services/repositories separados, tipagem forte e validação de entrada. \\
+RNF-09 & Portabilidade & Banco baseado em Postgres padrão, reduzindo lock-in. \\
+RNF-10 & Acessibilidade & Formulários utilizáveis por teclado, contraste adequado e labels nos inputs. \\
+RNF-11 & Consistência temporal & Todas as datas de partidas devem ser salvas em UTC e exibidas no fuso do usuário. \\
+RNF-12 & Rate limit externo & Sync deve respeitar limite do provedor e usar cache para evitar chamadas desnecessárias. \\
+\bottomrule
+\end{longtable}
+
+\section{Modelo de dados}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth]{diagramas/er_model.png}
+\caption{Modelo de dados relacional com JSONB para palpites.}
+\end{figure}
+
+\subsection{Estratégia JSONB para palpites}
+
+A ideia do usuário ter ``um JSON'' é válida para o MVP, desde que esse JSON fique em uma tabela própria e seja validado pelo servidor. A proposta é a tabela \texttt{user\_predictions}, com uma linha por usuário e torneio. A coluna \texttt{predictions} armazena o documento de palpites.
+
+\begin{lstlisting}[language=json,caption={Formato proposto do JSON de palpites}]
+{
+  "version": 1,
+  "tournamentCode": "WC2026",
+  "updatedAt": "2026-06-11T12:00:00.000Z",
+  "matches": {
+    "match_001": {
+      "homeTeamId": "BRA",
+      "awayTeamId": "GER",
+      "homeGoals": 2,
+      "awayGoals": 1,
+      "savedAt": "2026-06-11T12:00:00.000Z",
+      "locked": false,
+      "points": null
+    },
+    "match_002": {
+      "homeTeamId": "ARG",
+      "awayTeamId": "FRA",
+      "homeGoals": 1,
+      "awayGoals": 1,
+      "savedAt": "2026-06-11T12:05:00.000Z",
+      "locked": false,
+      "points": null
+    }
+  },
+  "summary": {
+    "totalPoints": 0,
+    "exactScores": 0,
+    "correctOutcomes": 0,
+    "lastCalculatedAt": null
+  }
+}
+\end{lstlisting}
+
+\begin{riskbox}
+Evite salvar tudo em uma coluna JSON dentro da própria tabela \texttt{users}. Isso mistura identidade com dado de domínio. Melhor manter \texttt{users} apenas para login e criar \texttt{user\_predictions} para os palpites.
+\end{riskbox}
+
+\subsection{SQL inicial sugerido}
+
+\begin{lstlisting}[language=SQL,caption={DDL inicial para Supabase/Postgres}]
+create extension if not exists pgcrypto;
+
+create table if not exists users (
+  id uuid primary key default gen_random_uuid(),
+  username text not null unique,
+  password_hash text not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists sessions (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references users(id) on delete cascade,
+  session_token_hash text not null unique,
+  user_agent text,
+  ip_hash text,
+  expires_at timestamptz not null,
+  revoked_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists tournaments (
+  code text primary key,
+  name text not null,
+  year int not null,
+  starts_at timestamptz,
+  ends_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists user_predictions (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references users(id) on delete cascade,
+  tournament_code text not null references tournaments(code),
+  predictions jsonb not null default '{"version":1,"matches":{},"summary":{}}'::jsonb,
+  total_points int not null default 0,
+  exact_scores int not null default 0,
+  correct_outcomes int not null default 0,
+  updated_at timestamptz not null default now(),
+  locked_at timestamptz,
+  unique(user_id, tournament_code)
+);
+
+create table if not exists teams_cache (
+  external_id text primary key,
+  fifa_code text,
+  iso2 text,
+  name text not null,
+  flag_url text,
+  payload jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists matches_cache (
+  external_id text primary key,
+  tournament_code text not null references tournaments(code),
+  home_team_id text references teams_cache(external_id),
+  away_team_id text references teams_cache(external_id),
+  starts_at timestamptz not null,
+  stage text,
+  group_name text,
+  status text not null,
+  score_home int,
+  score_away int,
+  payload jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists ranking_snapshots (
+  id uuid primary key default gen_random_uuid(),
+  tournament_code text not null references tournaments(code),
+  generated_at timestamptz not null default now(),
+  snapshot jsonb not null
+);
+
+create index if not exists idx_sessions_user_id on sessions(user_id);
+create index if not exists idx_sessions_expires_at on sessions(expires_at);
+create index if not exists idx_predictions_user_tournament on user_predictions(user_id, tournament_code);
+create index if not exists idx_predictions_jsonb on user_predictions using gin(predictions);
+create index if not exists idx_matches_tournament_start on matches_cache(tournament_code, starts_at);
+create index if not exists idx_matches_status on matches_cache(status);
+\end{lstlisting}
+
+\subsection{RLS e acesso ao Supabase}
+
+Como o projeto não usará Supabase Auth, há duas opções:
+
+\begin{enumerate}
+  \item \textbf{Opção recomendada para MVP}: nunca consultar Supabase direto do browser. Todas as consultas passam pelo servidor Next.js usando variáveis de ambiente privadas. Nesse caso, o service role fica apenas no servidor.
+  \item \textbf{Opção avançada}: criar uma camada de policies/RLS customizada com JWT próprio. É mais seguro para acesso direto do cliente, mas aumenta bastante a complexidade.
+\end{enumerate}
+
+\begin{okbox}
+Para este projeto, use Supabase apenas no servidor. No frontend, chame Server Actions ou Route Handlers do Next.js. Isso permite autenticação custom sem expor credenciais sensíveis no cliente.
+\end{okbox}
+
+\section{Autenticação customizada}
+
+O sistema não utilizará Supabase Auth. Ainda assim, segurança mínima é obrigatória.
+
+\subsection{Cadastro}
+
+Fluxo de cadastro:
+\begin{enumerate}
+  \item usuário informa \texttt{username} e \texttt{password};
+  \item servidor valida tamanho, caracteres e unicidade do nome;
+  \item servidor gera hash da senha com Argon2id ou bcrypt;
+  \item servidor salva \texttt{username} e \texttt{password\_hash};
+  \item servidor cria sessão e cookie HTTP-only.
+\end{enumerate}
+
+\subsection{Login}
+
+Fluxo de login:
+\begin{enumerate}
+  \item servidor busca usuário pelo nome;
+  \item compara senha recebida com \texttt{password\_hash};
+  \item se válido, gera token aleatório de sessão;
+  \item salva \texttt{hash(token)} na tabela \texttt{sessions};
+  \item envia cookie com o token puro para o navegador;
+  \item em cada requisição protegida, o servidor hasheia o token do cookie e compara com o banco.
+\end{enumerate}
+
+\begin{riskbox}
+Nunca salve senha em texto puro. Mesmo em projeto pequeno, vazamento de banco com senha pura é uma falha grave. Também não salve token de sessão puro no banco; salve hash do token.
+\end{riskbox}
+
+\section{Fluxo de salvar palpite}
+
+\begin{figure}[H]
+\centering
+\includegraphics[height=0.62\textheight,keepaspectratio]{diagramas/fluxo_login_palpite.png}
+\caption{Fluxo simplificado de edição e persistência de palpite.}
+\end{figure}
+
+\subsection{Validações do servidor}
+
+Ao salvar um palpite, o servidor deve validar:
+\begin{itemize}
+  \item sessão existe, não expirou e não foi revogada;
+  \item partida existe no cache interno;
+  \item partida ainda não começou ou ainda não atingiu o horário de bloqueio configurado;
+  \item gols informados são inteiros entre 0 e 30;
+  \item o JSON resultante respeita o schema esperado;
+  \item o usuário só edita o próprio documento de palpites.
+\end{itemize}
+
+\section{Regras de bloqueio de palpites}
+
+\begin{longtable}{p{0.28\textwidth}p{0.62\textwidth}}
+\toprule
+\textbf{Regra} & \textbf{Definição} \\
+\midrule
+Bloqueio padrão & Uma partida bloqueia 5 minutos antes de \texttt{starts\_at}. \\
+Partida em andamento & Se \texttt{status} for \texttt{IN\_PLAY}, \texttt{LIVE}, \texttt{PAUSED} ou equivalente, não aceita palpite. \\
+Partida finalizada & Se \texttt{status} for \texttt{FINISHED}, não aceita palpite e já pode pontuar. \\
+Jogo adiado & Se a API alterar \texttt{starts\_at}, o sistema usa o novo horário salvo no cache. \\
+Dados ausentes & Se não houver horário confiável, bloquear manualmente ou manter indisponível até sync correto. \\
+\bottomrule
+\end{longtable}
+
+\section{Regra de pontuação sugerida}
+
+\begin{longtable}{p{0.45\textwidth}p{0.18\textwidth}p{0.27\textwidth}}
+\toprule
+\textbf{Acerto} & \textbf{Pontos} & \textbf{Exemplo} \\
+\midrule
+Placar exato & 5 & Palpite 2x1, resultado 2x1. \\
+Resultado correto sem placar exato & 3 & Palpite 2x1, resultado 1x0. \\
+Empate correto sem placar exato & 3 & Palpite 1x1, resultado 0x0. \\
+Acerto de gols de uma seleção & 1 bônus & Palpite 2x0, resultado 2x1. \\
+Erro total & 0 & Palpite vitória, resultado derrota. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Critérios de desempate}
+
+\begin{enumerate}
+  \item maior pontuação total;
+  \item maior número de placares exatos;
+  \item maior número de resultados corretos;
+  \item menor quantidade de palpites em branco;
+  \item usuário criado há mais tempo, se ainda houver empate.
+\end{enumerate}
+
+\section{APIs externas necessárias}
+
+\subsection{Dados de partidas, seleções e resultados}
+
+\begin{longtable}{p{0.22\textwidth}p{0.24\textwidth}p{0.44\textwidth}}
+\toprule
+\textbf{API} & \textbf{Uso no projeto} & \textbf{Observação técnica} \\
+\midrule
+Sportmonks Football API & Fixtures, livescores, standings, bracket, squads e eventos. & Boa cobertura para Copa 2026, dados em JSON, filtros e includes. É opção forte se aceitar plano pago. \\
+API-Football / API-Sports & Fixtures, teams, standings, livescore, lineups e eventos. & Para Copa 2026, a documentação/guia usa \texttt{league=1} e \texttt{season=2026}. Boa opção para MVP com conta de API. \\
+football-data.org & Competição \texttt{WC}, jogos, equipes e standings. & Mais simples; verificar plano e limite. Bom fallback se dados necessários estiverem disponíveis no plano escolhido. \\
+FIFA oficial & Conferência manual de calendário/resultados. & Não tratar como API pública estável para app; usar como referência visual/manual, não como backend por scraping. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Recomendação de escolha}
+
+\begin{decisionbox}
+Para MVP, escolha \textbf{um} provedor primário: API-Football ou Sportmonks. Implemente o código com interface \texttt{FootballProvider}, para trocar de provedor depois sem refatorar o produto inteiro. Use football-data.org como alternativa/fallback se o plano atender aos dados de World Cup.
+\end{decisionbox}
+
+\subsection{Endpoints externos esperados}
+
+Os nomes exatos variam por provedor, mas o sistema precisa das seguintes capacidades:
+
+\begin{longtable}{p{0.23\textwidth}p{0.32\textwidth}p{0.35\textwidth}}
+\toprule
+\textbf{Capacidade} & \textbf{Dados necessários} & \textbf{Exemplo de uso interno} \\
+\midrule
+Fixtures/lista de jogos & ID externo, mandante, visitante, data UTC, estádio, fase, grupo. & Popular \texttt{matches\_cache}. \\
+Resultados & Status, placar final, minutos, vencedor. & Calcular pontuação e bloquear palpites. \\
+Seleções/equipes & ID externo, nome, código FIFA, país, logo se houver. & Popular \texttt{teams\_cache}. \\
+Standings/grupos & Grupo, pontos, vitórias, saldo, posição. & Exibir tabela do grupo e validar fase de mata-mata. \\
+Liveness & Jogos em andamento e eventos. & Atualizar placares durante o dia de jogo. \\
+Bracket/mata-mata & Chaveamento, próximos confrontos, vencedores. & Exibir oitavas/quartas/semi/final. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Bandeiras}
+
+Para bandeiras, a opção mais simples é usar \textbf{FlagCDN}, que fornece imagens por código ISO 3166-1 alpha-2. O sistema deve manter no banco uma coluna \texttt{iso2} por seleção e gerar a URL de bandeira, por exemplo:
+
+\begin{lstlisting}[language={},caption={Exemplo de URL de bandeira}]
+https://flagcdn.com/w80/br.png
+https://flagcdn.com/w80/ar.png
+https://flagcdn.com/w80/fr.png
+\end{lstlisting}
+
+Para mapear nome/código de seleção para \texttt{iso2}, pode-se manter uma tabela local curada. REST Countries pode ajudar com metadados de países, mas seleções de futebol nem sempre mapeiam perfeitamente para países ISO por nome usado pela FIFA. Por isso, a tabela local deve ser a fonte final.
+
+\begin{notebox}
+Exemplo de casos que exigem cuidado: England, Scotland, Wales e Northern Ireland têm seleções próprias no futebol, mas nem todos aparecem como países ISO independentes da mesma forma que seleções FIFA. Para Copa 2026 masculina, a lista de participantes deve ser mapeada manualmente no seed inicial.
+\end{notebox}
+
+\section{Pipeline de sincronização}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{diagramas/sync_pipeline.png}
+\caption{Pipeline de sincronização de dados da Copa.}
+\end{figure}
+
+\subsection{Cadência sugerida}
+
+\begin{longtable}{p{0.26\textwidth}p{0.24\textwidth}p{0.40\textwidth}}
+\toprule
+\textbf{Período} & \textbf{Frequência} & \textbf{Justificativa} \\
+\midrule
+Antes da Copa & 1 a 2 vezes por dia & Calendário e equipes mudam pouco. \\
+Dia sem jogo & A cada 6 horas & Garante ajustes de tabela e datas sem gastar quota. \\
+Dia com jogo & A cada 5 a 15 minutos & Atualiza status e placares com boa experiência. \\
+Durante jogo ao vivo & A cada 1 a 3 minutos, se o plano permitir & Só se o ranking ao vivo for importante. \\
+Após finalização & Rodar sync e recalcular ranking & Garante pontuação correta. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Proteção do endpoint de sync}
+
+O endpoint \texttt{/api/admin/\allowbreak sync-worldcup} deve exigir um segredo administrativo enviado por header, por exemplo \texttt{x-admin-sync-token}. Esse segredo fica em variável de ambiente na Vercel.
+
+\begin{lstlisting}[language={},caption={Variáveis de ambiente esperadas}]
+NEXT_PUBLIC_APP_URL=https://seu-bolao.vercel.app
+SUPABASE_URL=https://xxxxx.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=...
+SESSION_SECRET=...
+FOOTBALL_PROVIDER=api-football
+FOOTBALL_API_KEY=...
+ADMIN_SYNC_TOKEN=...
+\end{lstlisting}
+
+\section{Endpoints internos}
+
+\begin{longtable}{p{0.24\textwidth}p{0.14\textwidth}p{0.43\textwidth}p{0.10\textwidth}}
+\toprule
+\textbf{Endpoint/Ação} & \textbf{Método} & \textbf{Responsabilidade} & \textbf{Auth} \\
+\midrule
+\texttt{loginAction} & Server Action & Validar credenciais, criar sessão e cookie. & Não \\
+\texttt{logoutAction} & Server Action & Revogar sessão e limpar cookie. & Sim \\
+\texttt{savePredictionAction} & Server Action & Validar partida e atualizar JSONB de palpites. & Sim \\
+\texttt{/api/health} & GET & Conferir disponibilidade básica da aplicação. & Não \\
+\texttt{/api/ranking} & GET & Retornar ranking cacheado ou calculado. & Não/Sim \\
+\texttt{/api/admin/\allowbreak sync-worldcup} & GET/POST & Buscar dados externos e atualizar cache. & Admin \\
+\texttt{/api/admin/\allowbreak recalculate-ranking} & POST & Reprocessar pontuação de todos os usuários. & Admin \\
+\bottomrule
+\end{longtable}
+
+\section{Serviços de domínio}
+
+\subsection{AuthService}
+
+Responsabilidades:
+\begin{itemize}
+  \item normalizar e validar \texttt{username};
+  \item gerar e verificar hash de senha;
+  \item criar, consultar e revogar sessões;
+  \item ler usuário atual a partir do cookie;
+  \item bloquear tentativa de login em excesso.
+\end{itemize}
+
+\subsection{WorldCupService}
+
+Responsabilidades:
+\begin{itemize}
+  \item consumir o provedor externo;
+  \item normalizar partidas e seleções;
+  \item preencher cache local;
+  \item resolver bandeiras e metadados;
+  \item oferecer consultas para a UI.
+\end{itemize}
+
+\subsection{PredictionService}
+
+Responsabilidades:
+\begin{itemize}
+  \item validar payload de palpite;
+  \item verificar regra de bloqueio;
+  \item atualizar JSONB de palpites;
+  \item criar documento inicial de palpites do usuário;
+  \item expor resumo dos palpites do usuário.
+\end{itemize}
+
+\subsection{ScoringService}
+
+Responsabilidades:
+\begin{itemize}
+  \item comparar palpites com resultados oficiais;
+  \item aplicar regra de pontuação;
+  \item atualizar \texttt{total\_points}, \texttt{exact\_scores} e \texttt{correct\_outcomes};
+  \item gerar snapshots de ranking;
+  \item garantir idempotência.
+\end{itemize}
+
+\section{Validação de dados com Zod}
+
+\begin{lstlisting}[language={},caption={Schema conceitual de palpite em TypeScript/Zod}]
+const PredictionInputSchema = z.object({
+  matchId: z.string().min(1),
+  homeGoals: z.number().int().min(0).max(30),
+  awayGoals: z.number().int().min(0).max(30),
+});
+
+const PredictionDocumentSchema = z.object({
+  version: z.literal(1),
+  tournamentCode: z.string(),
+  updatedAt: z.string().datetime(),
+  matches: z.record(z.string(), z.object({
+    homeTeamId: z.string(),
+    awayTeamId: z.string(),
+    homeGoals: z.number().int().min(0).max(30),
+    awayGoals: z.number().int().min(0).max(30),
+    savedAt: z.string().datetime(),
+    locked: z.boolean(),
+    points: z.number().int().nullable(),
+  })),
+  summary: z.object({
+    totalPoints: z.number().int(),
+    exactScores: z.number().int(),
+    correctOutcomes: z.number().int(),
+    lastCalculatedAt: z.string().datetime().nullable(),
+  }),
+});
+\end{lstlisting}
+
+\section{Interface e telas}
+
+\subsection{Telas do MVP}
+
+\begin{longtable}{p{0.22\textwidth}p{0.68\textwidth}}
+\toprule
+\textbf{Tela} & \textbf{Conteúdo} \\
+\midrule
+Home & Chamada do bolão, botão de login/cadastro, explicação da pontuação e link para ranking. \\
+Login/Cadastro & Formulário simples com nome de usuário e senha. \\
+Dashboard & Resumo do usuário, pontuação atual, próximos jogos e alertas de palpites pendentes. \\
+Palpites & Lista de jogos agrupada por data/fase, inputs de placar, bandeiras e status de bloqueio. \\
+Ranking & Tabela ordenada com posição, usuário, pontos, placares exatos e acertos. \\
+Admin Sync & Opcional no MVP: tela protegida ou endpoint para disparar sincronização e recalcular ranking. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Componentes principais}
+
+\begin{itemize}
+  \item \texttt{MatchCard}: mostra uma partida, bandeiras, horário, status e inputs de placar.
+  \item \texttt{PredictionForm}: gerencia envio de palpite com estado pendente e mensagens de erro.
+  \item \texttt{RankingTable}: tabela de classificação do bolão.
+  \item \texttt{UserSummary}: pontuação e estatísticas rápidas do usuário.
+  \item \texttt{StageFilter}: filtros por fase, grupo e data.
+\end{itemize}
+
+\section{Fluxos principais}
+
+\subsection{Fluxo de cadastro/login}
+
+\begin{enumerate}
+  \item Usuário acessa \texttt{/login}.
+  \item Informa nome e senha.
+  \item Server Action valida dados.
+  \item Se cadastro, cria usuário; se login, valida senha.
+  \item Cria sessão e cookie.
+  \item Redireciona para \texttt{/dashboard}.
+\end{enumerate}
+
+\subsection{Fluxo de palpite}
+
+\begin{enumerate}
+  \item Usuário acessa \texttt{/palpites}.
+  \item Página busca partidas cacheadas e documento JSONB do usuário.
+  \item Usuário preenche placar.
+  \item Server Action valida sessão, partida e horário.
+  \item Palpite é salvo no JSONB.
+  \item UI mostra feedback e mantém estado atualizado.
+\end{enumerate}
+
+\subsection{Fluxo de ranking}
+
+\begin{enumerate}
+  \item Sync atualiza resultados no \texttt{matches\_cache}.
+  \item \texttt{ScoringService} percorre partidas finalizadas.
+  \item Palpites são pontuados e resumo é atualizado.
+  \item Ranking é ordenado e salvo em \texttt{ranking\_snapshots}.
+  \item Página \texttt{/ranking} exibe último snapshot.
+\end{enumerate}
+
+\section{Segurança}
+
+\begin{longtable}{p{0.28\textwidth}p{0.62\textwidth}}
+\toprule
+\textbf{Risco} & \textbf{Mitigação} \\
+\midrule
+Senha vazada & Usar hash forte com salt, preferencialmente Argon2id. \\
+Ataque de força bruta & Rate limit por IP/nome e atraso progressivo após falhas. \\
+Roubo de sessão por JavaScript & Cookie HTTP-only, Secure e SameSite=Lax. \\
+Alteração de palpite de outro usuário & Nunca confiar em userId vindo do cliente; derivar userId da sessão. \\
+Manipulação após início do jogo & Validar bloqueio no servidor com \texttt{starts\_at} e status cacheado. \\
+Exposição da service role & Variável apenas no servidor; não importar cliente admin em Client Components. \\
+Quota de API externa estourada & Cache interno, cron controlado e backoff em erro. \\
+Dados externos inconsistentes & Normalizar payloads e preservar payload original em JSONB para auditoria. \\
+\bottomrule
+\end{longtable}
+
+\section{Plano de implementação}
+
+\subsection{Fase 1 - Base do projeto}
+
+\begin{itemize}
+  \item Criar projeto Next.js com TypeScript.
+  \item Configurar Tailwind e componentes base.
+  \item Criar projeto Supabase e rodar SQL inicial.
+  \item Configurar variáveis de ambiente na Vercel.
+  \item Implementar cliente Supabase server-side.
+\end{itemize}
+
+\subsection{Fase 2 - Auth custom}
+
+\begin{itemize}
+  \item Implementar cadastro, login, logout e sessão.
+  \item Criar middleware ou helper \texttt{getCurrentUser()}.
+  \item Proteger rotas de \texttt{/dashboard} e \texttt{/palpites}.
+  \item Adicionar rate limit simples para login.
+\end{itemize}
+
+\subsection{Fase 3 - Dados da Copa}
+
+\begin{itemize}
+  \item Escolher provedor primário de futebol.
+  \item Implementar \texttt{FootballProvider} com interface genérica.
+  \item Criar seed de \texttt{tournaments} e tabela local de mapeamento ISO2.
+  \item Implementar sync de teams e matches.
+  \item Criar endpoint admin protegido e cron na Vercel.
+\end{itemize}
+
+\subsection{Fase 4 - Palpites}
+
+\begin{itemize}
+  \item Criar documento inicial JSONB por usuário.
+  \item Implementar tela \texttt{/palpites}.
+  \item Implementar Server Action \texttt{savePredictionAction}.
+  \item Validar bloqueio por horário/status.
+\end{itemize}
+
+\subsection{Fase 5 - Pontuação e ranking}
+
+\begin{itemize}
+  \item Implementar \texttt{ScoringService}.
+  \item Criar rotina de recalcular ranking.
+  \item Exibir ranking público.
+  \item Adicionar critérios de desempate.
+\end{itemize}
+
+\subsection{Fase 6 - Polimento}
+
+\begin{itemize}
+  \item Melhorar UI mobile.
+  \item Adicionar estados de loading/erro.
+  \item Revisar acessibilidade.
+  \item Criar página de regras do bolão.
+  \item Fazer testes manuais com partidas mockadas.
+\end{itemize}
+
+\section{Backlog inicial}
+
+\begin{longtable}{p{0.10\textwidth}p{0.56\textwidth}p{0.16\textwidth}p{0.10\textwidth}}
+\toprule
+\textbf{ID} & \textbf{História} & \textbf{Tipo} & \textbf{Prio.} \\
+\midrule
+US-01 & Como visitante, quero criar usuário com nome e senha para participar do bolão. & Auth & Alta \\
+US-02 & Como usuário, quero fazer login para acessar meus palpites. & Auth & Alta \\
+US-03 & Como usuário, quero ver todos os jogos da Copa para preencher palpites. & Produto & Alta \\
+US-04 & Como usuário, quero salvar o placar de cada jogo para competir no ranking. & Produto & Alta \\
+US-05 & Como usuário, quero saber quais jogos já estão bloqueados. & Produto & Alta \\
+US-06 & Como usuário, quero ver minha pontuação parcial. & Produto & Média \\
+US-07 & Como visitante, quero ver ranking geral do bolão. & Produto & Alta \\
+US-08 & Como sistema, quero sincronizar jogos e resultados periodicamente. & Integração & Alta \\
+US-09 & Como admin, quero recalcular pontuação quando necessário. & Admin & Média \\
+US-10 & Como usuário, quero ver bandeiras das seleções para reconhecer os jogos rápido. & UX & Média \\
+\bottomrule
+\end{longtable}
+
+\section{Testes e critérios de aceite}
+
+\subsection{Casos de teste essenciais}
+
+\begin{longtable}{p{0.14\textwidth}p{0.50\textwidth}p{0.26\textwidth}}
+\toprule
+\textbf{ID} & \textbf{Cenário} & \textbf{Resultado esperado} \\
+\midrule
+CT-01 & Cadastro com nome novo e senha válida. & Usuário criado, sessão ativa, redirect para dashboard. \\
+CT-02 & Cadastro com nome repetido. & Erro amigável, sem criar duplicata. \\
+CT-03 & Login com senha incorreta. & Erro, sem sessão. \\
+CT-04 & Salvar palpite antes do bloqueio. & JSONB atualizado corretamente. \\
+CT-05 & Tentar salvar palpite após início do jogo. & Operação recusada pelo servidor. \\
+CT-06 & Sync externo com sucesso. & \texttt{matches\_cache} e \texttt{teams\_cache} atualizados. \\
+CT-07 & API externa fora do ar. & App mantém dados cacheados e registra erro. \\
+CT-08 & Resultado final recebido. & Pontuação recalculada e ranking atualizado. \\
+CT-09 & Dois usuários empatados em pontos. & Desempate aplicado na ordem definida. \\
+CT-10 & Tentativa de editar palpite de outro usuário. & Ação negada; userId vem da sessão, não do cliente. \\
+\bottomrule
+\end{longtable}
+
+\section{Observabilidade e operação}
+
+\subsection{Logs mínimos}
+
+\begin{itemize}
+  \item início/fim do sync, provedor usado e número de partidas atualizadas;
+  \item falhas de API externa com status code e mensagem;
+  \item login falho sem registrar senha;
+  \item tentativa de salvar palpite bloqueado;
+  \item tempo de cálculo do ranking;
+  \item data do último snapshot de ranking.
+\end{itemize}
+
+\subsection{Alertas manuais para MVP}
+
+No MVP, basta uma página ou endpoint de admin que retorne:
+\begin{itemize}
+  \item último sync bem-sucedido;
+  \item último erro de sync;
+  \item total de partidas no cache;
+  \item total de usuários e documentos de palpite;
+  \item data do último ranking calculado.
+\end{itemize}
+
+\section{Roadmap pós-MVP}
+
+\begin{itemize}
+  \item ligas privadas com código de convite;
+  \item bolões por grupo de amigos;
+  \item painel admin visual;
+  \item exportação CSV do ranking;
+  \item palpites de campeão, artilheiro e fase mata-mata;
+  \item notificações antes do bloqueio dos jogos;
+  \item modo auditável com histórico de versões dos palpites;
+  \item suporte a outros torneios.
+\end{itemize}
+
+\section{Referências técnicas consultadas}
+
+\begin{itemize}
+  \item FIFA. \textit{FIFA World Cup 2026: schedule, fixtures and stadiums}. \url{https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026}
+  \item Next.js. \textit{Route Handlers}. \url{https://nextjs.org/docs/app/api-reference/file-conventions/route}
+  \item Next.js. \textit{Mutating Data / Server Functions}. \url{https://nextjs.org/docs/app/getting-started/mutating-data}
+  \item Supabase. \textit{Managing JSON and unstructured data}. \url{https://supabase.com/docs/guides/database/json}
+  \item Supabase. \textit{Row Level Security}. \url{https://supabase.com/docs/guides/database/postgres/row-level-security}
+  \item API-Football / API-Sports. \textit{FIFA World Cup 2026 guide}. \url{https://www.api-football.com/news/post/fifa-world-cup-2026-guide-to-using-data-with-api-sports}
+  \item Sportmonks. \textit{World Cup 2026 API}. \url{https://www.sportmonks.com/football-api/world-cup-api/}
+  \item football-data.org. \textit{API Reference}. \url{https://www.football-data.org/documentation/api}
+  \item FlagCDN. \textit{Flags API and CDN}. \url{https://flagcdn.com/}
+  \item REST Countries. \textit{Country data API}. \url{https://restcountries.com/}
+\end{itemize}
+
+\appendix
+\section{Checklist de entrega do MVP}
+
+\begin{longtable}{p{0.75\textwidth}p{0.15\textwidth}}
+\toprule
+\textbf{Item} & \textbf{Status} \\
+\midrule
+Projeto Next.js criado com TypeScript. & \(\square\) \\
+Supabase configurado com SQL inicial. & \(\square\) \\
+Variáveis de ambiente configuradas localmente e na Vercel. & \(\square\) \\
+Cadastro/login/logout implementados. & \(\square\) \\
+Sessão com cookie HTTP-only implementada. & \(\square\) \\
+Sync de partidas funcionando com provedor escolhido. & \(\square\) \\
+Cache de seleções e bandeiras preenchido. & \(\square\) \\
+Tela de palpites funcionando. & \(\square\) \\
+Bloqueio por horário/status funcionando. & \(\square\) \\
+Pontuação e ranking funcionando. & \(\square\) \\
+Deploy na Vercel funcionando. & \(\square\) \\
+Cron de sync configurado. & \(\square\) \\
+Testes manuais principais concluídos. & \(\square\) \\
+\bottomrule
+\end{longtable}
+
+\section{Arquivos Mermaid incluídos no pacote}
+
+Os diagramas deste documento foram incluídos como imagens compiladas na pasta \texttt{diagramas/}. O pacote-fonte também contém os arquivos Mermaid em \texttt{mermaid/}, para edição futura em ferramentas compatíveis com Mermaid.
+
+\begin{itemize}
+  \item \texttt{arquitetura\_geral.mmd}
+  \item \texttt{er\_model.mmd}
+  \item \texttt{fluxo\_login\_palpite.mmd}
+  \item \texttt{sync\_pipeline.mmd}
+  \item \texttt{componentes\_next.mmd}
+\end{itemize}
+
+\end{document}

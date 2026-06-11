@@ -1,0 +1,30 @@
+export const TOURNAMENT_CODE = "WC2026";
+export const SESSION_COOKIE = "bolao_session";
+
+export const SCORING_RULES = {
+  exactScore: 5,
+  correctOutcome: 3,
+  closeHomeGoals: 1,
+  closeAwayGoals: 1,
+  topFourExactPosition: 10,
+  topFourIncluded: 5
+} as const;
+
+export const FINISHED_STATUSES = new Set([
+  "FINISHED",
+  "FT",
+  "AET",
+  "PEN",
+  "FINAL"
+]);
+
+export const LOCKED_STATUSES = new Set([
+  ...FINISHED_STATUSES,
+  "LIVE",
+  "IN_PLAY",
+  "1H",
+  "HT",
+  "2H",
+  "ET",
+  "P"
+]);

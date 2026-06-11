@@ -1,0 +1,9 @@
+flowchart TB
+  APP[app/] --> PUBLIC[rotas publicas: home, login, ranking]
+  APP --> AUTH[rotas protegidas: painel, palpites]
+  APP --> API[api/ route handlers]
+  AUTH --> COMP[components/ui e forms]
+  AUTH --> ACTIONS[server actions]
+  API --> SERVICES[services: auth, worldcup, scoring]
+  SERVICES --> REPO[repositories: supabase server client]
+  REPO --> DB[(Postgres)]

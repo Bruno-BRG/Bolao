@@ -1,0 +1,18 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.2, nodesep=0.7, ranksep=0.9];
+  node [shape=record, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, color="#2b3a42", fillcolor="#f8fbff"];
+  edge [fontname="DejaVu Sans", fontsize=10, color="#34495e", arrowsize=0.8];
+  users [label="{users|id uuid PK\lusername text UNIQUE\lpassword_hash text\lcreated_at timestamptz\l}", fillcolor="#fff7e6"];
+  sessions [label="{sessions|id uuid PK\luser_id uuid FK\lsession_token_hash text\lexpires_at timestamptz\lcreated_at timestamptz\lrevoked_at timestamptz\l}", fillcolor="#fff0f0"];
+  predictions [label="{user_predictions|id uuid PK\luser_id uuid FK\ltournament_code text\lpredictions jsonb\ltotal_points int\llocked_at timestamptz\lupdated_at timestamptz\l}", fillcolor="#ecfff3"];
+  tournaments [label="{tournaments|code text PK\lname text\lyear int\lstarts_at timestamptz\lends_at timestamptz\l}", fillcolor="#f4f4f4"];
+  teams [label="{teams_cache|external_id text PK\lfifa_code text\liso2 text\lname text\lflag_url text\lpayload jsonb\l}", fillcolor="#eaf2ff"];
+  matches [label="{matches_cache|external_id text PK\ltournament_code text FK\lhome_team_id text FK\laway_team_id text FK\lstarts_at timestamptz\lstatus text\lscore_home int\lscore_away int\lpayload jsonb\l}", fillcolor="#eaf2ff"];
+  ranking [label="{ranking_snapshots|id uuid PK\ltournament_code text FK\lgenerated_at timestamptz\lsnapshot jsonb\l}", fillcolor="#f3ecff"];
+  users -> sessions [label="1:N"];
+  users -> predictions [label="1:N"];
+  tournaments -> predictions [label="1:N"];
+  tournaments -> matches [label="1:N"];
+  teams -> matches [label="home/away"];
+  tournaments -> ranking [label="1:N"];
+}

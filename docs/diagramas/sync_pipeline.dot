@@ -1,0 +1,21 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.2, nodesep=0.55, ranksep=0.55];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, color="#2b3a42", fillcolor="#f8fbff"];
+  edge [fontname="DejaVu Sans", fontsize=10, color="#34495e", arrowsize=0.8];
+  cron [label="Vercel Cron", fillcolor="#f3ecff"];
+  route [label="GET /api/admin/sync-worldcup", fillcolor="#eaf2ff"];
+  token [label="Token admin válido?", shape=diamond, fillcolor="#fff7e6"];
+  deny [label="401 Unauthorized", fillcolor="#fff0f0"];
+  fetch [label="Buscar fixtures, resultados, standings", fillcolor="#f4f4f4"];
+  normalize [label="Normalizar IDs, datas, status e equipes"];
+  teams [label="Upsert teams_cache", shape=cylinder, fillcolor="#ecfff3"];
+  matches [label="Upsert matches_cache", shape=cylinder, fillcolor="#ecfff3"];
+  scoring [label="Recalcular pontos\nde usuários"];
+  ranking [label="Persistir ranking_snapshots", shape=cylinder, fillcolor="#ecfff3"];
+  revalidate [label="Revalidar cache do Next.js"];
+  cron -> route -> token;
+  token -> deny [label="não"];
+  token -> fetch [label="sim"];
+  fetch -> normalize -> teams;
+  normalize -> matches -> scoring -> ranking -> revalidate;
+}

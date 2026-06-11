@@ -1,0 +1,29 @@
+erDiagram
+  USERS ||--o{ SESSIONS : has
+  USERS ||--o{ USER_PREDICTIONS : owns
+  USER_PREDICTIONS }o--|| TOURNAMENTS : belongs_to
+  MATCHES_CACHE }o--|| TEAMS_CACHE : home_team
+  MATCHES_CACHE }o--|| TEAMS_CACHE : away_team
+  RANKING_SNAPSHOTS }o--|| TOURNAMENTS : belongs_to
+  USERS {
+    uuid id PK
+    text username UK
+    text password_hash
+    timestamptz created_at
+  }
+  USER_PREDICTIONS {
+    uuid id PK
+    uuid user_id FK
+    text tournament_code
+    jsonb predictions
+    int total_points
+    timestamptz locked_at
+    timestamptz updated_at
+  }
+  MATCHES_CACHE {
+    text external_id PK
+    text tournament_code
+    timestamptz starts_at
+    text status
+    jsonb payload
+  }

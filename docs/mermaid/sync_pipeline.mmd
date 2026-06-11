@@ -1,0 +1,11 @@
+flowchart TD
+  A[Vercel Cron] --> B[GET /api/admin/sync-worldcup]
+  B --> C{Token admin valido?}
+  C -- nao --> D[401 Unauthorized]
+  C -- sim --> E[Buscar fixtures, placares, standings]
+  E --> F[Normalizar IDs, datas, status, equipes]
+  F --> G[Upsert teams_cache]
+  F --> H[Upsert matches_cache]
+  H --> I[Recalcular pontos de usuarios]
+  I --> J[Persistir ranking_snapshots]
+  J --> K[Revalidar cache do Next]

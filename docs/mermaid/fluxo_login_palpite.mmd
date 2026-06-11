@@ -1,0 +1,16 @@
+sequenceDiagram
+  participant U as Usuario
+  participant C as Client Component
+  participant S as Server Action
+  participant A as Auth custom
+  participant DB as Supabase Postgres
+  U->>C: altera placar do jogo
+  C->>S: salvarPalpite(matchId, placar)
+  S->>A: validar cookie de sessao
+  A->>DB: buscar session_token_hash valido
+  DB-->>A: usuario autenticado
+  S->>DB: atualizar predictions jsonb
+  DB-->>S: registro salvo
+  S->>S: revalidatePath('/palpites')
+  S-->>C: sucesso + total parcial
+  C-->>U: feedback visual

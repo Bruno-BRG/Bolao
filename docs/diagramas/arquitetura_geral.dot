@@ -1,0 +1,26 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="white", margin=0.2, pad=0.2, nodesep=0.55, ranksep=0.75];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=12, color="#2b3a42", fillcolor="#f7fbff"];
+  edge [fontname="DejaVu Sans", fontsize=10, color="#34495e", arrowsize=0.8];
+  user [label="Usuário\nNavegador", fillcolor="#fff7e6"];
+  vercel [label="Vercel\nCDN + Deploy", fillcolor="#eef8ee"];
+  next [label="Next.js App Router\nPages + Server Components", fillcolor="#eaf2ff"];
+  api [label="Route Handlers\nServer Actions", fillcolor="#eaf2ff"];
+  auth [label="Auth custom\nnome + senha\ncookie httpOnly", fillcolor="#fff0f0"];
+  db [label="Supabase Postgres\nusers, sessions, predictions", shape=cylinder, fillcolor="#ecfff3"];
+  cache [label="Cache interno\nteams_cache, matches_cache", shape=cylinder, fillcolor="#ecfff3"];
+  cron [label="Vercel Cron\njob de sync", fillcolor="#f3ecff"];
+  provider [label="API de futebol\nSportmonks / API-Football\nfootball-data.org", fillcolor="#f4f4f4"];
+  flags [label="Bandeiras\nFlagCDN + REST Countries", fillcolor="#f4f4f4"];
+  user -> vercel -> next -> api;
+  api -> auth;
+  api -> db;
+  api -> cache;
+  cron -> api [label="/api/admin/sync-worldcup"];
+  api -> provider [label="fetch seguro no servidor"];
+  api -> flags [label="ISO code -> flag"];
+  provider -> cache [label="fixtures/resultados"];
+  flags -> cache [label="metadados"];
+  cache -> db [label="upsert"];
+  db -> api -> next -> user [label="HTML/JSON"];
+}

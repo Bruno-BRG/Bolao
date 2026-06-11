@@ -1,0 +1,23 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.2, nodesep=0.6, ranksep=0.7];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, color="#2b3a42", fillcolor="#f8fbff"];
+  edge [fontname="DejaVu Sans", fontsize=10, color="#34495e", arrowsize=0.8];
+  app [label="app/", fillcolor="#eaf2ff"];
+  public [label="Rotas públicas\n/, /login, /ranking", fillcolor="#fff7e6"];
+  protected [label="Rotas protegidas\n/dashboard, /palpites", fillcolor="#fff7e6"];
+  api [label="app/api/*\nRoute Handlers", fillcolor="#eaf2ff"];
+  comp [label="components/\nUI, forms, tabela de jogos"];
+  actions [label="actions/\nlogin, logout, salvarPalpite", fillcolor="#eaf2ff"];
+  services [label="services/\nauth, worldcup, scoring", fillcolor="#f3ecff"];
+  repos [label="repositories/\nSupabase server client", fillcolor="#ecfff3"];
+  db [label="Supabase Postgres", shape=cylinder, fillcolor="#ecfff3"];
+  app -> public;
+  app -> protected;
+  app -> api;
+  protected -> comp;
+  protected -> actions;
+  public -> comp;
+  api -> services;
+  actions -> services;
+  services -> repos -> db;
+}

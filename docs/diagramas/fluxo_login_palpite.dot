@@ -1,0 +1,14 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="white", margin=0.2, nodesep=0.55, ranksep=0.65];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, color="#2b3a42", fillcolor="#f8fbff"];
+  edge [fontname="DejaVu Sans", fontsize=10, color="#34495e", arrowsize=0.8];
+  U [label="1. Usuário altera placar\nno formulário", fillcolor="#fff7e6"];
+  C [label="2. Client Component\nchama Server Action", fillcolor="#eaf2ff"];
+  S [label="3. Server Action\nvalidar entrada", fillcolor="#eaf2ff"];
+  A [label="4. Auth custom\nvalida cookie httpOnly", fillcolor="#fff0f0"];
+  DB1 [label="5. Supabase\nbusca sessão válida", shape=cylinder, fillcolor="#ecfff3"];
+  DB2 [label="6. Atualiza\npredictions JSONB", shape=cylinder, fillcolor="#ecfff3"];
+  SCORE [label="7. Recalcula pontos\nse partida finalizada", fillcolor="#f3ecff"];
+  UI [label="8. Retorna sucesso\ne atualiza UI", fillcolor="#fff7e6"];
+  U -> C -> S -> A -> DB1 -> DB2 -> SCORE -> UI;
+}

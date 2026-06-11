@@ -22,19 +22,38 @@ export function getMatchTeamLabel(match: Match, side: "home" | "away") {
   );
 }
 
-function isPlaceholderSide(match: Match, side: "home" | "away") {
-  const teamId = side === "home" ? match.home_team_id : match.away_team_id;
-  if (!teamId) return true;
-
+function getPlaceholderLabel(match: Match, side: "home" | "away") {
   const payload = match.payload ?? {};
   const labelKey = side === "home" ? "home_team_label" : "away_team_label";
   const label = typeof payload[labelKey] === "string" ? payload[labelKey] : "";
-  if (label && PLACEHOLDER_LABEL.test(label)) return true;
 
+  const englishNameKey = side === "home" ? "home_team_name_en" : "away_team_name_en";
+  const englishName =
+    typeof payload[englishNameKey] === "string" ? payload[englishNameKey] : "";
+
+  const apiTeams = payload.teams as
+    | { home?: { name?: string }; away?: { name?: string } }
+    | undefined;
+  const apiName = side === "home" ? apiTeams?.home?.name : apiTeams?.away?.name;
+
+  return label || englishName || apiName || "";
+}
+
+function isPlaceholderSide(match: Match, side: "home" | "away") {
+  const teamId = side === "home" ? match.home_team_id : match.away_team_id;
   const team = side === "home" ? match.home_team : match.away_team;
-  if (!team) return true;
 
-  return false;
+  if (teamId && team) {
+    return PLACEHOLDER_LABEL.test(team.name);
+  }
+
+  if (!teamId) {
+    const placeholderLabel = getPlaceholderLabel(match, side);
+    if (placeholderLabel && PLACEHOLDER_LABEL.test(placeholderLabel)) return true;
+    return true;
+  }
+
+  return true;
 }
 
 export function isMatchPredictable(match: Match) {

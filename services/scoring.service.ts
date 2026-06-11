@@ -32,26 +32,27 @@ export function scoreMatchPrediction(match: Match, doc: PredictionDocument) {
     };
   }
 
+  const predictedOutcome = getOutcome(prediction.homeGoals, prediction.awayGoals);
+  const actualOutcome = getOutcome(match.score_home, match.score_away);
   const exactScore =
     prediction.homeGoals === match.score_home &&
     prediction.awayGoals === match.score_away;
-  const correctOutcome =
-    getOutcome(prediction.homeGoals, prediction.awayGoals) ===
-    getOutcome(match.score_home, match.score_away);
-  const closeHome = Math.abs(prediction.homeGoals - match.score_home) <= 1;
-  const closeAway = Math.abs(prediction.awayGoals - match.score_away) <= 1;
+  const correctOutcome = predictedOutcome === actualOutcome;
 
   let points = 0;
-  if (exactScore) points += SCORING_RULES.exactScore;
-  else if (correctOutcome) points += SCORING_RULES.correctOutcome;
-  if (!exactScore && closeHome) points += SCORING_RULES.closeHomeGoals;
-  if (!exactScore && closeAway) points += SCORING_RULES.closeAwayGoals;
+  if (exactScore) {
+    points = SCORING_RULES.exactScore;
+  } else if (actualOutcome === "DRAW" && predictedOutcome === "DRAW") {
+    points = SCORING_RULES.correctDraw;
+  } else if (correctOutcome) {
+    points = SCORING_RULES.correctWinner;
+  }
 
   return {
     points,
     exactScore,
     correctOutcome,
-    closeScores: Number(closeHome) + Number(closeAway)
+    closeScores: 0
   };
 }
 

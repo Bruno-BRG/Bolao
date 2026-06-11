@@ -17,7 +17,6 @@ export function RankingTable({ rows }: { rows: RankingRow[] }) {
             <th>Top 4</th>
             <th>Exatos</th>
             <th>Resultados</th>
-            <th>Proximos</th>
           </tr>
         </thead>
         <tbody>
@@ -39,7 +38,6 @@ export function RankingTable({ rows }: { rows: RankingRow[] }) {
               <td>{row.topFourPoints}</td>
               <td>{row.exactScores}</td>
               <td>{row.correctOutcomes}</td>
-              <td>{row.closeScores}</td>
             </tr>
           ))}
         </tbody>

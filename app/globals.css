@@ -888,6 +888,26 @@ tbody tr:hover {
   gap: 18px;
 }
 
+.top-four-lock-card {
+  display: grid;
+  gap: 18px;
+}
+
+.top-four-lock-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.top-four-lock-row {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+}
+
 .top-four-fields {
   display: grid;
   gap: 14px;
@@ -958,15 +978,23 @@ tbody tr:hover {
   gap: 10px;
 }
 
+.bracket-board {
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
 .bracket-grid {
+  align-items: start;
   display: grid;
-  gap: 18px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  grid-template-columns: repeat(6, minmax(220px, 1fr));
+  min-width: 1480px;
 }
 
 .bracket-stage {
   display: grid;
-  gap: 18px;
+  gap: 14px;
+  position: relative;
 }
 
 .knockout-match {
@@ -974,15 +1002,67 @@ tbody tr:hover {
   border: 1px solid var(--line);
   border-radius: 18px;
   display: grid;
-  gap: 12px;
-  padding: 16px;
+  gap: 10px;
+  padding: 14px;
+  position: relative;
+}
+
+.knockout-match.connected::after {
+  background: var(--connector-tone);
+  content: "";
+  height: 1px;
+  position: absolute;
+  right: -28px;
+  top: 50%;
+  width: 28px;
+}
+
+.bracket-stage:not(:last-child) .knockout-list::before {
+  background:
+    linear-gradient(180deg, transparent, rgba(151, 166, 186, 0.14) 12%, rgba(151, 166, 186, 0.14) 88%, transparent);
+  content: "";
+  left: calc(100% + 13px);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.knockout-list {
+  position: relative;
+}
+
+.bracket-stage__header {
+  min-height: 40px;
 }
 
 .knockout-team-row {
   align-items: center;
   display: grid;
-  gap: 12px;
+  gap: 10px;
   grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.knockout-team-row span {
+  font-size: 0.96rem;
+}
+
+.knockout-team-row strong {
+  font-size: 1rem;
+}
+
+.bracket-venue {
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.graph-dot {
+  background: rgba(46, 194, 126, 0.9);
+  border-radius: 999px;
+  box-shadow: 0 0 0 4px rgba(46, 194, 126, 0.12);
+  display: inline-flex;
+  height: 8px;
+  width: 8px;
 }
 
 .login-shell {
@@ -1057,6 +1137,7 @@ tbody tr:hover {
   .grid.three,
   .top-summary,
   .top-four-fields,
+  .top-four-lock-grid,
   .mini-stat-grid,
   .group-teams {
     grid-template-columns: 1fr;
@@ -1085,6 +1166,10 @@ tbody tr:hover {
   .auth-stack,
   .auth-intro {
     border-radius: 20px;
+  }
+
+  .bracket-grid {
+    min-width: 0;
   }
 
   .spotlight-copy {

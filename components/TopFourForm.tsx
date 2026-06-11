@@ -29,6 +29,24 @@ function SelectTeam({
   );
 }
 
+function LockedRow({
+  label,
+  team
+}: {
+  label: string;
+  team: Team | null;
+}) {
+  return (
+    <article className="top-four-lock-row">
+      <span className="eyebrow">{label}</span>
+      <div className="group-team-name">
+        {team?.flag_url ? <img src={team.flag_url} alt="" loading="lazy" /> : null}
+        <strong>{team?.name ?? "Selecao nao encontrada"}</strong>
+      </div>
+    </article>
+  );
+}
+
 export function TopFourForm({
   teams,
   prediction
@@ -36,33 +54,57 @@ export function TopFourForm({
   teams: Team[];
   prediction: TopFourPrediction | null;
 }) {
+  const byId = new Map(teams.map((team) => [team.external_id, team]));
+
+  if (prediction) {
+    return (
+      <section className="card top-four-lock-card">
+        <div>
+          <span className="eyebrow">Top 4 travado</span>
+          <h2>Seu bilhete foi fechado</h2>
+          <p className="muted">
+            Como essa aposta vale mais pontos, o Top 4 fica bloqueado assim que voce
+            salva pela primeira vez.
+          </p>
+        </div>
+
+        <div className="top-four-lock-grid">
+          <LockedRow label="Campeao" team={byId.get(prediction.first) ?? null} />
+          <LockedRow label="Vice" team={byId.get(prediction.second) ?? null} />
+          <LockedRow label="Terceiro" team={byId.get(prediction.third) ?? null} />
+          <LockedRow label="Quarto" team={byId.get(prediction.fourth) ?? null} />
+        </div>
+
+        <div className="top-four-score">
+          <span className="badge warning">Travado</span>
+          {prediction.points !== null && prediction.points !== undefined ? (
+            <span className="badge">{prediction.points} pts</span>
+          ) : null}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <form className="card top-four-form" action={saveTopFourAction}>
       <div>
         <span className="eyebrow">Seu bilhete especial</span>
         <h2>Defina o Top 4</h2>
         <p className="muted">
-          Escolha as selecoes nas quatro posicoes finais. Ajuste quantas vezes
-          precisar antes do fechamento.
+          Escolha as selecoes nas quatro posicoes finais. Depois do primeiro envio,
+          esse bilhete fica travado sem edicao.
         </p>
       </div>
 
       <div className="top-four-fields">
-        <SelectTeam label="Campeao" name="first" teams={teams} value={prediction?.first} />
-        <SelectTeam label="Vice" name="second" teams={teams} value={prediction?.second} />
-        <SelectTeam label="Terceiro" name="third" teams={teams} value={prediction?.third} />
-        <SelectTeam label="Quarto" name="fourth" teams={teams} value={prediction?.fourth} />
+        <SelectTeam label="Campeao" name="first" teams={teams} />
+        <SelectTeam label="Vice" name="second" teams={teams} />
+        <SelectTeam label="Terceiro" name="third" teams={teams} />
+        <SelectTeam label="Quarto" name="fourth" teams={teams} />
       </div>
 
-      {prediction?.points !== null && prediction?.points !== undefined ? (
-        <div className="top-four-score">
-          <span className="badge">{prediction.points} pts</span>
-          <span className="muted">Pontuacao atual do seu Top 4.</span>
-        </div>
-      ) : null}
-
       <button className="button" type="submit">
-        Salvar Top 4
+        Salvar e travar Top 4
       </button>
     </form>
   );

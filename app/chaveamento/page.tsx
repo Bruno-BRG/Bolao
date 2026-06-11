@@ -1,17 +1,18 @@
-import { formatDateTime } from "@/lib/date";
+import type { CSSProperties } from "react";
 import { FINISHED_STATUSES } from "@/lib/constants";
+import { formatDateTime } from "@/lib/date";
 import { getLiveWorldCupData, type LiveMatch } from "@/services/worldcup-live.service";
 
 export const dynamic = "force-dynamic";
 
-const KNOCKOUT_ORDER = [
-  "32 avos",
-  "Oitavas",
-  "Quartas",
-  "Semifinal",
-  "Terceiro lugar",
-  "Final"
-];
+const BRACKET_STAGES = [
+  { name: "32 avos", topOffset: 0, gap: 12, tone: "open" },
+  { name: "Oitavas", topOffset: 34, gap: 26, tone: "mid" },
+  { name: "Quartas", topOffset: 86, gap: 52, tone: "mid" },
+  { name: "Semifinal", topOffset: 142, gap: 98, tone: "late" },
+  { name: "Terceiro lugar", topOffset: 42, gap: 18, tone: "placement" },
+  { name: "Final", topOffset: 188, gap: 18, tone: "late" }
+] as const;
 
 function getTeamLabel(match: LiveMatch, side: "home" | "away") {
   const payload = match.payload ?? {};
@@ -41,8 +42,8 @@ export default async function ChaveamentoPage() {
           <span className="eyebrow">Mata-mata</span>
           <h1>Chaveamento dinamico</h1>
           <p className="muted">
-            A estrutura abaixo acompanha as fases eliminatorias e deixa claro que o
-            placar exibido vem da fonte dinamica ao vivo.
+            Compactei o board em formato de bracket horizontal. Os placares e os
+            nomes das vagas seguem a fonte dinamica ao vivo.
           </p>
         </div>
       </section>
@@ -58,55 +59,87 @@ export default async function ChaveamentoPage() {
         </p>
       </section>
 
-      <div className="bracket-grid">
-        {KNOCKOUT_ORDER.map((stage) => {
-          const matches = knockoutMatches.filter((match) => match.stage === stage);
+      <section className="bracket-board">
+        <div className="bracket-grid">
+          {BRACKET_STAGES.map((stage, stageIndex) => {
+            const matches = knockoutMatches.filter((match) => match.stage === stage.name);
 
-          return (
-            <section key={stage} className="card bracket-stage">
-              <div className="bracket-stage__header">
-                <span className="eyebrow">{stage}</span>
-                <strong>{matches.length} jogos</strong>
-              </div>
+            return (
+              <section
+                key={stage.name}
+                className={`bracket-stage bracket-stage--${stage.tone}`}
+              >
+                <div className="bracket-stage__header">
+                  <span className="eyebrow">{stage.name}</span>
+                  <strong>{matches.length} jogos</strong>
+                </div>
 
-              <div className="knockout-list">
-                {matches.length > 0 ? (
-                  matches.map((match) => (
-                    <article key={match.external_id} className="knockout-match">
-                      <div className="knockout-match__meta">
-                        <span className={`badge ${match.status === "LIVE" ? "" : "warning"}`}>
-                          {getStatusLabel(match)}
-                        </span>
+                <div
+                  className="knockout-list"
+                  style={{
+                    marginTop: `${stage.topOffset}px`,
+                    gap: `${stage.gap}px`
+                  }}
+                >
+                  {matches.length > 0 ? (
+                    matches.map((match, matchIndex) => (
+                      <article
+                        key={match.external_id}
+                        className={`knockout-match ${
+                          stageIndex < BRACKET_STAGES.length - 1 ? "connected" : ""
+                        }`}
+                        style={
+                          {
+                            "--connector-tone":
+                              match.status === "LIVE"
+                                ? "rgba(46, 194, 126, 0.55)"
+                                : "rgba(151, 166, 186, 0.18)"
+                          } as CSSProperties
+                        }
+                      >
+                        <div className="knockout-match__meta">
+                          <span
+                            className={`badge ${
+                              match.status === "LIVE"
+                                ? ""
+                                : FINISHED_STATUSES.has(match.status)
+                                  ? "warning"
+                                  : ""
+                            }`}
+                          >
+                            {getStatusLabel(match)}
+                          </span>
+                          {matchIndex % 2 === 0 ? (
+                            <span className="graph-dot" aria-hidden="true" />
+                          ) : null}
+                        </div>
+
                         {match.venue_name ? (
-                          <span className="muted">
+                          <p className="muted bracket-venue">
                             {match.venue_name}
                             {match.city_name ? ` - ${match.city_name}` : ""}
-                          </span>
+                          </p>
                         ) : null}
-                      </div>
 
-                      <div className="knockout-team-row">
-                        <span>{getTeamLabel(match, "home")}</span>
-                        <strong>
-                          {match.current_score_home ?? "-"}
-                        </strong>
-                      </div>
-                      <div className="knockout-team-row">
-                        <span>{getTeamLabel(match, "away")}</span>
-                        <strong>
-                          {match.current_score_away ?? "-"}
-                        </strong>
-                      </div>
-                    </article>
-                  ))
-                ) : (
-                  <p className="muted">Nenhum confronto desta fase foi publicado ainda.</p>
-                )}
-              </div>
-            </section>
-          );
-        })}
-      </div>
+                        <div className="knockout-team-row">
+                          <span>{getTeamLabel(match, "home")}</span>
+                          <strong>{match.current_score_home ?? "-"}</strong>
+                        </div>
+                        <div className="knockout-team-row">
+                          <span>{getTeamLabel(match, "away")}</span>
+                          <strong>{match.current_score_away ?? "-"}</strong>
+                        </div>
+                      </article>
+                    ))
+                  ) : (
+                    <p className="muted">Nenhum confronto desta fase foi publicado ainda.</p>
+                  )}
+                </div>
+              </section>
+            );
+          })}
+        </div>
+      </section>
     </main>
   );
 }

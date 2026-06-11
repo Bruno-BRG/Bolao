@@ -91,15 +91,8 @@ export async function saveTopFourAction(formData: FormData) {
 
   const row = await getOrCreatePredictionDocument(user.id);
   const document = normalizePredictionDocument(row.predictions);
-  const existing = document.topFour;
-  if (
-    existing &&
-    existing.first === input.first &&
-    existing.second === input.second &&
-    existing.third === input.third &&
-    existing.fourth === input.fourth
-  ) {
-    redirect("/top-4?saved=1&unchanged=1");
+  if (document.topFour) {
+    redirect("/top-4?error=Top 4 ja foi travado no primeiro envio e nao pode ser alterado.");
   }
 
   const now = new Date().toISOString();

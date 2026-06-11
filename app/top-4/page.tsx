@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export default async function TopFourPage({
   searchParams
 }: {
-  searchParams: Promise<{ error?: string; saved?: string; unchanged?: string }>;
+  searchParams: Promise<{ error?: string; saved?: string }>;
 }) {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
@@ -30,17 +30,13 @@ export default async function TopFourPage({
           <h1>Top 4 da Copa</h1>
           <p className="muted">
             Escolha campeao, vice, terceiro e quarto colocado. Essa aposta vale
-            mais pontos que os jogos individuais.
+            mais pontos que os jogos individuais e trava no primeiro envio.
           </p>
         </div>
       </section>
 
       {params.error ? <p className="error">{params.error}</p> : null}
-      {params.saved ? (
-        <p className="success">
-          {params.unchanged ? "Top 4 ja estava atualizado." : "Top 4 salvo."}
-        </p>
-      ) : null}
+      {params.saved ? <p className="success">Top 4 salvo e travado.</p> : null}
 
       <div className="top-four-grid">
         <section className="card top-four-points">

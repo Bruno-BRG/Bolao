@@ -30,6 +30,8 @@ type WorldCup26Game = {
   type: string;
 };
 
+type WorldCup26GameLike = Pick<WorldCup26Game, "local_date" | "stadium_id">;
+
 type WrappedResponse<T> = {
   games?: T[];
   teams?: T[];
@@ -125,7 +127,7 @@ function getTimeZoneOffsetMilliseconds(date: Date, timeZone: string) {
   return zonedAsUtc - date.getTime();
 }
 
-function parseLocalDate(value: string, stadiumId: string) {
+export function normalizeWorldCup26Kickoff(value: string, stadiumId: string) {
   const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/);
   if (!match) {
     throw new Error(`Invalid worldcup26 local_date format: ${value}`);
@@ -142,6 +144,24 @@ function parseLocalDate(value: string, stadiumId: string) {
   );
   const offset = getTimeZoneOffsetMilliseconds(utcGuess, timeZone);
   return new Date(utcGuess.getTime() - offset).toISOString();
+}
+
+export function hasWorldCup26TimezoneDrift(
+  startsAt: string,
+  payload: unknown
+): boolean {
+  if (!payload || typeof payload !== "object") return false;
+
+  const game = payload as Partial<WorldCup26GameLike>;
+  if (typeof game.local_date !== "string" || typeof game.stadium_id !== "string") {
+    return false;
+  }
+
+  try {
+    return normalizeWorldCup26Kickoff(game.local_date, game.stadium_id) !== startsAt;
+  } catch {
+    return false;
+  }
 }
 
 function mapStage(type: string, group: string) {
@@ -222,7 +242,7 @@ export async function syncWorldCupFromWorldCup26() {
       tournament_code: TOURNAMENT_CODE,
       home_team_id: homeTeamId,
       away_team_id: awayTeamId,
-      starts_at: parseLocalDate(game.local_date, game.stadium_id),
+      starts_at: normalizeWorldCup26Kickoff(game.local_date, game.stadium_id),
       stage: mapStage(game.type, game.group),
       group_name: game.type === "group" ? `Grupo ${game.group}` : null,
       status: mapStatus(game),

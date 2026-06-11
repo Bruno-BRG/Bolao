@@ -37,14 +37,30 @@ export function TopFourForm({
   prediction: TopFourPrediction | null;
 }) {
   return (
-    <form className="card form" action={saveTopFourAction}>
-      <SelectTeam label="Campeao" name="first" teams={teams} value={prediction?.first} />
-      <SelectTeam label="Vice" name="second" teams={teams} value={prediction?.second} />
-      <SelectTeam label="Terceiro" name="third" teams={teams} value={prediction?.third} />
-      <SelectTeam label="Quarto" name="fourth" teams={teams} value={prediction?.fourth} />
+    <form className="card top-four-form" action={saveTopFourAction}>
+      <div>
+        <span className="eyebrow">Seu bilhete especial</span>
+        <h2>Defina o Top 4</h2>
+        <p className="muted">
+          Escolha as selecoes nas quatro posicoes finais. Ajuste quantas vezes
+          precisar antes do fechamento.
+        </p>
+      </div>
+
+      <div className="top-four-fields">
+        <SelectTeam label="Campeao" name="first" teams={teams} value={prediction?.first} />
+        <SelectTeam label="Vice" name="second" teams={teams} value={prediction?.second} />
+        <SelectTeam label="Terceiro" name="third" teams={teams} value={prediction?.third} />
+        <SelectTeam label="Quarto" name="fourth" teams={teams} value={prediction?.fourth} />
+      </div>
+
       {prediction?.points !== null && prediction?.points !== undefined ? (
-        <p className="success">Pontuacao atual do Top 4: {prediction.points}</p>
+        <div className="top-four-score">
+          <span className="badge">{prediction.points} pts</span>
+          <span className="muted">Pontuacao atual do seu Top 4.</span>
+        </div>
       ) : null}
+
       <button className="button" type="submit">
         Salvar Top 4
       </button>

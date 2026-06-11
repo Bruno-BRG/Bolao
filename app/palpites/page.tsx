@@ -24,30 +24,40 @@ export default async function PalpitesPage({
   const document = normalizePredictionDocument(row.predictions);
   const hasSampleMatches =
     matches.length > 0 && matches.every((match) => match.external_id.startsWith("wc2026-"));
+  const savedMatches = Object.keys(document.matches).length;
 
   return (
     <main className="container">
-      <h1>Palpites dos jogos</h1>
-      <p className="muted">
-        Os palpites bloqueiam automaticamente no horario de inicio de cada jogo.
-      </p>
+      <section className="page-header">
+        <div>
+          <span className="eyebrow">Palpites por jogo</span>
+          <h1>Monte seus placares</h1>
+          <p className="muted">
+            Os palpites travam automaticamente no horario de inicio de cada partida.
+            Hoje voce ja salvou {savedMatches} jogos.
+          </p>
+        </div>
+        <div className="topbar-actions">
+          <span className="status-pill">{matches.length} jogos carregados</span>
+        </div>
+      </section>
+
       {params.error ? <p className="error">{params.error}</p> : null}
       {params.saved ? <p className="success">Palpite salvo.</p> : null}
       {hasSampleMatches ? (
         <p className="error">
-          O banco ainda esta com a grade mockada de exemplo. Rode a migration de limpeza e
-          depois o sync automatico para carregar a Copa real.
+          O banco ainda esta com a grade mockada de exemplo. Rode a migration de
+          limpeza e depois o sync automatico para carregar a Copa real.
         </p>
       ) : null}
       {latestSyncLog?.status === "error" ? (
         <p className="error">Erro no sync automatico: {latestSyncLog.message}</p>
       ) : null}
       {matches.length === 0 ? (
-        <p className="muted">
-          Nenhum jogo oficial foi sincronizado ainda.
-        </p>
+        <p className="muted">Nenhum jogo oficial foi sincronizado ainda.</p>
       ) : null}
-      <div className="grid">
+
+      <div className="match-list">
         {matches.map((match) => (
           <PredictionForm
             key={match.external_id}

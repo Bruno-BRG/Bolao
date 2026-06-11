@@ -22,9 +22,16 @@ export function RankingTable({ rows }: { rows: RankingRow[] }) {
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.userId}>
-              <td>{row.position}</td>
-              <td>{row.username}</td>
+            <tr
+              key={row.userId}
+              className={row.position <= 3 ? "rank-row-top" : undefined}
+            >
+              <td>
+                <span className="position-pill">{row.position}</span>
+              </td>
+              <td>
+                <strong>{row.username}</strong>
+              </td>
               <td>
                 <strong>{row.totalPoints}</strong>
               </td>

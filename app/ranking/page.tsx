@@ -1,5 +1,5 @@
 import { recalculateRankingAction } from "@/actions/admin.actions";
-import { RankingTable } from "@/components/RankingTable";
+import { RankingLiveBoard } from "@/components/RankingLiveBoard";
 import { getLatestRanking } from "@/services/ranking.service";
 
 export const dynamic = "force-dynamic";
@@ -10,14 +10,16 @@ export default async function RankingPage({
   searchParams: Promise<{ error?: string; recalculated?: string }>;
 }) {
   const params = await searchParams;
-  const rows = await getLatestRanking().catch(() => []);
+  const rows = await getLatestRanking({ refreshIfStale: true }).catch(() => []);
 
   return (
     <main className="container">
       <section className="page-header">
         <div>
           <h1>Ranking</h1>
-          <p className="muted">{rows.length} participantes.</p>
+          <p className="muted">
+            {rows.length} participantes. Atualiza sozinho a cada poucos segundos.
+          </p>
         </div>
       </section>
 
@@ -25,7 +27,7 @@ export default async function RankingPage({
       {params.recalculated ? <p className="success">Ranking recalculado.</p> : null}
 
       <section className="standings-card card">
-        <RankingTable rows={rows} />
+        <RankingLiveBoard initialRows={rows} />
       </section>
 
       <details className="card admin-details">

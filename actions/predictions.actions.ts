@@ -115,7 +115,7 @@ export async function saveMatchPredictionAction(input: {
 
     if (result.status === "unchanged") return { ok: true, unchanged: true };
     if (result.status === "locked") {
-      return { ok: false, error: "Palpite bloqueado: falta menos de 1 hora para o jogo." };
+      return { ok: false, error: "Palpite bloqueado: o jogo ja comecou." };
     }
     if (result.status === "unpredictable") {
       return { ok: false, error: "Confronto ainda nao liberado." };

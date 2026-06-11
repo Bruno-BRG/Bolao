@@ -36,7 +36,7 @@ export default async function PalpitesPage({
           <h1>Meus palpites</h1>
           <p className="muted">
             Preencha o placar de cada jogo. Salva sozinho quando os dois numeros estiverem
-            preenchidos. Fecha 1 hora antes do jogo.
+            preenchidos. Fecha na hora do jogo.
           </p>
         </div>
       </section>

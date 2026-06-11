@@ -83,10 +83,16 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
     );
   });
   const [rowStatus, setRowStatus] = useState<Record<string, RowStatus>>({});
+  const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
     savedBaseline.current = savedPredictions;
   }, [savedPredictions]);
+
+  useEffect(() => {
+    const timer = setInterval(() => setNow(Date.now()), 30_000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     if (draftsBootstrapped.current) return;
@@ -212,7 +218,7 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
 
           <div className="palpites-rows">
             {groupMatches.map((match) => {
-              const locked = isMatchLockedForPrediction(match);
+              const locked = isMatchLockedForPrediction(match, now);
               const saved = savedPredictions[match.external_id];
               const current = scores[match.external_id] ?? { homeGoals: "", awayGoals: "" };
               const homeName = getMatchTeamLabel(match, "home");

@@ -1,4 +1,4 @@
-import { TOURNAMENT_CODE } from "@/lib/constants";
+import { FINISHED_STATUSES, TOURNAMENT_CODE } from "@/lib/constants";
 import { getSupabaseAdmin } from "@/lib/supabase-server";
 import { listPredictionRows, updatePredictionDocument } from "@/repositories/predictions.repo";
 import { listMatches, listTeams } from "@/repositories/worldcup.repo";
@@ -68,7 +68,45 @@ export async function recalculateRanking() {
   return ranking;
 }
 
-export async function getLatestRanking(): Promise<RankingRow[]> {
+const RANKING_REFRESH_MAX_AGE_MS = Number(
+  process.env.RANKING_REFRESH_MAX_AGE_MINUTES ?? "2"
+) * 60 * 1000;
+
+async function shouldRefreshRanking() {
+  const supabase = getSupabaseAdmin();
+  const { data: latestSnapshot, error: snapshotError } = await supabase
+    .from("ranking_snapshots")
+    .select("generated_at")
+    .eq("tournament_code", TOURNAMENT_CODE)
+    .order("generated_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (snapshotError) throw snapshotError;
+  if (!latestSnapshot?.generated_at) return true;
+
+  const snapshotAt = new Date(latestSnapshot.generated_at).getTime();
+  if (Number.isNaN(snapshotAt)) return true;
+  if (Date.now() - snapshotAt > RANKING_REFRESH_MAX_AGE_MS) return true;
+
+  const { data: finishedMatches, error: matchesError } = await supabase
+    .from("matches_cache")
+    .select("updated_at, status")
+    .eq("tournament_code", TOURNAMENT_CODE);
+
+  if (matchesError) throw matchesError;
+
+  return (finishedMatches ?? []).some((match) => {
+    if (!FINISHED_STATUSES.has(String(match.status).toUpperCase())) return false;
+    return new Date(match.updated_at).getTime() > snapshotAt;
+  });
+}
+
+export async function getLatestRanking(options?: { refreshIfStale?: boolean }) {
+  if (options?.refreshIfStale && (await shouldRefreshRanking())) {
+    return recalculateRanking();
+  }
+
   const supabase = getSupabaseAdmin();
   const { data, error } = await supabase
     .from("ranking_snapshots")

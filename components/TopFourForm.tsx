@@ -40,7 +40,9 @@ function LockedRow({
     <article className="top-four-lock-row">
       <strong>{label}</strong>
       <div className="group-team-name">
-        {team?.flag_url ? <img src={team.flag_url} alt="" loading="lazy" /> : null}
+        {team?.flag_url ? (
+          <img className="flag-icon flag-icon--md" src={team.flag_url} alt="" loading="lazy" />
+        ) : null}
         <span>{team?.name ?? "Selecao nao encontrada"}</span>
       </div>
     </article>

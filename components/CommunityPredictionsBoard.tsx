@@ -32,7 +32,9 @@ function TopFourLine({
     <div className="community-top4__row">
       <span>{label}</span>
       <div className="community-top4__team">
-        {team?.flag_url ? <img src={team.flag_url} alt="" loading="lazy" /> : null}
+        {team?.flag_url ? (
+          <img className="flag-icon flag-icon--sm" src={team.flag_url} alt="" loading="lazy" />
+        ) : null}
         <strong>{team?.name ?? "—"}</strong>
       </div>
     </div>

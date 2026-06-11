@@ -249,7 +249,12 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
                     <div className="palpite-row__match">
                       <div className="palpite-row__team">
                         {match.home_team?.flag_url ? (
-                          <img src={match.home_team.flag_url} alt="" loading="lazy" />
+                          <img
+                            className="flag-icon flag-icon--sm"
+                            src={match.home_team.flag_url}
+                            alt=""
+                            loading="lazy"
+                          />
                         ) : (
                           <span className="palpite-row__shield" aria-hidden="true" />
                         )}
@@ -286,7 +291,12 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
 
                       <div className="palpite-row__team palpite-row__team--away">
                         {match.away_team?.flag_url ? (
-                          <img src={match.away_team.flag_url} alt="" loading="lazy" />
+                          <img
+                            className="flag-icon flag-icon--sm"
+                            src={match.away_team.flag_url}
+                            alt=""
+                            loading="lazy"
+                          />
                         ) : (
                           <span className="palpite-row__shield" aria-hidden="true" />
                         )}

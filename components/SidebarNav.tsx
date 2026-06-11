@@ -14,7 +14,13 @@ type SidebarSection = {
   items: SidebarItem[];
 };
 
-export function SidebarNav({ sections }: { sections: SidebarSection[] }) {
+export function SidebarNav({
+  sections,
+  onNavigate
+}: {
+  sections: SidebarSection[];
+  onNavigate?: () => void;
+}) {
   const pathname = usePathname();
 
   return (
@@ -33,6 +39,7 @@ export function SidebarNav({ sections }: { sections: SidebarSection[] }) {
                     isActive ? "active" : ""
                   }`}
                   href={link.href}
+                  onClick={onNavigate}
                 >
                   {link.label}
                 </Link>

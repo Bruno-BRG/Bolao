@@ -186,6 +186,42 @@ img {
   margin-top: auto;
 }
 
+.sidebar-header {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.sidebar-toggle {
+  background: #ffffff;
+  border: 2px solid var(--line-strong);
+  border-radius: 12px;
+  color: var(--foreground);
+  cursor: pointer;
+  display: none;
+  font-size: 1rem;
+  font-weight: 700;
+  min-height: 48px;
+  min-width: 88px;
+  padding: 0 16px;
+}
+
+.sidebar-collapsible {
+  display: grid;
+  gap: 20px;
+}
+
+.sidebar-backdrop {
+  background: rgba(0, 0, 0, 0.35);
+  border: 0;
+  cursor: pointer;
+  display: none;
+  inset: 0;
+  position: fixed;
+  z-index: 40;
+}
+
 .sidebar-user {
   align-items: center;
   background: var(--surface-soft);
@@ -781,11 +817,34 @@ tbody tr:hover {
 }
 
 .team img,
+.flag-icon {
+  background: #e4e4e4;
+  border: none;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
+  display: block;
+  object-fit: cover;
+}
+
+.team img {
+  height: 34px;
+  width: 48px;
+}
+
+.flag-icon--sm {
+  height: 20px;
+  width: 28px;
+}
+
+.flag-icon--md {
+  height: 24px;
+  width: 34px;
+}
+
 .team-avatar {
   border: 1px solid var(--line);
   border-radius: 10px;
   height: 34px;
-  object-fit: cover;
   width: 48px;
 }
 
@@ -965,9 +1024,12 @@ tbody tr:hover {
 
 .team-chip img,
 .group-team-name img {
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  background: #e4e4e4;
+  border: none;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
   height: 24px;
+  object-fit: cover;
   width: 34px;
 }
 
@@ -1011,10 +1073,11 @@ tbody tr:hover {
 }
 
 .bracket-match {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
   box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   display: grid;
   gap: 6px;
   height: 100%;
@@ -1023,7 +1086,8 @@ tbody tr:hover {
 }
 
 .bracket-match--live {
-  border-color: rgba(46, 194, 126, 0.45);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px rgba(21, 101, 192, 0.15);
 }
 
 .bracket-match--done {
@@ -1044,7 +1108,7 @@ tbody tr:hover {
 }
 
 .bracket-match__tag {
-  color: #ffd58a;
+  color: var(--accent);
   font-size: 0.66rem;
   font-weight: 700;
   line-height: 1;
@@ -1058,7 +1122,10 @@ tbody tr:hover {
 }
 
 .bracket-match__shield {
-  border-radius: 4px;
+  background: #e4e4e4;
+  border: none;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
   display: block;
   height: 18px;
   object-fit: cover;
@@ -1067,10 +1134,11 @@ tbody tr:hover {
 
 .bracket-match__shield--empty {
   align-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  color: rgba(255, 255, 255, 0.28);
+  background: #ececec;
+  border: none;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
+  color: #888888;
   display: inline-flex;
   height: 18px;
   justify-content: center;
@@ -1202,15 +1270,24 @@ tbody tr:hover {
 
 .palpite-row__team img,
 .palpite-row__shield {
-  border-radius: 4px;
   flex: 0 0 auto;
   height: 20px;
   width: 28px;
 }
 
+.palpite-row__team img {
+  background: #e4e4e4;
+  border: none;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
+  object-fit: cover;
+}
+
 .palpite-row__shield {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ececec;
+  border: none;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
   display: inline-block;
 }
 
@@ -1341,8 +1418,12 @@ tbody tr:hover {
 }
 
 .community-top4__team img {
+  background: #e4e4e4;
+  border: none;
   border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
   height: 18px;
+  object-fit: cover;
   width: 26px;
 }
 
@@ -1418,11 +1499,6 @@ tbody tr:hover {
     grid-template-columns: 1fr;
   }
 
-  .sidebar-panel {
-    min-height: auto;
-    position: static;
-  }
-
   .spotlight,
   .top-four-grid,
   .login-shell,
@@ -1434,7 +1510,55 @@ tbody tr:hover {
 
 @media (max-width: 860px) {
   .app-shell {
-    padding: 16px;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 12px;
+    z-index: 50;
+  }
+
+  .sidebar-panel {
+    gap: 0;
+    min-height: auto;
+    padding: 12px;
+    position: static;
+  }
+
+  .sidebar-toggle {
+    display: inline-flex;
+  }
+
+  .sidebar-brand {
+    min-width: 0;
+  }
+
+  .sidebar-brand strong {
+    font-size: 1rem;
+  }
+
+  .sidebar-collapsible {
+    display: none;
+  }
+
+  .app-shell--menu-open .sidebar-collapsible {
+    border-top: 1px solid var(--line);
+    display: grid;
+    gap: 16px;
+    margin-top: 12px;
+    max-height: calc(100vh - 120px);
+    overflow: auto;
+    padding-top: 12px;
+  }
+
+  .app-shell--menu-open .sidebar-backdrop {
+    display: block;
+  }
+
+  .sidebar-footer {
+    margin-top: 0;
   }
 
   .topbar,
@@ -1444,6 +1568,10 @@ tbody tr:hover {
   .sidebar-user {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .page-header h1 {
+    font-size: 1.75rem;
   }
 
   .grid.two,
@@ -1463,16 +1591,58 @@ tbody tr:hover {
   .match-card__body,
   .leaderboard-item,
   .live-item,
-  .palpite-row__match,
   .community-board,
   .community-top4__grid,
   .community-match-row {
     grid-template-columns: 1fr;
   }
 
+  .palpite-row {
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .palpite-row__match {
+    gap: 14px;
+    grid-template-columns: 1fr;
+  }
+
+  .palpite-row__team,
+  .palpite-row__team--away {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .palpite-row__team span {
+    font-size: 1.1rem;
+    white-space: normal;
+  }
+
+  .palpite-row__score {
+    justify-content: center;
+    padding: 4px 0 8px;
+  }
+
+  .palpite-row__score input {
+    font-size: 1.4rem;
+    height: 58px;
+    width: 72px;
+  }
+
   .palpites-savebar {
-    left: 16px;
-    right: 16px;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .palpites-savebar .button {
+    width: 100%;
+  }
+
+  .container--palpites {
+    padding-bottom: 140px;
   }
 
   .community-match-row {
@@ -1482,6 +1652,15 @@ tbody tr:hover {
 
   .score-inputs {
     justify-content: center;
+  }
+
+  .action-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .action-card .button {
+    width: 100%;
   }
 }
 

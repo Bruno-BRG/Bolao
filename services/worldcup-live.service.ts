@@ -1,4 +1,5 @@
 import { FINISHED_STATUSES } from "@/lib/constants";
+import { getTeamDisplayName } from "@/lib/team-names-pt";
 import type { Match, Team } from "@/types/domain";
 import {
   mapWorldCup26Stage,
@@ -189,7 +190,11 @@ export async function getLiveWorldCupData() {
     external_id: team.id,
     fifa_code: team.fifa_code ?? null,
     iso2: team.iso2?.toLowerCase?.() ?? null,
-    name: team.name_en,
+    name: getTeamDisplayName({
+      name: team.name_en,
+      iso2: team.iso2?.toLowerCase?.() ?? null,
+      fifa_code: team.fifa_code ?? null
+    }),
     flag_url: team.flag ?? null,
     payload: team
   }));

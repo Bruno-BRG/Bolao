@@ -1,5 +1,6 @@
 import { TOURNAMENT_CODE } from "@/lib/constants";
 import { getSupabaseAdmin } from "@/lib/supabase-server";
+import { getTeamDisplayName } from "@/lib/team-names-pt";
 
 type WorldCup26Team = {
   fifa_code: string;
@@ -211,7 +212,11 @@ export async function syncWorldCupFromWorldCup26() {
     external_id: team.id,
     fifa_code: team.fifa_code ?? null,
     iso2: team.iso2?.toLowerCase?.() ?? null,
-    name: team.name_en,
+    name: getTeamDisplayName({
+      name: team.name_en,
+      iso2: team.iso2?.toLowerCase?.() ?? null,
+      fifa_code: team.fifa_code ?? null
+    }),
     flag_url: team.flag ?? null,
     payload: team,
     updated_at: new Date().toISOString()

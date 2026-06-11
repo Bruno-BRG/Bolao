@@ -1,5 +1,6 @@
 import { TOURNAMENT_CODE } from "@/lib/constants";
 import { getSupabaseAdmin } from "@/lib/supabase-server";
+import { getTeamDisplayName } from "@/lib/team-names-pt";
 
 type ApiFootballResponse<T> = {
   errors?: Record<string, string>;
@@ -175,7 +176,11 @@ export async function syncWorldCupFromApiFootball() {
     external_id: String(team.id),
     fifa_code: team.code,
     iso2: normalizeIso2(team.country),
-    name: team.name,
+    name: getTeamDisplayName({
+      name: team.name,
+      iso2: normalizeIso2(team.country),
+      fifa_code: team.code
+    }),
     flag_url: team.logo,
     payload: team,
     updated_at: new Date().toISOString()

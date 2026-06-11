@@ -1,5 +1,6 @@
 import { TOURNAMENT_CODE } from "@/lib/constants";
 import { getSupabaseAdmin } from "@/lib/supabase-server";
+import { localizeTeam } from "@/lib/team-names-pt";
 import {
   ensureWorldCupData,
   getWorldCupProvider
@@ -14,7 +15,10 @@ export async function listTeams(): Promise<Team[]> {
     .order("name");
 
   if (error) throw error;
-  return (data ?? []) as Team[];
+
+  return ((data ?? []) as Team[])
+    .map(localizeTeam)
+    .sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
 }
 
 export async function listMatches(options?: {

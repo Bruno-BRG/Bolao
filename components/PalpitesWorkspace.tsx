@@ -146,13 +146,6 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
     }, 0);
   }, [matches, savedPredictions, scores]);
 
-  const filledCount = useMemo(() => {
-    return matches.filter((match) => {
-      const current = scores[match.external_id];
-      return parseScore(current?.homeGoals ?? "") !== null && parseScore(current?.awayGoals ?? "") !== null;
-    }).length;
-  }, [matches, scores]);
-
   function updateScore(matchId: string, side: "homeGoals" | "awayGoals", value: string) {
     setScores((current) => {
       const nextScore = {
@@ -206,11 +199,14 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
 
   return (
     <>
-      <div className="palpites-summary">
-        <span>{filledCount} preenchidos</span>
-        <span>{Object.keys(savedPredictions).length} salvos no servidor</span>
-        {pendingCount > 0 ? <span className="palpites-summary__pending">{pendingCount} para salvar</span> : null}
-      </div>
+      {pendingCount > 0 ? (
+        <p className="palpites-summary">
+          <span className="palpites-summary__pending">
+            {pendingCount} jogo{pendingCount === 1 ? "" : "s"} pronto
+            {pendingCount === 1 ? "" : "s"} para salvar
+          </span>
+        </p>
+      ) : null}
 
       {bulkState.error ? <p className="error">{bulkState.error}</p> : null}
       {bulkState.ok && bulkState.saved > 0 ? (
@@ -306,21 +302,18 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
       </div>
 
       <div className="palpites-savebar">
-        <div>
-          <strong>
-            {pendingCount > 0
-              ? `${pendingCount} alteracao${pendingCount === 1 ? "" : "es"} pronta${pendingCount === 1 ? "" : "s"}`
-              : "Tudo sincronizado"}
-          </strong>
-          <p className="muted">Rascunhos ficam no navegador ate voce salvar.</p>
-        </div>
+        <strong>
+          {pendingCount > 0
+            ? `Salvar ${pendingCount} palpite${pendingCount === 1 ? "" : "s"}`
+            : "Nada novo para salvar"}
+        </strong>
         <button
           className="button"
           disabled={bulkPending || pendingCount === 0}
           onClick={handleSaveAll}
           type="button"
         >
-          {bulkPending ? "Salvando..." : `Salvar palpites${pendingCount > 0 ? ` (${pendingCount})` : ""}`}
+          {bulkPending ? "Salvando..." : "Salvar agora"}
         </button>
       </div>
     </>

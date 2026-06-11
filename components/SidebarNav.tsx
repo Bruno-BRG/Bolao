@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 type SidebarItem = {
   href: string;
   label: string;
+  prominent?: boolean;
 };
 
 type SidebarSection = {
@@ -28,7 +29,9 @@ export function SidebarNav({ sections }: { sections: SidebarSection[] }) {
               return (
                 <Link
                   key={link.href}
-                  className={`sidebar-link ${isActive ? "active" : ""}`}
+                  className={`sidebar-link ${link.prominent ? "sidebar-link--prominent" : ""} ${
+                    isActive ? "active" : ""
+                  }`}
                   href={link.href}
                 >
                   {link.label}

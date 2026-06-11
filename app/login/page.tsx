@@ -10,7 +10,7 @@ export default async function LoginPage({
   searchParams: Promise<{ error?: string }>;
 }) {
   const user = await getCurrentUser();
-  if (user) redirect("/dashboard");
+  if (user) redirect("/palpites");
 
   const params = await searchParams;
   return <AuthForms error={params.error} />;

@@ -9,24 +9,9 @@ export default async function SelecoesPage() {
     <main className="container">
       <section className="page-header">
         <div>
-          <span className="eyebrow">Selecoes e grupos</span>
-          <h1>Grupos, times e tabela de pontos</h1>
-          <p className="muted">
-            Esta pagina usa a tabela dinamica da fonte ao vivo para mostrar grupos,
-            pontos, saldo e gols em tempo real.
-          </p>
+          <h1>Grupos</h1>
+          <p className="muted">Tabela de pontos de cada grupo.</p>
         </div>
-      </section>
-
-      <section className="source-note">
-        <span className="badge">Fonte dinamica</span>
-        <p>
-          Tabelas de grupo vindas de{" "}
-          <a href={liveData.source.groupsUrl} target="_blank" rel="noreferrer">
-            {liveData.source.groupsUrl}
-          </a>
-          . O source atual nao expõe convocados, entao esta area foca nas selecoes e nos grupos.
-        </p>
       </section>
 
       <div className="selection-grid">

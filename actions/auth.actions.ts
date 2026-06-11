@@ -54,7 +54,7 @@ export async function registerAction(formData: FormData) {
     redirect(`/login?error=${encodeURIComponent((error as Error).message)}`);
   }
 
-  redirect("/dashboard");
+  redirect("/palpites");
 }
 
 export async function loginAction(formData: FormData) {
@@ -71,7 +71,7 @@ export async function loginAction(formData: FormData) {
     redirect(`/login?error=${encodeURIComponent((error as Error).message)}`);
   }
 
-  redirect("/dashboard");
+  redirect("/palpites");
 }
 
 export async function logoutAction() {

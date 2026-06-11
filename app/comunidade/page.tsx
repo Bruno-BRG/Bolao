@@ -60,11 +60,8 @@ export default async function ComunidadePage() {
     <main className="container">
       <section className="page-header">
         <div>
-          <span className="eyebrow">Bolao aberto</span>
           <h1>Palpites da galera</h1>
-          <p className="muted">
-            Veja o que cada participante ja salvou nos jogos e no Top 4.
-          </p>
+          <p className="muted">Escolha um participante para ver os palpites dele.</p>
         </div>
       </section>
 

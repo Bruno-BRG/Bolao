@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { TopFourForm } from "@/components/TopFourForm";
 import { getOrCreatePredictionDocument } from "@/repositories/predictions.repo";
@@ -23,54 +24,29 @@ export default async function TopFourPage({
   const document = normalizePredictionDocument(row.predictions);
 
   return (
-    <main className="container">
+    <main className="container container--narrow">
       <section className="page-header">
         <div>
-          <span className="eyebrow">Aposta premium</span>
-          <h1>Top 4 da Copa</h1>
+          <h1>Top 4</h1>
           <p className="muted">
-            Escolha campeao, vice, terceiro e quarto colocado. Essa aposta vale
-            mais pontos que os jogos individuais e trava no primeiro envio.
+            Escolha campeao, vice, terceiro e quarto. Depois de salvar, nao da para mudar.
           </p>
         </div>
+        <Link className="button secondary" href="/palpites">
+          Voltar aos palpites
+        </Link>
       </section>
 
       {params.error ? <p className="error">{params.error}</p> : null}
       {params.saved ? <p className="success">Top 4 salvo e travado.</p> : null}
 
-      <div className="top-four-grid">
-        <section className="card top-four-points">
-          <div>
-            <span className="eyebrow">Como pontua</span>
-            <h2>Onde vale mais</h2>
-          </div>
-          <article>
-            <h3>Posicao exata</h3>
-            <p className="muted">Cada colocacao cravada vale 10 pontos.</p>
-          </article>
-          <article>
-            <h3>Selecao no Top 4</h3>
-            <p className="muted">Mesmo fora da ordem certa, cada presenca oficial vale 5 pontos.</p>
-          </article>
-          <article>
-            <h3>Fechamento estrategico</h3>
-            <p className="muted">
-              Essa aposta costuma decidir desempates quando o grupo esta apertado.
-            </p>
-          </article>
+      {teams.length > 0 ? (
+        <TopFourForm teams={teams} prediction={document.topFour} />
+      ) : (
+        <section className="card">
+          <p className="muted">Selecoes ainda nao carregadas. Tente de novo em instantes.</p>
         </section>
-
-        {teams.length > 0 ? (
-          <TopFourForm teams={teams} prediction={document.topFour} />
-        ) : (
-          <section className="card">
-            <h2>Selecoes indisponiveis</h2>
-            <p className="muted">
-              Cadastre ou sincronize as selecoes antes de preencher o Top 4.
-            </p>
-          </section>
-        )}
-      </div>
+      )}
     </main>
   );
 }

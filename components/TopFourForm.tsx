@@ -17,7 +17,7 @@ function SelectTeam({
       <label htmlFor={name}>{label}</label>
       <select id={name} name={name} defaultValue={value ?? ""} required>
         <option value="" disabled>
-          Selecione
+          Selecione a selecao
         </option>
         {teams.map((team) => (
           <option key={team.external_id} value={team.external_id}>
@@ -38,10 +38,10 @@ function LockedRow({
 }) {
   return (
     <article className="top-four-lock-row">
-      <span className="eyebrow">{label}</span>
+      <strong>{label}</strong>
       <div className="group-team-name">
         {team?.flag_url ? <img src={team.flag_url} alt="" loading="lazy" /> : null}
-        <strong>{team?.name ?? "Selecao nao encontrada"}</strong>
+        <span>{team?.name ?? "Selecao nao encontrada"}</span>
       </div>
     </article>
   );
@@ -59,52 +59,31 @@ export function TopFourForm({
   if (prediction) {
     return (
       <section className="card top-four-lock-card">
-        <div>
-          <span className="eyebrow">Top 4 travado</span>
-          <h2>Seu bilhete foi fechado</h2>
-          <p className="muted">
-            Como essa aposta vale mais pontos, o Top 4 fica bloqueado assim que voce
-            salva pela primeira vez.
-          </p>
-        </div>
-
+        <h2>Seu Top 4 esta fechado</h2>
         <div className="top-four-lock-grid">
           <LockedRow label="Campeao" team={byId.get(prediction.first) ?? null} />
           <LockedRow label="Vice" team={byId.get(prediction.second) ?? null} />
           <LockedRow label="Terceiro" team={byId.get(prediction.third) ?? null} />
           <LockedRow label="Quarto" team={byId.get(prediction.fourth) ?? null} />
         </div>
-
-        <div className="top-four-score">
-          <span className="badge warning">Travado</span>
-          {prediction.points !== null && prediction.points !== undefined ? (
-            <span className="badge">{prediction.points} pts</span>
-          ) : null}
-        </div>
+        {prediction.points !== null && prediction.points !== undefined ? (
+          <p className="muted">{prediction.points} pontos ate agora.</p>
+        ) : null}
       </section>
     );
   }
 
   return (
     <form className="card top-four-form" action={saveTopFourAction}>
-      <div>
-        <span className="eyebrow">Seu bilhete especial</span>
-        <h2>Defina o Top 4</h2>
-        <p className="muted">
-          Escolha as selecoes nas quatro posicoes finais. Depois do primeiro envio,
-          esse bilhete fica travado sem edicao.
-        </p>
-      </div>
-
       <div className="top-four-fields">
         <SelectTeam label="Campeao" name="first" teams={teams} />
-        <SelectTeam label="Vice" name="second" teams={teams} />
-        <SelectTeam label="Terceiro" name="third" teams={teams} />
-        <SelectTeam label="Quarto" name="fourth" teams={teams} />
+        <SelectTeam label="Vice-campeao" name="second" teams={teams} />
+        <SelectTeam label="Terceiro lugar" name="third" teams={teams} />
+        <SelectTeam label="Quarto lugar" name="fourth" teams={teams} />
       </div>
 
       <button className="button" type="submit">
-        Salvar e travar Top 4
+        Salvar Top 4
       </button>
     </form>
   );

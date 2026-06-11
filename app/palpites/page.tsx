@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { PalpitesWorkspace } from "@/components/PalpitesWorkspace";
 import { shouldShowMatchInPalpites } from "@/lib/match-visibility";
@@ -26,33 +27,33 @@ export default async function PalpitesPage({
   const visibleMatches = matches.filter((match) =>
     shouldShowMatchInPalpites(match, savedMatchIds)
   );
-  const hiddenCount = matches.length - visibleMatches.length;
+  const hasTopFour = Boolean(document.topFour);
 
   return (
     <main className="container container--palpites">
       <section className="page-header">
         <div>
-          <span className="eyebrow">Seus palpites</span>
-          <h1>Placares</h1>
-          <p className="muted">
-            Preencha com calma. Os rascunhos ficam salvos no navegador ate voce
-            clicar em salvar.
-          </p>
+          <h1>Meus palpites</h1>
+          <p className="muted">Preencha o placar de cada jogo e clique em salvar no final.</p>
         </div>
       </section>
+
+      {!hasTopFour ? (
+        <section className="card action-card">
+          <div>
+            <h2>Faca tambem seu Top 4</h2>
+            <p className="muted">Campeao, vice, terceiro e quarto. Vale mais pontos.</p>
+          </div>
+          <Link className="button" href="/top-4">
+            Ir para o Top 4
+          </Link>
+        </section>
+      ) : null}
 
       {params.error ? <p className="error">{params.error}</p> : null}
       {params.saved ? (
         <p className="success">
-          {params.unchanged ? "Palpite ja estava salvo." : "Palpite salvo."}
-        </p>
-      ) : null}
-
-      {hiddenCount > 0 ? (
-        <p className="muted palpites-note">
-          {hiddenCount} jogo{hiddenCount === 1 ? "" : "s"} de mata-mata ainda sem
-          confronto definido. Eles aparecem aqui quando as selecoes forem
-          conhecidas.
+          {params.unchanged ? "Palpite ja estava salvo." : "Palpites salvos com sucesso."}
         </p>
       ) : null}
 

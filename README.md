@@ -36,10 +36,11 @@ Rode as migrations em `supabase/migrations` no Supabase antes do deploy:
 
 1. `202606110001_initial_schema.sql`
 2. `202606110002_seed_sample_worldcup_data.sql`
+3. `202606110003_remove_sample_worldcup_data.sql`
 
-A segunda migration cria dados de exemplo para validar a UI. Em producao, rode
-o sync da API-Football logo depois para substituir esse mock em
-`teams_cache` e `matches_cache`.
+As migrations `2` e `3` existem por legado do setup inicial. A `3` apaga os
+dados mockados da Copa. Depois disso, rode o sync da API-Football para preencher
+`teams_cache` e `matches_cache` com a grade real.
 
 ## Pontuacao
 

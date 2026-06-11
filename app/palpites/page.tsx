@@ -21,6 +21,8 @@ export default async function PalpitesPage({
     listMatches()
   ]);
   const document = normalizePredictionDocument(row.predictions);
+  const hasSampleMatches =
+    matches.length > 0 && matches.every((match) => match.external_id.startsWith("wc2026-"));
 
   return (
     <main className="container">
@@ -30,6 +32,17 @@ export default async function PalpitesPage({
       </p>
       {params.error ? <p className="error">{params.error}</p> : null}
       {params.saved ? <p className="success">Palpite salvo.</p> : null}
+      {hasSampleMatches ? (
+        <p className="error">
+          O banco ainda esta com a grade mockada de exemplo. Rode a migration de limpeza e
+          depois o sync da API-Football para carregar a Copa real.
+        </p>
+      ) : null}
+      {matches.length === 0 ? (
+        <p className="muted">
+          Nenhum jogo oficial foi sincronizado ainda. Rode o endpoint de sync da API-Football.
+        </p>
+      ) : null}
       <div className="grid">
         {matches.map((match) => (
           <PredictionForm

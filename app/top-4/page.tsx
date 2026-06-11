@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export default async function TopFourPage({
   searchParams
 }: {
-  searchParams: Promise<{ error?: string; saved?: string }>;
+  searchParams: Promise<{ error?: string; saved?: string; unchanged?: string }>;
 }) {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
@@ -36,7 +36,11 @@ export default async function TopFourPage({
       </section>
 
       {params.error ? <p className="error">{params.error}</p> : null}
-      {params.saved ? <p className="success">Top 4 salvo.</p> : null}
+      {params.saved ? (
+        <p className="success">
+          {params.unchanged ? "Top 4 ja estava atualizado." : "Top 4 salvo."}
+        </p>
+      ) : null}
 
       <div className="top-four-grid">
         <section className="card top-four-points">

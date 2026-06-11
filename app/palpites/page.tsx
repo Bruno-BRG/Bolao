@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export default async function PalpitesPage({
   searchParams
 }: {
-  searchParams: Promise<{ error?: string; saved?: string }>;
+  searchParams: Promise<{ error?: string; saved?: string; unchanged?: string }>;
 }) {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
@@ -43,7 +43,11 @@ export default async function PalpitesPage({
       </section>
 
       {params.error ? <p className="error">{params.error}</p> : null}
-      {params.saved ? <p className="success">Palpite salvo.</p> : null}
+      {params.saved ? (
+        <p className="success">
+          {params.unchanged ? "Palpite ja estava atualizado." : "Palpite salvo."}
+        </p>
+      ) : null}
       {hasSampleMatches ? (
         <p className="error">
           O banco ainda esta com a grade mockada de exemplo. Rode a migration de

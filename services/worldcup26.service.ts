@@ -164,7 +164,7 @@ export function hasWorldCup26TimezoneDrift(
   }
 }
 
-function mapStage(type: string, group: string) {
+export function mapWorldCup26Stage(type: string, group: string) {
   switch (type) {
     case "group":
       return "Grupos";
@@ -185,7 +185,7 @@ function mapStage(type: string, group: string) {
   }
 }
 
-function mapStatus(game: WorldCup26Game) {
+export function mapWorldCup26Status(game: Pick<WorldCup26Game, "finished" | "time_elapsed">) {
   if (game.finished === "TRUE") return "FINISHED";
   if (game.time_elapsed && game.time_elapsed !== "notstarted") return "LIVE";
   return "SCHEDULED";
@@ -243,9 +243,9 @@ export async function syncWorldCupFromWorldCup26() {
       home_team_id: homeTeamId,
       away_team_id: awayTeamId,
       starts_at: normalizeWorldCup26Kickoff(game.local_date, game.stadium_id),
-      stage: mapStage(game.type, game.group),
+      stage: mapWorldCup26Stage(game.type, game.group),
       group_name: game.type === "group" ? `Grupo ${game.group}` : null,
-      status: mapStatus(game),
+      status: mapWorldCup26Status(game),
       score_home: parseScore(game.home_score, finished),
       score_away: parseScore(game.away_score, finished),
       payload: game,

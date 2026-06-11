@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { savePredictionAction } from "@/actions/predictions.actions";
 import { LOCKED_STATUSES } from "@/lib/constants";
 import { formatDateTime } from "@/lib/date";
@@ -50,6 +53,8 @@ export function PredictionForm({
   const awayName = match.away_team?.name ?? awayLabel ?? "A definir";
   const stageLabel =
     [match.stage ?? "Fase", match.group_name].filter(Boolean).join(" - ") || "Fase";
+  const hasPrediction = Boolean(prediction);
+  const [isEditing, setIsEditing] = useState(!hasPrediction);
 
   return (
     <form className="match-card" action={savePredictionAction}>
@@ -72,30 +77,38 @@ export function PredictionForm({
         </div>
 
         <div className="match-card__score">
-          <strong>Seu placar</strong>
-          <div className="score-inputs">
-            <input
-              aria-label={`Gols de ${homeName}`}
-              defaultValue={prediction?.homeGoals ?? ""}
-              disabled={locked}
-              max={30}
-              min={0}
-              name="homeGoals"
-              required
-              type="number"
-            />
-            <span>x</span>
-            <input
-              aria-label={`Gols de ${awayName}`}
-              defaultValue={prediction?.awayGoals ?? ""}
-              disabled={locked}
-              max={30}
-              min={0}
-              name="awayGoals"
-              required
-              type="number"
-            />
-          </div>
+          <strong>{hasPrediction && !isEditing ? "Palpite salvo" : "Seu placar"}</strong>
+          {hasPrediction && !isEditing ? (
+            <div className="saved-score">
+              <span>{prediction?.homeGoals}</span>
+              <strong>x</strong>
+              <span>{prediction?.awayGoals}</span>
+            </div>
+          ) : (
+            <div className="score-inputs">
+              <input
+                aria-label={`Gols de ${homeName}`}
+                defaultValue={prediction?.homeGoals ?? ""}
+                disabled={locked}
+                max={30}
+                min={0}
+                name="homeGoals"
+                required
+                type="number"
+              />
+              <span>x</span>
+              <input
+                aria-label={`Gols de ${awayName}`}
+                defaultValue={prediction?.awayGoals ?? ""}
+                disabled={locked}
+                max={30}
+                min={0}
+                name="awayGoals"
+                required
+                type="number"
+              />
+            </div>
+          )}
         </div>
 
         <div className="team-block">
@@ -114,10 +127,37 @@ export function PredictionForm({
           {prediction?.points !== null && prediction?.points !== undefined ? (
             <p className="badge">{prediction.points} pts</p>
           ) : null}
+          {prediction?.savedAt ? (
+            <p className="muted">Ultima edicao: {formatDateTime(prediction.savedAt)}</p>
+          ) : null}
         </div>
-        <button className="button" disabled={locked} type="submit">
-          Salvar palpite
-        </button>
+
+        {!locked ? (
+          hasPrediction && !isEditing ? (
+            <button
+              className="button secondary"
+              onClick={() => setIsEditing(true)}
+              type="button"
+            >
+              Editar palpite
+            </button>
+          ) : (
+            <div className="inline-actions">
+              {hasPrediction ? (
+                <button
+                  className="button ghost"
+                  onClick={() => setIsEditing(false)}
+                  type="button"
+                >
+                  Cancelar
+                </button>
+              ) : null}
+              <button className="button" disabled={locked} type="submit">
+                {hasPrediction ? "Salvar alteracao" : "Salvar palpite"}
+              </button>
+            </div>
+          )
+        ) : null}
       </div>
     </form>
   );

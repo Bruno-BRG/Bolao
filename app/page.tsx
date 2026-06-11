@@ -1,12 +1,75 @@
 import Link from "next/link";
+import { formatDateTime } from "@/lib/date";
 import { getLatestRanking } from "@/services/ranking.service";
+import {
+  getLiveFeedHighlights,
+  getLiveWorldCupData,
+  type LiveMatch
+} from "@/services/worldcup-live.service";
 
 export const dynamic = "force-dynamic";
 
+function getTeamLabel(match: LiveMatch, side: "home" | "away") {
+  const payload = match.payload ?? {};
+  const team = side === "home" ? match.home_team : match.away_team;
+  const labelKey = side === "home" ? "home_team_label" : "away_team_label";
+  const fallback = typeof payload[labelKey] === "string" ? payload[labelKey] : null;
+  return team?.name ?? fallback ?? "A definir";
+}
+
+function MatchStatusCard({
+  title,
+  match,
+  variant
+}: {
+  title: string;
+  match: LiveMatch | null;
+  variant: "latest" | "next";
+}) {
+  if (!match) {
+    return (
+      <section className="card feed-card">
+        <span className="eyebrow">{title}</span>
+        <h2>Aguardando agenda</h2>
+        <p className="muted">Ainda nao ha jogo suficiente para preencher este bloco.</p>
+      </section>
+    );
+  }
+
+  const home = getTeamLabel(match, "home");
+  const away = getTeamLabel(match, "away");
+
+  return (
+    <section className="card feed-card">
+      <span className="eyebrow">{title}</span>
+      <h2>
+        {home} x {away}
+      </h2>
+      <p className="muted">{formatDateTime(match.starts_at)}</p>
+      {variant === "latest" ? (
+        <strong className="scoreline">
+          {match.current_score_home ?? "-"} x {match.current_score_away ?? "-"}
+        </strong>
+      ) : (
+        <p className="muted">
+          {match.venue_name}
+          {match.city_name ? ` - ${match.city_name}` : ""}
+        </p>
+      )}
+    </section>
+  );
+}
+
 export default async function HomePage() {
-  const ranking = await getLatestRanking().catch(() => []);
+  const [ranking, liveData] = await Promise.all([
+    getLatestRanking().catch(() => []),
+    getLiveWorldCupData().catch(() => null)
+  ]);
   const leader = ranking[0];
   const contenders = ranking.slice(0, 5);
+  const highlights = liveData
+    ? getLiveFeedHighlights(liveData.matches)
+    : { liveMatches: [], latestMatch: null, nextMatch: null };
 
   return (
     <main className="container">
@@ -58,6 +121,55 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <section className="source-note">
+        <span className="badge">Fonte dinamica</span>
+        <p>
+          Jogos ao vivo e grupos abaixo puxam direto de{" "}
+          <a href={liveData?.source.gamesUrl ?? "#"} target="_blank" rel="noreferrer">
+            {liveData?.source.label ?? "worldcup26.ir"}
+          </a>
+          .
+        </p>
+      </section>
+
+      <div className="overview-grid">
+        <MatchStatusCard
+          title="Ultimo jogo encerrado"
+          match={highlights.latestMatch}
+          variant="latest"
+        />
+        <MatchStatusCard
+          title="Proximo jogo"
+          match={highlights.nextMatch}
+          variant="next"
+        />
+        <section className="card feed-card">
+          <span className="eyebrow">Placar ao vivo</span>
+          <h2>{highlights.liveMatches.length} jogo(s) em andamento</h2>
+          {highlights.liveMatches.length > 0 ? (
+            <div className="live-list">
+              {highlights.liveMatches.slice(0, 3).map((match) => (
+                <article key={match.external_id} className="live-item">
+                  <div>
+                    <strong>
+                      {getTeamLabel(match, "home")} x {getTeamLabel(match, "away")}
+                    </strong>
+                    <span className="muted">
+                      {match.minute_label ? `${match.minute_label} min` : "Ao vivo"}
+                    </span>
+                  </div>
+                  <strong className="scoreline">
+                    {match.current_score_home ?? "-"} x {match.current_score_away ?? "-"}
+                  </strong>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="muted">Sem partida em andamento neste momento.</p>
+          )}
+        </section>
+      </div>
 
       <div className="grid two">
         <section className="card leader-card">

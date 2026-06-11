@@ -46,6 +46,15 @@ export async function savePredictionAction(formData: FormData) {
 
   const row = await getOrCreatePredictionDocument(user.id);
   const document = normalizePredictionDocument(row.predictions);
+  const existing = document.matches[input.matchId];
+  if (
+    existing &&
+    existing.homeGoals === input.homeGoals &&
+    existing.awayGoals === input.awayGoals
+  ) {
+    redirect("/palpites?saved=1&unchanged=1");
+  }
+
   const now = new Date().toISOString();
   document.updatedAt = now;
   document.matches[input.matchId] = {
@@ -82,6 +91,17 @@ export async function saveTopFourAction(formData: FormData) {
 
   const row = await getOrCreatePredictionDocument(user.id);
   const document = normalizePredictionDocument(row.predictions);
+  const existing = document.topFour;
+  if (
+    existing &&
+    existing.first === input.first &&
+    existing.second === input.second &&
+    existing.third === input.third &&
+    existing.fourth === input.fourth
+  ) {
+    redirect("/top-4?saved=1&unchanged=1");
+  }
+
   const now = new Date().toISOString();
   document.updatedAt = now;
   document.topFour = {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { logoutAction } from "@/actions/auth.actions";
+import { SidebarNav } from "@/components/SidebarNav";
 import { getCurrentUser } from "@/services/auth.service";
 import "./globals.css";
 
@@ -16,12 +17,14 @@ export default async function RootLayout({
   const publicLinks = [
     { href: "/", label: "Visao geral" },
     { href: "/ranking", label: "Ranking" },
-    { href: "/top-4", label: "Top 4" }
+    { href: "/selecoes", label: "Selecoes e grupos" },
+    { href: "/chaveamento", label: "Chaveamento" }
   ];
   const playerLinks = user
     ? [
         { href: "/dashboard", label: "Painel" },
-        { href: "/palpites", label: "Palpites" }
+        { href: "/palpites", label: "Palpites" },
+        { href: "/top-4", label: "Top 4" }
       ]
     : [{ href: "/login", label: "Entrar" }];
 
@@ -43,27 +46,12 @@ export default async function RootLayout({
                 tempo real.
               </p>
 
-              <div className="sidebar-section">
-                <span className="sidebar-label">Acompanhar</span>
-                <nav className="sidebar-nav" aria-label="Publico">
-                  {publicLinks.map((link) => (
-                    <Link key={link.href} className="sidebar-link" href={link.href}>
-                      {link.label}
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-
-              <div className="sidebar-section">
-                <span className="sidebar-label">Jogar</span>
-                <nav className="sidebar-nav" aria-label="Area do usuario">
-                  {playerLinks.map((link) => (
-                    <Link key={link.href} className="sidebar-link" href={link.href}>
-                      {link.label}
-                    </Link>
-                  ))}
-                </nav>
-              </div>
+              <SidebarNav
+                sections={[
+                  { label: "Acompanhar", items: publicLinks },
+                  { label: "Jogar", items: playerLinks }
+                ]}
+              />
 
               <div className="sidebar-footer">
                 {user ? (
@@ -100,7 +88,7 @@ export default async function RootLayout({
                 <strong>{user ? `Ola, ${user.username}` : "Ranking, jogos e Top 4"}</strong>
               </div>
               <div className="topbar-actions">
-                <span className="status-pill">Ranking ao vivo</span>
+                <span className="status-pill">Feed dinamico</span>
                 {user ? (
                   <Link className="button secondary small" href="/palpites">
                     Ver meus jogos

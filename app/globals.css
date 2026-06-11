@@ -932,9 +932,7 @@ tbody tr:hover {
   gap: 18px;
 }
 
-.group-card__header,
-.bracket-stage__header,
-.knockout-match__meta {
+.group-card__header {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
@@ -980,89 +978,127 @@ tbody tr:hover {
 
 .bracket-board {
   overflow-x: auto;
-  padding-bottom: 6px;
+  padding: 12px 8px 8px;
 }
 
-.bracket-grid {
-  align-items: start;
-  display: grid;
-  gap: 28px;
-  grid-template-columns: repeat(6, minmax(220px, 1fr));
-  min-width: 1480px;
-}
-
-.bracket-stage {
-  display: grid;
-  gap: 14px;
-  position: relative;
-}
-
-.knockout-match {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--line);
-  border-radius: 18px;
+.bracket-legend {
   display: grid;
   gap: 10px;
-  padding: 14px;
-  position: relative;
+  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+  margin-bottom: 14px;
+  padding: 14px 16px;
 }
 
-.knockout-match.connected::after {
-  background: var(--connector-tone);
-  content: "";
-  height: 1px;
-  position: absolute;
-  right: -28px;
-  top: 50%;
-  width: 28px;
+.bracket-legend__item {
+  display: grid;
+  gap: 4px;
 }
 
-.bracket-stage:not(:last-child) .knockout-list::before {
-  background:
-    linear-gradient(180deg, transparent, rgba(151, 166, 186, 0.14) 12%, rgba(151, 166, 186, 0.14) 88%, transparent);
-  content: "";
-  left: calc(100% + 13px);
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
+.bracket-legend__item strong {
+  font-size: 1.1rem;
 }
 
-.knockout-list {
-  position: relative;
+.bracket-graph-wrap {
+  min-width: min(100%, 720px);
 }
 
-.bracket-stage__header {
-  min-height: 40px;
+.bracket-graph {
+  display: block;
+  height: auto;
+  max-width: 100%;
 }
 
-.knockout-team-row {
+.bracket-edge {
+  vector-effect: non-scaling-stroke;
+}
+
+.bracket-anchor {
+  fill: rgba(46, 194, 126, 0.85);
+}
+
+.bracket-node {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: grid;
+  gap: 2px;
+  height: 44px;
+  overflow: hidden;
+  padding: 4px 6px;
+  width: 148px;
+}
+
+.bracket-node--live {
+  border-color: rgba(46, 194, 126, 0.45);
+  box-shadow: 0 0 0 1px rgba(46, 194, 126, 0.12);
+}
+
+.bracket-node--done {
+  opacity: 0.92;
+}
+
+.bracket-node__head {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+  justify-content: space-between;
+}
+
+.bracket-node__status {
+  color: var(--muted);
+  font-size: 0.62rem;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.bracket-node__tag {
+  background: rgba(255, 193, 94, 0.14);
+  border: 1px solid rgba(255, 193, 94, 0.28);
+  border-radius: 999px;
+  color: #ffd58a;
+  font-size: 0.58rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 2px 5px;
+}
+
+.bracket-node__teams {
+  display: grid;
+  gap: 1px;
+}
+
+.bracket-node__team {
   align-items: center;
   display: grid;
-  gap: 10px;
-  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
 }
 
-.knockout-team-row span {
-  font-size: 0.96rem;
+.bracket-node__team img {
+  border-radius: 2px;
+  height: 10px;
+  object-fit: cover;
+  width: 14px;
 }
 
-.knockout-team-row strong {
-  font-size: 1rem;
+.bracket-node__team span {
+  font-size: 0.68rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.bracket-venue {
-  font-size: 0.82rem;
-  line-height: 1.4;
+.bracket-node__team strong {
+  font-size: 0.68rem;
+  min-width: 12px;
+  text-align: right;
 }
 
-.graph-dot {
-  background: rgba(46, 194, 126, 0.9);
-  border-radius: 999px;
-  box-shadow: 0 0 0 4px rgba(46, 194, 126, 0.12);
-  display: inline-flex;
-  height: 8px;
-  width: 8px;
+.bracket-empty {
+  margin: 0;
+  padding: 8px 4px;
 }
 
 .login-shell {
@@ -1113,8 +1149,7 @@ tbody tr:hover {
   .top-four-grid,
   .login-shell,
   .overview-grid,
-  .selection-grid,
-  .bracket-grid {
+  .selection-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1145,8 +1180,7 @@ tbody tr:hover {
 
   .match-card__body,
   .leaderboard-item,
-  .live-item,
-  .knockout-team-row {
+  .live-item {
     grid-template-columns: 1fr;
   }
 
@@ -1166,10 +1200,6 @@ tbody tr:hover {
   .auth-stack,
   .auth-intro {
     border-radius: 20px;
-  }
-
-  .bracket-grid {
-    min-width: 0;
   }
 
   .spotlight-copy {

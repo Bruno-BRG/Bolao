@@ -1,0 +1,277 @@
+{
+  "actions/admin.actions.ts": {
+    "mtime": 1781184864.0149937,
+    "ast_hash": "b30b4267846b00d4496d2ac249909d4e",
+    "semantic_hash": ""
+  },
+  "actions/auth.actions.ts": {
+    "mtime": 1781184801.827492,
+    "ast_hash": "d08de6d10117e1036fc839aae3aaa449",
+    "semantic_hash": ""
+  },
+  "actions/predictions.actions.ts": {
+    "mtime": 1781191517.2800236,
+    "ast_hash": "65f2c292e3f7ef58c9760da1f51201c9",
+    "semantic_hash": ""
+  },
+  "app/api/admin/recalculate-ranking/route.ts": {
+    "mtime": 1781184909.3599172,
+    "ast_hash": "7739ae8f9ec816140181bb42ff045045",
+    "semantic_hash": ""
+  },
+  "app/api/admin/sync-worldcup/route.ts": {
+    "mtime": 1781188213.3723183,
+    "ast_hash": "67a5c126b49e7c56b9749b9822af2519",
+    "semantic_hash": ""
+  },
+  "app/api/health/route.ts": {
+    "mtime": 1781184909.3570657,
+    "ast_hash": "f452763cb3df4959f706def5a2fa3289",
+    "semantic_hash": ""
+  },
+  "app/api/ranking/route.ts": {
+    "mtime": 1781184909.3589072,
+    "ast_hash": "cda998973ec2052dbe5f0811cb9b27c9",
+    "semantic_hash": ""
+  },
+  "app/chaveamento/page.tsx": {
+    "mtime": 1781192058.6799946,
+    "ast_hash": "09ef6a44bf86fd4f768cc5f77e42ee21",
+    "semantic_hash": ""
+  },
+  "app/dashboard/page.tsx": {
+    "mtime": 1781189206.0547945,
+    "ast_hash": "feb162180d5acf979c8d4b25480f1894",
+    "semantic_hash": ""
+  },
+  "app/layout.tsx": {
+    "mtime": 1781190911.4157827,
+    "ast_hash": "e61a7e10279a1f104c8d3a1b59d24906",
+    "semantic_hash": ""
+  },
+  "app/login/page.tsx": {
+    "mtime": 1781184909.3520439,
+    "ast_hash": "90e8303265919149436999fd8cc6918b",
+    "semantic_hash": ""
+  },
+  "app/page.tsx": {
+    "mtime": 1781190787.7673838,
+    "ast_hash": "9bfe6d91c2e1a505c0e51bdc446cad3d",
+    "semantic_hash": ""
+  },
+  "app/palpites/page.tsx": {
+    "mtime": 1781190850.9506876,
+    "ast_hash": "e39351aaba5b0362819b02852ae0d068",
+    "semantic_hash": ""
+  },
+  "app/ranking/page.tsx": {
+    "mtime": 1781189256.3111858,
+    "ast_hash": "c86378e1712eb3fd0d6a755a460e2996",
+    "semantic_hash": ""
+  },
+  "app/selecoes/page.tsx": {
+    "mtime": 1781190813.454798,
+    "ast_hash": "c20a2aa20f2fe6ffe4e94bc89a440879",
+    "semantic_hash": ""
+  },
+  "app/top-4/page.tsx": {
+    "mtime": 1781191583.700933,
+    "ast_hash": "b7f9a8cdecdfe2b18a37f83c1227ad75",
+    "semantic_hash": ""
+  },
+  "components/AuthForms.tsx": {
+    "mtime": 1781189305.495904,
+    "ast_hash": "54201344e9429e6530e6581b91d5fc8f",
+    "semantic_hash": ""
+  },
+  "components/BracketGraph.tsx": {
+    "mtime": 1781192078.8172028,
+    "ast_hash": "b9bba806a6567620787d080f4c0af567",
+    "semantic_hash": ""
+  },
+  "components/PredictionForm.tsx": {
+    "mtime": 1781190700.8998756,
+    "ast_hash": "d19ed0063336d21815d3016f95eab0a7",
+    "semantic_hash": ""
+  },
+  "components/RankingTable.tsx": {
+    "mtime": 1781189356.9291768,
+    "ast_hash": "ccfaf6635bbb64ae016142752f9efd2f",
+    "semantic_hash": ""
+  },
+  "components/SidebarNav.tsx": {
+    "mtime": 1781190714.293113,
+    "ast_hash": "b49e0c74e30ad0f95ef7216690f2e10b",
+    "semantic_hash": ""
+  },
+  "components/TopFourForm.tsx": {
+    "mtime": 1781191568.4620354,
+    "ast_hash": "97cbb1826102a1a9b0b330d340ee6e1e",
+    "semantic_hash": ""
+  },
+  "lib/bracket-layout.ts": {
+    "mtime": 1781192047.3246987,
+    "ast_hash": "0a51152df169cb899bd5daa9a4380490",
+    "semantic_hash": ""
+  },
+  "lib/constants.ts": {
+    "mtime": 1781184742.2851875,
+    "ast_hash": "25cf5b667df4d98404c0a6261d0a1330",
+    "semantic_hash": ""
+  },
+  "lib/crypto.ts": {
+    "mtime": 1781184742.286188,
+    "ast_hash": "ca5df02704803f8f68e8e92371108162",
+    "semantic_hash": ""
+  },
+  "lib/date.ts": {
+    "mtime": 1781184742.2907026,
+    "ast_hash": "229e4a32ecd0cdf068c379317e405495",
+    "semantic_hash": ""
+  },
+  "lib/supabase-server.ts": {
+    "mtime": 1781184742.286188,
+    "ast_hash": "8983adbeffa5f2b35b4cb8c94ee7b35a",
+    "semantic_hash": ""
+  },
+  "next-env.d.ts": {
+    "mtime": 1781185040.7722306,
+    "ast_hash": "ba64ff7d54714a8f64db89b1003207d8",
+    "semantic_hash": ""
+  },
+  "next.config.ts": {
+    "mtime": 1781184673.5187607,
+    "ast_hash": "714d4e7d1f7e3b60fb1d99cdbaa96ebe",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1781184673.5172443,
+    "ast_hash": "98c530efeafbe88fb539cc8dc1fe3a30",
+    "semantic_hash": ""
+  },
+  "repositories/auth.repo.ts": {
+    "mtime": 1781184742.2907026,
+    "ast_hash": "a2958684e6c12eea90c03c7f542b5374",
+    "semantic_hash": ""
+  },
+  "repositories/predictions.repo.ts": {
+    "mtime": 1781184801.8284163,
+    "ast_hash": "dd8169d7ca259c793e75a4a7cfe59c47",
+    "semantic_hash": ""
+  },
+  "repositories/worldcup.repo.ts": {
+    "mtime": 1781188213.3708138,
+    "ast_hash": "e72813e0109dfaf5aada1630e0f58499",
+    "semantic_hash": ""
+  },
+  "services/api-football.service.ts": {
+    "mtime": 1781187757.8566833,
+    "ast_hash": "d5140458758b589a9b7ea62543d9cf6c",
+    "semantic_hash": ""
+  },
+  "services/auth.service.ts": {
+    "mtime": 1781184801.8263564,
+    "ast_hash": "00a0c47c63ac226cfff0d13e17ca9a8d",
+    "semantic_hash": ""
+  },
+  "services/prediction-document.ts": {
+    "mtime": 1781184742.289188,
+    "ast_hash": "92f06814c0b8a7f34f8b67eb1df1ab98",
+    "semantic_hash": ""
+  },
+  "services/ranking.service.ts": {
+    "mtime": 1781187195.8546185,
+    "ast_hash": "e3f60a961490ac16c9c5824b8dab3ee9",
+    "semantic_hash": ""
+  },
+  "services/scoring.service.ts": {
+    "mtime": 1781184742.2896984,
+    "ast_hash": "d2614770e16d131a3892e42848f7c3c1",
+    "semantic_hash": ""
+  },
+  "services/worldcup-live.service.ts": {
+    "mtime": 1781190640.0609047,
+    "ast_hash": "ec39e3c147d64a8854d4a144feac2db0",
+    "semantic_hash": ""
+  },
+  "services/worldcup-sync.service.ts": {
+    "mtime": 1781189932.9874842,
+    "ast_hash": "32aec820935ac32286d8d29764278f41",
+    "semantic_hash": ""
+  },
+  "services/worldcup26.service.ts": {
+    "mtime": 1781190589.0580893,
+    "ast_hash": "eb87ac0a83d548124d81a6765a973568",
+    "semantic_hash": ""
+  },
+  "supabase/migrations/202606110001_initial_schema.sql": {
+    "mtime": 1781185515.899641,
+    "ast_hash": "771d02b4278d5a5588388456c0db859a",
+    "semantic_hash": ""
+  },
+  "supabase/migrations/202606110002_seed_sample_worldcup_data.sql": {
+    "mtime": 1781184967.307335,
+    "ast_hash": "0d0673ba0173da97fcf017935e066b2b",
+    "semantic_hash": ""
+  },
+  "supabase/migrations/202606110003_remove_sample_worldcup_data.sql": {
+    "mtime": 1781186377.978093,
+    "ast_hash": "46877907911b1f3c2ae4584858da2195",
+    "semantic_hash": ""
+  },
+  "tsconfig.json": {
+    "mtime": 1781184673.519767,
+    "ast_hash": "93db602de359111ffe5b00fb4a32953c",
+    "semantic_hash": ""
+  },
+  "types/domain.ts": {
+    "mtime": 1781188148.2871468,
+    "ast_hash": "68419c4f2fdc3921c05411105742a24a",
+    "semantic_hash": ""
+  },
+  "vercel.json": {
+    "mtime": 1781187195.856123,
+    "ast_hash": "de56ecb975cf0a48e24300aa81efa9c9",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1781188213.3733237,
+    "ast_hash": "491cda63742cc9da559eacab6a13aef8",
+    "semantic_hash": ""
+  },
+  "docs/README.md": {
+    "mtime": 1781184385.3651848,
+    "ast_hash": "99df8f66171b9715dcef4b4c200b12f8",
+    "semantic_hash": ""
+  },
+  "docs/documento_bolao_copa.pdf": {
+    "mtime": 1781184359.381546,
+    "ast_hash": "12bd0c4c9e27304f26b49b5515320020",
+    "semantic_hash": ""
+  },
+  "docs/diagramas/arquitetura_geral.png": {
+    "mtime": 1781184385.4191096,
+    "ast_hash": "269551cf1c41036c06c02916cfd686a4",
+    "semantic_hash": ""
+  },
+  "docs/diagramas/componentes_next.png": {
+    "mtime": 1781184385.4724355,
+    "ast_hash": "4252871f7a8f18cd0fe84033da21cbfd",
+    "semantic_hash": ""
+  },
+  "docs/diagramas/er_model.png": {
+    "mtime": 1781184385.4316933,
+    "ast_hash": "dc01c0ccf1afec46da38a711fb74abd4",
+    "semantic_hash": ""
+  },
+  "docs/diagramas/fluxo_login_palpite.png": {
+    "mtime": 1781184385.4479754,
+    "ast_hash": "8d06786a235048f659e67b2f29f36f7d",
+    "semantic_hash": ""
+  },
+  "docs/diagramas/sync_pipeline.png": {
+    "mtime": 1781184385.4603045,
+    "ast_hash": "9646e80fc80faf10f4576a2df938e260",
+    "semantic_hash": ""
+  }
+}

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { logoutAction } from "@/actions/auth.actions";
 import { SidebarNav } from "@/components/SidebarNav";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 type NavItem = {
   href: string;
@@ -116,6 +117,8 @@ export function AppShell({
       <div className="content-shell">
         <div className="content-main">{children}</div>
       </div>
+
+      <ThemeToggle />
     </div>
   );
 }

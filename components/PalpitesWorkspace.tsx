@@ -54,11 +54,33 @@ function isMatchToday(match: Match, now: number) {
 }
 
 function todayHeading(now: number) {
-  return new Date(now).toLocaleDateString("pt-BR", {
+  return dayHeading(new Date(now).toISOString());
+}
+
+function localDayKey(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function dayHeading(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return formatDateTime(value);
+  return date.toLocaleDateString("pt-BR", {
     weekday: "long",
     day: "2-digit",
     month: "long"
   });
+}
+
+function sortMatchesByStart(a: Match, b: Match) {
+  return (
+    new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime() ||
+    a.external_id.localeCompare(b.external_id)
+  );
 }
 
 function toScoreState(
@@ -272,27 +294,28 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
   }, []);
 
   const todayMatches = useMemo(
-    () =>
-      matches
-        .filter((match) => isMatchToday(match, now))
-        .sort(
-          (a, b) =>
-            new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime() ||
-            a.external_id.localeCompare(b.external_id)
-        ),
+    () => matches.filter((match) => isMatchToday(match, now)).sort(sortMatchesByStart),
     [matches, now]
   );
 
-  const groupedMatches = useMemo(() => {
-    const groups = new Map<string, Match[]>();
+  const matchesByDay = useMemo(() => {
+    const days = new Map<string, Match[]>();
     for (const match of matches) {
-      const key = stageChip(match);
-      const bucket = groups.get(key) ?? [];
+      if (isMatchToday(match, now)) continue;
+      const key = localDayKey(match.starts_at);
+      const bucket = days.get(key) ?? [];
       bucket.push(match);
-      groups.set(key, bucket);
+      days.set(key, bucket);
     }
-    return [...groups.entries()];
-  }, [matches]);
+
+    return [...days.entries()]
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([dayKey, dayMatches]) => ({
+        dayKey,
+        heading: dayHeading(dayMatches[0]?.starts_at ?? dayKey),
+        matches: dayMatches.sort(sortMatchesByStart)
+      }));
+  }, [matches, now]);
 
   async function persistMatch(
     match: Match,
@@ -388,15 +411,17 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
         </section>
       ) : null}
 
-      {groupedMatches.map(([groupLabel, groupMatches]) => (
-        <section key={groupLabel} className="palpites-group">
+      {matchesByDay.map((day) => (
+        <section key={day.dayKey} className="palpites-group">
           <header className="palpites-group__head">
-            <h2>{groupLabel}</h2>
-            <span>{groupMatches.length} jogos</span>
+            <div>
+              <h2>{day.heading}</h2>
+            </div>
+            <span>{day.matches.length} jogos</span>
           </header>
 
           <div className="palpites-rows">
-            {groupMatches.map((match) => (
+            {day.matches.map((match) => (
               <PalpiteMatchRow
                 key={match.external_id}
                 current={scores[match.external_id] ?? { homeGoals: "", awayGoals: "" }}
@@ -404,6 +429,7 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
                 now={now}
                 onUpdateScore={updateScore}
                 saved={savedPredictions[match.external_id]}
+                showGroupLabel
                 status={rowStatus[match.external_id]}
               />
             ))}

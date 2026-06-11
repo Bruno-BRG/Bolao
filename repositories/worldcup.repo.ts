@@ -1,6 +1,9 @@
 import { TOURNAMENT_CODE } from "@/lib/constants";
 import { getSupabaseAdmin } from "@/lib/supabase-server";
-import { ensureWorldCupData } from "@/services/api-football.service";
+import {
+  ensureWorldCupData,
+  getWorldCupProvider
+} from "@/services/worldcup-sync.service";
 import type { Match, Team } from "@/types/domain";
 
 export async function listTeams(): Promise<Team[]> {
@@ -25,10 +28,11 @@ export async function listMatches(options?: {
   const { data, error } = await supabase
     .from("matches_cache")
     .select(
-      "external_id, tournament_code, home_team_id, away_team_id, starts_at, stage, group_name, status, score_home, score_away"
+      "external_id, tournament_code, home_team_id, away_team_id, starts_at, stage, group_name, status, score_home, score_away, payload"
     )
     .eq("tournament_code", TOURNAMENT_CODE)
-    .order("starts_at");
+    .order("starts_at")
+    .order("external_id");
 
   if (error) throw error;
 
@@ -53,7 +57,7 @@ export async function getLatestSyncLog() {
   const { data, error } = await supabase
     .from("sync_logs")
     .select("provider, status, message, created_at")
-    .eq("provider", "api-football")
+    .eq("provider", getWorldCupProvider())
     .order("created_at", { ascending: false })
     .limit(1)
     .maybeSingle();

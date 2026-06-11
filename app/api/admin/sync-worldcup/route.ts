@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase-server";
 import {
   ensureWorldCupData,
-  syncWorldCupFromApiFootball
-} from "@/services/api-football.service";
+  getWorldCupProvider,
+  syncWorldCupData
+} from "@/services/worldcup-sync.service";
 import { recalculateRanking } from "@/services/ranking.service";
 
 export const dynamic = "force-dynamic";
@@ -27,24 +28,20 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const provider = (process.env.FOOTBALL_PROVIDER ?? "api-football").toLowerCase();
+  const provider = getWorldCupProvider();
   const supabase = getSupabaseAdmin();
 
   try {
-    if (provider !== "api-football") {
-      throw new Error(`Unsupported provider "${provider}". Use api-football.`);
-    }
-
     const force = request.nextUrl.searchParams.get("force") === "1";
     const ensured = force
-      ? { ran: true, reason: "forced" as const, syncResult: await syncWorldCupFromApiFootball() }
+      ? { ran: true, reason: "forced" as const, syncResult: await syncWorldCupData() }
       : await ensureWorldCupData({ force: false });
     const ranking = await recalculateRanking();
 
     return NextResponse.json({
       ok: true,
       message: ensured.ran
-        ? "Sync concluido com API-Football e ranking recalculado."
+        ? "Sync concluido e ranking recalculado."
         : "Dados ja estavam recentes; ranking recalculado.",
       provider,
       syncResult: ensured.ran ? ensured.syncResult : null,

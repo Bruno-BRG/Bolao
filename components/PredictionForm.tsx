@@ -22,8 +22,13 @@ export function PredictionForm({
   const locked =
     new Date(match.starts_at).getTime() <= Date.now() ||
     LOCKED_STATUSES.has(match.status.toUpperCase());
-  const homeName = match.home_team?.name ?? "A definir";
-  const awayName = match.away_team?.name ?? "A definir";
+  const payload = match.payload ?? {};
+  const homeLabel =
+    typeof payload.home_team_label === "string" ? payload.home_team_label : null;
+  const awayLabel =
+    typeof payload.away_team_label === "string" ? payload.away_team_label : null;
+  const homeName = match.home_team?.name ?? homeLabel ?? "A definir";
+  const awayName = match.away_team?.name ?? awayLabel ?? "A definir";
 
   return (
     <form className="card match" action={savePredictionAction}>

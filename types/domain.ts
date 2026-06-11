@@ -24,6 +24,7 @@ export type Match = {
   status: string;
   score_home: number | null;
   score_away: number | null;
+  payload?: Record<string, unknown>;
   home_team?: Team | null;
   away_team?: Team | null;
 };

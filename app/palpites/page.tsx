@@ -36,7 +36,7 @@ export default async function PalpitesPage({
       {hasSampleMatches ? (
         <p className="error">
           O banco ainda esta com a grade mockada de exemplo. Rode a migration de limpeza e
-          depois o sync da API-Football para carregar a Copa real.
+          depois o sync automatico para carregar a Copa real.
         </p>
       ) : null}
       {latestSyncLog?.status === "error" ? (

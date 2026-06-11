@@ -21,18 +21,24 @@ SUPABASE_URL=
 SUPABASE_SERVICE_ROLE_KEY=
 ADMIN_SYNC_TOKEN=
 CRON_SECRET=
-FOOTBALL_PROVIDER=api-football
-FOOTBALL_API_KEY=
-API_FOOTBALL_BASE_URL=https://v3.football.api-sports.io
-API_FOOTBALL_LEAGUE_ID=1
-API_FOOTBALL_SEASON=2026
+FOOTBALL_PROVIDER=worldcup26
+WORLDCUP26_API_BASE_URL=https://worldcup26.ir
+WORLDCUP26_GITHUB_BASE_URL=https://raw.githubusercontent.com/rezarahiminia/worldcup2026/main
 AUTO_SYNC_MAX_AGE_MINUTES=360
 ```
 
 O frontend nao usa chave publica do Supabase. Todas as consultas passam pelo
 servidor com a service role.
 
-Sem `FOOTBALL_API_KEY`, a aplicacao nao consegue auto-sincronizar a Copa.
+Se quiser usar `api-football` depois, configure:
+
+```bash
+FOOTBALL_PROVIDER=api-football
+FOOTBALL_API_KEY=
+API_FOOTBALL_BASE_URL=https://v3.football.api-sports.io
+API_FOOTBALL_LEAGUE_ID=1
+API_FOOTBALL_SEASON=2026
+```
 
 ## Banco
 
@@ -43,8 +49,9 @@ Rode as migrations em `supabase/migrations` no Supabase antes do deploy:
 3. `202606110003_remove_sample_worldcup_data.sql`
 
 As migrations `2` e `3` existem por legado do setup inicial. A `3` apaga os
-dados mockados da Copa. Depois disso, rode o sync da API-Football para preencher
-`teams_cache` e `matches_cache` com a grade real.
+dados mockados da Copa. Depois disso, o app sincroniza a grade real usando
+`worldcup26.ir`, com fallback para os JSON publicos do GitHub do projeto
+`rezarahiminia/worldcup2026`.
 
 ## Pontuacao
 
@@ -62,8 +69,9 @@ com valores de 1 a 4 para as selecoes finalistas e recalcule o ranking.
 - `POST /api/admin/recalculate-ranking` com header `x-admin-sync-token`.
 - `GET|POST /api/admin/sync-worldcup` com `x-admin-sync-token` ou `Authorization: Bearer $CRON_SECRET`.
 
-O sync da Copa usa API-Football com `league=1` e `season=2026`, conforme o guia
-oficial da Copa 2026 da API-Sports.
+O sync da Copa usa por padrao `https://worldcup26.ir/get/games` e
+`https://worldcup26.ir/get/teams`. Se o endpoint publico falhar, o app tenta
+os JSON brutos do GitHub do mesmo projeto.
 
 ## Sync automatico
 

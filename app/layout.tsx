@@ -23,9 +23,7 @@ export default async function RootLayout({
 
   const otherLinks = [
     { href: "/ranking", label: "Ranking" },
-    { href: "/comunidade", label: "Palpites da galera" },
-    { href: "/selecoes", label: "Grupos" },
-    { href: "/chaveamento", label: "Chaveamento" }
+    { href: "/comunidade", label: "Palpites da galera" }
   ];
 
   return (

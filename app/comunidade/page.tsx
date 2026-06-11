@@ -25,7 +25,7 @@ export default async function ComunidadePage() {
 
   const [rows, matches, teams] = await Promise.all([
     listPredictionRows(),
-    listMatches({ autoSyncIfEmpty: false }),
+    listMatches(),
     listTeams()
   ]);
 

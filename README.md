@@ -60,17 +60,20 @@ em background faz upsert por `external_id` sem apagar linhas manuais.
 2. Gere o primeiro ranking com uma das opcoes:
    - Botao **Recalcular ranking** na pagina `/ranking` (token admin), ou
    - `POST /api/admin/sync-worldcup` com `x-admin-sync-token` ou `CRON_SECRET`, ou
-   - Aguarde o cron (a cada 5 min em producao).
+   - Aguarde o cron diario da Vercel ou o workflow do GitHub Actions.
 
 Sem esse passo, o ranking usa o fallback de `user_predictions` ate existir um
 `snapshot` em `ranking_snapshots`.
 
 ### Modelo DB-first
 
-- **Leitura (paginas):** consulta apenas `matches_cache`, `teams_cache`,
-  `groups_cache` e `ranking_snapshots`.
-- **Escrita (background):** cron ou admin chama `/api/admin/sync-worldcup`, que
-  puxa `worldcup26.ir`, grava no banco e recalcula o ranking quando necessario.
+- **Leitura (paginas):** consulta `matches_cache`, `teams_cache`, `groups_cache`
+  e `ranking_snapshots` no Supabase.
+- **Escrita (background):** `/api/admin/sync-worldcup` puxa `worldcup26.ir`,
+  grava no banco e recalcula o ranking quando necessario.
+- **Sync sob demanda:** se o cache estiver vazio ou velho, `listMatches()` chama
+  `ensureWorldCupData` antes de ler (no-op quando os dados ainda estao frescos).
+  Durante jogos ao vivo o limite e ~5 min; fora disso, ~6 h.
 
 ## Pontuacao
 
@@ -94,9 +97,30 @@ os JSON brutos do GitHub do mesmo projeto.
 
 ## Sync automatico
 
-- As paginas **nao** chamam a API externa nem recalculam ranking na abertura.
-- O cron em `vercel.json` chama `/api/admin/sync-worldcup` a cada 5 minutos.
-- `ensureWorldCupData` respeita `AUTO_SYNC_MAX_AGE_MINUTES` (padrao 360) e
-  `LIVE_SYNC_MAX_AGE_MINUTES` (padrao 5) durante jogos ao vivo.
-- Na Vercel Hobby, cron mais frequente que diario pode exigir plano Pro; se o
-  deploy falhar, volte para `0 5 * * *` e dispare o sync manualmente durante os jogos.
+### Vercel Hobby (cron diario)
+
+O `vercel.json` agenda `/api/admin/sync-worldcup` uma vez por dia (`05:00 UTC`).
+Isso e o maximo permitido no plano Hobby.
+
+### GitHub Actions (recomendado na Copa)
+
+O workflow `.github/workflows/sync-worldcup.yml` pode chamar o mesmo endpoint a
+cada 5 minutos sem custo de plano Pro na Vercel. Configure em **Settings →
+Secrets → Actions**:
+
+- `BOLAO_URL` — URL de producao (ex. `https://seu-bolao.vercel.app`)
+- `CRON_SECRET` — mesmo valor da env `CRON_SECRET` na Vercel
+
+Fora da Copa, desative o workflow ou remova o `schedule` e use so
+`workflow_dispatch`.
+
+### Sem cron frequente
+
+Mesmo sem GitHub Actions, o app se mantem razoavelmente atualizado:
+
+- **Jogos:** `listMatches()` sincroniza com a API so quando o cache esta velho.
+- **Ranking:** o poll em `/api/ranking` recalcula do banco quando o snapshot tem
+  mais de ~2 min ou um jogo finalizado mudou (sem chamar API externa).
+
+Variaveis: `AUTO_SYNC_MAX_AGE_MINUTES` (padrao 360),
+`LIVE_SYNC_MAX_AGE_MINUTES` (padrao 5), `RANKING_REFRESH_MAX_AGE_MINUTES` (padrao 2).

@@ -1,16 +1,16 @@
 # Graph Report - Bolao  (2026-06-11)
 
 ## Corpus Check
-- 58 files · ~42,799 words
+- 58 files · ~43,093 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 300 nodes · 690 edges · 18 communities (14 shown, 4 thin omitted)
+- 306 nodes · 698 edges · 18 communities (14 shown, 4 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `58e7f196`
+- Built from commit: `e6f295d2`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -48,14 +48,14 @@
 ## Surprising Connections (you probably didn't know these)
 - `RootLayout()` --calls--> `getCurrentUser()`  [EXTRACTED]
   app/layout.tsx → services/auth.service.ts
-- `LoginPage()` --calls--> `getCurrentUser()`  [EXTRACTED]
-  app/login/page.tsx → services/auth.service.ts
-- `isMatchLocked()` --calls--> `isMatchLockedForPrediction()`  [EXTRACTED]
-  actions/predictions.actions.ts → lib/match-lock.ts
+- `logoutAction()` --calls--> `revokeSession()`  [EXTRACTED]
+  actions/auth.actions.ts → repositories/auth.repo.ts
 - `persistMatchPrediction()` --calls--> `isMatchPredictable()`  [EXTRACTED]
   actions/predictions.actions.ts → lib/match-visibility.ts
 - `POST()` --calls--> `recalculateRanking()`  [EXTRACTED]
   app/api/admin/recalculate-ranking/route.ts → services/ranking.service.ts
+- `POST()` --calls--> `getSupabaseAdmin()`  [EXTRACTED]
+  app/api/admin/sync-worldcup/route.ts → lib/supabase-server.ts
 
 ## Import Cycles
 - None detected.
@@ -67,24 +67,24 @@ Cohesion: 0.39
 Nodes (7): SCORING_RULES, calculatePredictionScore(), getOutcome(), OfficialTopFour, resolveOfficialTopFour(), scoreMatchPrediction(), scoreTopFourPrediction()
 
 ### Community 1 - "Community 1"
-Cohesion: 0.15
-Nodes (27): recalculateRankingAction(), ComunidadePage(), GET(), getSupabaseAdmin(), RankingPage(), GET(), POST(), listPredictionRows() (+19 more)
+Cohesion: 0.13
+Nodes (27): recalculateRankingAction(), RANKING_POLL_MS, RankingLiveBoard(), RankingTable(), ComunidadePage(), FINISHED_STATUSES, RankingPage(), GET() (+19 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.20
-Nodes (22): bulkPredictionSchema, BulkSaveResult, ensureUnique(), isMatchLocked(), MatchSaveResult, persistMatchPrediction(), predictionSchema, saveBulkPredictionsAction() (+14 more)
+Cohesion: 0.14
+Nodes (29): bulkPredictionSchema, ensureUnique(), isMatchLocked(), MatchSaveResult, persistMatchPrediction(), predictionSchema, saveBulkPredictionsAction(), saveMatchPredictionAction() (+21 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.08
 Nodes (29): HomePage(), fetchGames(), fetchGroups(), fetchJson(), fetchTeams(), getTimeZoneOffsetMilliseconds(), hasWorldCup26TimezoneDrift(), mapWorldCup26Stage() (+21 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.13
-Nodes (25): loginAction(), logoutAction(), registerAction(), setSessionCookie(), validateCredentials(), metadata, RootLayout(), AppShell() (+17 more)
+Cohesion: 0.22
+Nodes (16): loginAction(), registerAction(), setSessionCookie(), validateCredentials(), GET(), createSessionToken(), hashToken(), addDays() (+8 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.11
-Nodes (22): CommunityMember, CommunityPredictionsBoard(), TopFourForm(), PredictionRow, getMatchTeamLabel(), getPlaceholderLabel(), isMatchPredictable(), isPlaceholderSide() (+14 more)
+Nodes (21): CommunityMember, CommunityPredictionsBoard(), TopFourForm(), PredictionRow, getMatchTeamLabel(), getPlaceholderLabel(), isMatchPredictable(), isPlaceholderSide() (+13 more)
 
 ### Community 6 - "Community 6"
 Cohesion: 0.09
@@ -95,44 +95,44 @@ Cohesion: 0.10
 Nodes (19): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+11 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.52
-Nodes (4): RANKING_POLL_MS, RankingLiveBoard(), RankingTable(), RankingRow
+Cohesion: 0.24
+Nodes (9): logoutAction(), metadata, RootLayout(), AppShell(), AppShellProps, NavItem, SidebarItem, SidebarNav() (+1 more)
 
 ### Community 9 - "Community 9"
-Cohesion: 0.20
-Nodes (9): Apos o seed manual, Banco, Bolao da Copa, Comandos, Endpoints admin, Modelo DB-first, Pontuacao, Sync automatico (+1 more)
+Cohesion: 0.15
+Nodes (12): Apos o seed manual, Banco, Bolao da Copa, Comandos, Endpoints admin, GitHub Actions (recomendado na Copa), Modelo DB-first, Pontuacao (+4 more)
 
 ### Community 15 - "Community 15"
-Cohesion: 0.11
-Nodes (28): compactDate(), isMatchToday(), isSameLocalDay(), PalpiteMatchRow(), PalpitesWorkspace(), PalpitesWorkspaceProps, RowStatus, ScoreState (+20 more)
+Cohesion: 0.10
+Nodes (25): BulkSaveResult, compactDate(), dayHeading(), isMatchToday(), isSameLocalDay(), PalpiteMatchRow(), PalpitesWorkspace(), PalpitesWorkspaceProps (+17 more)
 
 ### Community 16 - "Community 16"
 Cohesion: 0.50
 Nodes (4): cases, getOutcome(), scoreMatchPrediction(), SCORING_RULES
 
 ### Community 17 - "Community 17"
-Cohesion: 0.17
-Nodes (8): API_FOOTBALL_LEAGUE_ID, API_FOOTBALL_SEASON, ApiFootballFixtureResponse, apiFootballGet(), ApiFootballResponse, ApiFootballTeamResponse, AUTO_SYNC_MAX_AGE_MINUTES, getApiFootballKey()
+Cohesion: 0.16
+Nodes (10): API_FOOTBALL_LEAGUE_ID, API_FOOTBALL_SEASON, ApiFootballFixtureResponse, apiFootballGet(), ApiFootballResponse, ApiFootballTeamResponse, AUTO_SYNC_MAX_AGE_MINUTES, ensureWorldCupData() (+2 more)
 
 ## Knowledge Gaps
-- **94 isolated node(s):** `predictionSchema`, `bulkPredictionSchema`, `topFourSchema`, `MatchSaveResult`, `PredictionRow` (+89 more)
+- **96 isolated node(s):** `predictionSchema`, `bulkPredictionSchema`, `topFourSchema`, `MatchSaveResult`, `PredictionRow` (+91 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `getSupabaseAdmin()` connect `Community 1` to `Community 17`, `Community 2`, `Community 3`, `Community 4`?**
-  _High betweenness centrality (0.075) - this node is a cross-community bridge._
-- **Why does `getCurrentUser()` connect `Community 2` to `Community 1`, `Community 3`, `Community 4`, `Community 5`?**
-  _High betweenness centrality (0.037) - this node is a cross-community bridge._
-- **Why does `getLatestRanking()` connect `Community 1` to `Community 8`, `Community 2`, `Community 3`?**
-  _High betweenness centrality (0.020) - this node is a cross-community bridge._
+- **Why does `getSupabaseAdmin()` connect `Community 4` to `Community 1`, `Community 2`, `Community 3`, `Community 17`?**
+  _High betweenness centrality (0.072) - this node is a cross-community bridge._
+- **Why does `getCurrentUser()` connect `Community 2` to `Community 1`, `Community 3`, `Community 4`, `Community 5`, `Community 8`?**
+  _High betweenness centrality (0.036) - this node is a cross-community bridge._
+- **Why does `getLatestRanking()` connect `Community 1` to `Community 2`, `Community 3`, `Community 4`?**
+  _High betweenness centrality (0.019) - this node is a cross-community bridge._
 - **What connects `predictionSchema`, `bulkPredictionSchema`, `topFourSchema` to the rest of the system?**
-  _94 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _96 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Community 1` be split into smaller, more focused modules?**
+  _Cohesion score 0.1251778093883357 - nodes in this community are weakly interconnected._
+- **Should `Community 2` be split into smaller, more focused modules?**
+  _Cohesion score 0.13902439024390245 - nodes in this community are weakly interconnected._
 - **Should `Community 3` be split into smaller, more focused modules?**
   _Cohesion score 0.08412698412698413 - nodes in this community are weakly interconnected._
-- **Should `Community 4` be split into smaller, more focused modules?**
-  _Cohesion score 0.1265597147950089 - nodes in this community are weakly interconnected._
-- **Should `Community 5` be split into smaller, more focused modules?**
-  _Cohesion score 0.10685483870967742 - nodes in this community are weakly interconnected._

@@ -22,9 +22,10 @@ export async function listTeams(): Promise<Team[]> {
 }
 
 export async function listMatches(options?: {
-  autoSyncIfEmpty?: boolean;
+  /** Sync from API only when cache is empty or stale (default: true). */
+  refreshIfStale?: boolean;
 }): Promise<Match[]> {
-  if (options?.autoSyncIfEmpty) {
+  if (options?.refreshIfStale !== false) {
     await ensureWorldCupData().catch(() => undefined);
   }
 
@@ -52,7 +53,7 @@ export async function listMatches(options?: {
 }
 
 export async function findMatch(matchId: string): Promise<Match | null> {
-  const matches = await listMatches({ autoSyncIfEmpty: false });
+  const matches = await listMatches({ refreshIfStale: false });
   return matches.find((match) => match.external_id === matchId) ?? null;
 }
 

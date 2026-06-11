@@ -3,7 +3,7 @@
   "crons": [
     {
       "path": "/api/admin/sync-worldcup",
-      "schedule": "*/5 * * * *"
+      "schedule": "0 5 * * *"
     }
   ]
 }

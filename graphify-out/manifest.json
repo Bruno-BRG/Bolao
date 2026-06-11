@@ -30,8 +30,8 @@
     "semantic_hash": ""
   },
   "app/api/ranking/route.ts": {
-    "mtime": 1781212675.4043446,
-    "ast_hash": "cda998973ec2052dbe5f0811cb9b27c9",
+    "mtime": 1781213045.9458954,
+    "ast_hash": "a303a0842e852bf75de0560d03a71dd1",
     "semantic_hash": ""
   },
   "app/dashboard/page.tsx": {
@@ -55,8 +55,8 @@
     "semantic_hash": ""
   },
   "app/palpites/page.tsx": {
-    "mtime": 1781212674.9124014,
-    "ast_hash": "a2c0794d2e16dc412fe778631f8b7bcb",
+    "mtime": 1781213045.4883902,
+    "ast_hash": "938d3c3b35ca011f2531f3298a034564",
     "semantic_hash": ""
   },
   "app/ranking/page.tsx": {
@@ -140,8 +140,8 @@
     "semantic_hash": ""
   },
   "repositories/worldcup.repo.ts": {
-    "mtime": 1781212673.9784887,
-    "ast_hash": "bbb41f89a4ab6d24cd375bc6ea305cea",
+    "mtime": 1781213045.1367836,
+    "ast_hash": "69b36e596385df5b7929bad455151692",
     "semantic_hash": ""
   },
   "services/api-football.service.ts": {
@@ -160,8 +160,8 @@
     "semantic_hash": ""
   },
   "services/ranking.service.ts": {
-    "mtime": 1781212674.1771288,
-    "ast_hash": "a687ee73183f155a9269ab344c3ddc8b",
+    "mtime": 1781213045.258445,
+    "ast_hash": "fddf3cadcf728a27a1589c3f0a72efa0",
     "semantic_hash": ""
   },
   "services/scoring.service.ts": {
@@ -210,13 +210,13 @@
     "semantic_hash": ""
   },
   "vercel.json": {
-    "mtime": 1781212676.7393918,
-    "ast_hash": "62fff442d127f5431d880af5d9b92b8d",
+    "mtime": 1781213044.3283763,
+    "ast_hash": "de56ecb975cf0a48e24300aa81efa9c9",
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1781212685.0215228,
-    "ast_hash": "4d5b5d3693355cdac4dc79f2dc5c9b2a",
+    "mtime": 1781213055.5611975,
+    "ast_hash": "584d9b39d31db72f3b418869540a30b1",
     "semantic_hash": ""
   },
   "docs/README.md": {
@@ -255,8 +255,8 @@
     "semantic_hash": ""
   },
   "app/comunidade/page.tsx": {
-    "mtime": 1781193721.111745,
-    "ast_hash": "da86862949139991ddd1ea7719b0ec6a",
+    "mtime": 1781213045.6960714,
+    "ast_hash": "01df8699385ee47e4abc04d8b98fc433",
     "semantic_hash": ""
   },
   "components/CommunityPredictionsBoard.tsx": {
@@ -265,8 +265,8 @@
     "semantic_hash": ""
   },
   "components/PalpitesWorkspace.tsx": {
-    "mtime": 1781202807.126662,
-    "ast_hash": "9aaf7883dc508b370af4bee8b495442c",
+    "mtime": 1781212885.6020565,
+    "ast_hash": "5389abdee9d34b20ac3d1e94651991d4",
     "semantic_hash": ""
   },
   "lib/match-visibility.ts": {
@@ -317,6 +317,11 @@
   "supabase/migrations/202606110005_seed_worldcup_baseline.sql": {
     "mtime": 1781212656.846216,
     "ast_hash": "53439b51441b9e862cee92cd25aec81b",
+    "semantic_hash": ""
+  },
+  ".github/workflows/sync-worldcup.yml": {
+    "mtime": 1781213047.2644353,
+    "ast_hash": "48d6f53e4bdb8716e9212585cff7fb3b",
     "semantic_hash": ""
   }
 }

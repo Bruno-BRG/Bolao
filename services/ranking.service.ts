@@ -22,7 +22,7 @@ export async function recalculateRanking() {
   await ensureWorldCupData().catch(() => undefined);
 
   const [matches, teams, rows] = await Promise.all([
-    listMatches({ autoSyncIfEmpty: false }),
+    listMatches({ refreshIfStale: false }),
     listTeams(),
     listPredictionRows()
   ]);

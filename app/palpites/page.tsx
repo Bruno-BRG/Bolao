@@ -20,7 +20,7 @@ export default async function PalpitesPage({
 
   const [row, matches] = await Promise.all([
     getOrCreatePredictionDocument(user.id),
-    listMatches({ autoSyncIfEmpty: false })
+    listMatches()
   ]);
   const document = normalizePredictionDocument(row.predictions);
   const savedMatchIds = new Set(Object.keys(document.matches));

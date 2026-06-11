@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { PalpitesWorkspace } from "@/components/PalpitesWorkspace";
 import { shouldShowMatchInPalpites } from "@/lib/match-visibility";
 import { getOrCreatePredictionDocument } from "@/repositories/predictions.repo";
-import { listMatches } from "@/repositories/worldcup.repo";
+import { listMatchesCached } from "@/repositories/worldcup.repo";
 import { getCurrentUser } from "@/services/auth.service";
 import { normalizePredictionDocument } from "@/services/prediction-document";
 export const dynamic = "force-dynamic";
@@ -20,7 +20,7 @@ export default async function PalpitesPage({
 
   const [row, matches] = await Promise.all([
     getOrCreatePredictionDocument(user.id),
-    listMatches()
+    listMatchesCached()
   ]);
   const document = normalizePredictionDocument(row.predictions);
   const savedMatchIds = new Set(Object.keys(document.matches));

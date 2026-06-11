@@ -67,28 +67,42 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
   }
 
   const supabase = getSupabaseAdmin();
+  const now = Date.now();
+  const liveStaleThreshold = new Date(
+    now - LIVE_SYNC_MAX_AGE_MINUTES * 60 * 1000
+  ).toISOString();
+  const { data: latestSync, error: syncError } = await supabase
+    .from("sync_logs")
+    .select("created_at, status")
+    .eq("provider", provider)
+    .eq("status", "success")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (syncError) throw syncError;
+
+  if (
+    !options?.force &&
+    latestSync?.created_at &&
+    latestSync.created_at >= liveStaleThreshold
+  ) {
+    return { ran: false, reason: "fresh" as const };
+  }
+
   const syncMaxAgeMinutes = await resolveSyncMaxAgeMinutes();
   const staleThreshold = new Date(
-    Date.now() - syncMaxAgeMinutes * 60 * 1000
+    now - syncMaxAgeMinutes * 60 * 1000
   ).toISOString();
 
   const [
     { count: matchesCount, error: countError },
-    { data: latestSync, error: syncError },
     { data: sampleMatches, error: sampleError }
   ] = await Promise.all([
     supabase
       .from("matches_cache")
       .select("external_id", { count: "exact", head: true })
       .eq("tournament_code", TOURNAMENT_CODE),
-    supabase
-      .from("sync_logs")
-      .select("created_at, status")
-      .eq("provider", provider)
-      .eq("status", "success")
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .maybeSingle(),
     provider === "worldcup26"
       ? supabase
           .from("matches_cache")
@@ -99,7 +113,6 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
   ]);
 
   if (countError) throw countError;
-  if (syncError) throw syncError;
   if (sampleError) throw sampleError;
 
   const shouldSyncBecauseEmpty = (matchesCount ?? 0) === 0;

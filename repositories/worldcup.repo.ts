@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { TOURNAMENT_CODE } from "@/lib/constants";
 import { getSupabaseAdmin } from "@/lib/supabase-server";
 import { localizeTeam } from "@/lib/team-names-pt";
@@ -7,7 +8,7 @@ import {
 } from "@/services/worldcup-sync.service";
 import type { GroupTable, Match, Team } from "@/types/domain";
 
-export async function listTeams(): Promise<Team[]> {
+export const listTeams = cache(async (): Promise<Team[]> => {
   const supabase = getSupabaseAdmin();
   const { data, error } = await supabase
     .from("teams_cache")
@@ -19,16 +20,9 @@ export async function listTeams(): Promise<Team[]> {
   return ((data ?? []) as Team[])
     .map(localizeTeam)
     .sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
-}
+});
 
-export async function listMatches(options?: {
-  /** Sync from API only when cache is empty or stale (default: true). */
-  refreshIfStale?: boolean;
-}): Promise<Match[]> {
-  if (options?.refreshIfStale !== false) {
-    await ensureWorldCupData().catch(() => undefined);
-  }
-
+async function readMatchesFromCache(): Promise<Match[]> {
   const supabase = getSupabaseAdmin();
   const { data, error } = await supabase
     .from("matches_cache")
@@ -51,6 +45,19 @@ export async function listMatches(options?: {
     away_team: match.away_team_id ? byId.get(match.away_team_id) ?? null : null
   }));
 }
+
+export async function listMatches(options?: {
+  /** Sync from API only when cache is empty or stale (default: false — use cron/poll). */
+  refreshIfStale?: boolean;
+}): Promise<Match[]> {
+  if (options?.refreshIfStale) {
+    await ensureWorldCupData().catch(() => undefined);
+  }
+
+  return readMatchesFromCache();
+}
+
+export const listMatchesCached = cache(() => readMatchesFromCache());
 
 export async function findMatch(matchId: string): Promise<Match | null> {
   const matches = await listMatches({ refreshIfStale: false });

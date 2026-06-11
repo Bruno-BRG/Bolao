@@ -4,7 +4,7 @@ import {
   type CommunityMember
 } from "@/components/CommunityPredictionsBoard";
 import { listPredictionRows } from "@/repositories/predictions.repo";
-import { listMatches, listTeams } from "@/repositories/worldcup.repo";
+import { listMatchesCached, listTeams } from "@/repositories/worldcup.repo";
 import { getCurrentUser } from "@/services/auth.service";
 import { normalizePredictionDocument } from "@/services/prediction-document";
 
@@ -25,7 +25,7 @@ export default async function ComunidadePage() {
 
   const [rows, matches, teams] = await Promise.all([
     listPredictionRows(),
-    listMatches(),
+    listMatchesCached(),
     listTeams()
   ]);
 

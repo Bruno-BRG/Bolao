@@ -71,9 +71,8 @@ Sem esse passo, o ranking usa o fallback de `user_predictions` ate existir um
   e `ranking_snapshots` no Supabase.
 - **Escrita (background):** `/api/admin/sync-worldcup` puxa `worldcup26.ir`,
   grava no banco e recalcula o ranking quando necessario.
-- **Sync sob demanda:** se o cache estiver vazio ou velho, `listMatches()` chama
-  `ensureWorldCupData` antes de ler (no-op quando os dados ainda estao frescos).
-  Durante jogos ao vivo o limite e ~5 min; fora disso, ~6 h.
+- **Navegacao rapida:** paginas leem o banco direto (`listMatchesCached`) sem
+  sync na troca de tela. Sync fica no cron, GitHub Actions ou endpoints admin.
 
 ## Pontuacao
 

@@ -10,7 +10,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "actions_admin_actions",
-      "community": 1,
+      "community": 8,
       "norm_label": "admin.actions.ts"
     },
     {
@@ -20,7 +20,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "actions_admin_actions_recalculaterankingaction",
-      "community": 1,
+      "community": 8,
       "norm_label": "recalculaterankingaction()"
     },
     {
@@ -80,7 +80,7 @@
       "source_location": "L77",
       "_origin": "ast",
       "id": "actions_auth_actions_logoutaction",
-      "community": 8,
+      "community": 4,
       "norm_label": "logoutaction()"
     },
     {
@@ -90,7 +90,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "actions_predictions_actions",
-      "community": 2,
+      "community": 15,
       "norm_label": "predictions.actions.ts"
     },
     {
@@ -100,7 +100,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "actions_predictions_actions_predictionschema",
-      "community": 2,
+      "community": 15,
       "norm_label": "predictionschema"
     },
     {
@@ -110,7 +110,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "actions_predictions_actions_bulkpredictionschema",
-      "community": 2,
+      "community": 15,
       "norm_label": "bulkpredictionschema"
     },
     {
@@ -120,7 +120,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "actions_predictions_actions_topfourschema",
-      "community": 2,
+      "community": 15,
       "norm_label": "topfourschema"
     },
     {
@@ -140,7 +140,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "actions_predictions_actions_matchsaveresult",
-      "community": 2,
+      "community": 15,
       "norm_label": "matchsaveresult"
     },
     {
@@ -160,7 +160,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "actions_predictions_actions_ismatchlocked",
-      "community": 2,
+      "community": 15,
       "norm_label": "ismatchlocked()"
     },
     {
@@ -200,7 +200,7 @@
       "source_location": "L154",
       "_origin": "ast",
       "id": "actions_predictions_actions_savebulkpredictionsaction",
-      "community": 2,
+      "community": 15,
       "norm_label": "savebulkpredictionsaction()"
     },
     {
@@ -270,7 +270,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "health_route",
-      "community": 4,
+      "community": 1,
       "norm_label": "route.ts"
     },
     {
@@ -280,7 +280,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "health_route_get",
-      "community": 4,
+      "community": 1,
       "norm_label": "get()"
     },
     {
@@ -370,7 +370,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_layout",
-      "community": 8,
+      "community": 4,
       "norm_label": "layout.tsx"
     },
     {
@@ -380,7 +380,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "app_layout_metadata",
-      "community": 8,
+      "community": 4,
       "norm_label": "metadata"
     },
     {
@@ -390,7 +390,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "app_layout_rootlayout",
-      "community": 8,
+      "community": 4,
       "norm_label": "rootlayout()"
     },
     {
@@ -460,7 +460,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "ranking_page",
-      "community": 1,
+      "community": 8,
       "norm_label": "page.tsx"
     },
     {
@@ -470,7 +470,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "ranking_page_rankingpage",
-      "community": 1,
+      "community": 8,
       "norm_label": "rankingpage()"
     },
     {
@@ -500,7 +500,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_appshell",
-      "community": 8,
+      "community": 4,
       "norm_label": "appshell.tsx"
     },
     {
@@ -510,7 +510,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "components_appshell_navitem",
-      "community": 8,
+      "community": 4,
       "norm_label": "navitem"
     },
     {
@@ -520,7 +520,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "components_appshell_appshellprops",
-      "community": 8,
+      "community": 4,
       "norm_label": "appshellprops"
     },
     {
@@ -530,7 +530,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "components_appshell_appshell",
-      "community": 8,
+      "community": 4,
       "norm_label": "appshell()"
     },
     {
@@ -770,7 +770,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_predictionform",
-      "community": 2,
+      "community": 15,
       "norm_label": "predictionform.tsx"
     },
     {
@@ -780,7 +780,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_predictionform_formatstatus",
-      "community": 2,
+      "community": 15,
       "norm_label": "formatstatus()"
     },
     {
@@ -790,7 +790,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "components_predictionform_teamname",
-      "community": 2,
+      "community": 15,
       "norm_label": "teamname()"
     },
     {
@@ -800,7 +800,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "components_predictionform_predictionform",
-      "community": 2,
+      "community": 15,
       "norm_label": "predictionform()"
     },
     {
@@ -810,7 +810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_rankingliveboard",
-      "community": 1,
+      "community": 8,
       "norm_label": "rankingliveboard.tsx"
     },
     {
@@ -820,7 +820,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "components_rankingliveboard_ranking_poll_ms",
-      "community": 1,
+      "community": 8,
       "norm_label": "ranking_poll_ms"
     },
     {
@@ -830,7 +830,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "components_rankingliveboard_rankingliveboard",
-      "community": 1,
+      "community": 8,
       "norm_label": "rankingliveboard()"
     },
     {
@@ -840,7 +840,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_rankingtable",
-      "community": 1,
+      "community": 8,
       "norm_label": "rankingtable.tsx"
     },
     {
@@ -850,7 +850,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "components_rankingtable_rankingtable",
-      "community": 1,
+      "community": 8,
       "norm_label": "rankingtable()"
     },
     {
@@ -860,7 +860,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_sidebarnav",
-      "community": 8,
+      "community": 4,
       "norm_label": "sidebarnav.tsx"
     },
     {
@@ -870,7 +870,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "components_sidebarnav_sidebaritem",
-      "community": 8,
+      "community": 4,
       "norm_label": "sidebaritem"
     },
     {
@@ -880,7 +880,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "components_sidebarnav_sidebarsection",
-      "community": 8,
+      "community": 4,
       "norm_label": "sidebarsection"
     },
     {
@@ -890,7 +890,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "components_sidebarnav_sidebarnav",
-      "community": 8,
+      "community": 4,
       "norm_label": "sidebarnav()"
     },
     {
@@ -940,7 +940,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_constants",
-      "community": 2,
+      "community": 15,
       "norm_label": "constants.ts"
     },
     {
@@ -970,7 +970,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "lib_constants_locked_statuses",
-      "community": 2,
+      "community": 15,
       "norm_label": "locked_statuses"
     },
     {
@@ -1030,7 +1030,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "lib_date_formatdatetime",
-      "community": 2,
+      "community": 15,
       "norm_label": "formatdatetime()"
     },
     {
@@ -1040,7 +1040,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_match_lock",
-      "community": 2,
+      "community": 15,
       "norm_label": "match-lock.ts"
     },
     {
@@ -1050,7 +1050,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "lib_match_lock_ismatchlockedforprediction",
-      "community": 2,
+      "community": 15,
       "norm_label": "ismatchlockedforprediction()"
     },
     {
@@ -1240,7 +1240,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_supabase_server",
-      "community": 4,
+      "community": 1,
       "norm_label": "supabase-server.ts"
     },
     {
@@ -1250,7 +1250,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "lib_supabase_server_getsupabaseadmin",
-      "community": 4,
+      "community": 1,
       "norm_label": "getsupabaseadmin()"
     },
     {
@@ -1714,40 +1714,60 @@
       "norm_label": "worldcup.repo.ts"
     },
     {
-      "label": "listTeams()",
+      "label": "listTeams",
       "file_type": "code",
       "source_file": "repositories/worldcup.repo.ts",
-      "source_location": "L10",
+      "source_location": "L11",
       "_origin": "ast",
       "id": "repositories_worldcup_repo_listteams",
       "community": 1,
-      "norm_label": "listteams()"
+      "norm_label": "listteams"
+    },
+    {
+      "label": "readMatchesFromCache()",
+      "file_type": "code",
+      "source_file": "repositories/worldcup.repo.ts",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "repositories_worldcup_repo_readmatchesfromcache",
+      "community": 1,
+      "norm_label": "readmatchesfromcache()"
     },
     {
       "label": "listMatches()",
       "file_type": "code",
       "source_file": "repositories/worldcup.repo.ts",
-      "source_location": "L24",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "repositories_worldcup_repo_listmatches",
       "community": 1,
       "norm_label": "listmatches()"
     },
     {
+      "label": "listMatchesCached",
+      "file_type": "code",
+      "source_file": "repositories/worldcup.repo.ts",
+      "source_location": "L60",
+      "_origin": "ast",
+      "id": "repositories_worldcup_repo_listmatchescached",
+      "community": 2,
+      "norm_label": "listmatchescached"
+    },
+    {
       "label": "findMatch()",
       "file_type": "code",
       "source_file": "repositories/worldcup.repo.ts",
-      "source_location": "L55",
+      "source_location": "L62",
       "_origin": "ast",
       "id": "repositories_worldcup_repo_findmatch",
-      "community": 2,
+      "community": 1,
       "norm_label": "findmatch()"
     },
     {
       "label": "sortStandings()",
       "file_type": "code",
       "source_file": "repositories/worldcup.repo.ts",
-      "source_location": "L60",
+      "source_location": "L67",
       "_origin": "ast",
       "id": "repositories_worldcup_repo_sortstandings",
       "community": 1,
@@ -1757,7 +1777,7 @@
       "label": "listGroupStandings()",
       "file_type": "code",
       "source_file": "repositories/worldcup.repo.ts",
-      "source_location": "L72",
+      "source_location": "L79",
       "_origin": "ast",
       "id": "repositories_worldcup_repo_listgroupstandings",
       "community": 1,
@@ -1767,7 +1787,7 @@
       "label": "getLatestSyncLog()",
       "file_type": "code",
       "source_file": "repositories/worldcup.repo.ts",
-      "source_location": "L113",
+      "source_location": "L120",
       "_origin": "ast",
       "id": "repositories_worldcup_repo_getlatestsynclog",
       "community": 2,
@@ -1960,7 +1980,7 @@
       "source_location": "L154",
       "_origin": "ast",
       "id": "services_api_football_service_syncworldcupfromapifootball",
-      "community": 17,
+      "community": 1,
       "norm_label": "syncworldcupfromapifootball()"
     },
     {
@@ -1970,7 +1990,7 @@
       "source_location": "L241",
       "_origin": "ast",
       "id": "services_api_football_service_ensureworldcupdata",
-      "community": 17,
+      "community": 1,
       "norm_label": "ensureworldcupdata()"
     },
     {
@@ -1984,20 +2004,20 @@
       "norm_label": "auth.service.ts"
     },
     {
-      "label": "getCurrentUser()",
+      "label": "getCurrentUser",
       "file_type": "code",
       "source_file": "services/auth.service.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "_origin": "ast",
       "id": "services_auth_service_getcurrentuser",
       "community": 2,
-      "norm_label": "getcurrentuser()"
+      "norm_label": "getcurrentuser"
     },
     {
       "label": "normalizeUsername()",
       "file_type": "code",
       "source_file": "services/auth.service.ts",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "services_auth_service_normalizeusername",
       "community": 4,
@@ -2820,7 +2840,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "types_domain_matchprediction",
-      "community": 15,
+      "community": 5,
       "norm_label": "matchprediction"
     },
     {
@@ -2870,7 +2890,7 @@
       "source_location": "L86",
       "_origin": "ast",
       "id": "types_domain_rankingrow",
-      "community": 1,
+      "community": 8,
       "norm_label": "rankingrow"
     },
     {
@@ -2977,7 +2997,7 @@
       "label": "Pontuacao",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L78",
+      "source_location": "L77",
       "_origin": "ast",
       "id": "readme_pontuacao",
       "community": 9,
@@ -2987,7 +3007,7 @@
       "label": "Endpoints admin",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L89",
+      "source_location": "L88",
       "_origin": "ast",
       "id": "readme_endpoints_admin",
       "community": 9,
@@ -2997,7 +3017,7 @@
       "label": "Sync automatico",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L98",
+      "source_location": "L97",
       "_origin": "ast",
       "id": "readme_sync_automatico",
       "community": 9,
@@ -3007,7 +3027,7 @@
       "label": "Vercel Hobby (cron diario)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L100",
+      "source_location": "L99",
       "_origin": "ast",
       "id": "readme_vercel_hobby_cron_diario",
       "community": 9,
@@ -3017,7 +3037,7 @@
       "label": "GitHub Actions (recomendado na Copa)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L105",
+      "source_location": "L104",
       "_origin": "ast",
       "id": "readme_github_actions_recomendado_na_copa",
       "community": 9,
@@ -3027,7 +3047,7 @@
       "label": "Sem cron frequente",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L117",
+      "source_location": "L116",
       "_origin": "ast",
       "id": "readme_sem_cron_frequente",
       "community": 9,
@@ -4553,6 +4573,17 @@
       "source_file": "app/comunidade/page.tsx",
       "source_location": "L7",
       "weight": 1.0,
+      "source": "comunidade_page",
+      "target": "repositories_worldcup_repo_listmatchescached",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/comunidade/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
       "confidence_score": 1.0,
       "source": "comunidade_page",
       "target": "repositories_worldcup_repo_listteams"
@@ -4622,6 +4653,17 @@
       "weight": 1.0,
       "source": "comunidade_page_comunidadepage",
       "target": "repositories_worldcup_repo_listmatches"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/comunidade/page.tsx",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "comunidade_page_comunidadepage",
+      "target": "repositories_worldcup_repo_listmatchescached"
     },
     {
       "relation": "calls",
@@ -5245,6 +5287,17 @@
       "target": "repositories_worldcup_repo_listmatches"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/palpites/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "palpites_page",
+      "target": "repositories_worldcup_repo_listmatchescached",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -5342,6 +5395,17 @@
       "weight": 1.0,
       "source": "palpites_page_palpitespage",
       "target": "repositories_worldcup_repo_listmatches"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/palpites/page.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "palpites_page_palpitespage",
+      "target": "repositories_worldcup_repo_listmatchescached"
     },
     {
       "relation": "calls",
@@ -5823,9 +5887,9 @@
       "source_file": "components/PalpitesWorkspace.tsx",
       "source_location": "L69",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_palpitesworkspace",
-      "target": "components_palpitesworkspace_dayheading",
-      "confidence_score": 1.0
+      "target": "components_palpitesworkspace_dayheading"
     },
     {
       "relation": "contains",
@@ -5853,9 +5917,9 @@
       "source_file": "components/PalpitesWorkspace.tsx",
       "source_location": "L60",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_palpitesworkspace",
-      "target": "components_palpitesworkspace_localdaykey",
-      "confidence_score": 1.0
+      "target": "components_palpitesworkspace_localdaykey"
     },
     {
       "relation": "contains",
@@ -5923,9 +5987,9 @@
       "source_file": "components/PalpitesWorkspace.tsx",
       "source_location": "L79",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_palpitesworkspace",
-      "target": "components_palpitesworkspace_sortmatchesbystart",
-      "confidence_score": 1.0
+      "target": "components_palpitesworkspace_sortmatchesbystart"
     },
     {
       "relation": "contains",
@@ -6227,9 +6291,9 @@
       "source_file": "components/PalpitesWorkspace.tsx",
       "source_location": "L57",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_palpitesworkspace_todayheading",
-      "target": "components_palpitesworkspace_dayheading",
-      "confidence_score": 1.0
+      "target": "components_palpitesworkspace_dayheading"
     },
     {
       "relation": "calls",
@@ -6238,9 +6302,9 @@
       "source_file": "components/PalpitesWorkspace.tsx",
       "source_location": "L71",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_palpitesworkspace_dayheading",
-      "target": "lib_date_formatdatetime",
-      "confidence_score": 1.0
+      "target": "lib_date_formatdatetime"
     },
     {
       "relation": "calls",
@@ -7648,6 +7712,17 @@
       "target": "lib_supabase_server_getsupabaseadmin"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "repositories/worldcup.repo.ts",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "repositories_worldcup_repo_readmatchesfromcache",
+      "target": "lib_supabase_server_getsupabaseadmin",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -8543,11 +8618,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "repositories/worldcup.repo.ts",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "repositories_worldcup_repo",
+      "target": "repositories_worldcup_repo_listmatchescached",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "repositories/worldcup.repo.ts",
       "source_location": "L9",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "repositories_worldcup_repo",
       "target": "repositories_worldcup_repo_listteams"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "repositories/worldcup.repo.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "repositories_worldcup_repo",
+      "target": "repositories_worldcup_repo_readmatchesfromcache",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -8670,6 +8765,17 @@
       "target": "repositories_worldcup_repo_listteams"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "repositories/worldcup.repo.ts",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "repositories_worldcup_repo_readmatchesfromcache",
+      "target": "repositories_worldcup_repo_listteams",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -8690,6 +8796,17 @@
       "weight": 1.0,
       "source": "services_ranking_service_recalculateranking",
       "target": "repositories_worldcup_repo_listteams"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "repositories/worldcup.repo.ts",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "repositories_worldcup_repo_listmatches",
+      "target": "repositories_worldcup_repo_readmatchesfromcache",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -10457,9 +10574,9 @@
       "source_file": "README.md",
       "source_location": "L105",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "readme_sync_automatico",
-      "target": "readme_github_actions_recomendado_na_copa",
-      "confidence_score": 1.0
+      "target": "readme_github_actions_recomendado_na_copa"
     },
     {
       "relation": "contains",
@@ -10467,9 +10584,9 @@
       "source_file": "README.md",
       "source_location": "L117",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "readme_sync_automatico",
-      "target": "readme_sem_cron_frequente",
-      "confidence_score": 1.0
+      "target": "readme_sem_cron_frequente"
     },
     {
       "relation": "contains",
@@ -10477,9 +10594,9 @@
       "source_file": "README.md",
       "source_location": "L100",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "readme_sync_automatico",
-      "target": "readme_vercel_hobby_cron_diario",
-      "confidence_score": 1.0
+      "target": "readme_vercel_hobby_cron_diario"
     },
     {
       "relation": "contains",
@@ -10493,5 +10610,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "e6f295d2b82056781d458e2de295eff50d86b7c6"
+  "built_at_commit": "bb09b66bec15a4e48aa922aa7be46b71b1eeb681"
 }

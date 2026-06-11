@@ -1045,8 +1045,16 @@ tbody tr:hover {
 }
 
 .bracket-board {
+  -webkit-overflow-scrolling: touch;
   overflow: auto;
   padding: 4px 0 12px;
+}
+
+.bracket-viewport {
+  min-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 8px;
 }
 
 .bracket-tree {
@@ -1070,6 +1078,7 @@ tbody tr:hover {
   left: 0;
   position: absolute;
   top: 0;
+  z-index: 1;
 }
 
 .bracket-match {
@@ -1092,6 +1101,14 @@ tbody tr:hover {
 
 .bracket-match--done {
   opacity: 0.94;
+}
+
+.bracket-match--compact .bracket-match__name {
+  font-size: 0.72rem;
+}
+
+.bracket-match--compact .bracket-match__head time {
+  font-size: 0.66rem;
 }
 
 .bracket-match__head {
@@ -1171,10 +1188,6 @@ tbody tr:hover {
 .bracket-empty {
   margin: 0;
   padding: 8px 4px;
-}
-
-.container--palpites {
-  padding-bottom: 96px;
 }
 
 .palpites-note {
@@ -1627,22 +1640,6 @@ tbody tr:hover {
     font-size: 1.4rem;
     height: 58px;
     width: 72px;
-  }
-
-  .palpites-savebar {
-    align-items: stretch;
-    flex-direction: column;
-    gap: 12px;
-    left: 12px;
-    right: 12px;
-  }
-
-  .palpites-savebar .button {
-    width: 100%;
-  }
-
-  .container--palpites {
-    padding-bottom: 140px;
   }
 
   .community-match-row {

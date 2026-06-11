@@ -44,8 +44,16 @@ export const BRACKET_LAYOUT_CONFIG: BracketLayoutConfig = {
   nodeWidth: 196,
   nodeHeight: 78,
   columnGap: 44,
-  matchGap: 10,
+  matchGap: 12,
   padding: 16
+};
+
+export const BRACKET_MOBILE_CONFIG: BracketLayoutConfig = {
+  nodeWidth: 156,
+  nodeHeight: 72,
+  columnGap: 32,
+  matchGap: 10,
+  padding: 12
 };
 
 function sortMatches(matches: LiveMatch[]) {
@@ -55,8 +63,8 @@ function sortMatches(matches: LiveMatch[]) {
 }
 
 function connectorTone(match: LiveMatch) {
-  if (match.status === "LIVE") return "rgba(46, 194, 126, 0.55)";
-  return "rgba(151, 166, 186, 0.28)";
+  if (match.status === "LIVE") return "rgba(21, 101, 192, 0.55)";
+  return "rgba(0, 0, 0, 0.2)";
 }
 
 function columnWidth(config: BracketLayoutConfig) {
@@ -78,6 +86,12 @@ function buildConnectorPath(
   return `M ${right} ${topY} H ${fork} V ${parentY} H ${parent.x} M ${right} ${bottomY} H ${fork}`;
 }
 
+function leafTopY(row: number, leafBlock: number, config: BracketLayoutConfig) {
+  return (
+    config.padding + row * leafBlock * 2 + (leafBlock - config.nodeHeight) / 2
+  );
+}
+
 export function buildBracketLayout(
   matches: LiveMatch[],
   partialConfig: Partial<BracketLayoutConfig> = {}
@@ -95,7 +109,6 @@ export function buildBracketLayout(
   const nodes: BracketLayoutNode[] = [];
   const edges: BracketLayoutEdge[] = [];
   const colW = columnWidth(config);
-  const slot = config.nodeHeight + config.matchGap;
 
   let firstColumn = -1;
   for (let column = 0; column < MAIN_BRACKET_STAGES.length; column += 1) {
@@ -115,13 +128,21 @@ export function buildBracketLayout(
     };
   }
 
+  const activeStageCount = MAIN_BRACKET_STAGES.filter(
+    (stage, index) => index >= firstColumn && (byStage.get(stage)?.length ?? 0) > 0
+  ).length;
+
+  const leafBlock =
+    (config.nodeHeight + config.matchGap) *
+    Math.pow(2, Math.max(activeStageCount - 1, 0));
+
   const yByMatchId = new Map<string, number>();
 
   function findPreviousStageMatches(column: number) {
     for (let index = column - 1; index >= 0; index -= 1) {
       const stage = MAIN_BRACKET_STAGES[index];
-      const matches = sortMatches(byStage.get(stage) ?? []);
-      if (matches.length > 0) return { matches, column: index };
+      const stageMatches = sortMatches(byStage.get(stage) ?? []);
+      if (stageMatches.length > 0) return { matches: stageMatches, column: index };
     }
     return null;
   }
@@ -156,7 +177,7 @@ export function buildBracketLayout(
 
     if (column === firstColumn) {
       stageMatches.forEach((match, row) => {
-        const y = config.padding + row * slot;
+        const y = leafTopY(row, leafBlock, config);
         yByMatchId.set(match.external_id, y);
         nodes.push({ match, x, y, stage, column, row });
       });
@@ -168,7 +189,7 @@ export function buildBracketLayout(
 
     stageMatches.forEach((match, row) => {
       const { childTop, childBottom } = resolveChildMatches(row, column, previous);
-      let y = config.padding + row * slot;
+      let y = config.padding + row * (config.nodeHeight + config.matchGap);
 
       if (childTop && childBottom) {
         const topY = yByMatchId.get(childTop.external_id);
@@ -205,19 +226,14 @@ export function buildBracketLayout(
     const match = placementMatches[0];
     const finalColumn = MAIN_BRACKET_STAGES.length - 1;
     const finalMatches = sortMatches(byStage.get("Final") ?? []);
-    const semiMatches = sortMatches(byStage.get("Semifinal") ?? []);
     const x = config.padding + finalColumn * colW;
 
     let y = config.padding;
     if (finalMatches[0]) {
       const finalY = yByMatchId.get(finalMatches[0].external_id);
       if (finalY !== undefined) {
-        y = finalY + config.nodeHeight + config.matchGap * 3;
+        y = finalY + config.nodeHeight + config.matchGap * 4;
       }
-    } else if (semiMatches.length > 0) {
-      const lastSemi = semiMatches[semiMatches.length - 1];
-      const semiY = yByMatchId.get(lastSemi.external_id);
-      if (semiY !== undefined) y = semiY + slot;
     }
 
     yByMatchId.set(match.external_id, y);

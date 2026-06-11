@@ -4,6 +4,7 @@ import { useState } from "react";
 import { savePredictionAction } from "@/actions/predictions.actions";
 import { LOCKED_STATUSES } from "@/lib/constants";
 import { formatDateTime } from "@/lib/date";
+import { isMatchLockedForPrediction } from "@/lib/match-lock";
 import type { Match, MatchPrediction } from "@/types/domain";
 
 function formatStatus(status: string, locked: boolean) {
@@ -41,9 +42,7 @@ export function PredictionForm({
   match: Match;
   prediction?: MatchPrediction;
 }) {
-  const locked =
-    new Date(match.starts_at).getTime() <= Date.now() ||
-    LOCKED_STATUSES.has(match.status.toUpperCase());
+  const locked = isMatchLockedForPrediction(match);
   const payload = match.payload ?? {};
   const homeLabel =
     typeof payload.home_team_label === "string" ? payload.home_team_label : null;

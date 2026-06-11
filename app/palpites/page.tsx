@@ -30,11 +30,14 @@ export default async function PalpitesPage({
   const hasTopFour = Boolean(document.topFour);
 
   return (
-    <main className="container container--palpites">
+    <main className="container">
       <section className="page-header">
         <div>
           <h1>Meus palpites</h1>
-          <p className="muted">Preencha o placar de cada jogo e clique em salvar no final.</p>
+          <p className="muted">
+            Preencha o placar de cada jogo. Salva sozinho quando os dois numeros estiverem
+            preenchidos. Fecha 1 hora antes do jogo.
+          </p>
         </div>
       </section>
 

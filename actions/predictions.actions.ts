@@ -3,8 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { LOCKED_STATUSES } from "@/lib/constants";
 import { isMatchPredictable } from "@/lib/match-visibility";
+import { isMatchLockedForPrediction } from "@/lib/match-lock";
 import { getOrCreatePredictionDocument, updatePredictionDocument } from "@/repositories/predictions.repo";
 import { findMatch } from "@/repositories/worldcup.repo";
 import { getCurrentUser } from "@/services/auth.service";
@@ -43,14 +43,19 @@ export type BulkSaveResult = {
   error?: string;
 };
 
+export type MatchSaveResult = {
+  ok: boolean;
+  unchanged?: boolean;
+  error?: string;
+};
+
 function ensureUnique(values: string[]) {
   return new Set(values).size === values.length;
 }
 
 function isMatchLocked(match: Awaited<ReturnType<typeof findMatch>>) {
   if (!match) return true;
-  const startsAt = new Date(match.starts_at).getTime();
-  return startsAt <= Date.now() || LOCKED_STATUSES.has(match.status.toUpperCase());
+  return isMatchLockedForPrediction(match);
 }
 
 async function persistMatchPrediction(
@@ -88,6 +93,38 @@ async function persistMatchPrediction(
 
   await updatePredictionDocument(userId, document);
   return { status: "saved" as const, matchId: input.matchId };
+}
+
+export async function saveMatchPredictionAction(input: {
+  matchId: string;
+  homeGoals: number;
+  awayGoals: number;
+}): Promise<MatchSaveResult> {
+  const user = await getCurrentUser();
+  if (!user) return { ok: false, error: "Faca login para salvar." };
+
+  try {
+    const parsed = predictionSchema.parse(input);
+    const result = await persistMatchPrediction(user.id, parsed);
+
+    if (result.status === "saved") {
+      revalidatePath("/palpites");
+      revalidatePath("/comunidade");
+      return { ok: true };
+    }
+
+    if (result.status === "unchanged") return { ok: true, unchanged: true };
+    if (result.status === "locked") {
+      return { ok: false, error: "Palpite bloqueado: falta menos de 1 hora para o jogo." };
+    }
+    if (result.status === "unpredictable") {
+      return { ok: false, error: "Confronto ainda nao liberado." };
+    }
+
+    return { ok: false, error: "Jogo nao encontrado." };
+  } catch {
+    return { ok: false, error: "Placar invalido." };
+  }
 }
 
 export async function savePredictionAction(formData: FormData) {

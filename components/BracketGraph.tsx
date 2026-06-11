@@ -1,10 +1,29 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FINISHED_STATUSES } from "@/lib/constants";
 import { formatDateTime } from "@/lib/date";
-import { PLACEMENT_STAGE } from "@/lib/bracket-layout";
+import {
+  BRACKET_LAYOUT_CONFIG,
+  BRACKET_MOBILE_CONFIG,
+  buildBracketLayout,
+  PLACEMENT_STAGE
+} from "@/lib/bracket-layout";
 import type { BracketLayout } from "@/lib/bracket-layout";
 import type { LiveMatch } from "@/services/worldcup-live.service";
 
 function getTeamLabel(match: LiveMatch, side: "home" | "away") {
+  const payload = match.payload ?? {};
+  const team = side === "home" ? match.home_team : match.away_team;
+  const labelKey = side === "home" ? "home_team_label" : "away_team_label";
+  const fallback = typeof payload[labelKey] === "string" ? payload[labelKey] : null;
+  const name = team?.name ?? fallback ?? "A definir";
+  const code = team?.fifa_code ?? team?.iso2;
+  if (code) return code.toUpperCase();
+  return name.length > 14 ? `${name.slice(0, 14)}…` : name;
+}
+
+function getTeamTitle(match: LiveMatch, side: "home" | "away") {
   const payload = match.payload ?? {};
   const team = side === "home" ? match.home_team : match.away_team;
   const labelKey = side === "home" ? "home_team_label" : "away_team_label";
@@ -46,10 +65,13 @@ function TeamShield({ flagUrl }: { flagUrl: string | null | undefined }) {
   );
 }
 
-function BracketMatchCard({ match }: { match: LiveMatch }) {
-  const venue = match.venue_name
-    ? `${match.venue_name}${match.city_name ? ` · ${match.city_name}` : ""}`
-    : null;
+function BracketMatchCard({
+  match,
+  compact
+}: {
+  match: LiveMatch;
+  compact?: boolean;
+}) {
   const hasScore =
     match.current_score_home !== null &&
     match.current_score_home !== undefined &&
@@ -57,42 +79,35 @@ function BracketMatchCard({ match }: { match: LiveMatch }) {
     match.current_score_away !== undefined;
 
   return (
-    <article
-      className={`bracket-match ${statusClass(match)}`}
-      title={venue ?? undefined}
-    >
+    <article className={`bracket-match ${statusClass(match)} ${compact ? "bracket-match--compact" : ""}`}>
       <header className="bracket-match__head">
         <time>{formatMatchTime(match)}</time>
         {match.stage === PLACEMENT_STAGE ? (
-          <span className="bracket-match__tag">3o lugar</span>
+          <span className="bracket-match__tag">3o</span>
         ) : null}
       </header>
 
       <div className="bracket-match__row">
         <TeamShield flagUrl={match.home_team?.flag_url} />
-        <span className="bracket-match__name">{getTeamLabel(match, "home")}</span>
+        <span className="bracket-match__name" title={getTeamTitle(match, "home")}>
+          {getTeamLabel(match, "home")}
+        </span>
         {hasScore ? <strong>{match.current_score_home}</strong> : null}
       </div>
 
       <div className="bracket-match__row">
         <TeamShield flagUrl={match.away_team?.flag_url} />
-        <span className="bracket-match__name">{getTeamLabel(match, "away")}</span>
+        <span className="bracket-match__name" title={getTeamTitle(match, "away")}>
+          {getTeamLabel(match, "away")}
+        </span>
         {hasScore ? <strong>{match.current_score_away}</strong> : null}
       </div>
     </article>
   );
 }
 
-export function BracketGraph({ layout }: { layout: BracketLayout }) {
+function BracketTree({ layout }: { layout: BracketLayout }) {
   const { nodes, edges, width, height, config } = layout;
-
-  if (nodes.length === 0) {
-    return (
-      <p className="muted bracket-empty">
-        Nenhum jogo de mata-mata foi publicado na fonte dinamica ainda.
-      </p>
-    );
-  }
 
   return (
     <div className="bracket-tree" style={{ width, height }}>
@@ -127,10 +142,42 @@ export function BracketGraph({ layout }: { layout: BracketLayout }) {
               transform: `translate(${node.x}px, ${node.y}px)`
             }}
           >
-            <BracketMatchCard match={node.match} />
+            <BracketMatchCard match={node.match} compact={config.nodeWidth < 170} />
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+export function BracketGraph({ matches }: { matches: LiveMatch[] }) {
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 860px)");
+    const update = () => setIsMobile(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  const layout = useMemo(
+    () => buildBracketLayout(matches, isMobile ? BRACKET_MOBILE_CONFIG : BRACKET_LAYOUT_CONFIG),
+    [isMobile, matches]
+  );
+
+  if (layout.nodes.length === 0) {
+    return (
+      <p className="muted bracket-empty">
+        Nenhum jogo de mata-mata foi publicado na fonte dinamica ainda.
+      </p>
+    );
+  }
+
+  return (
+    <div className="bracket-viewport" ref={viewportRef}>
+      <BracketTree layout={layout} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase-server";
+import { syncWorldCupFromApiFootball } from "@/services/api-football.service";
 import { recalculateRanking } from "@/services/ranking.service";
 
 export const dynamic = "force-dynamic";
@@ -10,21 +11,40 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const provider = (process.env.FOOTBALL_PROVIDER ?? "api-football").toLowerCase();
   const supabase = getSupabaseAdmin();
-  const { error } = await supabase.from("sync_logs").insert({
-    provider: process.env.FOOTBALL_PROVIDER ?? "manual",
-    status: "skipped",
-    message:
-      "Sync provider ainda nao configurado. Atualize matches_cache/teams_cache ou implemente o provedor escolhido."
-  });
-  if (error) throw error;
 
-  const ranking = await recalculateRanking();
-  return NextResponse.json({
-    ok: true,
-    message: "Ranking recalculado; sync externo ainda depende do provedor.",
-    ranking
-  });
+  try {
+    if (provider !== "api-football") {
+      throw new Error(`Unsupported provider "${provider}". Use api-football.`);
+    }
+
+    const syncResult = await syncWorldCupFromApiFootball();
+    const ranking = await recalculateRanking();
+
+    return NextResponse.json({
+      ok: true,
+      message: "Sync concluido com API-Football e ranking recalculado.",
+      provider,
+      syncResult,
+      ranking
+    });
+  } catch (error) {
+    await supabase.from("sync_logs").insert({
+      provider,
+      status: "error",
+      message: (error as Error).message
+    });
+
+    return NextResponse.json(
+      {
+        ok: false,
+        provider,
+        error: (error as Error).message
+      },
+      { status: 500 }
+    );
+  }
 }
 
 export const GET = POST;

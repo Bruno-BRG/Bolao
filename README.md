@@ -20,8 +20,11 @@ No PowerShell com execution policy restritiva, use `npm.cmd` no lugar de `npm`.
 SUPABASE_URL=
 SUPABASE_SERVICE_ROLE_KEY=
 ADMIN_SYNC_TOKEN=
-FOOTBALL_PROVIDER=manual
+FOOTBALL_PROVIDER=api-football
 FOOTBALL_API_KEY=
+API_FOOTBALL_BASE_URL=https://v3.football.api-sports.io
+API_FOOTBALL_LEAGUE_ID=1
+API_FOOTBALL_SEASON=2026
 ```
 
 O frontend nao usa chave publica do Supabase. Todas as consultas passam pelo
@@ -34,8 +37,9 @@ Rode as migrations em `supabase/migrations` no Supabase antes do deploy:
 1. `202606110001_initial_schema.sql`
 2. `202606110002_seed_sample_worldcup_data.sql`
 
-A segunda migration cria dados de exemplo para validar a UI. Quando o provedor
-oficial for conectado, ele deve atualizar `teams_cache` e `matches_cache`.
+A segunda migration cria dados de exemplo para validar a UI. Em producao, rode
+o sync da API-Football logo depois para substituir esse mock em
+`teams_cache` e `matches_cache`.
 
 ## Pontuacao
 
@@ -53,6 +57,5 @@ com valores de 1 a 4 para as selecoes finalistas e recalcule o ranking.
 - `POST /api/admin/recalculate-ranking` com header `x-admin-sync-token`.
 - `GET|POST /api/admin/sync-worldcup` com header `x-admin-sync-token`.
 
-O sync externo ainda esta preparado como stub porque o repositorio nao contem
-credenciais nem escolha definitiva de provedor. Ele registra a tentativa e
-recalcula o ranking.
+O sync da Copa usa API-Football com `league=1` e `season=2026`, conforme o guia
+oficial da Copa 2026 da API-Sports.

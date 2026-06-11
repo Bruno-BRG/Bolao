@@ -41,6 +41,25 @@ const WORLDCUP26_GITHUB_BASE_URL =
   process.env.WORLDCUP26_GITHUB_BASE_URL ??
   "https://raw.githubusercontent.com/rezarahiminia/worldcup2026/main";
 
+const STADIUM_TIMEZONES: Record<string, string> = {
+  "1": "America/Mexico_City",
+  "2": "America/Mexico_City",
+  "3": "America/Monterrey",
+  "4": "America/Chicago",
+  "5": "America/Chicago",
+  "6": "America/Chicago",
+  "7": "America/New_York",
+  "8": "America/New_York",
+  "9": "America/New_York",
+  "10": "America/New_York",
+  "11": "America/New_York",
+  "12": "America/Toronto",
+  "13": "America/Vancouver",
+  "14": "America/Los_Angeles",
+  "15": "America/Los_Angeles",
+  "16": "America/Los_Angeles"
+};
+
 async function fetchJson<T>(url: string): Promise<T> {
   const response = await fetch(url, { next: { revalidate: 0 } });
   if (!response.ok) {
@@ -76,16 +95,53 @@ async function fetchGames(): Promise<WorldCup26Game[]> {
   return fetchJson<WorldCup26Game[]>(`${WORLDCUP26_GITHUB_BASE_URL}/football.matches.json`);
 }
 
-function parseLocalDate(value: string) {
+function getTimeZoneOffsetMilliseconds(date: Date, timeZone: string) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23"
+  }).formatToParts(date);
+
+  const values = Object.fromEntries(
+    parts
+      .filter((part) => part.type !== "literal")
+      .map((part) => [part.type, part.value])
+  );
+
+  const zonedAsUtc = Date.UTC(
+    Number(values.year),
+    Number(values.month) - 1,
+    Number(values.day),
+    Number(values.hour),
+    Number(values.minute),
+    Number(values.second)
+  );
+
+  return zonedAsUtc - date.getTime();
+}
+
+function parseLocalDate(value: string, stadiumId: string) {
   const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})$/);
   if (!match) {
     throw new Error(`Invalid worldcup26 local_date format: ${value}`);
   }
 
   const [, month, day, year, hour, minute] = match;
-  return new Date(
+  const timeZone = STADIUM_TIMEZONES[stadiumId];
+  if (!timeZone) {
+    throw new Error(`Missing timezone mapping for stadium ${stadiumId}`);
+  }
+
+  const utcGuess = new Date(
     Date.UTC(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute))
-  ).toISOString();
+  );
+  const offset = getTimeZoneOffsetMilliseconds(utcGuess, timeZone);
+  return new Date(utcGuess.getTime() - offset).toISOString();
 }
 
 function mapStage(type: string, group: string) {
@@ -166,7 +222,7 @@ export async function syncWorldCupFromWorldCup26() {
       tournament_code: TOURNAMENT_CODE,
       home_team_id: homeTeamId,
       away_team_id: awayTeamId,
-      starts_at: parseLocalDate(game.local_date),
+      starts_at: parseLocalDate(game.local_date, game.stadium_id),
       stage: mapStage(game.type, game.group),
       group_name: game.type === "group" ? `Grupo ${game.group}` : null,
       status: mapStatus(game),

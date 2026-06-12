@@ -1,20 +1,21 @@
 # Graph Report - Bolao  (2026-06-11)
 
 ## Corpus Check
-- 60 files · ~43,658 words
+- 61 files · ~43,780 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 314 nodes · 714 edges · 16 communities (12 shown, 4 thin omitted)
+- 316 nodes · 720 edges · 17 communities (13 shown, 4 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `a9750952`
+- Built from commit: `fd6a5a70`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
+- [[_COMMUNITY_Community 0|Community 0]]
 - [[_COMMUNITY_Community 1|Community 1]]
 - [[_COMMUNITY_Community 2|Community 2]]
 - [[_COMMUNITY_Community 3|Community 3]]
@@ -35,50 +36,54 @@
 1. `getSupabaseAdmin()` - 34 edges
 2. `getCurrentUser` - 21 edges
 3. `compilerOptions` - 16 edges
-4. `normalizePredictionDocument()` - 15 edges
-5. `recalculateRanking()` - 15 edges
-6. `getLatestRanking()` - 15 edges
-7. `getOrCreatePredictionDocument()` - 13 edges
-8. `listMatches()` - 13 edges
+4. `listMatches()` - 15 edges
+5. `normalizePredictionDocument()` - 15 edges
+6. `recalculateRanking()` - 15 edges
+7. `getLatestRanking()` - 15 edges
+8. `getOrCreatePredictionDocument()` - 13 edges
 9. `listTeams` - 11 edges
 10. `persistMatchPrediction()` - 10 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `RootLayout()` --calls--> `getCurrentUser`  [EXTRACTED]
+  app/layout.tsx → services/auth.service.ts
+- `LoginPage()` --calls--> `getCurrentUser`  [EXTRACTED]
+  app/login/page.tsx → services/auth.service.ts
+- `RankingPage()` --calls--> `getLatestRanking()`  [EXTRACTED]
+  app/ranking/page.tsx → services/ranking.service.ts
+- `logoutAction()` --calls--> `revokeSession()`  [EXTRACTED]
+  actions/auth.actions.ts → repositories/auth.repo.ts
 - `isMatchLocked()` --calls--> `isMatchLockedForPrediction()`  [EXTRACTED]
   actions/predictions.actions.ts → lib/match-lock.ts
-- `persistMatchPrediction()` --calls--> `isMatchPredictable()`  [EXTRACTED]
-  actions/predictions.actions.ts → lib/match-visibility.ts
-- `persistMatchPrediction()` --calls--> `getOrCreatePredictionDocument()`  [EXTRACTED]
-  actions/predictions.actions.ts → repositories/predictions.repo.ts
-- `persistMatchPrediction()` --calls--> `normalizePredictionDocument()`  [EXTRACTED]
-  actions/predictions.actions.ts → services/prediction-document.ts
-- `saveMatchPredictionAction()` --calls--> `getCurrentUser`  [EXTRACTED]
-  actions/predictions.actions.ts → services/auth.service.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (16 total, 4 thin omitted)
+## Communities (17 total, 4 thin omitted)
+
+### Community 0 - "Community 0"
+Cohesion: 0.16
+Nodes (11): logoutAction(), metadata, RootLayout(), AppShell(), AppShellProps, NavItem, SidebarItem, SidebarNav() (+3 more)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.14
-Nodes (26): recalculateRankingAction(), RANKING_POLL_MS, RankingLiveBoard(), RankingTable(), GET(), getSupabaseAdmin(), RankingPage(), GET() (+18 more)
+Nodes (29): recalculateRankingAction(), ComunidadePage(), GET(), getSupabaseAdmin(), GET(), GET(), POST(), listPredictionRows() (+21 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.23
-Nodes (14): bulkPredictionSchema, BulkSaveResult, ensureUnique(), isMatchLocked(), MatchSaveResult, persistMatchPrediction(), predictionSchema, saveBulkPredictionsAction() (+6 more)
+Cohesion: 0.14
+Nodes (30): bulkPredictionSchema, BulkSaveResult, ensureUnique(), isMatchLocked(), MatchSaveResult, persistMatchPrediction(), predictionSchema, saveBulkPredictionsAction() (+22 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.08
 Nodes (29): HomePage(), fetchGames(), fetchGroups(), fetchJson(), fetchTeams(), getTimeZoneOffsetMilliseconds(), hasWorldCup26TimezoneDrift(), mapWorldCup26Stage() (+21 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.11
-Nodes (28): loginAction(), logoutAction(), registerAction(), setSessionCookie(), validateCredentials(), metadata, RootLayout(), AppShell() (+20 more)
+Cohesion: 0.20
+Nodes (16): loginAction(), registerAction(), setSessionCookie(), validateCredentials(), AuthForms(), createSessionToken(), hashToken(), addDays() (+8 more)
 
 ### Community 5 - "Community 5"
-Cohesion: 0.13
-Nodes (24): CommunityMember, CommunityPredictionsBoard(), TopFourForm(), ComunidadePage(), PredictionRow, DashboardPage(), PalpitesPage(), getOrCreatePredictionDocument() (+16 more)
+Cohesion: 0.12
+Nodes (15): CommunityMember, CommunityPredictionsBoard(), RANKING_POLL_MS, RankingLiveBoard(), RankingTable(), TopFourForm(), PredictionRow, RankingPage() (+7 more)
 
 ### Community 6 - "Community 6"
 Cohesion: 0.09
@@ -93,8 +98,8 @@ Cohesion: 0.15
 Nodes (12): Apos o seed manual, Banco, Bolao da Copa, Comandos, Endpoints admin, GitHub Actions (recomendado na Copa), Modelo DB-first, Pontuacao (+4 more)
 
 ### Community 15 - "Community 15"
-Cohesion: 0.08
-Nodes (36): compactDate(), dayHeading(), isMatchToday(), isSameLocalDay(), PalpiteMatchRow(), PalpitesWorkspace(), PalpitesWorkspaceProps, RowStatus (+28 more)
+Cohesion: 0.10
+Nodes (28): compactDate(), dayHeading(), isMatchToday(), isSameLocalDay(), PalpiteMatchRow(), PalpitesWorkspace(), PalpitesWorkspaceProps, RowStatus (+20 more)
 
 ### Community 16 - "Community 16"
 Cohesion: 0.50
@@ -112,17 +117,17 @@ Nodes (20): getMatchTeamLabel(), getPlaceholderLabel(), isMatchPredictable(), is
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `getSupabaseAdmin()` connect `Community 1` to `Community 2`, `Community 3`, `Community 4`, `Community 5`, `Community 17`?**
-  _High betweenness centrality (0.072) - this node is a cross-community bridge._
-- **Why does `getCurrentUser` connect `Community 4` to `Community 2`, `Community 3`, `Community 5`?**
-  _High betweenness centrality (0.038) - this node is a cross-community bridge._
-- **Why does `getLatestRanking()` connect `Community 1` to `Community 3`, `Community 5`?**
+- **Why does `getSupabaseAdmin()` connect `Community 1` to `Community 17`, `Community 2`, `Community 3`, `Community 4`?**
+  _High betweenness centrality (0.073) - this node is a cross-community bridge._
+- **Why does `getCurrentUser` connect `Community 2` to `Community 0`, `Community 1`, `Community 3`, `Community 4`, `Community 5`?**
+  _High betweenness centrality (0.037) - this node is a cross-community bridge._
+- **Why does `getLatestRanking()` connect `Community 1` to `Community 2`, `Community 3`, `Community 5`?**
   _High betweenness centrality (0.019) - this node is a cross-community bridge._
 - **What connects `predictionSchema`, `bulkPredictionSchema`, `topFourSchema` to the rest of the system?**
   _97 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.13813813813813813 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.1423076923076923 - nodes in this community are weakly interconnected._
+- **Should `Community 2` be split into smaller, more focused modules?**
+  _Cohesion score 0.14035087719298245 - nodes in this community are weakly interconnected._
 - **Should `Community 3` be split into smaller, more focused modules?**
   _Cohesion score 0.08412698412698413 - nodes in this community are weakly interconnected._
-- **Should `Community 4` be split into smaller, more focused modules?**
-  _Cohesion score 0.1064102564102564 - nodes in this community are weakly interconnected._

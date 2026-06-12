@@ -55,8 +55,8 @@
     "semantic_hash": ""
   },
   "app/palpites/page.tsx": {
-    "mtime": 1781213396.379974,
-    "ast_hash": "9c1a9d734c5b6253a289381d939e4d96",
+    "mtime": 1781230909.1226428,
+    "ast_hash": "718c85979ac63bc53f26bf0e48757d50",
     "semantic_hash": ""
   },
   "app/ranking/page.tsx": {
@@ -265,8 +265,8 @@
     "semantic_hash": ""
   },
   "components/PalpitesWorkspace.tsx": {
-    "mtime": 1781215709.6598084,
-    "ast_hash": "5dd7505e0112071f6bb968206278952a",
+    "mtime": 1781230910.541899,
+    "ast_hash": "f04fa4ffc113e4da070839e6a1809dda",
     "semantic_hash": ""
   },
   "lib/match-visibility.ts": {
@@ -300,8 +300,8 @@
     "semantic_hash": ""
   },
   "lib/match-score.ts": {
-    "mtime": 1781202674.529227,
-    "ast_hash": "56ba08d09fb9ede5136dfa33ca82b22f",
+    "mtime": 1781230919.2557476,
+    "ast_hash": "2111372e4d8c9e17c7df02acb9f62ad5",
     "semantic_hash": ""
   },
   "scripts/verify-scoring.mjs": {
@@ -332,6 +332,11 @@
   "supabase/scripts/rename_username.sql": {
     "mtime": 1781214029.1033769,
     "ast_hash": "217fa3fac73bb53d0f05f0f67731ffd0",
+    "semantic_hash": ""
+  },
+  "app/api/worldcup/matches/route.ts": {
+    "mtime": 1781230908.5396414,
+    "ast_hash": "0cba5dd915341a3208808326e40fe447",
     "semantic_hash": ""
   }
 }

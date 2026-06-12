@@ -13,25 +13,27 @@ function parseScoreValue(value: unknown) {
 }
 
 export function getDisplayOfficialScore(match: Match): DisplayOfficialScore | null {
-  if (match.score_home !== null && match.score_away !== null) {
-    return {
-      home: match.score_home,
-      away: match.score_away,
-      label: FINISHED_STATUSES.has(match.status.toUpperCase()) ? "Resultado oficial" : "Placar atual"
-    };
+  const status = match.status.toUpperCase();
+  const payload = match.payload ?? {};
+  const home =
+    match.score_home ?? parseScoreValue(payload.home_score);
+  const away =
+    match.score_away ?? parseScoreValue(payload.away_score);
+
+  if (home !== null && away !== null) {
+    if (status === "LIVE") {
+      return { home, away, label: "Ao vivo" };
+    }
+    if (LOCKED_STATUSES.has(status) || FINISHED_STATUSES.has(status)) {
+      return {
+        home,
+        away,
+        label: FINISHED_STATUSES.has(status) ? "Resultado oficial" : "Placar atual"
+      };
+    }
+    if (status === "SCHEDULED") return null;
+    return { home, away, label: "Placar atual" };
   }
 
-  const payload = match.payload ?? {};
-  const home = parseScoreValue(payload.home_score);
-  const away = parseScoreValue(payload.away_score);
-  const status = match.status.toUpperCase();
-
-  if (home === null || away === null) return null;
-  if (!LOCKED_STATUSES.has(status) && status !== "LIVE") return null;
-
-  return {
-    home,
-    away,
-    label: status === "LIVE" ? "Ao vivo" : "Resultado oficial"
-  };
+  return null;
 }

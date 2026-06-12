@@ -271,13 +271,34 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      void fetch("/api/ranking", { cache: "no-store" }).then((response) => {
-        if (response.ok) router.refresh();
-      });
-    }, 60_000);
+    let active = true;
 
-    return () => clearInterval(timer);
+    async function refreshLiveData() {
+      try {
+        const [matchesResponse, rankingResponse] = await Promise.all([
+          fetch("/api/worldcup/matches", { cache: "no-store" }),
+          fetch("/api/ranking", { cache: "no-store" })
+        ]);
+
+        if (!active) return;
+        if (matchesResponse.ok || rankingResponse.ok) {
+          router.refresh();
+        }
+      } catch {
+        // Keep the last rendered snapshot on transient failures.
+      }
+    }
+
+    void refreshLiveData();
+
+    const timer = setInterval(() => {
+      void refreshLiveData();
+    }, 30_000);
+
+    return () => {
+      active = false;
+      clearInterval(timer);
+    };
   }, [router]);
 
   useEffect(() => {

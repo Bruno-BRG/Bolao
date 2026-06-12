@@ -6,6 +6,7 @@ import { saveMatchPredictionAction } from "@/actions/predictions.actions";
 import { formatDateTime } from "@/lib/date";
 import { isMatchLockedForPrediction } from "@/lib/match-lock";
 import { getDisplayOfficialScore } from "@/lib/match-score";
+import { isMatchLive } from "@/lib/match-status";
 import { getMatchTeamLabel } from "@/lib/match-visibility";
 import {
   readPredictionDrafts,
@@ -154,15 +155,19 @@ function PalpiteMatchRow({
   onUpdateScore: (match: Match, side: "homeGoals" | "awayGoals", value: string) => void;
 }) {
   const locked = isMatchLockedForPrediction(match, now);
+  const live = isMatchLive(match);
   const homeName = getMatchTeamLabel(match, "home");
   const awayName = getMatchTeamLabel(match, "away");
   const officialScore = getDisplayOfficialScore(match);
 
   return (
-    <article className={`palpite-row ${locked ? "palpite-row--locked" : ""}`}>
+    <article
+      className={`palpite-row ${locked ? "palpite-row--locked" : ""} ${live ? "palpite-row--live" : ""}`}
+    >
       <div className="palpite-row__meta">
         <time>{compactDate(match.starts_at)}</time>
         {showGroupLabel ? <span className="badge">{stageChip(match)}</span> : null}
+        {live ? <span className="badge live">Ao vivo</span> : null}
         {locked ? <span className="badge locked">Fechado</span> : null}
         {statusLabel(match.external_id, locked, Boolean(saved), status)}
         {saved?.points !== null && saved?.points !== undefined ? (
@@ -329,15 +334,23 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
     };
   }, []);
 
+  const liveMatches = useMemo(
+    () => matches.filter((match) => isMatchLive(match)).sort(sortMatchesByStart),
+    [matches]
+  );
+
   const todayMatches = useMemo(
-    () => matches.filter((match) => isMatchToday(match, now)).sort(sortMatchesByStart),
+    () =>
+      matches
+        .filter((match) => isMatchToday(match, now) && !isMatchLive(match))
+        .sort(sortMatchesByStart),
     [matches, now]
   );
 
   const matchesByDay = useMemo(() => {
     const days = new Map<string, Match[]>();
     for (const match of matches) {
-      if (isMatchToday(match, now)) continue;
+      if (isMatchToday(match, now) || isMatchLive(match)) continue;
       const key = localDayKey(match.starts_at);
       const bucket = days.get(key) ?? [];
       bucket.push(match);
@@ -422,6 +435,33 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
 
   return (
     <div className="palpites-groups">
+      {liveMatches.length > 0 ? (
+        <section className="palpites-group palpites-group--live">
+          <header className="palpites-group__head">
+            <div>
+              <h2>Jogos ao vivo</h2>
+              <p className="palpites-group__subhead">Placar atualizado em tempo real</p>
+            </div>
+            <span>{liveMatches.length} jogos</span>
+          </header>
+
+          <div className="palpites-rows">
+            {liveMatches.map((match) => (
+              <PalpiteMatchRow
+                key={`live-${match.external_id}`}
+                current={scores[match.external_id] ?? { homeGoals: "", awayGoals: "" }}
+                match={match}
+                now={now}
+                onUpdateScore={updateScore}
+                saved={savedPredictions[match.external_id]}
+                showGroupLabel
+                status={rowStatus[match.external_id]}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       {todayMatches.length > 0 ? (
         <section className="palpites-group palpites-group--today">
           <header className="palpites-group__head">

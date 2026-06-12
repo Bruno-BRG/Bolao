@@ -1,7 +1,7 @@
 {
   "actions/admin.actions.ts": {
-    "mtime": 1781184864.0149937,
-    "ast_hash": "b30b4267846b00d4496d2ac249909d4e",
+    "mtime": 1781235255.7227654,
+    "ast_hash": "f174e5a65fc890cdee69b34889f5c52c",
     "semantic_hash": ""
   },
   "actions/auth.actions.ts": {
@@ -265,8 +265,8 @@
     "semantic_hash": ""
   },
   "components/PalpitesWorkspace.tsx": {
-    "mtime": 1781230949.175249,
-    "ast_hash": "f04fa4ffc113e4da070839e6a1809dda",
+    "mtime": 1781235269.158245,
+    "ast_hash": "13c7c7e9661b508f8b6b07dbac646c49",
     "semantic_hash": ""
   },
   "lib/match-visibility.ts": {
@@ -337,6 +337,31 @@
   "app/api/worldcup/matches/route.ts": {
     "mtime": 1781231269.8136363,
     "ast_hash": "c3649cf833f1b63af93507f3ae3c8053",
+    "semantic_hash": ""
+  },
+  "app/admin/partidas/page.tsx": {
+    "mtime": 1781235250.732579,
+    "ast_hash": "548149094f11ee1a94e9f9d700e275ec",
+    "semantic_hash": ""
+  },
+  "components/AdminMatchesPanel.tsx": {
+    "mtime": 1781235287.3208768,
+    "ast_hash": "071b6a6dc363075d2771a474a4503503",
+    "semantic_hash": ""
+  },
+  "lib/admin-auth.ts": {
+    "mtime": 1781235235.1168733,
+    "ast_hash": "b83845c1e8fc1be9f0f234b865963aa1",
+    "semantic_hash": ""
+  },
+  "lib/match-status.ts": {
+    "mtime": 1781235234.7194283,
+    "ast_hash": "2e07761fb143fd464bb39efae3907682",
+    "semantic_hash": ""
+  },
+  "services/match-admin.service.ts": {
+    "mtime": 1781235262.7139502,
+    "ast_hash": "c2d15a6cf02294835a1a646d2b49783f",
     "semantic_hash": ""
   }
 }

@@ -5,11 +5,16 @@ import { ensureWorldCupData } from "@/services/worldcup-sync.service";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  await ensureWorldCupData().catch(() => undefined);
+  const ensured = await ensureWorldCupData().catch((error: Error) => ({
+    ran: false as const,
+    reason: "error" as const,
+    error: error.message
+  }));
   const matches = await listMatches({ refreshIfStale: false });
 
   return NextResponse.json({
     syncedAt: new Date().toISOString(),
+    sync: ensured,
     matches: matches.map((match) => ({
       external_id: match.external_id,
       status: match.status,

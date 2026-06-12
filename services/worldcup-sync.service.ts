@@ -13,17 +13,21 @@ const LIVE_SYNC_MAX_AGE_MINUTES = Number(
   process.env.LIVE_SYNC_MAX_AGE_MINUTES ?? "5"
 );
 
-async function resolveSyncMaxAgeMinutes() {
+async function listMatchSyncSignals() {
   const supabase = getSupabaseAdmin();
   const { data: matches, error } = await supabase
     .from("matches_cache")
-    .select("starts_at, status")
+    .select("starts_at, status, updated_at")
     .eq("tournament_code", TOURNAMENT_CODE);
 
   if (error) throw error;
+  return matches ?? [];
+}
 
+async function resolveSyncMaxAgeMinutes() {
   const now = Date.now();
-  const inActiveWindow = (matches ?? []).some((match) => {
+  const matches = await listMatchSyncSignals();
+  const inActiveWindow = matches.some((match) => {
     const status = String(match.status).toUpperCase();
     if (status === "LIVE") return true;
 
@@ -35,11 +39,41 @@ async function resolveSyncMaxAgeMinutes() {
       return hoursFromKickoff >= 0 && hoursFromKickoff <= 12;
     }
 
+    // Kickoff passed but DB still SCHEDULED — keep syncing frequently.
+    if (hoursFromKickoff >= 0 && hoursFromKickoff <= 4 && status === "SCHEDULED") {
+      return true;
+    }
+
     const hoursUntilKickoff = (startsAt - now) / (60 * 60 * 1000);
     return hoursUntilKickoff >= 0 && hoursUntilKickoff <= 3;
   });
 
   return inActiveWindow ? LIVE_SYNC_MAX_AGE_MINUTES : AUTO_SYNC_MAX_AGE_MINUTES;
+}
+
+async function hasStaleLiveMatchState() {
+  const now = Date.now();
+  const matches = await listMatchSyncSignals();
+
+  return matches.some((match) => {
+    const status = String(match.status).toUpperCase();
+    const startsAt = new Date(match.starts_at).getTime();
+    if (Number.isNaN(startsAt)) return false;
+
+    const hoursFromKickoff = (now - startsAt) / (60 * 60 * 1000);
+
+    if (hoursFromKickoff >= 0 && hoursFromKickoff <= 4 && status === "SCHEDULED") {
+      return true;
+    }
+
+    if (status === "LIVE") {
+      const updatedAt = new Date(match.updated_at).getTime();
+      if (Number.isNaN(updatedAt)) return true;
+      return now - updatedAt > LIVE_SYNC_MAX_AGE_MINUTES * 60 * 1000;
+    }
+
+    return false;
+  });
 }
 
 export function getWorldCupProvider() {
@@ -82,8 +116,11 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
 
   if (syncError) throw syncError;
 
+  const liveStateStale = await hasStaleLiveMatchState();
+
   if (
     !options?.force &&
+    !liveStateStale &&
     latestSync?.created_at &&
     latestSync.created_at >= liveStaleThreshold
   ) {
@@ -123,12 +160,14 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
     (sampleMatches ?? []).some((match) =>
       hasWorldCup26TimezoneDrift(match.starts_at, match.payload)
     );
+  const shouldSyncBecauseLiveStateStale = liveStateStale;
 
   if (
     !options?.force &&
     !shouldSyncBecauseEmpty &&
     !shouldSyncBecauseStale &&
-    !shouldSyncBecauseLegacyTimezone
+    !shouldSyncBecauseLegacyTimezone &&
+    !shouldSyncBecauseLiveStateStale
   ) {
     return { ran: false, reason: "fresh" as const };
   }
@@ -139,9 +178,11 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
       ran: true,
       reason: shouldSyncBecauseEmpty
         ? ("empty" as const)
-        : shouldSyncBecauseLegacyTimezone
-          ? ("repair" as const)
-          : ("stale" as const),
+        : shouldSyncBecauseLiveStateStale
+          ? ("live-stale" as const)
+          : shouldSyncBecauseLegacyTimezone
+            ? ("repair" as const)
+            : ("stale" as const),
       syncResult
     };
   } catch (error) {

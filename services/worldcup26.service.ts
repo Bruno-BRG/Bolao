@@ -80,8 +80,15 @@ const STADIUM_TIMEZONES: Record<string, string> = {
   "16": "America/Los_Angeles"
 };
 
+const WORLDCUP26_FETCH_TIMEOUT_MS = Number(
+  process.env.WORLDCUP26_FETCH_TIMEOUT_MS ?? "15000"
+);
+
 async function fetchJson<T>(url: string): Promise<T> {
-  const response = await fetch(url, { next: { revalidate: 0 } });
+  const response = await fetch(url, {
+    next: { revalidate: 0 },
+    signal: AbortSignal.timeout(WORLDCUP26_FETCH_TIMEOUT_MS)
+  });
   if (!response.ok) {
     throw new Error(`worldcup26 source failed with ${response.status} for ${url}`);
   }
@@ -102,14 +109,17 @@ async function fetchTeams(): Promise<WorldCup26Team[]> {
   return fetchJson<WorldCup26Team[]>(`${WORLDCUP26_GITHUB_BASE_URL}/football.teams.json`);
 }
 
-async function fetchGames(): Promise<WorldCup26Game[]> {
+async function fetchGames(options?: { allowGithubFallback?: boolean }) {
   try {
     const payload = await fetchJson<WrappedResponse<WorldCup26Game>>(
       `${WORLDCUP26_API_BASE_URL}/get/games`
     );
     if (payload.games && payload.games.length > 0) return payload.games;
-  } catch {
-    // Fallback handled below.
+    throw new Error("worldcup26 games API returned an empty list");
+  } catch (error) {
+    if (options?.allowGithubFallback === false) {
+      throw error;
+    }
   }
 
   return fetchJson<WorldCup26Game[]>(`${WORLDCUP26_GITHUB_BASE_URL}/football.matches.json`);
@@ -243,7 +253,7 @@ function parseScore(value: string, finished: boolean) {
 export async function syncWorldCupFromWorldCup26() {
   const [teamsResponse, gamesResponse, groupsResponse] = await Promise.all([
     fetchTeams(),
-    fetchGames(),
+    fetchGames({ allowGithubFallback: false }),
     fetchGroups()
   ]);
   const supabase = getSupabaseAdmin();

@@ -1501,9 +1501,29 @@ tbody tr:hover {
 
 .community-match-row__teams {
   align-items: center;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
+  display: grid;
+  gap: 8px 10px;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+}
+
+.community-match-row__team {
+  font-weight: 700;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.community-match-row__team--home {
+  text-align: left;
+}
+
+.community-match-row__team--away {
+  text-align: right;
+}
+
+.community-match-row__score {
+  flex-shrink: 0;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .login-shell {

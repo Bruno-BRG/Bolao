@@ -138,11 +138,15 @@ export function CommunityPredictionsBoard({
                       <time>{formatDateTime(match.starts_at)}</time>
                     </div>
                     <div className="community-match-row__teams">
-                      <span>{getMatchTeamLabel(match, "home")}</span>
-                      <strong>
+                      <span className="community-match-row__team community-match-row__team--home">
+                        {getMatchTeamLabel(match, "home")}
+                      </span>
+                      <strong className="community-match-row__score">
                         {prediction.homeGoals} x {prediction.awayGoals}
                       </strong>
-                      <span>{getMatchTeamLabel(match, "away")}</span>
+                      <span className="community-match-row__team community-match-row__team--away">
+                        {getMatchTeamLabel(match, "away")}
+                      </span>
                     </div>
                     {prediction.points !== null && prediction.points !== undefined ? (
                       <span className="badge warning">{prediction.points} pts</span>

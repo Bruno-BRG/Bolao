@@ -1,6 +1,12 @@
-import { loginAction, registerAction } from "@/actions/auth.actions";
+import { changePasswordAction, loginAction, registerAction } from "@/actions/auth.actions";
 
-export function AuthForms({ error }: { error?: string }) {
+export function AuthForms({
+  error,
+  passwordChanged
+}: {
+  error?: string;
+  passwordChanged?: boolean;
+}) {
   return (
     <main className="container container--narrow">
       <section className="page-header">
@@ -11,6 +17,9 @@ export function AuthForms({ error }: { error?: string }) {
       </section>
 
       {error ? <p className="error">{error}</p> : null}
+      {passwordChanged ? (
+        <p className="success">Senha alterada. Agora voce pode entrar com a nova senha.</p>
+      ) : null}
 
       <div className="auth-simple-grid">
         <section className="card auth-card">
@@ -62,6 +71,35 @@ export function AuthForms({ error }: { error?: string }) {
           </form>
         </section>
       </div>
+
+      <details className="card auth-card auth-password-details">
+        <summary>Esqueci minha senha</summary>
+        <form className="form" action={changePasswordAction}>
+          <p className="muted">
+            Informe seu usuario e escolha uma nova senha.
+          </p>
+          <div className="field">
+            <label htmlFor="change-username">Usuario</label>
+            <input
+              id="change-username"
+              name="username"
+              autoComplete="username"
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="change-password">Nova senha</label>
+            <input
+              id="change-password"
+              name="password"
+              type="password"
+              autoComplete="new-password"
+            />
+          </div>
+          <button className="button secondary" type="submit">
+            Salvar nova senha
+          </button>
+        </form>
+      </details>
     </main>
   );
 }

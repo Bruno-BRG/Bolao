@@ -9,7 +9,8 @@ import {
   createSession,
   createUser,
   findUserByUsername,
-  revokeSession
+  revokeSession,
+  updateUserPassword
 } from "@/repositories/auth.repo";
 import { normalizeUsername } from "@/services/auth.service";
 
@@ -72,6 +73,22 @@ export async function loginAction(formData: FormData) {
   }
 
   redirect("/palpites");
+}
+
+export async function changePasswordAction(formData: FormData) {
+  try {
+    const { username, password } = validateCredentials(formData);
+    const user = await findUserByUsername(username);
+    if (!user) throw new Error("Usuario nao encontrado.");
+
+    const passwordHash = await bcrypt.hash(password, 12);
+    const updated = await updateUserPassword(username, passwordHash);
+    if (!updated) throw new Error("Usuario nao encontrado.");
+  } catch (error) {
+    redirect(`/login?error=${encodeURIComponent((error as Error).message)}`);
+  }
+
+  redirect("/login?passwordChanged=1");
 }
 
 export async function logoutAction() {

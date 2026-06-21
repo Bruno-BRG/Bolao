@@ -65,6 +65,19 @@ export async function findSessionUser(token: string) {
   return findUserById(data.user_id);
 }
 
+export async function updateUserPassword(username: string, passwordHash: string) {
+  const supabase = getSupabaseAdmin();
+  const { data, error } = await supabase
+    .from("users")
+    .update({ password_hash: passwordHash, updated_at: new Date().toISOString() })
+    .eq("username", username)
+    .select("id")
+    .maybeSingle();
+
+  if (error) throw error;
+  return data;
+}
+
 export async function revokeSession(token: string) {
   const supabase = getSupabaseAdmin();
   const { error } = await supabase

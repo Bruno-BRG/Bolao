@@ -75,7 +75,7 @@ Servico principal (usa `Dockerfile` e `railway.toml` na raiz):
 
 | Variavel | Valor |
 |----------|-------|
-| `DATABASE_URL` | `${{Postgres.DATABASE_URL}}` |
+| `DATABASE_URL` | `${{Postgres.DATABASE_PRIVATE_URL}}` (rede interna; migrations) |
 | `SUPABASE_URL` | `https://<dominio-publico-do-api-gateway>` |
 | `SUPABASE_SERVICE_ROLE_KEY` | JWT gerado com o mesmo `JWT_SECRET` do PostgREST |
 | `ADMIN_SYNC_TOKEN` | token forte para admin |
@@ -103,8 +103,9 @@ A Vercel cron nao roda aqui. Opcoes:
 
 ## Healthcheck
 
-Railway usa `/api/health` (configurado em `railway.toml`). Retorna `{ ok: true, database: "ok" }`
-quando Postgres + PostgREST estao acessiveis.
+Railway usa `/api/live` (configurado em `railway.toml`) — so confirma que o Next.js
+subiu. Use `/api/health` manualmente para validar Postgres + PostgREST
+(`{ ok: true, database: "ok" }`).
 
 ## Seguranca
 
@@ -119,10 +120,11 @@ Troque obrigatoriamente em producao:
 
 | Sintoma | Causa provavel |
 |---------|----------------|
-| `Missing SUPABASE_URL` | Env nao configurada no servico web |
-| Health 500 / database error | PostgREST fora do ar ou JWT errado |
-| Migrations falham | `DATABASE_URL` incorreta ou Postgres ainda subindo |
-| `rest/v1` 404 | `SUPABASE_URL` deve ser o gateway nginx, nao o PostgREST direto |
+| Deploy OK mas app sem dados | `DATABASE_URL` nao linkado ao Postgres — migrations nao rodaram |
+| Log `DATABASE_URL not set` | Vincule o servico Postgres ao app na Railway |
+| `/api/health` 500 | `SUPABASE_URL` ou JWT errado; PostgREST/gateway fora do ar |
+| Healthcheck Railway falha (antes do fix) | `/api/health` exige DB; use `/api/live` no `railway.toml` |
+| `Installing TypeScript` no startup | `next.config.ts` no runtime — usar `next.config.mjs` |
 
 ## Voltar para Vercel + Supabase cloud
 

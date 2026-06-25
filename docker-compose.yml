@@ -1,0 +1,68 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: bolao
+      POSTGRES_PASSWORD: bolao
+      POSTGRES_DB: bolao
+    ports:
+      - "5432:5432"
+    volumes:
+      - bolao_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bolao -d bolao"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  postgrest:
+    image: postgrest/postgrest:v12.2.8
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGRST_DB_URI: postgres://bolao:bolao@postgres:5432/bolao
+      PGRST_DB_SCHEMAS: public
+      PGRST_DB_ANON_ROLE: anon
+      PGRST_JWT_SECRET: bolao-railway-jwt-secret-change-me-in-production-32chars
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/api-gateway/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - postgrest
+    environment:
+      POSTGREST_HOST: postgrest
+    ports:
+      - "8000:8000"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      api:
+        condition: service_started
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://bolao:bolao@postgres:5432/bolao
+      SUPABASE_URL: http://api:8000
+      SUPABASE_SERVICE_ROLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIiwiaXNzIjoiYm9sYW8iLCJpYXQiOjE3ODI0MTgxODEsImV4cCI6MjA5Nzc3ODE4MX0.tbBbzssDJRupE86A5ipJvIiY6ieeU6W_0toHp7n5wL4
+      JWT_SECRET: bolao-railway-jwt-secret-change-me-in-production-32chars
+      ADMIN_SYNC_TOKEN: change-me-admin-token
+      CRON_SECRET: change-me-cron-secret
+      FOOTBALL_PROVIDER: worldcup26
+      WORLDCUP26_API_BASE_URL: https://worldcup26.ir
+      WORLDCUP26_GITHUB_BASE_URL: https://raw.githubusercontent.com/rezarahiminia/worldcup2026/main
+      AUTO_SYNC_MAX_AGE_MINUTES: "360"
+
+volumes:
+  bolao_pg_data:

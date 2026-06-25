@@ -75,7 +75,7 @@ Servico principal (usa `Dockerfile` e `railway.toml` na raiz):
 
 | Variavel | Valor |
 |----------|-------|
-| `DATABASE_URL` | `${{Postgres.DATABASE_PRIVATE_URL}}` (rede interna; migrations) |
+| `DATABASE_URL` | `${{Postgres.DATABASE_PRIVATE_URL}}` (rede interna; sem SSL) |
 | `SUPABASE_URL` | `https://<dominio-publico-do-api-gateway>` |
 | `SUPABASE_SERVICE_ROLE_KEY` | JWT gerado com o mesmo `JWT_SECRET` do PostgREST |
 | `ADMIN_SYNC_TOKEN` | token forte para admin |
@@ -120,8 +120,9 @@ Troque obrigatoriamente em producao:
 
 | Sintoma | Causa provavel |
 |---------|----------------|
-| Deploy OK mas app sem dados | `DATABASE_URL` nao linkado ao Postgres — migrations nao rodaram |
-| Log `DATABASE_URL not set` | Vincule o servico Postgres ao app na Railway |
+| Deploy OK mas app sem dados | `DATABASE_URL` nao linkado ou URL publica sem `sslmode=require` |
+| Log `Waiting for Postgres` infinito | Use `DATABASE_PRIVATE_URL`; URL publica precisa SSL na Railway |
+| Container nao sobe / healthcheck falha | Antes: migrations bloqueavam o Next.js — atualize a branch |
 | `/api/health` 500 | `SUPABASE_URL` ou JWT errado; PostgREST/gateway fora do ar |
 | Healthcheck Railway falha (antes do fix) | `/api/health` exige DB; use `/api/live` no `railway.toml` |
 | `Installing TypeScript` no startup | `next.config.ts` no runtime — usar `next.config.mjs` |

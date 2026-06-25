@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+. /app/scripts/pg-env.sh
+
 MIGRATIONS_DIR="${MIGRATIONS_DIR:-/app/supabase/migrations}"
 
 if [ ! -d "$MIGRATIONS_DIR" ]; then

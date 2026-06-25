@@ -1,7 +1,7 @@
 -- Renomeia username em todo lugar que guarda o nome copiado (ranking).
 -- Palpites, sessoes e login usam user_id (uuid) — nao precisam mudar.
 --
--- Uso: edite old_username / new_username abaixo e rode no SQL Editor do Supabase.
+-- Uso: edite old_username / new_username abaixo e rode no psql.
 
 begin;
 

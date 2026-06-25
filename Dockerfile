@@ -28,7 +28,7 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.mjs ./next.config.mjs
 
-COPY supabase ./supabase
+COPY db ./db
 COPY scripts ./scripts
 
 RUN chmod +x /app/scripts/*.sh

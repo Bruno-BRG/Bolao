@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { TOURNAMENT_CODE } from "@/lib/constants";
-import { getSupabaseAdmin } from "@/lib/supabase-server";
+import { query } from "@/lib/db";
 import { localizeTeam } from "@/lib/team-names-pt";
 import {
   ensureWorldCupData,
@@ -9,37 +9,29 @@ import {
 import type { GroupTable, Match, Team } from "@/types/domain";
 
 export const listTeams = cache(async (): Promise<Team[]> => {
-  const supabase = getSupabaseAdmin();
-  const { data, error } = await supabase
-    .from("teams_cache")
-    .select("external_id, fifa_code, iso2, name, flag_url, payload")
-    .order("name");
+  const { rows } = await query<Team>(
+    `SELECT external_id, fifa_code, iso2, name, flag_url, payload
+     FROM teams_cache
+     ORDER BY name`
+  );
 
-  if (error) throw error;
-
-  return ((data ?? []) as Team[])
-    .map(localizeTeam)
-    .sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
+  return rows.map(localizeTeam).sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
 });
 
 async function readMatchesFromCache(): Promise<Match[]> {
-  const supabase = getSupabaseAdmin();
-  const { data, error } = await supabase
-    .from("matches_cache")
-    .select(
-      "external_id, tournament_code, home_team_id, away_team_id, starts_at, stage, group_name, status, score_home, score_away, payload"
-    )
-    .eq("tournament_code", TOURNAMENT_CODE)
-    .order("starts_at")
-    .order("external_id");
+  const { rows } = await query<Match>(
+    `SELECT external_id, tournament_code, home_team_id, away_team_id, starts_at,
+            stage, group_name, status, score_home, score_away, payload
+     FROM matches_cache
+     WHERE tournament_code = $1
+     ORDER BY starts_at, external_id`,
+    [TOURNAMENT_CODE]
+  );
 
-  if (error) throw error;
-
-  const matches = (data ?? []) as Match[];
   const teams = await listTeams();
   const byId = new Map(teams.map((team) => [team.external_id, team]));
 
-  return matches.map((match) => ({
+  return rows.map((match) => ({
     ...match,
     home_team: match.home_team_id ? byId.get(match.home_team_id) ?? null : null,
     away_team: match.away_team_id ? byId.get(match.away_team_id) ?? null : null
@@ -47,7 +39,6 @@ async function readMatchesFromCache(): Promise<Match[]> {
 }
 
 export async function listMatches(options?: {
-  /** Sync from API only when cache is empty or stale (default: false — use cron/poll). */
   refreshIfStale?: boolean;
 }): Promise<Match[]> {
   if (options?.refreshIfStale) {
@@ -77,23 +68,31 @@ function sortStandings(
 }
 
 export async function listGroupStandings(): Promise<GroupTable[]> {
-  const supabase = getSupabaseAdmin();
-  const { data, error } = await supabase
-    .from("groups_cache")
-    .select(
-      "group_name, team_id, position, mp, w, d, l, pts, gf, ga, gd"
-    )
-    .eq("tournament_code", TOURNAMENT_CODE)
-    .order("group_name")
-    .order("position");
-
-  if (error) throw error;
+  const { rows } = await query<{
+    group_name: string;
+    team_id: string;
+    position: number;
+    mp: number;
+    w: number;
+    d: number;
+    l: number;
+    pts: number;
+    gf: number;
+    ga: number;
+    gd: number;
+  }>(
+    `SELECT group_name, team_id, position, mp, w, d, l, pts, gf, ga, gd
+     FROM groups_cache
+     WHERE tournament_code = $1
+     ORDER BY group_name, position`,
+    [TOURNAMENT_CODE]
+  );
 
   const teams = await listTeams();
   const teamsById = new Map(teams.map((team) => [team.external_id, team]));
   const byGroup = new Map<string, GroupTable["standings"]>();
 
-  for (const row of data ?? []) {
+  for (const row of rows) {
     const standings = byGroup.get(row.group_name) ?? [];
     standings.push({
       team: teamsById.get(row.team_id) ?? null,
@@ -118,15 +117,19 @@ export async function listGroupStandings(): Promise<GroupTable[]> {
 }
 
 export async function getLatestSyncLog() {
-  const supabase = getSupabaseAdmin();
-  const { data, error } = await supabase
-    .from("sync_logs")
-    .select("provider, status, message, created_at")
-    .eq("provider", getWorldCupProvider())
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  const { rows } = await query<{
+    provider: string;
+    status: string;
+    message: string | null;
+    created_at: string;
+  }>(
+    `SELECT provider, status, message, created_at
+     FROM sync_logs
+     WHERE provider = $1
+     ORDER BY created_at DESC
+     LIMIT 1`,
+    [getWorldCupProvider()]
+  );
 
-  if (error) throw error;
-  return data;
+  return rows[0] ?? null;
 }

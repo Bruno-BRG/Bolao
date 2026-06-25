@@ -54,7 +54,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \lhead{Bolão da Copa - Documento de Desenvolvimento}
-\rhead{Next.js + Vercel + Supabase}
+\rhead{Next.js + Postgres}
 \cfoot{\thepage\ de \pageref{LastPage}}
 \renewcommand{\headrulewidth}{0.4pt}
 
@@ -105,10 +105,10 @@
 {\Huge\bfseries Documento de Desenvolvimento de Software\\[0.35cm]}
 {\LARGE Sistema Web de Bolão da Copa do Mundo 2026\\[0.4cm]}
 \vspace{0.8cm}
-{\Large Stack: Next.js, Vercel, Supabase/Postgres e APIs de Futebol\\}
+{\Large Stack: Next.js, Postgres e APIs de Futebol\\}
 \vfill
 \begin{tcolorbox}[colback=softblue,colframe=primary,width=0.9\textwidth,arc=2mm]
-\textbf{Objetivo do documento.} Definir escopo, requisitos, arquitetura, modelo de dados, fluxos, APIs externas, endpoints internos, estratégia de autenticação simples e plano de desenvolvimento para um site de bolão da Copa do Mundo com usuários por nome/senha e palpites salvos em JSONB no Supabase.
+\textbf{Objetivo do documento.} Definir escopo, requisitos, arquitetura, modelo de dados, fluxos, APIs externas, endpoints internos, estratégia de autenticação simples e plano de desenvolvimento para um site de bolão da Copa do Mundo com usuários por nome/senha e palpites salvos em JSONB no Postgres.
 \end{tcolorbox}
 \vfill
 {\large Versão 1.0\\}
@@ -121,7 +121,7 @@
 
 \section{Resumo executivo}
 
-Este documento propõe um sistema web de bolão da Copa do Mundo executando em \textbf{Next.js} e hospedado na \textbf{Vercel}, com persistência em \textbf{Supabase/Postgres}. O sistema terá cadastro simples por \textbf{nome de usuário e senha}, sem usar Supabase Auth, e armazenará os palpites dos usuários em uma coluna \textbf{JSONB} associada ao usuário. A aplicação também manterá um cache interno dos dados da Copa, vindo de uma API de futebol, para evitar dependência direta e excessiva de chamadas externas.
+Este documento propõe um sistema web de bolão da Copa do Mundo executando em \textbf{Next.js}, com persistência em \textbf{Postgres}. O sistema terá cadastro simples por \textbf{nome de usuário e senha}, com autenticação customizada, e armazenará os palpites dos usuários em uma coluna \textbf{JSONB} associada ao usuário. A aplicação também manterá um cache interno dos dados da Copa, vindo de uma API de futebol, para evitar dependência direta e excessiva de chamadas externas.
 
 \begin{decisionbox}
 A decisão principal é separar três responsabilidades: \textbf{produto} (bolão, ranking, palpites), \textbf{dados oficiais} (fixtures, resultados e seleções vindos de API externa) e \textbf{identidade simples} (usuário/senha customizados com sessão própria). Isso mantém o MVP simples sem sacrificar segurança básica.
@@ -167,7 +167,7 @@ Como os dados de jogos e resultados mudam durante o torneio, a aplicação não 
 \midrule
 Frontend e backend web & Next.js com App Router e TypeScript & Permite Server Components, Route Handlers e Server Actions no mesmo projeto, reduzindo boilerplate e mantendo segredos no servidor. \\
 Hospedagem & Vercel & Deploy simples para Next.js, preview deployments e cron jobs para sincronização. \\
-Banco de dados & Supabase Postgres & Postgres gerenciado, JSONB, índices, SQL, backups e boa integração com aplicações serverless. \\
+Banco de dados & Postgres & JSONB, índices, SQL, backups e boa integração com aplicações serverless. \\
 Persistência flexível & JSONB & Ideal para salvar o conjunto de palpites do usuário em um documento único, validando com schema no servidor. \\
 UI & Tailwind CSS + shadcn/ui opcional & Criação rápida de interface limpa, responsiva e com componentes reutilizáveis. \\
 Validação & Zod & Validação de payloads, formulário de login, schema de palpites e variáveis de ambiente. \\
@@ -196,8 +196,8 @@ Regra prática: se a ação nasce de um formulário da própria aplicação, use
 \subsection{Princípios arquiteturais}
 
 \begin{enumerate}
-  \item \textbf{Segredos só no servidor}: tokens de API, chave service role do Supabase e segredo de sessão nunca vão para o browser.
-  \item \textbf{Banco como fonte da aplicação}: a UI lê dados normalizados/cacheados no Supabase, não diretamente da API externa.
+  \item \textbf{Segredos só no servidor}: tokens de API e segredo de sessão nunca vão para o browser.
+  \item \textbf{Banco como fonte da aplicação}: a UI lê dados normalizados/cacheados no Postgres, não diretamente da API externa.
   \item \textbf{Palpites editáveis até o bloqueio}: o servidor valida se a partida ainda aceita alterações.
   \item \textbf{Pontuação idempotente}: recalcular ranking várias vezes deve produzir o mesmo resultado.
   \item \textbf{MVP simples, crescimento possível}: JSONB para palpites agora; tabelas auxiliares permitem otimizar ranking depois.
@@ -236,7 +236,7 @@ Regra prática: se a ação nasce de um formulário da própria aplicação, use
   ranking-table.tsx
 /lib
   env.ts
-  supabase-server.ts
+  db.ts
   session.ts
 /services
   auth.service.ts
@@ -284,7 +284,7 @@ RF-14 & O sistema deve suportar múltiplos torneios no modelo de dados, ainda qu
 \midrule
 RNF-01 & Segurança de senha & Senhas armazenadas somente com hash Argon2id ou bcrypt; nunca texto puro. \\
 RNF-02 & Sessão segura & Cookie HTTP-only, Secure em produção, SameSite=Lax, expiração e hash de token no banco. \\
-RNF-03 & Segredos protegidos & Tokens de APIs e service role do Supabase somente em variáveis de ambiente no servidor. \\
+RNF-03 & Segredos protegidos & Tokens de APIs e DATABASE\_URL somente em variáveis de ambiente no servidor. \\
 RNF-04 & Disponibilidade & A aplicação deve continuar listando dados já cacheados se a API externa falhar. \\
 RNF-05 & Performance & Ranking e listagem de jogos devem carregar usando dados do banco/cache, evitando fan-out externo. \\
 RNF-06 & Observabilidade & Logs mínimos para login falho, sync de API, erro de cálculo e update de palpite. \\
@@ -349,7 +349,7 @@ Evite salvar tudo em uma coluna JSON dentro da própria tabela \texttt{users}. I
 
 \subsection{SQL inicial sugerido}
 
-\begin{lstlisting}[language=SQL,caption={DDL inicial para Supabase/Postgres}]
+\begin{lstlisting}[language=SQL,caption={DDL inicial para Postgres}]
 create extension if not exists pgcrypto;
 
 create table if not exists users (
@@ -433,22 +433,17 @@ create index if not exists idx_matches_tournament_start on matches_cache(tournam
 create index if not exists idx_matches_status on matches_cache(status);
 \end{lstlisting}
 
-\subsection{RLS e acesso ao Supabase}
+\subsection{Acesso ao banco}
 
-Como o projeto não usará Supabase Auth, há duas opções:
-
-\begin{enumerate}
-  \item \textbf{Opção recomendada para MVP}: nunca consultar Supabase direto do browser. Todas as consultas passam pelo servidor Next.js usando variáveis de ambiente privadas. Nesse caso, o service role fica apenas no servidor.
-  \item \textbf{Opção avançada}: criar uma camada de policies/RLS customizada com JWT próprio. É mais seguro para acesso direto do cliente, mas aumenta bastante a complexidade.
-\end{enumerate}
+Todas as consultas passam pelo servidor Next.js usando \texttt{DATABASE\_URL}. O frontend chama Server Actions ou Route Handlers do Next.js. Isso permite autenticação custom sem expor credenciais sensíveis no cliente.
 
 \begin{okbox}
-Para este projeto, use Supabase apenas no servidor. No frontend, chame Server Actions ou Route Handlers do Next.js. Isso permite autenticação custom sem expor credenciais sensíveis no cliente.
+Nunca consulte o Postgres direto do browser. Use sempre o servidor Next.js como camada de acesso.
 \end{okbox}
 
 \section{Autenticação customizada}
 
-O sistema não utilizará Supabase Auth. Ainda assim, segurança mínima é obrigatória.
+O sistema usa autenticação própria por nome e senha. Ainda assim, segurança mínima é obrigatória.
 
 \subsection{Cadastro}
 
@@ -617,8 +612,7 @@ O endpoint \texttt{/api/admin/\allowbreak sync-worldcup} deve exigir um segredo 
 
 \begin{lstlisting}[language={},caption={Variáveis de ambiente esperadas}]
 NEXT_PUBLIC_APP_URL=https://seu-bolao.vercel.app
-SUPABASE_URL=https://xxxxx.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=...
+DATABASE_URL=postgres://usuario:senha@host:5432/bolao
 SESSION_SECRET=...
 FOOTBALL_PROVIDER=api-football
 FOOTBALL_API_KEY=...
@@ -803,9 +797,9 @@ Dados externos inconsistentes & Normalizar payloads e preservar payload original
 \begin{itemize}
   \item Criar projeto Next.js com TypeScript.
   \item Configurar Tailwind e componentes base.
-  \item Criar projeto Supabase e rodar SQL inicial.
-  \item Configurar variáveis de ambiente na Vercel.
-  \item Implementar cliente Supabase server-side.
+  \item Provisionar Postgres e rodar SQL inicial em \texttt{db/migrations}.
+  \item Configurar variáveis de ambiente.
+  \item Implementar cliente \texttt{pg} em \texttt{lib/db.ts}.
 \end{itemize}
 
 \subsection{Fase 2 - Auth custom}
@@ -938,8 +932,7 @@ No MVP, basta uma página ou endpoint de admin que retorne:
   \item FIFA. \textit{FIFA World Cup 2026: schedule, fixtures and stadiums}. \url{https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026}
   \item Next.js. \textit{Route Handlers}. \url{https://nextjs.org/docs/app/api-reference/file-conventions/route}
   \item Next.js. \textit{Mutating Data / Server Functions}. \url{https://nextjs.org/docs/app/getting-started/mutating-data}
-  \item Supabase. \textit{Managing JSON and unstructured data}. \url{https://supabase.com/docs/guides/database/json}
-  \item Supabase. \textit{Row Level Security}. \url{https://supabase.com/docs/guides/database/postgres/row-level-security}
+  \item PostgreSQL. \textit{JSON Types}. \url{https://www.postgresql.org/docs/current/datatype-json.html}
   \item API-Football / API-Sports. \textit{FIFA World Cup 2026 guide}. \url{https://www.api-football.com/news/post/fifa-world-cup-2026-guide-to-using-data-with-api-sports}
   \item Sportmonks. \textit{World Cup 2026 API}. \url{https://www.sportmonks.com/football-api/world-cup-api/}
   \item football-data.org. \textit{API Reference}. \url{https://www.football-data.org/documentation/api}
@@ -955,7 +948,7 @@ No MVP, basta uma página ou endpoint de admin que retorne:
 \textbf{Item} & \textbf{Status} \\
 \midrule
 Projeto Next.js criado com TypeScript. & \(\square\) \\
-Supabase configurado com SQL inicial. & \(\square\) \\
+Postgres configurado com SQL inicial. & \(\square\) \\
 Variáveis de ambiente configuradas localmente e na Vercel. & \(\square\) \\
 Cadastro/login/logout implementados. & \(\square\) \\
 Sessão com cookie HTTP-only implementada. & \(\square\) \\

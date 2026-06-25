@@ -5,5 +5,5 @@ flowchart TB
   AUTH --> COMP[components/ui e forms]
   AUTH --> ACTIONS[server actions]
   API --> SERVICES[services: auth, worldcup, scoring]
-  SERVICES --> REPO[repositories: supabase server client]
+  SERVICES --> REPO[repositories: pg client]
   REPO --> DB[(Postgres)]

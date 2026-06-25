@@ -1,5 +1,11 @@
 import { TOURNAMENT_CODE } from "@/lib/constants";
-import { getSupabaseAdmin } from "@/lib/supabase-server";
+import {
+  insertSyncLog,
+  pruneTeams,
+  upsertGroups,
+  upsertMatches,
+  upsertTeams
+} from "@/lib/cache-sync";
 import { getTeamDisplayName } from "@/lib/team-names-pt";
 
 type WorldCup26Team = {
@@ -256,7 +262,6 @@ export async function syncWorldCupFromWorldCup26() {
     fetchGames({ allowGithubFallback: false }),
     fetchGroups()
   ]);
-  const supabase = getSupabaseAdmin();
 
   const teams = teamsResponse.map((team) => ({
     external_id: team.id,
@@ -274,17 +279,8 @@ export async function syncWorldCupFromWorldCup26() {
 
   const syncedTeamIds = teams.map((team) => team.external_id);
   if (teams.length > 0) {
-    const { error } = await supabase.from("teams_cache").upsert(teams, {
-      onConflict: "external_id"
-    });
-    if (error) throw error;
-
-    const syncedTeamFilter = `(${syncedTeamIds.map((id) => `"${id}"`).join(",")})`;
-    const { error: pruneTeamsError } = await supabase
-      .from("teams_cache")
-      .delete()
-      .not("external_id", "in", syncedTeamFilter);
-    if (pruneTeamsError) throw pruneTeamsError;
+    await upsertTeams(teams);
+    await pruneTeams(syncedTeamIds);
   }
 
   const matches = gamesResponse.map((game) => {
@@ -311,10 +307,7 @@ export async function syncWorldCupFromWorldCup26() {
   });
 
   if (matches.length > 0) {
-    const { error } = await supabase.from("matches_cache").upsert(matches, {
-      onConflict: "external_id"
-    });
-    if (error) throw error;
+    await upsertMatches(matches);
   }
 
   const groupRows = groupsResponse.flatMap((group) => {
@@ -351,13 +344,10 @@ export async function syncWorldCupFromWorldCup26() {
   });
 
   if (groupRows.length > 0) {
-    const { error } = await supabase.from("groups_cache").upsert(groupRows, {
-      onConflict: "tournament_code,group_name,team_id"
-    });
-    if (error) throw error;
+    await upsertGroups(groupRows);
   }
 
-  await supabase.from("sync_logs").insert({
+  await insertSyncLog({
     provider: "worldcup26",
     status: "success",
     message: `Synced ${teams.length} teams, ${matches.length} fixtures and ${groupRows.length} group rows.`,

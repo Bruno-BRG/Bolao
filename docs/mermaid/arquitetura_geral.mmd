@@ -3,7 +3,7 @@ flowchart LR
   V --> N[Next.js App Router]
   N --> RH[Route Handlers e Server Actions]
   RH --> AUTH[Auth custom: nome + senha + cookie httpOnly]
-  RH --> DB[(Supabase Postgres)]
+  RH --> DB[(Postgres)]
   RH --> CACHE[(Cache de jogos e selecoes)]
   CRON[Vercel Cron] --> SYNC[/api/admin/sync-worldcup]
   SYNC --> PROVIDER[API de futebol: Sportmonks/API-Football/football-data.org]

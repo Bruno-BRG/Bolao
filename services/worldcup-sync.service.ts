@@ -1,5 +1,10 @@
 import { FINISHED_STATUSES, TOURNAMENT_CODE } from "@/lib/constants";
-import { getSupabaseAdmin } from "@/lib/supabase-server";
+import {
+  countMatches,
+  getLatestSuccessfulSync,
+  insertSyncLog
+} from "@/lib/cache-sync";
+import { query } from "@/lib/db";
 import { syncWorldCupFromApiFootball } from "@/services/api-football.service";
 import {
   hasWorldCup26TimezoneDrift,
@@ -14,14 +19,17 @@ const LIVE_SYNC_MAX_AGE_MINUTES = Number(
 );
 
 async function listMatchSyncSignals() {
-  const supabase = getSupabaseAdmin();
-  const { data: matches, error } = await supabase
-    .from("matches_cache")
-    .select("starts_at, status, updated_at")
-    .eq("tournament_code", TOURNAMENT_CODE);
-
-  if (error) throw error;
-  return matches ?? [];
+  const { rows } = await query<{
+    starts_at: string;
+    status: string;
+    updated_at: string;
+  }>(
+    `SELECT starts_at, status, updated_at
+     FROM matches_cache
+     WHERE tournament_code = $1`,
+    [TOURNAMENT_CODE]
+  );
+  return rows;
 }
 
 async function resolveSyncMaxAgeMinutes() {
@@ -39,7 +47,6 @@ async function resolveSyncMaxAgeMinutes() {
       return hoursFromKickoff >= 0 && hoursFromKickoff <= 12;
     }
 
-    // Kickoff passed but DB still SCHEDULED — keep syncing frequently.
     if (hoursFromKickoff >= 0 && hoursFromKickoff <= 4 && status === "SCHEDULED") {
       return true;
     }
@@ -100,22 +107,11 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
     return { ran: false, reason: "missing-key" as const };
   }
 
-  const supabase = getSupabaseAdmin();
   const now = Date.now();
   const liveStaleThreshold = new Date(
     now - LIVE_SYNC_MAX_AGE_MINUTES * 60 * 1000
   ).toISOString();
-  const { data: latestSync, error: syncError } = await supabase
-    .from("sync_logs")
-    .select("created_at, status")
-    .eq("provider", provider)
-    .eq("status", "success")
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
-
-  if (syncError) throw syncError;
-
+  const latestSync = await getLatestSuccessfulSync(provider);
   const liveStateStale = await hasStaleLiveMatchState();
 
   if (
@@ -132,32 +128,26 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
     now - syncMaxAgeMinutes * 60 * 1000
   ).toISOString();
 
-  const [
-    { count: matchesCount, error: countError },
-    { data: sampleMatches, error: sampleError }
-  ] = await Promise.all([
-    supabase
-      .from("matches_cache")
-      .select("external_id", { count: "exact", head: true })
-      .eq("tournament_code", TOURNAMENT_CODE),
+  const matchesCount = await countMatches();
+  const sampleMatches =
     provider === "worldcup26"
-      ? supabase
-          .from("matches_cache")
-          .select("starts_at, payload")
-          .eq("tournament_code", TOURNAMENT_CODE)
-          .limit(5)
-      : Promise.resolve({ data: null, error: null })
-  ]);
+      ? (
+          await query<{ starts_at: string; payload: Record<string, unknown> }>(
+            `SELECT starts_at, payload
+             FROM matches_cache
+             WHERE tournament_code = $1
+             LIMIT 5`,
+            [TOURNAMENT_CODE]
+          )
+        ).rows
+      : [];
 
-  if (countError) throw countError;
-  if (sampleError) throw sampleError;
-
-  const shouldSyncBecauseEmpty = (matchesCount ?? 0) === 0;
+  const shouldSyncBecauseEmpty = matchesCount === 0;
   const shouldSyncBecauseStale =
     !latestSync || latestSync.created_at < staleThreshold;
   const shouldSyncBecauseLegacyTimezone =
     provider === "worldcup26" &&
-    (sampleMatches ?? []).some((match) =>
+    sampleMatches.some((match) =>
       hasWorldCup26TimezoneDrift(match.starts_at, match.payload)
     );
   const shouldSyncBecauseLiveStateStale = liveStateStale;
@@ -186,13 +176,11 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
       syncResult
     };
   } catch (error) {
-    await supabase.from("sync_logs").insert({
+    await insertSyncLog({
       provider,
       status: "error",
       message: (error as Error).message,
-      payload: {
-        auto: true
-      }
+      payload: { auto: true }
     });
 
     return {

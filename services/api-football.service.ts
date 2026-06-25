@@ -1,5 +1,12 @@
 import { TOURNAMENT_CODE } from "@/lib/constants";
-import { getSupabaseAdmin } from "@/lib/supabase-server";
+import {
+  countMatches,
+  getLatestSuccessfulSync,
+  insertSyncLog,
+  pruneTeams,
+  upsertMatches,
+  upsertTeams
+} from "@/lib/cache-sync";
 import { getTeamDisplayName } from "@/lib/team-names-pt";
 
 type ApiFootballResponse<T> = {
@@ -163,7 +170,6 @@ export async function syncWorldCupFromApiFootball() {
     })
   ]);
 
-  const supabase = getSupabaseAdmin();
   const syncedTeamIds = teamsResponse.map(({ team }) => String(team.id));
 
   const teams = teamsResponse.map(({ team }) => ({
@@ -181,18 +187,8 @@ export async function syncWorldCupFromApiFootball() {
   }));
 
   if (teams.length > 0) {
-    const syncedTeamFilter = `(${syncedTeamIds.map((id) => `"${id}"`).join(",")})`;
-
-    const { error } = await supabase.from("teams_cache").upsert(teams, {
-      onConflict: "external_id"
-    });
-    if (error) throw error;
-
-    const { error: pruneTeamsError } = await supabase
-      .from("teams_cache")
-      .delete()
-      .not("external_id", "in", syncedTeamFilter);
-    if (pruneTeamsError) throw pruneTeamsError;
+    await upsertTeams(teams);
+    await pruneTeams(syncedTeamIds);
   }
 
   const matches = fixturesResponse.map(({ fixture, league, score, teams: fixtureTeams }) => ({
@@ -216,13 +212,10 @@ export async function syncWorldCupFromApiFootball() {
   }));
 
   if (matches.length > 0) {
-    const { error } = await supabase.from("matches_cache").upsert(matches, {
-      onConflict: "external_id"
-    });
-    if (error) throw error;
+    await upsertMatches(matches);
   }
 
-  await supabase.from("sync_logs").insert({
+  await insertSyncLog({
     provider: "api-football",
     status: "success",
     message: `Synced ${teams.length} teams and ${matches.length} fixtures.`,
@@ -243,32 +236,17 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
     return { ran: false, reason: "missing-key" as const };
   }
 
-  const supabase = getSupabaseAdmin();
   const now = Date.now();
   const staleThreshold = new Date(
     now - AUTO_SYNC_MAX_AGE_MINUTES * 60 * 1000
   ).toISOString();
 
-  const [{ count: matchesCount, error: countError }, { data: latestSync, error: syncError }] =
-    await Promise.all([
-      supabase
-        .from("matches_cache")
-        .select("external_id", { count: "exact", head: true })
-        .eq("tournament_code", TOURNAMENT_CODE),
-      supabase
-        .from("sync_logs")
-        .select("created_at, status")
-        .eq("provider", "api-football")
-        .eq("status", "success")
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle()
-    ]);
+  const [matchesCount, latestSync] = await Promise.all([
+    countMatches(),
+    getLatestSuccessfulSync("api-football")
+  ]);
 
-  if (countError) throw countError;
-  if (syncError) throw syncError;
-
-  const shouldSyncBecauseEmpty = (matchesCount ?? 0) === 0;
+  const shouldSyncBecauseEmpty = matchesCount === 0;
   const shouldSyncBecauseStale =
     !latestSync || latestSync.created_at < staleThreshold;
 
@@ -284,7 +262,7 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
       syncResult
     };
   } catch (error) {
-    await supabase.from("sync_logs").insert({
+    await insertSyncLog({
       provider: "api-football",
       status: "error",
       message: (error as Error).message,

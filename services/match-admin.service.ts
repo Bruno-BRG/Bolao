@@ -1,6 +1,6 @@
 import { TOURNAMENT_CODE } from "@/lib/constants";
 import { isMatchFinished, isMatchLive } from "@/lib/match-status";
-import { getSupabaseAdmin } from "@/lib/supabase-server";
+import { query } from "@/lib/db";
 
 export type AdminMatchUpdate = {
   externalId: string;
@@ -41,35 +41,37 @@ function buildPayloadPatch(
 }
 
 export async function updateMatchFromAdmin(input: AdminMatchUpdate) {
-  const supabase = getSupabaseAdmin();
-  const { data: current, error: readError } = await supabase
-    .from("matches_cache")
-    .select("payload, starts_at")
-    .eq("external_id", input.externalId)
-    .eq("tournament_code", TOURNAMENT_CODE)
-    .maybeSingle();
+  const { rows } = await query<{ payload: Record<string, unknown>; starts_at: string }>(
+    `SELECT payload, starts_at
+     FROM matches_cache
+     WHERE external_id = $1 AND tournament_code = $2
+     LIMIT 1`,
+    [input.externalId, TOURNAMENT_CODE]
+  );
 
-  if (readError) throw readError;
+  const current = rows[0];
   if (!current) throw new Error("Jogo nao encontrado.");
 
   const status = input.status.toUpperCase();
-  const payload = buildPayloadPatch(
-    (current.payload ?? {}) as Record<string, unknown>,
-    input
-  );
+  const payload = buildPayloadPatch(current.payload ?? {}, input);
 
-  const { error } = await supabase
-    .from("matches_cache")
-    .update({
+  await query(
+    `UPDATE matches_cache
+     SET status = $1,
+         score_home = $2,
+         score_away = $3,
+         starts_at = $4,
+         payload = $5,
+         updated_at = NOW()
+     WHERE external_id = $6 AND tournament_code = $7`,
+    [
       status,
-      score_home: input.scoreHome,
-      score_away: input.scoreAway,
-      starts_at: input.startsAt ?? current.starts_at,
+      input.scoreHome,
+      input.scoreAway,
+      input.startsAt ?? current.starts_at,
       payload,
-      updated_at: new Date().toISOString()
-    })
-    .eq("external_id", input.externalId)
-    .eq("tournament_code", TOURNAMENT_CODE);
-
-  if (error) throw error;
+      input.externalId,
+      TOURNAMENT_CODE
+    ]
+  );
 }

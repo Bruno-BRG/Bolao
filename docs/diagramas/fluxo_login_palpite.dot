@@ -6,7 +6,7 @@ digraph G {
   C [label="2. Client Component\nchama Server Action", fillcolor="#eaf2ff"];
   S [label="3. Server Action\nvalidar entrada", fillcolor="#eaf2ff"];
   A [label="4. Auth custom\nvalida cookie httpOnly", fillcolor="#fff0f0"];
-  DB1 [label="5. Supabase\nbusca sessão válida", shape=cylinder, fillcolor="#ecfff3"];
+  DB1 [label="5. Postgres\nbusca sessão válida", shape=cylinder, fillcolor="#ecfff3"];
   DB2 [label="6. Atualiza\npredictions JSONB", shape=cylinder, fillcolor="#ecfff3"];
   SCORE [label="7. Recalcula pontos\nse partida finalizada", fillcolor="#f3ecff"];
   UI [label="8. Retorna sucesso\ne atualiza UI", fillcolor="#fff7e6"];

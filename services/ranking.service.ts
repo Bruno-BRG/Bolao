@@ -1,5 +1,5 @@
 import { FINISHED_STATUSES, TOURNAMENT_CODE } from "@/lib/constants";
-import { getSupabaseAdmin } from "@/lib/supabase-server";
+import { query } from "@/lib/db";
 import { listPredictionRows, updatePredictionDocument } from "@/repositories/predictions.repo";
 import { listMatches, listTeams } from "@/repositories/worldcup.repo";
 import { calculatePredictionScore } from "@/services/scoring.service";
@@ -61,12 +61,11 @@ export async function recalculateRanking() {
       ...row
     }));
 
-  const supabase = getSupabaseAdmin();
-  const { error } = await supabase.from("ranking_snapshots").insert({
-    tournament_code: TOURNAMENT_CODE,
-    snapshot: ranking
-  });
-  if (error) throw error;
+  await query(
+    `INSERT INTO ranking_snapshots (tournament_code, snapshot)
+     VALUES ($1, $2)`,
+    [TOURNAMENT_CODE, ranking]
+  );
 
   return ranking;
 }
@@ -76,30 +75,30 @@ const RANKING_REFRESH_MAX_AGE_MS = Number(
 ) * 60 * 1000;
 
 export async function shouldRefreshRanking() {
-  const supabase = getSupabaseAdmin();
-  const { data: latestSnapshot, error: snapshotError } = await supabase
-    .from("ranking_snapshots")
-    .select("generated_at")
-    .eq("tournament_code", TOURNAMENT_CODE)
-    .order("generated_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  const { rows: snapshotRows } = await query<{ generated_at: string }>(
+    `SELECT generated_at
+     FROM ranking_snapshots
+     WHERE tournament_code = $1
+     ORDER BY generated_at DESC
+     LIMIT 1`,
+    [TOURNAMENT_CODE]
+  );
 
-  if (snapshotError) throw snapshotError;
+  const latestSnapshot = snapshotRows[0];
   if (!latestSnapshot?.generated_at) return true;
 
   const snapshotAt = new Date(latestSnapshot.generated_at).getTime();
   if (Number.isNaN(snapshotAt)) return true;
   if (Date.now() - snapshotAt > RANKING_REFRESH_MAX_AGE_MS) return true;
 
-  const { data: finishedMatches, error: matchesError } = await supabase
-    .from("matches_cache")
-    .select("updated_at, status")
-    .eq("tournament_code", TOURNAMENT_CODE);
+  const { rows: finishedMatches } = await query<{ updated_at: string; status: string }>(
+    `SELECT updated_at, status
+     FROM matches_cache
+     WHERE tournament_code = $1`,
+    [TOURNAMENT_CODE]
+  );
 
-  if (matchesError) throw matchesError;
-
-  return (finishedMatches ?? []).some((match) => {
+  return finishedMatches.some((match) => {
     if (!FINISHED_STATUSES.has(String(match.status).toUpperCase())) return false;
     return new Date(match.updated_at).getTime() > snapshotAt;
   });
@@ -110,20 +109,19 @@ export async function getLatestRanking(options?: { refreshIfStale?: boolean }) {
     return recalculateRanking();
   }
 
-  const supabase = getSupabaseAdmin();
-  const { data, error } = await supabase
-    .from("ranking_snapshots")
-    .select("snapshot")
-    .eq("tournament_code", TOURNAMENT_CODE)
-    .order("generated_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  const { rows } = await query<{ snapshot: RankingRow[] }>(
+    `SELECT snapshot
+     FROM ranking_snapshots
+     WHERE tournament_code = $1
+     ORDER BY generated_at DESC
+     LIMIT 1`,
+    [TOURNAMENT_CODE]
+  );
 
-  if (error) throw error;
-  if (data?.snapshot) return data.snapshot as RankingRow[];
+  if (rows[0]?.snapshot) return rows[0].snapshot;
 
-  const rows = await listPredictionRows();
-  return rows
+  const predictionRows = await listPredictionRows();
+  return predictionRows
     .map((row, index) => {
       const user = getUserInfo(row as PredictionRow);
       return {

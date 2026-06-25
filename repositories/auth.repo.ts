@@ -1,89 +1,89 @@
 import { addDays } from "@/lib/date";
 import { hashToken } from "@/lib/crypto";
-import { getSupabaseAdmin } from "@/lib/supabase-server";
+import { query } from "@/lib/db";
 import type { User } from "@/types/domain";
 
 export async function findUserByUsername(username: string) {
-  const supabase = getSupabaseAdmin();
-  const { data, error } = await supabase
-    .from("users")
-    .select("id, username, password_hash, created_at")
-    .eq("username", username)
-    .maybeSingle();
+  const { rows } = await query<{
+    id: string;
+    username: string;
+    password_hash: string;
+    created_at: string;
+  }>(
+    `SELECT id, username, password_hash, created_at
+     FROM users
+     WHERE username = $1
+     LIMIT 1`,
+    [username]
+  );
 
-  if (error) throw error;
-  return data;
+  return rows[0] ?? null;
 }
 
 export async function findUserById(id: string): Promise<User | null> {
-  const supabase = getSupabaseAdmin();
-  const { data, error } = await supabase
-    .from("users")
-    .select("id, username, created_at")
-    .eq("id", id)
-    .maybeSingle();
+  const { rows } = await query<User>(
+    `SELECT id, username, created_at
+     FROM users
+     WHERE id = $1
+     LIMIT 1`,
+    [id]
+  );
 
-  if (error) throw error;
-  return data;
+  return rows[0] ?? null;
 }
 
 export async function createUser(username: string, passwordHash: string) {
-  const supabase = getSupabaseAdmin();
-  const { data, error } = await supabase
-    .from("users")
-    .insert({ username, password_hash: passwordHash })
-    .select("id, username, created_at")
-    .single();
+  const { rows } = await query<User>(
+    `INSERT INTO users (username, password_hash)
+     VALUES ($1, $2)
+     RETURNING id, username, created_at`,
+    [username, passwordHash]
+  );
 
-  if (error) throw error;
-  return data as User;
+  return rows[0];
 }
 
 export async function createSession(userId: string, token: string) {
-  const supabase = getSupabaseAdmin();
-  const { error } = await supabase.from("sessions").insert({
-    user_id: userId,
-    session_token_hash: hashToken(token),
-    expires_at: addDays(new Date(), 30).toISOString()
-  });
-
-  if (error) throw error;
+  await query(
+    `INSERT INTO sessions (user_id, session_token_hash, expires_at)
+     VALUES ($1, $2, $3)`,
+    [userId, hashToken(token), addDays(new Date(), 30).toISOString()]
+  );
 }
 
 export async function findSessionUser(token: string) {
-  const supabase = getSupabaseAdmin();
-  const { data, error } = await supabase
-    .from("sessions")
-    .select("user_id")
-    .eq("session_token_hash", hashToken(token))
-    .is("revoked_at", null)
-    .gt("expires_at", new Date().toISOString())
-    .maybeSingle();
+  const { rows } = await query<{ user_id: string }>(
+    `SELECT user_id
+     FROM sessions
+     WHERE session_token_hash = $1
+       AND revoked_at IS NULL
+       AND expires_at > NOW()
+     LIMIT 1`,
+    [hashToken(token)]
+  );
 
-  if (error) throw error;
-  if (!data) return null;
-  return findUserById(data.user_id);
+  const session = rows[0];
+  if (!session) return null;
+  return findUserById(session.user_id);
 }
 
 export async function updateUserPassword(username: string, passwordHash: string) {
-  const supabase = getSupabaseAdmin();
-  const { data, error } = await supabase
-    .from("users")
-    .update({ password_hash: passwordHash, updated_at: new Date().toISOString() })
-    .eq("username", username)
-    .select("id")
-    .maybeSingle();
+  const { rows } = await query<{ id: string }>(
+    `UPDATE users
+     SET password_hash = $1, updated_at = NOW()
+     WHERE username = $2
+     RETURNING id`,
+    [passwordHash, username]
+  );
 
-  if (error) throw error;
-  return data;
+  return rows[0] ?? null;
 }
 
 export async function revokeSession(token: string) {
-  const supabase = getSupabaseAdmin();
-  const { error } = await supabase
-    .from("sessions")
-    .update({ revoked_at: new Date().toISOString() })
-    .eq("session_token_hash", hashToken(token));
-
-  if (error) throw error;
+  await query(
+    `UPDATE sessions
+     SET revoked_at = NOW()
+     WHERE session_token_hash = $1`,
+    [hashToken(token)]
+  );
 }

@@ -9,8 +9,8 @@ digraph G {
   comp [label="components/\nUI, forms, tabela de jogos"];
   actions [label="actions/\nlogin, logout, salvarPalpite", fillcolor="#eaf2ff"];
   services [label="services/\nauth, worldcup, scoring", fillcolor="#f3ecff"];
-  repos [label="repositories/\nSupabase server client", fillcolor="#ecfff3"];
-  db [label="Supabase Postgres", shape=cylinder, fillcolor="#ecfff3"];
+  repos [label="repositories/\npg client", fillcolor="#ecfff3"];
+  db [label="Postgres", shape=cylinder, fillcolor="#ecfff3"];
   app -> public;
   app -> protected;
   app -> api;

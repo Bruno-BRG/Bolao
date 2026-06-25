@@ -3,7 +3,7 @@ set -e
 
 . /app/scripts/pg-env.sh
 
-MIGRATIONS_DIR="${MIGRATIONS_DIR:-/app/supabase/migrations}"
+MIGRATIONS_DIR="${MIGRATIONS_DIR:-/app/db/migrations}"
 
 if [ ! -d "$MIGRATIONS_DIR" ]; then
   echo "Migrations directory not found: $MIGRATIONS_DIR" >&2

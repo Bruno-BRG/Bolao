@@ -3,7 +3,7 @@ sequenceDiagram
   participant C as Client Component
   participant S as Server Action
   participant A as Auth custom
-  participant DB as Supabase Postgres
+  participant DB as Postgres
   U->>C: altera placar do jogo
   C->>S: salvarPalpite(matchId, placar)
   S->>A: validar cookie de sessao

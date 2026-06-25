@@ -1,14 +1,11 @@
 import { NextResponse } from "next/server";
-import { getSupabaseAdmin } from "@/lib/supabase-server";
+import { query } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const supabase = getSupabaseAdmin();
-    const { error } = await supabase.from("tournaments").select("code").limit(1);
-    if (error) throw error;
-
+    await query(`SELECT code FROM tournaments LIMIT 1`);
     return NextResponse.json({ ok: true, database: "ok" });
   } catch (error) {
     return NextResponse.json(

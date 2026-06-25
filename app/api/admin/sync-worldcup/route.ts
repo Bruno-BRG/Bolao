@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSupabaseAdmin } from "@/lib/supabase-server";
+import { insertSyncLog } from "@/lib/cache-sync";
 import {
   ensureWorldCupData,
   getWorldCupProvider,
@@ -33,7 +33,6 @@ export async function POST(request: NextRequest) {
   }
 
   const provider = getWorldCupProvider();
-  const supabase = getSupabaseAdmin();
 
   try {
     const force = request.nextUrl.searchParams.get("force") === "1";
@@ -56,7 +55,7 @@ export async function POST(request: NextRequest) {
       ranking
     });
   } catch (error) {
-    await supabase.from("sync_logs").insert({
+    await insertSyncLog({
       provider,
       status: "error",
       message: (error as Error).message

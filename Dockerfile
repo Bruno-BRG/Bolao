@@ -19,7 +19,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN apk add --no-cache postgresql-client bash
+RUN apk add --no-cache postgresql-client bash tzdata
+
+ENV TZ=America/Bahia
 
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force

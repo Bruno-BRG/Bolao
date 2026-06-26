@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveMatchPredictionAction } from "@/actions/predictions.actions";
-import { formatDateTime } from "@/lib/date";
+import { formatCompactDateTime, formatDayHeading, appLocalDayKey, isSameAppDay } from "@/lib/date";
 import { isMatchLockedForPrediction } from "@/lib/match-lock";
 import { getDisplayOfficialScore } from "@/lib/match-score";
 import { isMatchLive } from "@/lib/match-status";
@@ -27,54 +27,19 @@ type PalpitesWorkspaceProps = {
   savedPredictions: Record<string, MatchPrediction>;
 };
 
-function compactDate(value: string) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return formatDateTime(value);
-  const day = date.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
-  const time = date.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
-  return `${day}, ${time}`;
-}
-
 function stageChip(match: Match) {
   if (match.group_name) return match.group_name;
   return match.stage ?? "Jogo";
 }
 
-function isSameLocalDay(left: Date, right: Date) {
-  return (
-    left.getFullYear() === right.getFullYear() &&
-    left.getMonth() === right.getMonth() &&
-    left.getDate() === right.getDate()
-  );
-}
-
 function isMatchToday(match: Match, now: number) {
   const startsAt = new Date(match.starts_at);
   if (Number.isNaN(startsAt.getTime())) return false;
-  return isSameLocalDay(startsAt, new Date(now));
+  return isSameAppDay(startsAt, now);
 }
 
 function todayHeading(now: number) {
-  return dayHeading(new Date(now).toISOString());
-}
-
-function localDayKey(value: string) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
-
-function dayHeading(value: string) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return formatDateTime(value);
-  return date.toLocaleDateString("pt-BR", {
-    weekday: "long",
-    day: "2-digit",
-    month: "long"
-  });
+  return formatDayHeading(new Date(now).toISOString());
 }
 
 function sortMatchesByStart(a: Match, b: Match) {
@@ -99,19 +64,7 @@ function sortDayGroups(
   return left[0].localeCompare(right[0]);
 }
 
-function toScoreState(
-  matchId: string,
-  saved?: MatchPrediction,
-  drafts?: ReturnType<typeof readPredictionDrafts>
-): ScoreState {
-  const draft = drafts?.[matchId];
-  if (draft) {
-    return {
-      homeGoals: String(draft.homeGoals),
-      awayGoals: String(draft.awayGoals)
-    };
-  }
-
+function toScoreState(matchId: string, saved?: MatchPrediction): ScoreState {
   if (saved) {
     return {
       homeGoals: String(saved.homeGoals),
@@ -165,7 +118,7 @@ function PalpiteMatchRow({
       className={`palpite-row ${locked ? "palpite-row--locked" : ""} ${live ? "palpite-row--live" : ""}`}
     >
       <div className="palpite-row__meta">
-        <time>{compactDate(match.starts_at)}</time>
+        <time>{formatCompactDateTime(match.starts_at)}</time>
         {showGroupLabel ? <span className="badge">{stageChip(match)}</span> : null}
         {live ? <span className="badge live">Ao vivo</span> : null}
         {locked ? <span className="badge locked">Fechado</span> : null}
@@ -254,15 +207,14 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
   const draftsBootstrapped = useRef(false);
   const saveTimers = useRef<Record<string, ReturnType<typeof setTimeout>>>({});
   const savedBaseline = useRef(savedPredictions);
-  const [scores, setScores] = useState<Record<string, ScoreState>>(() => {
-    const drafts = readPredictionDrafts();
-    return Object.fromEntries(
+  const [scores, setScores] = useState<Record<string, ScoreState>>(() =>
+    Object.fromEntries(
       matches.map((match) => [
         match.external_id,
-        toScoreState(match.external_id, savedPredictions[match.external_id], drafts)
+        toScoreState(match.external_id, savedPredictions[match.external_id])
       ])
-    );
-  });
+    )
+  );
   const [rowStatus, setRowStatus] = useState<Record<string, RowStatus>>({});
   const [now, setNow] = useState(() => Date.now());
 
@@ -351,19 +303,19 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
     const days = new Map<string, Match[]>();
     for (const match of matches) {
       if (isMatchToday(match, now) || isMatchLive(match)) continue;
-      const key = localDayKey(match.starts_at);
+      const key = appLocalDayKey(match.starts_at);
       const bucket = days.get(key) ?? [];
       bucket.push(match);
       days.set(key, bucket);
     }
 
-    const todayKey = localDayKey(new Date(now).toISOString());
+    const todayKey = appLocalDayKey(now);
 
     return [...days.entries()]
       .sort((left, right) => sortDayGroups(left, right, todayKey))
       .map(([dayKey, dayMatches]) => ({
         dayKey,
-        heading: dayHeading(dayMatches[0]?.starts_at ?? dayKey),
+        heading: formatDayHeading(dayMatches[0]?.starts_at ?? dayKey),
         matches: dayMatches.sort(sortMatchesByStart)
       }));
   }, [matches, now]);

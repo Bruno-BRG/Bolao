@@ -52,8 +52,8 @@ export function ThemeToggle() {
           <span className="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
         </span>
       </span>
-      <span className="theme-toggle__label">
-        {theme === "dark" ? "Claro" : "Escuro"}
+      <span className="theme-toggle__label" suppressHydrationWarning>
+        {ready ? (theme === "dark" ? "Claro" : "Escuro") : "Tema"}
       </span>
     </button>
   );

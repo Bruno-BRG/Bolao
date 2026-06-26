@@ -105,8 +105,8 @@
     "semantic_hash": ""
   },
   "lib/date.ts": {
-    "mtime": 1781184742.2907026,
-    "ast_hash": "229e4a32ecd0cdf068c379317e405495",
+    "mtime": 1782435602.6224625,
+    "ast_hash": "b31fe3d0c6d0e18aab315ee1009c5fa9",
     "semantic_hash": ""
   },
   "next-env.d.ts": {
@@ -190,8 +190,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1782422941.106976,
-    "ast_hash": "41e7ef9c2ca63130a5c9beea457edd52",
+    "mtime": 1782435402.8462174,
+    "ast_hash": "d48e15024e022f732571554185690b0e",
     "semantic_hash": ""
   },
   "docs/README.md": {
@@ -240,8 +240,8 @@
     "semantic_hash": ""
   },
   "components/PalpitesWorkspace.tsx": {
-    "mtime": 1781235269.158245,
-    "ast_hash": "13c7c7e9661b508f8b6b07dbac646c49",
+    "mtime": 1782435611.9438608,
+    "ast_hash": "4472c9390603f110358fce6f87128411",
     "semantic_hash": ""
   },
   "lib/match-visibility.ts": {
@@ -290,8 +290,8 @@
     "semantic_hash": ""
   },
   "components/ThemeToggle.tsx": {
-    "mtime": 1781219270.0118437,
-    "ast_hash": "b49d8e21311d9c9801d53b13fb357cd8",
+    "mtime": 1782435617.3689153,
+    "ast_hash": "c063a379ca17cb41c24fa5ee21fd9fd0",
     "semantic_hash": ""
   },
   "app/api/worldcup/matches/route.ts": {
@@ -305,8 +305,8 @@
     "semantic_hash": ""
   },
   "components/AdminMatchesPanel.tsx": {
-    "mtime": 1781235287.3208768,
-    "ast_hash": "071b6a6dc363075d2771a474a4503503",
+    "mtime": 1782435624.1694274,
+    "ast_hash": "9dc48e3cf7084b4ac77b3de31e1d9ff3",
     "semantic_hash": ""
   },
   "lib/admin-auth.ts": {
@@ -330,8 +330,8 @@
     "semantic_hash": ""
   },
   "scripts/run-migrations.sh": {
-    "mtime": 1782422926.2373886,
-    "ast_hash": "be4edebab3e17ba03e52521379d16f32",
+    "mtime": 1782435401.688958,
+    "ast_hash": "4ba4b0580449416b97f076d8e6207288",
     "semantic_hash": ""
   },
   "scripts/wait-for-postgres.sh": {
@@ -345,8 +345,8 @@
     "semantic_hash": ""
   },
   "docs/RAILWAY.md": {
-    "mtime": 1782422932.6110456,
-    "ast_hash": "5d63c66763dbb30b358c20282b1998e9",
+    "mtime": 1782435404.553831,
+    "ast_hash": "86a0bcbe0c373e4a9aa17512e4bf0f0b",
     "semantic_hash": ""
   },
   ".cursor/settings.json": {
@@ -369,16 +369,6 @@
     "ast_hash": "771d02b4278d5a5588388456c0db859a",
     "semantic_hash": ""
   },
-  "db/migrations/202606110002_seed_sample_worldcup_data.sql": {
-    "mtime": 1781184967.307335,
-    "ast_hash": "0d0673ba0173da97fcf017935e066b2b",
-    "semantic_hash": ""
-  },
-  "db/migrations/202606110003_remove_sample_worldcup_data.sql": {
-    "mtime": 1781186377.978093,
-    "ast_hash": "46877907911b1f3c2ae4584858da2195",
-    "semantic_hash": ""
-  },
   "db/migrations/202606110004_groups_cache.sql": {
     "mtime": 1781212653.094891,
     "ast_hash": "aa8c90ddf50ef990b4a8984c7ded3412",
@@ -387,26 +377,6 @@
   "db/migrations/202606110005_seed_worldcup_baseline.sql": {
     "mtime": 1781212656.846216,
     "ast_hash": "53439b51441b9e862cee92cd25aec81b",
-    "semantic_hash": ""
-  },
-  "db/migrations/202606170001_add_norway_iraq_prediction.sql": {
-    "mtime": 1782419400.8707726,
-    "ast_hash": "8f520474dae587ebac770a9eb41e9769",
-    "semantic_hash": ""
-  },
-  "db/migrations/202606250001_invert_jun24_predictions.sql": {
-    "mtime": 1782388249.2657452,
-    "ast_hash": "31100efd8601d5f2dc75460d2116f6fe",
-    "semantic_hash": ""
-  },
-  "db/migrations/202606250002_fix_morocco_haiti_prediction.sql": {
-    "mtime": 1782388332.0151575,
-    "ast_hash": "db1b07f72e3716db85e1ff8f4f036798",
-    "semantic_hash": ""
-  },
-  "db/migrations/202606250003_add_missing_predictions_51_52.sql": {
-    "mtime": 1782388503.1459372,
-    "ast_hash": "3f408e52cacf2c84947075fa0f618890",
     "semantic_hash": ""
   },
   "db/scripts/rename_username.sql": {
@@ -442,6 +412,36 @@
   "scripts/pg-env.sh": {
     "mtime": 1782420012.9367862,
     "ast_hash": "1e20dd45b1213e570671acd4b009b32b",
+    "semantic_hash": ""
+  },
+  "db/patches/202606110002_seed_sample_worldcup_data.sql": {
+    "mtime": 1781184967.307335,
+    "ast_hash": "0d0673ba0173da97fcf017935e066b2b",
+    "semantic_hash": ""
+  },
+  "db/patches/202606110003_remove_sample_worldcup_data.sql": {
+    "mtime": 1781186377.978093,
+    "ast_hash": "46877907911b1f3c2ae4584858da2195",
+    "semantic_hash": ""
+  },
+  "db/patches/202606170001_add_norway_iraq_prediction.sql": {
+    "mtime": 1782419400.8707726,
+    "ast_hash": "8f520474dae587ebac770a9eb41e9769",
+    "semantic_hash": ""
+  },
+  "db/patches/202606250001_invert_jun24_predictions.sql": {
+    "mtime": 1782388249.2657452,
+    "ast_hash": "31100efd8601d5f2dc75460d2116f6fe",
+    "semantic_hash": ""
+  },
+  "db/patches/202606250002_fix_morocco_haiti_prediction.sql": {
+    "mtime": 1782388332.0151575,
+    "ast_hash": "db1b07f72e3716db85e1ff8f4f036798",
+    "semantic_hash": ""
+  },
+  "db/patches/202606250003_add_missing_predictions_51_52.sql": {
+    "mtime": 1782388503.1459372,
+    "ast_hash": "3f408e52cacf2c84947075fa0f618890",
     "semantic_hash": ""
   }
 }

@@ -3,19 +3,12 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { updateMatchAdminAction } from "@/actions/admin.actions";
+import { isSameAppDay } from "@/lib/date";
 import { getMatchTeamLabel } from "@/lib/match-visibility";
 import { isMatchLive, MATCH_STATUS_OPTIONS } from "@/lib/match-status";
 import type { Match } from "@/types/domain";
 
 type Filter = "all" | "live" | "today";
-
-function isSameLocalDay(left: Date, right: Date) {
-  return (
-    left.getFullYear() === right.getFullYear() &&
-    left.getMonth() === right.getMonth() &&
-    left.getDate() === right.getDate()
-  );
-}
 
 function toDatetimeLocalValue(value: string) {
   const date = new Date(value);
@@ -39,7 +32,7 @@ export function AdminMatchesPanel({ matches }: { matches: Match[] }) {
       if (filter === "live") return isMatchLive(match);
       if (filter === "today") {
         const startsAt = new Date(match.starts_at);
-        return !Number.isNaN(startsAt.getTime()) && isSameLocalDay(startsAt, new Date(now));
+        return !Number.isNaN(startsAt.getTime()) && isSameAppDay(startsAt, now);
       }
       return true;
     });

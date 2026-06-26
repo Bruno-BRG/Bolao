@@ -1,4 +1,5 @@
 import type { Match } from "@/types/domain";
+import { isKnockoutStage } from "@/lib/knockout-stages";
 import { getTeamDisplayName, localizeTeamName } from "@/lib/team-names-pt";
 
 const PLACEHOLDER_LABEL =
@@ -39,21 +40,29 @@ function getPlaceholderLabel(match: Match, side: "home" | "away") {
   return label || englishName || apiName || "";
 }
 
+function hasRealTeamId(teamId: string | null | undefined) {
+  return Boolean(teamId && teamId !== "0");
+}
+
 function isPlaceholderSide(match: Match, side: "home" | "away") {
   const teamId = side === "home" ? match.home_team_id : match.away_team_id;
   const team = side === "home" ? match.home_team : match.away_team;
 
-  if (teamId && team) {
+  if (hasRealTeamId(teamId) && team) {
     return PLACEHOLDER_LABEL.test(team.name);
   }
 
-  if (!teamId) {
-    const placeholderLabel = getPlaceholderLabel(match, side);
-    if (placeholderLabel && PLACEHOLDER_LABEL.test(placeholderLabel)) return true;
+  const englishName = getPlaceholderLabel(match, side);
+  if (englishName && !PLACEHOLDER_LABEL.test(englishName)) {
+    return false;
+  }
+
+  const placeholderLabel = getPlaceholderLabel(match, side);
+  if (placeholderLabel && PLACEHOLDER_LABEL.test(placeholderLabel)) {
     return true;
   }
 
-  return true;
+  return !hasRealTeamId(teamId);
 }
 
 export function isMatchPredictable(match: Match) {
@@ -64,6 +73,7 @@ export function shouldShowMatchInPalpites(
   match: Match,
   savedMatchIds: Set<string>
 ) {
+  if (isKnockoutStage(match.stage)) return true;
   if (isMatchPredictable(match)) return true;
   return savedMatchIds.has(match.external_id);
 }

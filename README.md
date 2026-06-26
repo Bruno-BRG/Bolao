@@ -20,20 +20,9 @@ No PowerShell com execution policy restritiva, use `npm.cmd` no lugar de `npm`.
 DATABASE_URL=postgres://usuario:senha@host:5432/bolao
 ADMIN_SYNC_TOKEN=
 CRON_SECRET=
-FOOTBALL_PROVIDER=worldcup26
 WORLDCUP26_API_BASE_URL=https://worldcup26.ir
 WORLDCUP26_GITHUB_BASE_URL=https://raw.githubusercontent.com/rezarahiminia/worldcup2026/main
 AUTO_SYNC_MAX_AGE_MINUTES=360
-```
-
-Se quiser usar `api-football` depois, configure:
-
-```bash
-FOOTBALL_PROVIDER=api-football
-FOOTBALL_API_KEY=
-API_FOOTBALL_BASE_URL=https://v3.football.api-sports.io
-API_FOOTBALL_LEAGUE_ID=1
-API_FOOTBALL_SEASON=2026
 ```
 
 ## Banco

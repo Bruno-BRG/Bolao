@@ -23,6 +23,7 @@ export default async function RootLayout({
 
   const otherLinks = [
     { href: "/ranking", label: "Ranking" },
+    { href: "/chaveamento", label: "Chaveamento" },
     { href: "/comunidade", label: "Palpites da galera" }
   ];
 

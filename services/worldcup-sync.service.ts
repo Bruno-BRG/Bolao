@@ -5,11 +5,11 @@ import {
   insertSyncLog
 } from "@/lib/cache-sync";
 import { query } from "@/lib/db";
-import { syncWorldCupFromApiFootball } from "@/services/api-football.service";
 import {
   hasWorldCup26TimezoneDrift,
   syncWorldCupFromWorldCup26
 } from "@/services/worldcup26.service";
+import { enrichKnockoutBracketFromStandings } from "@/services/knockout-enrichment.service";
 
 const AUTO_SYNC_MAX_AGE_MINUTES = Number(
   process.env.AUTO_SYNC_MAX_AGE_MINUTES ?? "360"
@@ -17,6 +17,7 @@ const AUTO_SYNC_MAX_AGE_MINUTES = Number(
 const LIVE_SYNC_MAX_AGE_MINUTES = Number(
   process.env.LIVE_SYNC_MAX_AGE_MINUTES ?? "5"
 );
+const WORLDCUP_PROVIDER = "worldcup26";
 
 async function listMatchSyncSignals() {
   const { rows } = await query<{
@@ -84,39 +85,32 @@ async function hasStaleLiveMatchState() {
 }
 
 export function getWorldCupProvider() {
-  return (process.env.FOOTBALL_PROVIDER ?? "worldcup26").toLowerCase();
+  return WORLDCUP_PROVIDER;
+}
+
+async function refreshKnockoutBracketFromStandings() {
+  try {
+    await enrichKnockoutBracketFromStandings();
+  } catch (error) {
+    console.warn("[knockout-enrichment] refresh failed:", error);
+  }
 }
 
 export async function syncWorldCupData(options?: { allowGithubFallback?: boolean }) {
-  const provider = getWorldCupProvider();
-
-  if (provider === "worldcup26") {
-    return {
-      provider,
-      ...(await syncWorldCupFromWorldCup26({
-        allowGithubFallback: options?.allowGithubFallback
-      }))
-    };
-  }
-
-  if (provider === "api-football") {
-    return { provider, ...(await syncWorldCupFromApiFootball()) };
-  }
-
-  throw new Error(`Unsupported provider "${provider}".`);
+  return {
+    provider: WORLDCUP_PROVIDER,
+    ...(await syncWorldCupFromWorldCup26({
+      allowGithubFallback: options?.allowGithubFallback
+    }))
+  };
 }
 
 export async function ensureWorldCupData(options?: { force?: boolean }) {
-  const provider = getWorldCupProvider();
-  if (provider === "api-football" && !process.env.FOOTBALL_API_KEY) {
-    return { ran: false, reason: "missing-key" as const };
-  }
-
   const now = Date.now();
   const liveStaleThreshold = new Date(
     now - LIVE_SYNC_MAX_AGE_MINUTES * 60 * 1000
   ).toISOString();
-  const latestSync = await getLatestSuccessfulSync(provider);
+  const latestSync = await getLatestSuccessfulSync(WORLDCUP_PROVIDER);
   const liveStateStale = await hasStaleLiveMatchState();
 
   if (
@@ -125,6 +119,7 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
     latestSync?.created_at &&
     latestSync.created_at >= liveStaleThreshold
   ) {
+    await refreshKnockoutBracketFromStandings();
     return { ran: false, reason: "fresh" as const };
   }
 
@@ -134,27 +129,22 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
   ).toISOString();
 
   const matchesCount = await countMatches();
-  const sampleMatches =
-    provider === "worldcup26"
-      ? (
-          await query<{ starts_at: string; payload: Record<string, unknown> }>(
-            `SELECT starts_at, payload
-             FROM matches_cache
-             WHERE tournament_code = $1
-             LIMIT 5`,
-            [TOURNAMENT_CODE]
-          )
-        ).rows
-      : [];
+  const sampleMatches = (
+    await query<{ starts_at: string; payload: Record<string, unknown> }>(
+      `SELECT starts_at, payload
+       FROM matches_cache
+       WHERE tournament_code = $1
+       LIMIT 5`,
+      [TOURNAMENT_CODE]
+    )
+  ).rows;
 
   const shouldSyncBecauseEmpty = matchesCount === 0;
   const shouldSyncBecauseStale =
     !latestSync || latestSync.created_at < staleThreshold;
-  const shouldSyncBecauseLegacyTimezone =
-    provider === "worldcup26" &&
-    sampleMatches.some((match) =>
-      hasWorldCup26TimezoneDrift(match.starts_at, match.payload)
-    );
+  const shouldSyncBecauseLegacyTimezone = sampleMatches.some((match) =>
+    hasWorldCup26TimezoneDrift(match.starts_at, match.payload)
+  );
   const shouldSyncBecauseLiveStateStale = liveStateStale;
 
   if (
@@ -164,6 +154,7 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
     !shouldSyncBecauseLegacyTimezone &&
     !shouldSyncBecauseLiveStateStale
   ) {
+    await refreshKnockoutBracketFromStandings();
     return { ran: false, reason: "fresh" as const };
   }
 
@@ -182,7 +173,7 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
     };
   } catch (error) {
     await insertSyncLog({
-      provider,
+      provider: WORLDCUP_PROVIDER,
       status: "error",
       message: (error as Error).message,
       payload: { auto: true }

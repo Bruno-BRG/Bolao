@@ -4,10 +4,11 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveMatchPredictionAction } from "@/actions/predictions.actions";
 import { formatCompactDateTime, formatDayHeading, appLocalDayKey, isSameAppDay } from "@/lib/date";
+import { isKnockoutStage } from "@/lib/knockout-stages";
 import { isMatchLockedForPrediction } from "@/lib/match-lock";
 import { getDisplayOfficialScore } from "@/lib/match-score";
 import { isMatchLive } from "@/lib/match-status";
-import { getMatchTeamLabel } from "@/lib/match-visibility";
+import { getMatchTeamLabel, isMatchPredictable } from "@/lib/match-visibility";
 import {
   readPredictionDrafts,
   removePredictionDraft,
@@ -107,7 +108,7 @@ function PalpiteMatchRow({
   showGroupLabel?: boolean;
   onUpdateScore: (match: Match, side: "homeGoals" | "awayGoals", value: string) => void;
 }) {
-  const locked = isMatchLockedForPrediction(match, now);
+  const locked = isMatchLockedForPrediction(match, now) || !isMatchPredictable(match);
   const live = isMatchLive(match);
   const homeName = getMatchTeamLabel(match, "home");
   const awayName = getMatchTeamLabel(match, "away");
@@ -121,7 +122,12 @@ function PalpiteMatchRow({
         <time>{formatCompactDateTime(match.starts_at)}</time>
         {showGroupLabel ? <span className="badge">{stageChip(match)}</span> : null}
         {live ? <span className="badge live">Ao vivo</span> : null}
-        {locked ? <span className="badge locked">Fechado</span> : null}
+        {!isMatchPredictable(match) ? (
+          <span className="badge locked">Aguardando adversario</span>
+        ) : null}
+        {locked && isMatchPredictable(match) ? (
+          <span className="badge locked">Fechado</span>
+        ) : null}
         {statusLabel(match.external_id, locked, Boolean(saved), status)}
         {saved?.points !== null && saved?.points !== undefined ? (
           <span className="badge warning">{saved.points} pts</span>
@@ -299,10 +305,24 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
     [matches, now]
   );
 
+  const knockoutMatches = useMemo(
+    () =>
+      matches
+        .filter(
+          (match) =>
+            isKnockoutStage(match.stage) &&
+            !isMatchLive(match) &&
+            !isMatchToday(match, now)
+        )
+        .sort(sortMatchesByStart),
+    [matches, now]
+  );
+
   const matchesByDay = useMemo(() => {
     const days = new Map<string, Match[]>();
     for (const match of matches) {
       if (isMatchToday(match, now) || isMatchLive(match)) continue;
+      if (isKnockoutStage(match.stage)) continue;
       const key = appLocalDayKey(match.starts_at);
       const bucket = days.get(key) ?? [];
       bucket.push(match);
@@ -428,6 +448,36 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
             {todayMatches.map((match) => (
               <PalpiteMatchRow
                 key={`today-${match.external_id}`}
+                current={scores[match.external_id] ?? { homeGoals: "", awayGoals: "" }}
+                match={match}
+                now={now}
+                onUpdateScore={updateScore}
+                saved={savedPredictions[match.external_id]}
+                showGroupLabel
+                status={rowStatus[match.external_id]}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {knockoutMatches.length > 0 ? (
+        <section className="palpites-group palpites-group--knockout">
+          <header className="palpites-group__head">
+            <div>
+              <h2>Mata-mata</h2>
+              <p className="palpites-group__subhead">
+                Oitavas, quartas e finais — palpite quando os dois times estiverem
+                definidos
+              </p>
+            </div>
+            <span>{knockoutMatches.length} jogos</span>
+          </header>
+
+          <div className="palpites-rows">
+            {knockoutMatches.map((match) => (
+              <PalpiteMatchRow
+                key={`ko-${match.external_id}`}
                 current={scores[match.external_id] ?? { homeGoals: "", awayGoals: "" }}
                 match={match}
                 now={now}

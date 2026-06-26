@@ -15,7 +15,9 @@ const updateMatchSchema = z.object({
   status: z.enum(MATCH_STATUS_OPTIONS),
   scoreHome: z.coerce.number().int().min(0).max(30).optional(),
   scoreAway: z.coerce.number().int().min(0).max(30).optional(),
-  startsAt: z.string().optional()
+  startsAt: z.string().optional(),
+  homeTeamId: z.string().optional(),
+  awayTeamId: z.string().optional()
 });
 
 export async function recalculateRankingAction(formData: FormData) {
@@ -152,13 +154,17 @@ export async function updateMatchAdminAction(formData: FormData) {
   const scoreHomeRaw = String(formData.get("scoreHome") ?? "").trim();
   const scoreAwayRaw = String(formData.get("scoreAway") ?? "").trim();
   const startsAtRaw = String(formData.get("startsAt") ?? "").trim();
+  const homeTeamId = String(formData.get("homeTeamId") ?? "").trim();
+  const awayTeamId = String(formData.get("awayTeamId") ?? "").trim();
 
   const parsed = updateMatchSchema.safeParse({
     matchId: formData.get("matchId"),
     status: formData.get("status"),
     scoreHome: scoreHomeRaw === "" ? undefined : scoreHomeRaw,
     scoreAway: scoreAwayRaw === "" ? undefined : scoreAwayRaw,
-    startsAt: startsAtRaw || undefined
+    startsAt: startsAtRaw || undefined,
+    homeTeamId: homeTeamId || undefined,
+    awayTeamId: awayTeamId || undefined
   });
 
   if (!parsed.success) {
@@ -179,7 +185,9 @@ export async function updateMatchAdminAction(formData: FormData) {
       status: parsed.data.status,
       scoreHome: scoreHomeRaw === "" ? null : (parsed.data.scoreHome ?? null),
       scoreAway: scoreAwayRaw === "" ? null : (parsed.data.scoreAway ?? null),
-      startsAt
+      startsAt,
+      homeTeamId: homeTeamId || null,
+      awayTeamId: awayTeamId || null
     });
 
     if (formData.get("recalculateRanking") === "on") {

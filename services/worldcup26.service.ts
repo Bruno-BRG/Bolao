@@ -7,6 +7,10 @@ import {
   upsertTeams
 } from "@/lib/cache-sync";
 import { getTeamDisplayName } from "@/lib/team-names-pt";
+import {
+  enrichKnockoutBracketFromStandings,
+  summarizeKnockoutEnrichment
+} from "@/services/knockout-enrichment.service";
 
 type WorldCup26Team = {
   fifa_code: string;
@@ -350,12 +354,30 @@ export async function syncWorldCupFromWorldCup26(options?: {
     await upsertGroups(groupRows);
   }
 
+  let enrichmentSummary = "";
+  let enrichmentMismatches: unknown[] = [];
+  try {
+    const enrichment = await enrichKnockoutBracketFromStandings();
+    enrichmentSummary = summarizeKnockoutEnrichment(enrichment);
+    enrichmentMismatches = enrichment.mismatches;
+    if (enrichment.mismatches.length > 0) {
+      console.warn(
+        "[knockout-enrichment] API/local mismatches:",
+        enrichment.mismatches
+      );
+    }
+  } catch (error) {
+    enrichmentSummary = `knockout enrichment failed: ${(error as Error).message}`;
+    console.warn("[knockout-enrichment]", error);
+  }
+
   await insertSyncLog({
     provider: "worldcup26",
     status: "success",
-    message: `Synced ${teams.length} teams, ${matches.length} fixtures and ${groupRows.length} group rows.`,
+    message: `Synced ${teams.length} teams, ${matches.length} fixtures and ${groupRows.length} group rows.${enrichmentSummary ? ` ${enrichmentSummary}.` : ""}`,
     payload: {
-      source: WORLDCUP26_API_BASE_URL
+      source: WORLDCUP26_API_BASE_URL,
+      knockoutMismatches: enrichmentMismatches
     }
   });
 

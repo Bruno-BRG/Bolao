@@ -314,6 +314,30 @@ export function AdminMatchesPanel({
 
               <div className="admin-match-card__grid">
                 <div className="field">
+                  <label>Mandante</label>
+                  <select defaultValue={match.home_team_id ?? ""} name="homeTeamId">
+                    <option value="">A definir</option>
+                    {teams.map((team) => (
+                      <option key={team.external_id} value={team.external_id}>
+                        {team.name} ({team.external_id})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="field">
+                  <label>Visitante</label>
+                  <select defaultValue={match.away_team_id ?? ""} name="awayTeamId">
+                    <option value="">A definir</option>
+                    {teams.map((team) => (
+                      <option key={team.external_id} value={team.external_id}>
+                        {team.name} ({team.external_id})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="field">
                   <label>Status</label>
                   <select defaultValue={match.status} name="status">
                     {MATCH_STATUS_OPTIONS.map((status) => (

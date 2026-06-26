@@ -27,7 +27,6 @@ nao rodam automaticamente.
 | `DATABASE_URL` | `${{Postgres.DATABASE_URL}}` |
 | `ADMIN_SYNC_TOKEN` | token forte para admin |
 | `CRON_SECRET` | token para sync/cron |
-| `FOOTBALL_PROVIDER` | `worldcup26` |
 | `WORLDCUP26_API_BASE_URL` | `https://worldcup26.ir` |
 | `WORLDCUP26_GITHUB_BASE_URL` | `https://raw.githubusercontent.com/rezarahiminia/worldcup2026/main` |
 

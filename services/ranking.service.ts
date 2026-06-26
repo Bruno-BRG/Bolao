@@ -63,8 +63,8 @@ export async function recalculateRanking() {
 
   await query(
     `INSERT INTO ranking_snapshots (tournament_code, snapshot)
-     VALUES ($1, $2)`,
-    [TOURNAMENT_CODE, ranking]
+     VALUES ($1, $2::jsonb)`,
+    [TOURNAMENT_CODE, JSON.stringify(ranking)]
   );
 
   return ranking;

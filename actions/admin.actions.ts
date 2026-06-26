@@ -17,12 +17,19 @@ const updateMatchSchema = z.object({
 });
 
 export async function recalculateRankingAction(formData: FormData) {
-  const token = String(formData.get("adminToken") ?? "");
+  const token = String(formData.get("adminToken") ?? "").trim();
   if (!isValidAdminToken(token)) {
     redirect("/ranking?error=Token administrativo invalido.");
   }
 
-  await recalculateRanking();
+  try {
+    await recalculateRanking();
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Falha ao recalcular ranking.";
+    redirect(`/ranking?error=${encodeURIComponent(message)}`);
+  }
+
   revalidatePath("/ranking");
   revalidatePath("/dashboard");
   redirect("/ranking?recalculated=1");

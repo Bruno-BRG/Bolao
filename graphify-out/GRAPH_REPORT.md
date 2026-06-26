@@ -1,7 +1,7 @@
 # Graph Report - Bolao  (2026-06-25)
 
 ## Corpus Check
-- 81 files · ~50,862 words
+- 81 files · ~50,883 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `3f134e94`
+- Built from commit: `88919360`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 

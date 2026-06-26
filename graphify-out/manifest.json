@@ -235,13 +235,13 @@
     "semantic_hash": ""
   },
   "components/PalpitesWorkspace.tsx": {
-    "mtime": 1782481660.1867213,
-    "ast_hash": "6b922a23d716425a372063099c841de2",
+    "mtime": 1782482840.1326613,
+    "ast_hash": "f03803176565a95f07f565606089543e",
     "semantic_hash": ""
   },
   "lib/match-visibility.ts": {
-    "mtime": 1782479876.340324,
-    "ast_hash": "9295f4fad3785737223620e852645c05",
+    "mtime": 1782482831.8968675,
+    "ast_hash": "1f795fb6399b47b448d4597826de5cf9",
     "semantic_hash": ""
   },
   "lib/prediction-draft.ts": {
@@ -450,13 +450,13 @@
     "semantic_hash": ""
   },
   "lib/group-standings-compute.ts": {
-    "mtime": 1782480235.86367,
-    "ast_hash": "30f298c848b47909a43777c2c827f823",
+    "mtime": 1782482499.4990444,
+    "ast_hash": "6f489aac3314aa6fb203288d25ccdbbb",
     "semantic_hash": ""
   },
   "lib/knockout-resolver.ts": {
-    "mtime": 1782480262.497642,
-    "ast_hash": "2405011d3ec320bbcfb3c91055bfde2f",
+    "mtime": 1782482519.899156,
+    "ast_hash": "12dffb77a2151fbcecf240a1b7d42436",
     "semantic_hash": ""
   },
   "lib/wc26-annex-c.ts": {
@@ -470,8 +470,8 @@
     "semantic_hash": ""
   },
   "services/knockout-enrichment.service.ts": {
-    "mtime": 1782480288.1941807,
-    "ast_hash": "b4eae7699be147a389ac7a0f625873b7",
+    "mtime": 1782482536.996454,
+    "ast_hash": "fc30010abd5bcda61ae9da973720366f",
     "semantic_hash": ""
   },
   "app/chaveamento/page.tsx": {

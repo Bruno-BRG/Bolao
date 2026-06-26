@@ -122,7 +122,7 @@ function PalpiteMatchRow({
         {showGroupLabel ? <span className="badge">{stageChip(match)}</span> : null}
         {live ? <span className="badge live">Ao vivo</span> : null}
         {!isMatchPredictable(match) ? (
-          <span className="badge locked">Aguardando adversario</span>
+          <span className="badge locked">Aguardando adversário</span>
         ) : null}
         {locked && isMatchPredictable(match) ? (
           <span className="badge locked">Fechado</span>

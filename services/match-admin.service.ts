@@ -40,6 +40,59 @@ function buildPayloadPatch(
   };
 }
 
+export type AdminMatchCreate = AdminMatchUpdate & {
+  stage: string;
+  groupName?: string | null;
+  homeTeamId?: string | null;
+  awayTeamId?: string | null;
+};
+
+function normalizeTeamId(value: string | null | undefined) {
+  const trimmed = value?.trim();
+  if (!trimmed || trimmed === "0") return null;
+  return trimmed;
+}
+
+export async function createMatchFromAdmin(input: AdminMatchCreate) {
+  const { rows } = await query<{ external_id: string }>(
+    `SELECT external_id
+     FROM matches_cache
+     WHERE external_id = $1
+     LIMIT 1`,
+    [input.externalId]
+  );
+
+  if (rows[0]) {
+    throw new Error("Ja existe um jogo com esse ID.");
+  }
+
+  const status = input.status.toUpperCase();
+  const payload = buildPayloadPatch({}, input);
+  const startsAt = input.startsAt;
+  if (!startsAt) throw new Error("Informe data e hora do jogo.");
+
+  await query(
+    `INSERT INTO matches_cache (
+       external_id, tournament_code, home_team_id, away_team_id, starts_at,
+       stage, group_name, status, score_home, score_away, payload, updated_at
+     )
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NOW())`,
+    [
+      input.externalId,
+      TOURNAMENT_CODE,
+      normalizeTeamId(input.homeTeamId),
+      normalizeTeamId(input.awayTeamId),
+      startsAt,
+      input.stage,
+      input.groupName ?? null,
+      status,
+      input.scoreHome,
+      input.scoreAway,
+      payload
+    ]
+  );
+}
+
 export async function updateMatchFromAdmin(input: AdminMatchUpdate) {
   const { rows } = await query<{ payload: Record<string, unknown>; starts_at: string }>(
     `SELECT payload, starts_at

@@ -37,7 +37,11 @@ export async function POST(request: NextRequest) {
   try {
     const force = request.nextUrl.searchParams.get("force") === "1";
     const ensured = force
-      ? { ran: true, reason: "forced" as const, syncResult: await syncWorldCupData() }
+      ? {
+          ran: true,
+          reason: "forced" as const,
+          syncResult: await syncWorldCupData({ allowGithubFallback: true })
+        }
       : await ensureWorldCupData({ force: false });
     const ranking =
       force || ensured.ran || (await shouldRefreshRanking())

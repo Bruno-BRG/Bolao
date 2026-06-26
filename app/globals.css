@@ -1200,6 +1200,24 @@ tbody tr:hover {
   gap: 16px;
 }
 
+.admin-matches__sync-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.admin-matches__create {
+  padding: 16px;
+}
+
+.admin-matches__create summary {
+  cursor: pointer;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
 .admin-matches__toolbar {
   align-items: center;
   display: flex;

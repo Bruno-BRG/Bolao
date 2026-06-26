@@ -87,11 +87,16 @@ export function getWorldCupProvider() {
   return (process.env.FOOTBALL_PROVIDER ?? "worldcup26").toLowerCase();
 }
 
-export async function syncWorldCupData() {
+export async function syncWorldCupData(options?: { allowGithubFallback?: boolean }) {
   const provider = getWorldCupProvider();
 
   if (provider === "worldcup26") {
-    return { provider, ...(await syncWorldCupFromWorldCup26()) };
+    return {
+      provider,
+      ...(await syncWorldCupFromWorldCup26({
+        allowGithubFallback: options?.allowGithubFallback
+      }))
+    };
   }
 
   if (provider === "api-football") {

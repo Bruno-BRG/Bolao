@@ -1,7 +1,7 @@
 {
   "actions/admin.actions.ts": {
-    "mtime": 1782432910.0820582,
-    "ast_hash": "ed63cef48cf81625086e1747a5385d3b",
+    "mtime": 1782479256.3565733,
+    "ast_hash": "9b36fa39c66194c59172934d80d27fea",
     "semantic_hash": ""
   },
   "actions/auth.actions.ts": {
@@ -20,8 +20,8 @@
     "semantic_hash": ""
   },
   "app/api/admin/sync-worldcup/route.ts": {
-    "mtime": 1782422915.3547924,
-    "ast_hash": "f5f6616bdeb9c7b934947e688aee8e7b",
+    "mtime": 1782479298.8560095,
+    "ast_hash": "8edafc0f2575035df6ad7e06bd882db9",
     "semantic_hash": ""
   },
   "app/api/health/route.ts": {
@@ -165,13 +165,13 @@
     "semantic_hash": ""
   },
   "services/worldcup-sync.service.ts": {
-    "mtime": 1782422913.7814121,
-    "ast_hash": "449ae7905fd021c4024fc978aae252b8",
+    "mtime": 1782479245.8198013,
+    "ast_hash": "6b3fc4f0cd36581997c3f1a332c70bc4",
     "semantic_hash": ""
   },
   "services/worldcup26.service.ts": {
-    "mtime": 1782422904.629676,
-    "ast_hash": "0e37c16ec256fe49513fb76c738e335f",
+    "mtime": 1782479240.1942546,
+    "ast_hash": "150c982f69080ab21031f41734cd4c15",
     "semantic_hash": ""
   },
   "tsconfig.json": {
@@ -300,13 +300,13 @@
     "semantic_hash": ""
   },
   "app/admin/partidas/page.tsx": {
-    "mtime": 1781235250.732579,
-    "ast_hash": "548149094f11ee1a94e9f9d700e275ec",
+    "mtime": 1782479295.2275157,
+    "ast_hash": "27488889f7ed1108c75cd55701036072",
     "semantic_hash": ""
   },
   "components/AdminMatchesPanel.tsx": {
-    "mtime": 1782435624.1694274,
-    "ast_hash": "9dc48e3cf7084b4ac77b3de31e1d9ff3",
+    "mtime": 1782479293.030885,
+    "ast_hash": "5546cdcc2aa98e46d0af932ae555c03d",
     "semantic_hash": ""
   },
   "lib/admin-auth.ts": {
@@ -320,8 +320,8 @@
     "semantic_hash": ""
   },
   "services/match-admin.service.ts": {
-    "mtime": 1782422857.5175273,
-    "ast_hash": "c9ac8387b8dd641f1561222c0392071f",
+    "mtime": 1782479248.9455743,
+    "ast_hash": "eb96085a04326ea2df0f8c0ca1e9c411",
     "semantic_hash": ""
   },
   "scripts/docker-entrypoint.sh": {
@@ -442,6 +442,11 @@
   "db/patches/202606250003_add_missing_predictions_51_52.sql": {
     "mtime": 1782388503.1459372,
     "ast_hash": "3f408e52cacf2c84947075fa0f618890",
+    "semantic_hash": ""
+  },
+  "lib/knockout-stages.ts": {
+    "mtime": 1782479227.6891778,
+    "ast_hash": "66a757b2e7178ac65af026907efebff9",
     "semantic_hash": ""
   }
 }

@@ -256,10 +256,13 @@ function parseScore(value: string, finished: boolean) {
   return Number.isFinite(score) ? score : null;
 }
 
-export async function syncWorldCupFromWorldCup26() {
+export async function syncWorldCupFromWorldCup26(options?: {
+  allowGithubFallback?: boolean;
+}) {
+  const allowGithubFallback = options?.allowGithubFallback ?? false;
   const [teamsResponse, gamesResponse, groupsResponse] = await Promise.all([
     fetchTeams(),
-    fetchGames({ allowGithubFallback: false }),
+    fetchGames({ allowGithubFallback }),
     fetchGroups()
   ]);
 

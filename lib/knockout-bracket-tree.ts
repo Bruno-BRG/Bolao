@@ -1,62 +1,71 @@
-/** FIFA World Cup 2026 knockout tree (matches 73–104). */
+/**
+ * FIFA World Cup 2026 knockout tree (matches 73–104).
+ *
+ * The match order in each round follows an in-order traversal of the bracket
+ * binary tree, so a single left-to-right column layout renders without any
+ * crossing connectors (each round-N match sits at the vertical midpoint of its
+ * two feeder matches in round N-1).
+ */
 
-export type BracketPair = {
-  topMatchId: string;
-  bottomMatchId: string;
-  feedsMatchId: string;
+export type BracketRound = {
+  id: string;
+  title: string;
+  matchIds: string[];
 };
 
-export type BracketHalf = {
-  id: "top" | "bottom";
-  label: string;
-  r32Pairs: BracketPair[];
-  r16MatchIds: [string, string, string, string];
-  qfMatchIds: [string, string];
-  semifinalMatchId: string;
-};
-
-export const KNOCKOUT_FINAL_MATCH_ID = "104";
 export const KNOCKOUT_THIRD_PLACE_MATCH_ID = "103";
+export const KNOCKOUT_FINAL_MATCH_ID = "104";
 
-export const TOP_BRACKET_HALF: BracketHalf = {
-  id: "top",
-  label: "Chave superior",
-  r32Pairs: [
-    { topMatchId: "73", bottomMatchId: "75", feedsMatchId: "90" },
-    { topMatchId: "74", bottomMatchId: "77", feedsMatchId: "89" },
-    { topMatchId: "76", bottomMatchId: "78", feedsMatchId: "91" },
-    { topMatchId: "79", bottomMatchId: "80", feedsMatchId: "92" }
-  ],
-  r16MatchIds: ["90", "89", "91", "92"],
-  qfMatchIds: ["97", "99"],
-  semifinalMatchId: "101"
-};
-
-export const BOTTOM_BRACKET_HALF: BracketHalf = {
-  id: "bottom",
-  label: "Chave inferior",
-  r32Pairs: [
-    { topMatchId: "81", bottomMatchId: "82", feedsMatchId: "94" },
-    { topMatchId: "83", bottomMatchId: "84", feedsMatchId: "93" },
-    { topMatchId: "86", bottomMatchId: "88", feedsMatchId: "95" },
-    { topMatchId: "85", bottomMatchId: "87", feedsMatchId: "96" }
-  ],
-  r16MatchIds: ["94", "93", "95", "96"],
-  qfMatchIds: ["98", "100"],
-  semifinalMatchId: "102"
-};
-
-export const BRACKET_HALVES = [TOP_BRACKET_HALF, BOTTOM_BRACKET_HALF] as const;
-
-export function collectBracketMatchIds(half: BracketHalf) {
-  const ids = new Set<string>();
-  for (const pair of half.r32Pairs) {
-    ids.add(pair.topMatchId);
-    ids.add(pair.bottomMatchId);
-    ids.add(pair.feedsMatchId);
+export const KNOCKOUT_ROUNDS: BracketRound[] = [
+  {
+    id: "r32",
+    title: "32 avos",
+    matchIds: [
+      "73",
+      "75",
+      "74",
+      "77",
+      "83",
+      "84",
+      "81",
+      "82",
+      "76",
+      "78",
+      "79",
+      "80",
+      "86",
+      "88",
+      "85",
+      "87"
+    ]
+  },
+  {
+    id: "r16",
+    title: "Oitavas",
+    matchIds: ["90", "89", "93", "94", "91", "92", "95", "96"]
+  },
+  {
+    id: "qf",
+    title: "Quartas",
+    matchIds: ["97", "98", "99", "100"]
+  },
+  {
+    id: "sf",
+    title: "Semifinal",
+    matchIds: ["101", "102"]
+  },
+  {
+    id: "final",
+    title: "Final",
+    matchIds: [KNOCKOUT_FINAL_MATCH_ID]
   }
-  for (const matchId of half.r16MatchIds) ids.add(matchId);
-  for (const matchId of half.qfMatchIds) ids.add(matchId);
-  ids.add(half.semifinalMatchId);
+];
+
+export function collectBracketMatchIds() {
+  const ids = new Set<string>();
+  for (const round of KNOCKOUT_ROUNDS) {
+    for (const matchId of round.matchIds) ids.add(matchId);
+  }
+  ids.add(KNOCKOUT_THIRD_PLACE_MATCH_ID);
   return ids;
 }

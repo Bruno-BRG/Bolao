@@ -1,16 +1,16 @@
 # Graph Report - Bolao  (2026-06-26)
 
 ## Corpus Check
-- 90 files · ~55,185 words
+- 90 files · ~54,917 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 460 nodes · 1046 edges · 27 communities (19 shown, 8 thin omitted)
+- 454 nodes · 1037 edges · 27 communities (19 shown, 8 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6db8666c`
+- Built from commit: `b656d9da`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -56,14 +56,14 @@
 ## Surprising Connections (you probably didn't know these)
 - `RootLayout()` --calls--> `getCurrentUser`  [EXTRACTED]
   app/layout.tsx → services/auth.service.ts
-- `LoginPage()` --calls--> `getCurrentUser`  [EXTRACTED]
-  app/login/page.tsx → services/auth.service.ts
 - `RankingPage()` --calls--> `getLatestRanking()`  [EXTRACTED]
   app/ranking/page.tsx → services/ranking.service.ts
 - `recalculateRankingAction()` --calls--> `recalculateRanking()`  [EXTRACTED]
   actions/admin.actions.ts → services/ranking.service.ts
 - `syncWorldCupAdminAction()` --calls--> `recalculateRanking()`  [EXTRACTED]
   actions/admin.actions.ts → services/ranking.service.ts
+- `syncWorldCupAdminAction()` --calls--> `syncWorldCupData()`  [EXTRACTED]
+  actions/admin.actions.ts → services/worldcup-sync.service.ts
 
 ## Import Cycles
 - None detected.
@@ -75,24 +75,24 @@ Cohesion: 0.29
 Nodes (6): Deploy na Railway (2 servicos), Deploy na Railway (branch `feature/railway-docker`), Healthcheck, Sync automatico, Testar local com Docker, Variaveis do servico Bolao
 
 ### Community 1 - "Community 1"
-Cohesion: 0.08
-Nodes (50): GET(), countMatches(), getLatestSuccessfulSync(), GroupRow, insertSyncLog(), MatchRow, pruneTeams(), TeamRow (+42 more)
+Cohesion: 0.07
+Nodes (60): GET(), countMatches(), getLatestSuccessfulSync(), GroupRow, insertSyncLog(), MatchRow, pruneTeams(), TeamRow (+52 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.10
-Nodes (38): bulkPredictionSchema, ensureUnique(), isMatchLocked(), MatchSaveResult, persistMatchPrediction(), predictionSchema, saveBulkPredictionsAction(), saveMatchPredictionAction() (+30 more)
+Cohesion: 0.12
+Nodes (36): bulkPredictionSchema, ensureUnique(), isMatchLocked(), MatchSaveResult, persistMatchPrediction(), predictionSchema, saveBulkPredictionsAction(), saveMatchPredictionAction() (+28 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.15
 Nodes (15): HomePage(), mapWorldCup26Stage(), mapWorldCup26Status(), fetchCollection(), fetchJson(), getLiveFeedHighlights(), getLiveWorldCupData(), LiveGameResponse (+7 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.10
-Nodes (30): changePasswordAction(), loginAction(), logoutAction(), registerAction(), setSessionCookie(), validateCredentials(), metadata, RootLayout() (+22 more)
+Cohesion: 0.11
+Nodes (27): changePasswordAction(), loginAction(), logoutAction(), registerAction(), setSessionCookie(), validateCredentials(), metadata, RootLayout() (+19 more)
 
 ### Community 5 - "Community 5"
-Cohesion: 0.09
-Nodes (26): ChaveamentoPage(), BracketMatchCard(), BracketView, KnockoutBracketBoard(), KnockoutBracketBoardProps, teamWonSide(), formatCompactDateTime(), BOTTOM_BRACKET_HALF (+18 more)
+Cohesion: 0.10
+Nodes (21): CommunityMember, CommunityPredictionsBoard(), RANKING_POLL_MS, RankingLiveBoard(), RankingTable(), TopFourForm(), SCORING_RULES, RankingPage() (+13 more)
 
 ### Community 6 - "Community 6"
 Cohesion: 0.08
@@ -103,16 +103,16 @@ Cohesion: 0.10
 Nodes (19): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+11 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.13
-Nodes (23): createMatchAdminAction(), createMatchSchema, recalculateRankingAction(), revalidateMatchPaths(), syncWorldCupAdminAction(), updateMatchAdminAction(), updateMatchSchema, Filter (+15 more)
+Cohesion: 0.07
+Nodes (45): createMatchAdminAction(), createMatchSchema, recalculateRankingAction(), revalidateMatchPaths(), syncWorldCupAdminAction(), updateMatchAdminAction(), updateMatchSchema, AdminMatchesPanel() (+37 more)
 
 ### Community 9 - "Community 9"
 Cohesion: 0.17
 Nodes (11): Banco, Bolao da Copa, Comandos, Endpoints admin, GitHub Actions (recomendado na Copa), Modelo DB-first, Pontuacao, Railway (+3 more)
 
 ### Community 15 - "Community 15"
-Cohesion: 0.06
-Nodes (45): BulkSaveResult, isMatchToday(), PalpiteMatchRow(), PalpitesWorkspace(), PalpitesWorkspaceProps, RowStatus, ScoreState, stageChip() (+37 more)
+Cohesion: 0.09
+Nodes (31): BulkSaveResult, isMatchToday(), PalpiteMatchRow(), PalpitesWorkspace(), PalpitesWorkspaceProps, RowStatus, ScoreState, stageChip() (+23 more)
 
 ### Community 16 - "Community 16"
 Cohesion: 0.50
@@ -131,32 +131,32 @@ Cohesion: 0.70
 Nodes (3): run-migrations.sh script, bootstrap_existing_database(), mark_migration_applied()
 
 ### Community 25 - "Community 25"
-Cohesion: 0.09
-Nodes (37): buildTeamGroupMap(), ComputedGroupTable, ComputedStandingRow, computeGroupStandingsFromMatches(), getGroupFromMatch(), getQualifiedThirdPlaceGroups(), findKnockoutMismatches(), getGroupTable() (+29 more)
+Cohesion: 0.11
+Nodes (25): buildTeamGroupMap(), ComputedGroupTable, ComputedStandingRow, computeGroupStandingsFromMatches(), getGroupFromMatch(), getQualifiedThirdPlaceGroups(), getGroupTable(), getMatchLoserId() (+17 more)
 
 ### Community 26 - "Community 26"
 Cohesion: 0.40
 Nodes (4): block, end, rows, start
 
 ## Knowledge Gaps
-- **135 isolated node(s):** `enabled`, `updateMatchSchema`, `createMatchSchema`, `predictionSchema`, `bulkPredictionSchema` (+130 more)
+- **134 isolated node(s):** `enabled`, `updateMatchSchema`, `createMatchSchema`, `predictionSchema`, `bulkPredictionSchema` (+129 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `query()` connect `Community 1` to `Community 8`, `Community 25`, `Community 2`, `Community 4`?**
-  _High betweenness centrality (0.033) - this node is a cross-community bridge._
-- **Why does `Match` connect `Community 15` to `Community 2`, `Community 3`, `Community 5`, `Community 8`, `Community 25`?**
-  _High betweenness centrality (0.030) - this node is a cross-community bridge._
-- **Why does `getCurrentUser` connect `Community 2` to `Community 3`, `Community 4`, `Community 5`?**
+- **Why does `query()` connect `Community 1` to `Community 8`, `Community 2`, `Community 4`?**
+  _High betweenness centrality (0.034) - this node is a cross-community bridge._
+- **Why does `Match` connect `Community 5` to `Community 1`, `Community 2`, `Community 3`, `Community 8`, `Community 15`, `Community 25`?**
+  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+- **Why does `getCurrentUser` connect `Community 2` to `Community 3`, `Community 4`?**
   _High betweenness centrality (0.027) - this node is a cross-community bridge._
 - **What connects `enabled`, `updateMatchSchema`, `createMatchSchema` to the rest of the system?**
-  _135 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _134 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.07615018508725542 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06506849315068493 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.10303030303030303 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
 - **Should `Community 3` be split into smaller, more focused modules?**
   _Cohesion score 0.14619883040935672 - nodes in this community are weakly interconnected._

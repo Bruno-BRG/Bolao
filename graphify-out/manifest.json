@@ -235,8 +235,8 @@
     "semantic_hash": ""
   },
   "components/PalpitesWorkspace.tsx": {
-    "mtime": 1782479906.199009,
-    "ast_hash": "b1e9595af2618619b572649b19fe704a",
+    "mtime": 1782481660.1867213,
+    "ast_hash": "6b922a23d716425a372063099c841de2",
     "semantic_hash": ""
   },
   "lib/match-visibility.ts": {
@@ -480,13 +480,13 @@
     "semantic_hash": ""
   },
   "components/KnockoutBracketBoard.tsx": {
-    "mtime": 1782481149.4867382,
-    "ast_hash": "0a8b4877fd65b46a562377b9bb65420e",
+    "mtime": 1782481952.2568011,
+    "ast_hash": "e248ab36bfe2a35606b0a5a3928ba945",
     "semantic_hash": ""
   },
   "lib/knockout-bracket-tree.ts": {
-    "mtime": 1782481105.5850492,
-    "ast_hash": "ada0dcfebbd088989ba78acffcb57d5a",
+    "mtime": 1782481806.6141562,
+    "ast_hash": "76a0190abb8b6511795b89ae5f86f7ff",
     "semantic_hash": ""
   }
 }

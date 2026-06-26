@@ -1,15 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { formatCompactDateTime } from "@/lib/date";
 import {
-  BRACKET_HALVES,
-  BOTTOM_BRACKET_HALF,
-  KNOCKOUT_FINAL_MATCH_ID,
+  KNOCKOUT_ROUNDS,
   KNOCKOUT_THIRD_PLACE_MATCH_ID,
-  TOP_BRACKET_HALF,
-  type BracketHalf,
-  type BracketPair
+  type BracketRound
 } from "@/lib/knockout-bracket-tree";
 import { getDisplayOfficialScore } from "@/lib/match-score";
 import { isMatchFinished, isMatchLive } from "@/lib/match-status";
@@ -19,8 +15,6 @@ import type { Match } from "@/types/domain";
 type KnockoutBracketBoardProps = {
   matches: Match[];
 };
-
-type BracketView = "top" | "bottom" | "final";
 
 function buildMatchMap(matches: Match[]) {
   return new Map(matches.map((match) => [match.external_id, match]));
@@ -65,7 +59,7 @@ function BracketMatchCard({ match }: { match: Match | undefined }) {
   if (!match) {
     return (
       <article className="bracket-card bracket-card--empty">
-        <p className="muted">Jogo nao encontrado</p>
+        <p className="muted">A definir</p>
       </article>
     );
   }
@@ -83,7 +77,7 @@ function BracketMatchCard({ match }: { match: Match | undefined }) {
       <header className="bracket-card__head">
         <time dateTime={match.starts_at}>{formatCompactDateTime(match.starts_at)}</time>
         {live ? <span className="badge live">Ao vivo</span> : null}
-        {!isMatchPredictable(match) ? (
+        {!live && !isMatchPredictable(match) ? (
           <span className="badge locked">A definir</span>
         ) : null}
       </header>
@@ -105,138 +99,67 @@ function BracketMatchCard({ match }: { match: Match | undefined }) {
   );
 }
 
-function BracketR32Pair({
-  pair,
-  matchMap
+function BracketColumn({
+  round,
+  matchMap,
+  isLast
 }: {
-  pair: BracketPair;
+  round: BracketRound;
   matchMap: Map<string, Match>;
+  isLast: boolean;
 }) {
   return (
-    <div className="bracket-slot bracket-slot--pair">
-      <BracketMatchCard match={matchMap.get(pair.topMatchId)} />
-      <BracketMatchCard match={matchMap.get(pair.bottomMatchId)} />
-    </div>
-  );
-}
-
-function BracketHalfBoard({
-  half,
-  matchMap
-}: {
-  half: BracketHalf;
-  matchMap: Map<string, Match>;
-}) {
-  return (
-    <div className="bracket-board" role="list" aria-label={half.label}>
-      <section className="bracket-column">
-        <h3 className="bracket-round__title">32 avos</h3>
-        <div className="bracket-column__slots">
-          {half.r32Pairs.map((pair) => (
-            <BracketR32Pair
-              key={`${pair.topMatchId}-${pair.bottomMatchId}`}
-              pair={pair}
-              matchMap={matchMap}
-            />
-          ))}
-        </div>
-      </section>
-
-      <section className="bracket-column">
-        <h3 className="bracket-round__title">Oitavas</h3>
-        <div className="bracket-column__slots">
-          {half.r16MatchIds.map((matchId) => (
-            <div key={matchId} className="bracket-slot">
+    <section className={`bracket-col bracket-col--${round.id}`}>
+      <h3 className="bracket-col__title">{round.title}</h3>
+      <div className="bracket-col__slots">
+        {round.matchIds.map((matchId, index) => {
+          const isUpper = index % 2 === 0;
+          return (
+            <div
+              key={matchId}
+              className={`bracket-slot${isLast ? " bracket-slot--last" : ""}${
+                isUpper ? " bracket-slot--upper" : " bracket-slot--lower"
+              }`}
+            >
               <BracketMatchCard match={matchMap.get(matchId)} />
+              {!isLast && isUpper ? (
+                <span className="bracket-slot__link" aria-hidden="true" />
+              ) : null}
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="bracket-column">
-        <h3 className="bracket-round__title">Quartas</h3>
-        <div className="bracket-column__slots">
-          {half.qfMatchIds.map((matchId) => (
-            <div key={matchId} className="bracket-slot">
-              <BracketMatchCard match={matchMap.get(matchId)} />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="bracket-column">
-        <h3 className="bracket-round__title">Semifinal</h3>
-        <div className="bracket-column__slots">
-          <div className="bracket-slot">
-            <BracketMatchCard match={matchMap.get(half.semifinalMatchId)} />
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
-
-function BracketFinalBoard({ matchMap }: { matchMap: Map<string, Match> }) {
-  return (
-    <div className="bracket-finals">
-      <section className="bracket-finals__block">
-        <h3 className="bracket-round__title">Semifinais</h3>
-        <div className="bracket-finals__semis">
-          <BracketMatchCard match={matchMap.get(TOP_BRACKET_HALF.semifinalMatchId)} />
-          <BracketMatchCard match={matchMap.get(BOTTOM_BRACKET_HALF.semifinalMatchId)} />
-        </div>
-      </section>
-
-      <section className="bracket-finals__block bracket-finals__block--highlight">
-        <h3 className="bracket-round__title">Final</h3>
-        <BracketMatchCard match={matchMap.get(KNOCKOUT_FINAL_MATCH_ID)} />
-      </section>
-
-      <section className="bracket-finals__block">
-        <h3 className="bracket-round__title">3º lugar</h3>
-        <BracketMatchCard match={matchMap.get(KNOCKOUT_THIRD_PLACE_MATCH_ID)} />
-      </section>
-    </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
 export function KnockoutBracketBoard({ matches }: KnockoutBracketBoardProps) {
-  const [view, setView] = useState<BracketView>("top");
   const matchMap = useMemo(() => buildMatchMap(matches), [matches]);
+  const thirdPlace = matchMap.get(KNOCKOUT_THIRD_PLACE_MATCH_ID);
 
   return (
     <div className="bracket-shell">
-      <div className="bracket-tabs" role="tablist" aria-label="Chaveamento">
-        {BRACKET_HALVES.map((half) => (
-          <button
-            key={half.id}
-            type="button"
-            role="tab"
-            aria-selected={view === half.id}
-            className={`bracket-tab${view === half.id ? " bracket-tab--active" : ""}`}
-            onClick={() => setView(half.id)}
-          >
-            {half.label}
-          </button>
-        ))}
-        <button
-          type="button"
-          role="tab"
-          aria-selected={view === "final"}
-          className={`bracket-tab${view === "final" ? " bracket-tab--active" : ""}`}
-          onClick={() => setView("final")}
-        >
-          Final
-        </button>
+      <div className="bracket-scroll">
+        <div className="bracket-board">
+          {KNOCKOUT_ROUNDS.map((round, index) => (
+            <BracketColumn
+              key={round.id}
+              round={round}
+              matchMap={matchMap}
+              isLast={index === KNOCKOUT_ROUNDS.length - 1}
+            />
+          ))}
+        </div>
       </div>
 
-      <div className="bracket-scroll">
-        {view === "top" ? <BracketHalfBoard half={TOP_BRACKET_HALF} matchMap={matchMap} /> : null}
-        {view === "bottom" ? (
-          <BracketHalfBoard half={BOTTOM_BRACKET_HALF} matchMap={matchMap} />
-        ) : null}
-        {view === "final" ? <BracketFinalBoard matchMap={matchMap} /> : null}
-      </div>
+      {thirdPlace ? (
+        <section className="bracket-third">
+          <h3 className="bracket-col__title">Disputa de 3º lugar</h3>
+          <div className="bracket-third__card">
+            <BracketMatchCard match={thirdPlace} />
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }

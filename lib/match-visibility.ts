@@ -7,9 +7,15 @@ const PLACEHOLDER_LABEL =
 
 export function getMatchTeamLabel(match: Match, side: "home" | "away") {
   const payload = match.payload ?? {};
-  const team = side === "home" ? match.home_team : match.away_team;
   const labelKey = side === "home" ? "home_team_label" : "away_team_label";
-  const fallback = typeof payload[labelKey] === "string" ? payload[labelKey] : null;
+  const slotLabel = typeof payload[labelKey] === "string" ? payload[labelKey] : null;
+
+  // Keep placeholder slots visible until the group/match is really decided.
+  if (slotLabel && PLACEHOLDER_LABEL.test(slotLabel)) {
+    return localizeTeamName(slotLabel);
+  }
+
+  const team = side === "home" ? match.home_team : match.away_team;
   if (team) return getTeamDisplayName(team);
 
   const englishNameKey = side === "home" ? "home_team_name_en" : "away_team_name_en";
@@ -18,7 +24,7 @@ export function getMatchTeamLabel(match: Match, side: "home" | "away") {
 
   return (
     (englishName ? localizeTeamName(englishName) : null) ??
-    (fallback ? localizeTeamName(fallback) : null) ??
+    (slotLabel ? localizeTeamName(slotLabel) : null) ??
     "A definir"
   );
 }
@@ -45,6 +51,15 @@ function hasRealTeamId(teamId: string | null | undefined) {
 }
 
 function isPlaceholderSide(match: Match, side: "home" | "away") {
+  const payload = match.payload ?? {};
+  const labelKey = side === "home" ? "home_team_label" : "away_team_label";
+  const slotLabel =
+    typeof payload[labelKey] === "string" ? payload[labelKey] : "";
+
+  if (slotLabel && PLACEHOLDER_LABEL.test(slotLabel)) {
+    return true;
+  }
+
   const teamId = side === "home" ? match.home_team_id : match.away_team_id;
   const team = side === "home" ? match.home_team : match.away_team;
 
@@ -55,11 +70,6 @@ function isPlaceholderSide(match: Match, side: "home" | "away") {
   const englishName = getPlaceholderLabel(match, side);
   if (englishName && !PLACEHOLDER_LABEL.test(englishName)) {
     return false;
-  }
-
-  const placeholderLabel = getPlaceholderLabel(match, side);
-  if (placeholderLabel && PLACEHOLDER_LABEL.test(placeholderLabel)) {
-    return true;
   }
 
   return !hasRealTeamId(teamId);

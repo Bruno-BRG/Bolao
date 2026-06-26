@@ -6,7 +6,6 @@ import {
 } from "@/lib/group-standings-compute";
 import {
   findKnockoutMismatches,
-  hasRealTeamId,
   resolveAllKnockoutTeams
 } from "@/lib/knockout-resolver";
 import type { Match, Team } from "@/types/domain";
@@ -48,14 +47,6 @@ async function loadMatches(): Promise<CachedMatch[]> {
     [TOURNAMENT_CODE]
   );
   return rows;
-}
-
-async function loadTeamName(teamId: string) {
-  const { rows } = await query<{ name: string }>(
-    `SELECT name FROM teams_cache WHERE external_id = $1 LIMIT 1`,
-    [teamId]
-  );
-  return rows[0]?.name ?? null;
 }
 
 function toDomainMatch(row: CachedMatch): Match {
@@ -115,6 +106,12 @@ async function syncComputedGroups(tables: ComputedGroupTable[]) {
   return synced;
 }
 
+function apiHasTeamId(payload: Record<string, unknown>, side: "home" | "away") {
+  const key = side === "home" ? "home_team_id" : "away_team_id";
+  const value = payload[key];
+  return typeof value === "string" && value !== "" && value !== "0";
+}
+
 export async function enrichKnockoutBracketFromStandings(): Promise<KnockoutEnrichmentResult> {
   const [teams, rows] = await Promise.all([loadTeams(), loadMatches()]);
   const matches = rows.map(toDomainMatch);
@@ -129,34 +126,19 @@ export async function enrichKnockoutBracketFromStandings(): Promise<KnockoutEnri
     const local = resolved.get(row.external_id);
     if (!local) continue;
 
-    const nextHome = hasRealTeamId(row.home_team_id)
-      ? row.home_team_id
-      : local.homeTeamId;
-    const nextAway = hasRealTeamId(row.away_team_id)
-      ? row.away_team_id
-      : local.awayTeamId;
+    const payload = row.payload ?? {};
+    const apiHome = apiHasTeamId(payload, "home");
+    const apiAway = apiHasTeamId(payload, "away");
+
+    const nextHome = apiHome ? row.home_team_id : (local.homeTeamId ?? null);
+    const nextAway = apiAway ? row.away_team_id : (local.awayTeamId ?? null);
 
     if (nextHome === row.home_team_id && nextAway === row.away_team_id) {
       continue;
     }
 
-    const payload = { ...(row.payload ?? {}) };
-    if (nextHome && nextHome !== row.home_team_id) {
-      const name = await loadTeamName(nextHome);
-      if (name) {
-        payload.home_team_name_en = name;
-        payload.home_team_label = name;
-      }
-      filledSlots += 1;
-    }
-    if (nextAway && nextAway !== row.away_team_id) {
-      const name = await loadTeamName(nextAway);
-      if (name) {
-        payload.away_team_name_en = name;
-        payload.away_team_label = name;
-      }
-      filledSlots += 1;
-    }
+    if (nextHome && nextHome !== row.home_team_id) filledSlots += 1;
+    if (nextAway && nextAway !== row.away_team_id) filledSlots += 1;
 
     await query(
       `UPDATE matches_cache

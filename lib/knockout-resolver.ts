@@ -81,10 +81,14 @@ export function parseKnockoutSlot(label: string): KnockoutSlot {
 function getMatchSideLabel(match: Match, side: "home" | "away") {
   const payload = match.payload ?? {};
   const labelKey = side === "home" ? "home_team_label" : "away_team_label";
+  const label = typeof payload[labelKey] === "string" ? normalizeLabel(payload[labelKey]) : "";
+
+  // FIFA slot descriptor (e.g. "Winner Group C") takes priority over team name.
+  if (label) return label;
+
   const nameKey = side === "home" ? "home_team_name_en" : "away_team_name_en";
-  const label = typeof payload[labelKey] === "string" ? payload[labelKey] : "";
-  const name = typeof payload[nameKey] === "string" ? payload[nameKey] : "";
-  return normalizeLabel(label || name);
+  const name = typeof payload[nameKey] === "string" ? normalizeLabel(payload[nameKey]) : "";
+  return name;
 }
 
 function getGroupTable(tables: ComputedGroupTable[], group: string) {

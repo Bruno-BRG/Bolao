@@ -17,10 +17,20 @@ export type ComputedStandingRow = {
 export type ComputedGroupTable = {
   group: string;
   standings: ComputedStandingRow[];
+  /** True when all 4 teams have played all 3 group matches. */
+  complete: boolean;
   winnerId: string | null;
   runnerUpId: string | null;
   thirdId: string | null;
 };
+
+const TEAMS_PER_GROUP = 4;
+const MATCHES_PER_TEAM = 3;
+
+function isGroupTableComplete(standings: ComputedStandingRow[]) {
+  if (standings.length !== TEAMS_PER_GROUP) return false;
+  return standings.every((row) => row.mp === MATCHES_PER_TEAM);
+}
 
 function sortStandings(a: ComputedStandingRow, b: ComputedStandingRow) {
   return (
@@ -118,19 +128,43 @@ export function computeGroupStandingsFromMatches(
   return [...byGroup.entries()]
     .map(([group, standings]) => {
       const sorted = [...standings].sort(sortStandings);
+      const complete = isGroupTableComplete(sorted);
       return {
         group,
         standings: sorted,
-        winnerId: sorted[0]?.teamId ?? null,
-        runnerUpId: sorted[1]?.teamId ?? null,
-        thirdId: sorted[2]?.teamId ?? null
+        complete,
+        winnerId: complete ? (sorted[0]?.teamId ?? null) : null,
+        runnerUpId: complete ? (sorted[1]?.teamId ?? null) : null,
+        thirdId: complete ? (sorted[2]?.teamId ?? null) : null
       };
     })
     .sort((a, b) => a.group.localeCompare(b.group));
 }
 
 export function getQualifiedThirdPlaceGroups(tables: ComputedGroupTable[]) {
-  const thirds = tables
+  const completeTables = tables.filter((table) => table.complete);
+  // Third-place qualification is only final once every group has finished.
+  if (completeTables.length < 12) {
+    return {
+      qualifiedGroups: [] as string[],
+      qualifiedThirds: [] as Array<{
+        group: string;
+        pts: number;
+        gd: number;
+        gf: number;
+        teamId: string;
+      }>,
+      eliminatedThirds: [] as Array<{
+        group: string;
+        pts: number;
+        gd: number;
+        gf: number;
+        teamId: string;
+      }>
+    };
+  }
+
+  const thirds = completeTables
     .map((table) => {
       const third = table.standings[2];
       if (!third) return null;

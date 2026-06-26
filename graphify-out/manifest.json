@@ -1,7 +1,7 @@
 {
   "actions/admin.actions.ts": {
-    "mtime": 1782479256.3565733,
-    "ast_hash": "9b36fa39c66194c59172934d80d27fea",
+    "mtime": 1782479891.1914976,
+    "ast_hash": "cb50c297d02b4c0c3cc23be0835a7c4f",
     "semantic_hash": ""
   },
   "actions/auth.actions.ts": {
@@ -40,8 +40,8 @@
     "semantic_hash": ""
   },
   "app/layout.tsx": {
-    "mtime": 1781219271.8553374,
-    "ast_hash": "984a19d01fde61c401c31e58a1445485",
+    "mtime": 1782481160.7117693,
+    "ast_hash": "86146e23d280e291d262d31dc0d8514d",
     "semantic_hash": ""
   },
   "app/login/page.tsx": {
@@ -134,11 +134,6 @@
     "ast_hash": "77e7bfa68b3a5bcb428c9a867511530f",
     "semantic_hash": ""
   },
-  "services/api-football.service.ts": {
-    "mtime": 1782422898.936015,
-    "ast_hash": "325722b66d9b035001f727b6458529fe",
-    "semantic_hash": ""
-  },
   "services/auth.service.ts": {
     "mtime": 1781213393.3528967,
     "ast_hash": "0736a2030d5ad6e4a3d76ede5778dccc",
@@ -165,13 +160,13 @@
     "semantic_hash": ""
   },
   "services/worldcup-sync.service.ts": {
-    "mtime": 1782479245.8198013,
-    "ast_hash": "6b3fc4f0cd36581997c3f1a332c70bc4",
+    "mtime": 1782481169.63984,
+    "ast_hash": "3b342c2462bbf301b3512090dda38021",
     "semantic_hash": ""
   },
   "services/worldcup26.service.ts": {
-    "mtime": 1782479240.1942546,
-    "ast_hash": "150c982f69080ab21031f41734cd4c15",
+    "mtime": 1782480302.4175675,
+    "ast_hash": "63c576d779ead809fea42fb59149c2ce",
     "semantic_hash": ""
   },
   "tsconfig.json": {
@@ -190,8 +185,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1782435402.8462174,
-    "ast_hash": "d48e15024e022f732571554185690b0e",
+    "mtime": 1782481178.3516686,
+    "ast_hash": "18e7f7a815127e12b6ddc2f89c6e3f9a",
     "semantic_hash": ""
   },
   "docs/README.md": {
@@ -240,13 +235,13 @@
     "semantic_hash": ""
   },
   "components/PalpitesWorkspace.tsx": {
-    "mtime": 1782435611.9438608,
-    "ast_hash": "4472c9390603f110358fce6f87128411",
+    "mtime": 1782479906.199009,
+    "ast_hash": "b1e9595af2618619b572649b19fe704a",
     "semantic_hash": ""
   },
   "lib/match-visibility.ts": {
-    "mtime": 1781195243.0993767,
-    "ast_hash": "55592eefea7a8447e0d66e2f5933b3c3",
+    "mtime": 1782479876.340324,
+    "ast_hash": "9295f4fad3785737223620e852645c05",
     "semantic_hash": ""
   },
   "lib/prediction-draft.ts": {
@@ -305,8 +300,8 @@
     "semantic_hash": ""
   },
   "components/AdminMatchesPanel.tsx": {
-    "mtime": 1782479293.030885,
-    "ast_hash": "5546cdcc2aa98e46d0af932ae555c03d",
+    "mtime": 1782479908.483532,
+    "ast_hash": "52b801334e9d5636f4d88f57fcd97c43",
     "semantic_hash": ""
   },
   "lib/admin-auth.ts": {
@@ -320,8 +315,8 @@
     "semantic_hash": ""
   },
   "services/match-admin.service.ts": {
-    "mtime": 1782479248.9455743,
-    "ast_hash": "eb96085a04326ea2df0f8c0ca1e9c411",
+    "mtime": 1782479930.1468775,
+    "ast_hash": "e1d056048184b93c9ec6e2a5c6a3f31e",
     "semantic_hash": ""
   },
   "scripts/docker-entrypoint.sh": {
@@ -345,8 +340,8 @@
     "semantic_hash": ""
   },
   "docs/RAILWAY.md": {
-    "mtime": 1782435404.553831,
-    "ast_hash": "86a0bcbe0c373e4a9aa17512e4bf0f0b",
+    "mtime": 1782481181.5295177,
+    "ast_hash": "4aae8483ea4e6200829d3b0c6bb3d366",
     "semantic_hash": ""
   },
   ".cursor/settings.json": {
@@ -447,6 +442,51 @@
   "lib/knockout-stages.ts": {
     "mtime": 1782479227.6891778,
     "ast_hash": "66a757b2e7178ac65af026907efebff9",
+    "semantic_hash": ""
+  },
+  "lib/data/wc26-annex-c-rows.json": {
+    "mtime": 1782480222.7658677,
+    "ast_hash": "7eae2e33b744d7b1912362e38c960e59",
+    "semantic_hash": ""
+  },
+  "lib/group-standings-compute.ts": {
+    "mtime": 1782480235.86367,
+    "ast_hash": "30f298c848b47909a43777c2c827f823",
+    "semantic_hash": ""
+  },
+  "lib/knockout-resolver.ts": {
+    "mtime": 1782480262.497642,
+    "ast_hash": "2405011d3ec320bbcfb3c91055bfde2f",
+    "semantic_hash": ""
+  },
+  "lib/wc26-annex-c.ts": {
+    "mtime": 1782480238.4408689,
+    "ast_hash": "271fc6861813d4dc93faf6c41119ad47",
+    "semantic_hash": ""
+  },
+  "scripts/extract-annex-c.mjs": {
+    "mtime": 1782480220.8699114,
+    "ast_hash": "193055b218bcf48631c353ff2086ac6a",
+    "semantic_hash": ""
+  },
+  "services/knockout-enrichment.service.ts": {
+    "mtime": 1782480288.1941807,
+    "ast_hash": "b4eae7699be147a389ac7a0f625873b7",
+    "semantic_hash": ""
+  },
+  "app/chaveamento/page.tsx": {
+    "mtime": 1782481127.8349009,
+    "ast_hash": "aa7ae410395d1dd38b0ee4a65621f647",
+    "semantic_hash": ""
+  },
+  "components/KnockoutBracketBoard.tsx": {
+    "mtime": 1782481149.4867382,
+    "ast_hash": "0a8b4877fd65b46a562377b9bb65420e",
+    "semantic_hash": ""
+  },
+  "lib/knockout-bracket-tree.ts": {
+    "mtime": 1782481105.5850492,
+    "ast_hash": "ada0dcfebbd088989ba78acffcb57d5a",
     "semantic_hash": ""
   }
 }

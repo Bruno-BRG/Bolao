@@ -67,7 +67,7 @@
       "label": "recalculateRankingAction()",
       "file_type": "code",
       "source_file": "actions/admin.actions.ts",
-      "source_location": "L21",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "actions_admin_actions_recalculaterankingaction",
       "community": 8,
@@ -77,7 +77,7 @@
       "label": "createMatchSchema",
       "file_type": "code",
       "source_file": "actions/admin.actions.ts",
-      "source_location": "L40",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "actions_admin_actions_creatematchschema",
       "community": 8,
@@ -87,7 +87,7 @@
       "label": "revalidateMatchPaths()",
       "file_type": "code",
       "source_file": "actions/admin.actions.ts",
-      "source_location": "L47",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "actions_admin_actions_revalidatematchpaths",
       "community": 8,
@@ -97,7 +97,7 @@
       "label": "syncWorldCupAdminAction()",
       "file_type": "code",
       "source_file": "actions/admin.actions.ts",
-      "source_location": "L54",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "actions_admin_actions_syncworldcupadminaction",
       "community": 8,
@@ -107,7 +107,7 @@
       "label": "createMatchAdminAction()",
       "file_type": "code",
       "source_file": "actions/admin.actions.ts",
-      "source_location": "L81",
+      "source_location": "L83",
       "_origin": "ast",
       "id": "actions_admin_actions_creatematchadminaction",
       "community": 8,
@@ -117,7 +117,7 @@
       "label": "updateMatchAdminAction()",
       "file_type": "code",
       "source_file": "actions/admin.actions.ts",
-      "source_location": "L146",
+      "source_location": "L148",
       "_origin": "ast",
       "id": "actions_admin_actions_updatematchadminaction",
       "community": 8,
@@ -360,7 +360,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "recalculate_ranking_route",
-      "community": 8,
+      "community": 1,
       "norm_label": "route.ts"
     },
     {
@@ -370,7 +370,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "recalculate_ranking_route_post",
-      "community": 8,
+      "community": 1,
       "norm_label": "post()"
     },
     {
@@ -410,7 +410,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "health_route",
-      "community": 8,
+      "community": 1,
       "norm_label": "route.ts"
     },
     {
@@ -420,7 +420,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "health_route_get",
-      "community": 8,
+      "community": 1,
       "norm_label": "get()"
     },
     {
@@ -470,7 +470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "matches_route",
-      "community": 2,
+      "community": 1,
       "norm_label": "route.ts"
     },
     {
@@ -480,8 +480,28 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "matches_route_get",
-      "community": 2,
+      "community": 1,
       "norm_label": "get()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "chaveamento_page",
+      "community": 5,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "ChaveamentoPage()",
+      "file_type": "code",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "chaveamento_page_chaveamentopage",
+      "community": 5,
+      "norm_label": "chaveamentopage()"
     },
     {
       "label": "page.tsx",
@@ -640,7 +660,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "ranking_page",
-      "community": 5,
+      "community": 15,
       "norm_label": "page.tsx"
     },
     {
@@ -650,7 +670,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "ranking_page_rankingpage",
-      "community": 5,
+      "community": 15,
       "norm_label": "rankingpage()"
     },
     {
@@ -720,7 +740,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "components_adminmatchespanel_adminmatchespanel",
-      "community": 8,
+      "community": 2,
       "norm_label": "adminmatchespanel()"
     },
     {
@@ -790,7 +810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_communitypredictionsboard",
-      "community": 5,
+      "community": 2,
       "norm_label": "communitypredictionsboard.tsx"
     },
     {
@@ -800,7 +820,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "components_communitypredictionsboard_communitymember",
-      "community": 5,
+      "community": 2,
       "norm_label": "communitymember"
     },
     {
@@ -810,7 +830,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "components_communitypredictionsboard_topfourline",
-      "community": 5,
+      "community": 2,
       "norm_label": "topfourline()"
     },
     {
@@ -820,8 +840,118 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "components_communitypredictionsboard_communitypredictionsboard",
-      "community": 5,
+      "community": 2,
       "norm_label": "communitypredictionsboard()"
+    },
+    {
+      "label": "KnockoutBracketBoard.tsx",
+      "file_type": "code",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "components_knockoutbracketboard",
+      "community": 5,
+      "norm_label": "knockoutbracketboard.tsx"
+    },
+    {
+      "label": "KnockoutBracketBoardProps",
+      "file_type": "code",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "components_knockoutbracketboard_knockoutbracketboardprops",
+      "community": 5,
+      "norm_label": "knockoutbracketboardprops"
+    },
+    {
+      "label": "BracketView",
+      "file_type": "code",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "components_knockoutbracketboard_bracketview",
+      "community": 5,
+      "norm_label": "bracketview"
+    },
+    {
+      "label": "buildMatchMap()",
+      "file_type": "code",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "components_knockoutbracketboard_buildmatchmap",
+      "community": 5,
+      "norm_label": "buildmatchmap()"
+    },
+    {
+      "label": "teamWonSide()",
+      "file_type": "code",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "components_knockoutbracketboard_teamwonside",
+      "community": 5,
+      "norm_label": "teamwonside()"
+    },
+    {
+      "label": "BracketTeamRow()",
+      "file_type": "code",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L38",
+      "_origin": "ast",
+      "id": "components_knockoutbracketboard_bracketteamrow",
+      "community": 5,
+      "norm_label": "bracketteamrow()"
+    },
+    {
+      "label": "BracketMatchCard()",
+      "file_type": "code",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L64",
+      "_origin": "ast",
+      "id": "components_knockoutbracketboard_bracketmatchcard",
+      "community": 5,
+      "norm_label": "bracketmatchcard()"
+    },
+    {
+      "label": "BracketR32Pair()",
+      "file_type": "code",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L108",
+      "_origin": "ast",
+      "id": "components_knockoutbracketboard_bracketr32pair",
+      "community": 5,
+      "norm_label": "bracketr32pair()"
+    },
+    {
+      "label": "BracketHalfBoard()",
+      "file_type": "code",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L123",
+      "_origin": "ast",
+      "id": "components_knockoutbracketboard_brackethalfboard",
+      "community": 5,
+      "norm_label": "brackethalfboard()"
+    },
+    {
+      "label": "BracketFinalBoard()",
+      "file_type": "code",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L179",
+      "_origin": "ast",
+      "id": "components_knockoutbracketboard_bracketfinalboard",
+      "community": 5,
+      "norm_label": "bracketfinalboard()"
+    },
+    {
+      "label": "KnockoutBracketBoard()",
+      "file_type": "code",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L203",
+      "_origin": "ast",
+      "id": "components_knockoutbracketboard_knockoutbracketboard",
+      "community": 5,
+      "norm_label": "knockoutbracketboard()"
     },
     {
       "label": "PalpitesWorkspace.tsx",
@@ -837,7 +967,7 @@
       "label": "ScoreState",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L18",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "components_palpitesworkspace_scorestate",
       "community": 15,
@@ -847,7 +977,7 @@
       "label": "RowStatus",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L23",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "components_palpitesworkspace_rowstatus",
       "community": 15,
@@ -857,7 +987,7 @@
       "label": "PalpitesWorkspaceProps",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L25",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "components_palpitesworkspace_palpitesworkspaceprops",
       "community": 15,
@@ -867,7 +997,7 @@
       "label": "stageChip()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L30",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "components_palpitesworkspace_stagechip",
       "community": 15,
@@ -877,7 +1007,7 @@
       "label": "isMatchToday()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L35",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "components_palpitesworkspace_ismatchtoday",
       "community": 15,
@@ -887,7 +1017,7 @@
       "label": "todayHeading()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L41",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "components_palpitesworkspace_todayheading",
       "community": 15,
@@ -897,7 +1027,7 @@
       "label": "sortMatchesByStart()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L45",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "components_palpitesworkspace_sortmatchesbystart",
       "community": 15,
@@ -907,7 +1037,7 @@
       "label": "sortDayGroups()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L52",
+      "source_location": "L53",
       "_origin": "ast",
       "id": "components_palpitesworkspace_sortdaygroups",
       "community": 15,
@@ -917,7 +1047,7 @@
       "label": "toScoreState()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L67",
+      "source_location": "L68",
       "_origin": "ast",
       "id": "components_palpitesworkspace_toscorestate",
       "community": 15,
@@ -927,7 +1057,7 @@
       "label": "parseScore()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L78",
+      "source_location": "L79",
       "_origin": "ast",
       "id": "components_palpitesworkspace_parsescore",
       "community": 15,
@@ -937,7 +1067,7 @@
       "label": "statusLabel()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L85",
+      "source_location": "L86",
       "_origin": "ast",
       "id": "components_palpitesworkspace_statuslabel",
       "community": 15,
@@ -947,7 +1077,7 @@
       "label": "PalpiteMatchRow()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L93",
+      "source_location": "L94",
       "_origin": "ast",
       "id": "components_palpitesworkspace_palpitematchrow",
       "community": 15,
@@ -957,7 +1087,7 @@
       "label": "PalpitesWorkspace()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L205",
+      "source_location": "L211",
       "_origin": "ast",
       "id": "components_palpitesworkspace_palpitesworkspace",
       "community": 15,
@@ -1010,7 +1140,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_rankingliveboard",
-      "community": 5,
+      "community": 15,
       "norm_label": "rankingliveboard.tsx"
     },
     {
@@ -1020,7 +1150,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "components_rankingliveboard_ranking_poll_ms",
-      "community": 5,
+      "community": 15,
       "norm_label": "ranking_poll_ms"
     },
     {
@@ -1030,7 +1160,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "components_rankingliveboard_rankingliveboard",
-      "community": 5,
+      "community": 15,
       "norm_label": "rankingliveboard()"
     },
     {
@@ -1040,7 +1170,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_rankingtable",
-      "community": 5,
+      "community": 15,
       "norm_label": "rankingtable.tsx"
     },
     {
@@ -1050,7 +1180,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "components_rankingtable_rankingtable",
-      "community": 5,
+      "community": 15,
       "norm_label": "rankingtable()"
     },
     {
@@ -1150,7 +1280,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_topfourform",
-      "community": 5,
+      "community": 2,
       "norm_label": "topfourform.tsx"
     },
     {
@@ -1160,7 +1290,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "components_topfourform_selectteam",
-      "community": 5,
+      "community": 2,
       "norm_label": "selectteam()"
     },
     {
@@ -1170,7 +1300,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "components_topfourform_lockedrow",
-      "community": 5,
+      "community": 2,
       "norm_label": "lockedrow()"
     },
     {
@@ -1180,7 +1310,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "components_topfourform_topfourform",
-      "community": 5,
+      "community": 2,
       "norm_label": "topfourform()"
     },
     {
@@ -1330,7 +1460,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "lib_constants_scoring_rules",
-      "community": 25,
+      "community": 15,
       "norm_label": "scoring_rules"
     },
     {
@@ -1384,6 +1514,16 @@
       "norm_label": "hashtoken()"
     },
     {
+      "label": "wc26-annex-c-rows.json",
+      "file_type": "code",
+      "source_file": "lib/data/wc26-annex-c-rows.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "data_wc26_annex_c_rows",
+      "community": 25,
+      "norm_label": "wc26-annex-c-rows.json"
+    },
+    {
       "label": "date.ts",
       "file_type": "code",
       "source_file": "lib/date.ts",
@@ -1430,7 +1570,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "lib_date_formatcompactdatetime",
-      "community": 15,
+      "community": 5,
       "norm_label": "formatcompactdatetime()"
     },
     {
@@ -1470,7 +1610,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_db",
-      "community": 8,
+      "community": 1,
       "norm_label": "db.ts"
     },
     {
@@ -1480,7 +1620,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "lib_db_buildpoolconfig",
-      "community": 8,
+      "community": 1,
       "norm_label": "buildpoolconfig()"
     },
     {
@@ -1490,7 +1630,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "lib_db_getpool",
-      "community": 8,
+      "community": 1,
       "norm_label": "getpool()"
     },
     {
@@ -1500,8 +1640,348 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "lib_db_query",
-      "community": 8,
+      "community": 1,
       "norm_label": "query()"
+    },
+    {
+      "label": "group-standings-compute.ts",
+      "file_type": "code",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "lib_group_standings_compute",
+      "community": 25,
+      "norm_label": "group-standings-compute.ts"
+    },
+    {
+      "label": "ComputedStandingRow",
+      "file_type": "code",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "lib_group_standings_compute_computedstandingrow",
+      "community": 25,
+      "norm_label": "computedstandingrow"
+    },
+    {
+      "label": "ComputedGroupTable",
+      "file_type": "code",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "lib_group_standings_compute_computedgrouptable",
+      "community": 25,
+      "norm_label": "computedgrouptable"
+    },
+    {
+      "label": "sortStandings()",
+      "file_type": "code",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "lib_group_standings_compute_sortstandings",
+      "community": 25,
+      "norm_label": "sortstandings()"
+    },
+    {
+      "label": "buildTeamGroupMap()",
+      "file_type": "code",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "lib_group_standings_compute_buildteamgroupmap",
+      "community": 25,
+      "norm_label": "buildteamgroupmap()"
+    },
+    {
+      "label": "getGroupFromMatch()",
+      "file_type": "code",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "lib_group_standings_compute_getgroupfrommatch",
+      "community": 25,
+      "norm_label": "getgroupfrommatch()"
+    },
+    {
+      "label": "computeGroupStandingsFromMatches()",
+      "file_type": "code",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L55",
+      "_origin": "ast",
+      "id": "lib_group_standings_compute_computegroupstandingsfrommatches",
+      "community": 25,
+      "norm_label": "computegroupstandingsfrommatches()"
+    },
+    {
+      "label": "getQualifiedThirdPlaceGroups()",
+      "file_type": "code",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L132",
+      "_origin": "ast",
+      "id": "lib_group_standings_compute_getqualifiedthirdplacegroups",
+      "community": 25,
+      "norm_label": "getqualifiedthirdplacegroups()"
+    },
+    {
+      "label": "knockout-bracket-tree.ts",
+      "file_type": "code",
+      "source_file": "lib/knockout-bracket-tree.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "lib_knockout_bracket_tree",
+      "community": 5,
+      "norm_label": "knockout-bracket-tree.ts"
+    },
+    {
+      "label": "BracketPair",
+      "file_type": "code",
+      "source_file": "lib/knockout-bracket-tree.ts",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "lib_knockout_bracket_tree_bracketpair",
+      "community": 5,
+      "norm_label": "bracketpair"
+    },
+    {
+      "label": "BracketHalf",
+      "file_type": "code",
+      "source_file": "lib/knockout-bracket-tree.ts",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "lib_knockout_bracket_tree_brackethalf",
+      "community": 5,
+      "norm_label": "brackethalf"
+    },
+    {
+      "label": "TOP_BRACKET_HALF",
+      "file_type": "code",
+      "source_file": "lib/knockout-bracket-tree.ts",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "lib_knockout_bracket_tree_top_bracket_half",
+      "community": 5,
+      "norm_label": "top_bracket_half"
+    },
+    {
+      "label": "BOTTOM_BRACKET_HALF",
+      "file_type": "code",
+      "source_file": "lib/knockout-bracket-tree.ts",
+      "source_location": "L35",
+      "_origin": "ast",
+      "id": "lib_knockout_bracket_tree_bottom_bracket_half",
+      "community": 5,
+      "norm_label": "bottom_bracket_half"
+    },
+    {
+      "label": "BRACKET_HALVES",
+      "file_type": "code",
+      "source_file": "lib/knockout-bracket-tree.ts",
+      "source_location": "L49",
+      "_origin": "ast",
+      "id": "lib_knockout_bracket_tree_bracket_halves",
+      "community": 5,
+      "norm_label": "bracket_halves"
+    },
+    {
+      "label": "collectBracketMatchIds()",
+      "file_type": "code",
+      "source_file": "lib/knockout-bracket-tree.ts",
+      "source_location": "L51",
+      "_origin": "ast",
+      "id": "lib_knockout_bracket_tree_collectbracketmatchids",
+      "community": 5,
+      "norm_label": "collectbracketmatchids()"
+    },
+    {
+      "label": "knockout-resolver.ts",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver",
+      "community": 25,
+      "norm_label": "knockout-resolver.ts"
+    },
+    {
+      "label": "KnockoutSlot",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_knockoutslot",
+      "community": 25,
+      "norm_label": "knockoutslot"
+    },
+    {
+      "label": "ResolvedKnockoutTeams",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_resolvedknockoutteams",
+      "community": 25,
+      "norm_label": "resolvedknockoutteams"
+    },
+    {
+      "label": "KnockoutResolutionMismatch",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_knockoutresolutionmismatch",
+      "community": 25,
+      "norm_label": "knockoutresolutionmismatch"
+    },
+    {
+      "label": "normalizeLabel()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_normalizelabel",
+      "community": 25,
+      "norm_label": "normalizelabel()"
+    },
+    {
+      "label": "parseCandidateGroups()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_parsecandidategroups",
+      "community": 25,
+      "norm_label": "parsecandidategroups()"
+    },
+    {
+      "label": "parseKnockoutSlot()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L53",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_parseknockoutslot",
+      "community": 25,
+      "norm_label": "parseknockoutslot()"
+    },
+    {
+      "label": "getMatchSideLabel()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L81",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_getmatchsidelabel",
+      "community": 25,
+      "norm_label": "getmatchsidelabel()"
+    },
+    {
+      "label": "getGroupTable()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L90",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_getgrouptable",
+      "community": 25,
+      "norm_label": "getgrouptable()"
+    },
+    {
+      "label": "getMatchParticipant()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L94",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_getmatchparticipant",
+      "community": 25,
+      "norm_label": "getmatchparticipant()"
+    },
+    {
+      "label": "getMatchWinnerId()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L99",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_getmatchwinnerid",
+      "community": 25,
+      "norm_label": "getmatchwinnerid()"
+    },
+    {
+      "label": "getMatchLoserId()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L107",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_getmatchloserid",
+      "community": 25,
+      "norm_label": "getmatchloserid()"
+    },
+    {
+      "label": "resolveSlot()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L115",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_resolveslot",
+      "community": 25,
+      "norm_label": "resolveslot()"
+    },
+    {
+      "label": "parseHomeWinnerGroup()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L155",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_parsehomewinnergroup",
+      "community": 25,
+      "norm_label": "parsehomewinnergroup()"
+    },
+    {
+      "label": "resolveKnockoutMatchTeams()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L159",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_resolveknockoutmatchteams",
+      "community": 25,
+      "norm_label": "resolveknockoutmatchteams()"
+    },
+    {
+      "label": "resolveAllKnockoutTeams()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L195",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_resolveallknockoutteams",
+      "community": 25,
+      "norm_label": "resolveallknockoutteams()"
+    },
+    {
+      "label": "hasRealTeamId()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L243",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_hasrealteamid",
+      "community": 25,
+      "norm_label": "hasrealteamid()"
+    },
+    {
+      "label": "findKnockoutMismatches()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L247",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_findknockoutmismatches",
+      "community": 25,
+      "norm_label": "findknockoutmismatches()"
+    },
+    {
+      "label": "isThirdPlaceWinnerMatch()",
+      "file_type": "code",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L277",
+      "_origin": "ast",
+      "id": "lib_knockout_resolver_isthirdplacewinnermatch",
+      "community": 25,
+      "norm_label": "isthirdplacewinnermatch()"
     },
     {
       "label": "knockout-stages.ts",
@@ -1550,7 +2030,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "lib_knockout_stages_isknockoutstage",
-      "community": 8,
+      "community": 5,
       "norm_label": "isknockoutstage()"
     },
     {
@@ -1670,7 +2150,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "lib_match_status_ismatchfinished",
-      "community": 8,
+      "community": 25,
       "norm_label": "ismatchfinished()"
     },
     {
@@ -1687,7 +2167,7 @@
       "label": "getMatchTeamLabel()",
       "file_type": "code",
       "source_file": "lib/match-visibility.ts",
-      "source_location": "L7",
+      "source_location": "L8",
       "_origin": "ast",
       "id": "lib_match_visibility_getmatchteamlabel",
       "community": 5,
@@ -1697,17 +2177,27 @@
       "label": "getPlaceholderLabel()",
       "file_type": "code",
       "source_file": "lib/match-visibility.ts",
-      "source_location": "L25",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "lib_match_visibility_getplaceholderlabel",
       "community": 5,
       "norm_label": "getplaceholderlabel()"
     },
     {
+      "label": "hasRealTeamId()",
+      "file_type": "code",
+      "source_file": "lib/match-visibility.ts",
+      "source_location": "L43",
+      "_origin": "ast",
+      "id": "lib_match_visibility_hasrealteamid",
+      "community": 5,
+      "norm_label": "hasrealteamid()"
+    },
+    {
       "label": "isPlaceholderSide()",
       "file_type": "code",
       "source_file": "lib/match-visibility.ts",
-      "source_location": "L42",
+      "source_location": "L47",
       "_origin": "ast",
       "id": "lib_match_visibility_isplaceholderside",
       "community": 5,
@@ -1717,7 +2207,7 @@
       "label": "isMatchPredictable()",
       "file_type": "code",
       "source_file": "lib/match-visibility.ts",
-      "source_location": "L59",
+      "source_location": "L68",
       "_origin": "ast",
       "id": "lib_match_visibility_ismatchpredictable",
       "community": 5,
@@ -1727,7 +2217,7 @@
       "label": "shouldShowMatchInPalpites()",
       "file_type": "code",
       "source_file": "lib/match-visibility.ts",
-      "source_location": "L63",
+      "source_location": "L72",
       "_origin": "ast",
       "id": "lib_match_visibility_shouldshowmatchinpalpites",
       "community": 5,
@@ -1892,6 +2382,66 @@
       "id": "lib_team_names_pt_localizeteamname",
       "community": 5,
       "norm_label": "localizeteamname()"
+    },
+    {
+      "label": "wc26-annex-c.ts",
+      "file_type": "code",
+      "source_file": "lib/wc26-annex-c.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "lib_wc26_annex_c",
+      "community": 25,
+      "norm_label": "wc26-annex-c.ts"
+    },
+    {
+      "label": "ANNEX_C_WINNER_GROUPS",
+      "file_type": "code",
+      "source_file": "lib/wc26-annex-c.ts",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "lib_wc26_annex_c_annex_c_winner_groups",
+      "community": 25,
+      "norm_label": "annex_c_winner_groups"
+    },
+    {
+      "label": "ROWS",
+      "file_type": "code",
+      "source_file": "lib/wc26-annex-c.ts",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "lib_wc26_annex_c_rows",
+      "community": 25,
+      "norm_label": "rows"
+    },
+    {
+      "label": "rowByCombination",
+      "file_type": "code",
+      "source_file": "lib/wc26-annex-c.ts",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "lib_wc26_annex_c_rowbycombination",
+      "community": 25,
+      "norm_label": "rowbycombination"
+    },
+    {
+      "label": "findAnnexCRow()",
+      "file_type": "code",
+      "source_file": "lib/wc26-annex-c.ts",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "lib_wc26_annex_c_findannexcrow",
+      "community": 25,
+      "norm_label": "findannexcrow()"
+    },
+    {
+      "label": "getThirdPlaceGroupForWinner()",
+      "file_type": "code",
+      "source_file": "lib/wc26-annex-c.ts",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "lib_wc26_annex_c_getthirdplacegroupforwinner",
+      "community": 25,
+      "norm_label": "getthirdplacegroupforwinner()"
     },
     {
       "label": "next-env.d.ts",
@@ -2300,7 +2850,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "repositories_predictions_repo_listpredictionrows",
-      "community": 2,
+      "community": 1,
       "norm_label": "listpredictionrows()"
     },
     {
@@ -2440,6 +2990,56 @@
       "id": "c_users_chari_dev_bolao_scripts_docker_entrypoint_sh__entry",
       "community": 21,
       "norm_label": "docker-entrypoint.sh script"
+    },
+    {
+      "label": "extract-annex-c.mjs",
+      "file_type": "code",
+      "source_file": "scripts/extract-annex-c.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_extract_annex_c",
+      "community": 26,
+      "norm_label": "extract-annex-c.mjs"
+    },
+    {
+      "label": "start",
+      "file_type": "code",
+      "source_file": "scripts/extract-annex-c.mjs",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "scripts_extract_annex_c_start",
+      "community": 26,
+      "norm_label": "start"
+    },
+    {
+      "label": "end",
+      "file_type": "code",
+      "source_file": "scripts/extract-annex-c.mjs",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "scripts_extract_annex_c_end",
+      "community": 26,
+      "norm_label": "end"
+    },
+    {
+      "label": "block",
+      "file_type": "code",
+      "source_file": "scripts/extract-annex-c.mjs",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "scripts_extract_annex_c_block",
+      "community": 26,
+      "norm_label": "block"
+    },
+    {
+      "label": "rows",
+      "file_type": "code",
+      "source_file": "scripts/extract-annex-c.mjs",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "scripts_extract_annex_c_rows",
+      "community": 26,
+      "norm_label": "rows"
     },
     {
       "label": "import-json-to-railway.mjs",
@@ -2682,156 +3282,6 @@
       "norm_label": "wait-for-postgres.sh script"
     },
     {
-      "label": "api-football.service.ts",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "services_api_football_service",
-      "community": 1,
-      "norm_label": "api-football.service.ts"
-    },
-    {
-      "label": "ApiFootballResponse",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L12",
-      "_origin": "ast",
-      "id": "services_api_football_service_apifootballresponse",
-      "community": 1,
-      "norm_label": "apifootballresponse"
-    },
-    {
-      "label": "ApiFootballTeamResponse",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L18",
-      "_origin": "ast",
-      "id": "services_api_football_service_apifootballteamresponse",
-      "community": 1,
-      "norm_label": "apifootballteamresponse"
-    },
-    {
-      "label": "ApiFootballFixtureResponse",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L28",
-      "_origin": "ast",
-      "id": "services_api_football_service_apifootballfixtureresponse",
-      "community": 1,
-      "norm_label": "apifootballfixtureresponse"
-    },
-    {
-      "label": "API_FOOTBALL_LEAGUE_ID",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L61",
-      "_origin": "ast",
-      "id": "services_api_football_service_api_football_league_id",
-      "community": 1,
-      "norm_label": "api_football_league_id"
-    },
-    {
-      "label": "API_FOOTBALL_SEASON",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L62",
-      "_origin": "ast",
-      "id": "services_api_football_service_api_football_season",
-      "community": 1,
-      "norm_label": "api_football_season"
-    },
-    {
-      "label": "AUTO_SYNC_MAX_AGE_MINUTES",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L63",
-      "_origin": "ast",
-      "id": "services_api_football_service_auto_sync_max_age_minutes",
-      "community": 1,
-      "norm_label": "auto_sync_max_age_minutes"
-    },
-    {
-      "label": "getApiFootballKey()",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L67",
-      "_origin": "ast",
-      "id": "services_api_football_service_getapifootballkey",
-      "community": 1,
-      "norm_label": "getapifootballkey()"
-    },
-    {
-      "label": "apiFootballGet()",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L75",
-      "_origin": "ast",
-      "id": "services_api_football_service_apifootballget",
-      "community": 1,
-      "norm_label": "apifootballget()"
-    },
-    {
-      "label": "normalizeIso2()",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L105",
-      "_origin": "ast",
-      "id": "services_api_football_service_normalizeiso2",
-      "community": 1,
-      "norm_label": "normalizeiso2()"
-    },
-    {
-      "label": "extractGroupName()",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L129",
-      "_origin": "ast",
-      "id": "services_api_football_service_extractgroupname",
-      "community": 1,
-      "norm_label": "extractgroupname()"
-    },
-    {
-      "label": "translateStage()",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L135",
-      "_origin": "ast",
-      "id": "services_api_football_service_translatestage",
-      "community": 1,
-      "norm_label": "translatestage()"
-    },
-    {
-      "label": "mapStatus()",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L149",
-      "_origin": "ast",
-      "id": "services_api_football_service_mapstatus",
-      "community": 1,
-      "norm_label": "mapstatus()"
-    },
-    {
-      "label": "syncWorldCupFromApiFootball()",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L161",
-      "_origin": "ast",
-      "id": "services_api_football_service_syncworldcupfromapifootball",
-      "community": 1,
-      "norm_label": "syncworldcupfromapifootball()"
-    },
-    {
-      "label": "ensureWorldCupData()",
-      "file_type": "code",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L234",
-      "_origin": "ast",
-      "id": "services_api_football_service_ensureworldcupdata",
-      "community": 1,
-      "norm_label": "ensureworldcupdata()"
-    },
-    {
       "label": "auth.service.ts",
       "file_type": "code",
       "source_file": "services/auth.service.ts",
@@ -2862,6 +3312,116 @@
       "norm_label": "normalizeusername()"
     },
     {
+      "label": "knockout-enrichment.service.ts",
+      "file_type": "code",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "services_knockout_enrichment_service",
+      "community": 25,
+      "norm_label": "knockout-enrichment.service.ts"
+    },
+    {
+      "label": "CachedMatch",
+      "file_type": "code",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "services_knockout_enrichment_service_cachedmatch",
+      "community": 25,
+      "norm_label": "cachedmatch"
+    },
+    {
+      "label": "CachedTeam",
+      "file_type": "code",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "services_knockout_enrichment_service_cachedteam",
+      "community": 25,
+      "norm_label": "cachedteam"
+    },
+    {
+      "label": "KnockoutEnrichmentResult",
+      "file_type": "code",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "services_knockout_enrichment_service_knockoutenrichmentresult",
+      "community": 25,
+      "norm_label": "knockoutenrichmentresult"
+    },
+    {
+      "label": "loadTeams()",
+      "file_type": "code",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "services_knockout_enrichment_service_loadteams",
+      "community": 25,
+      "norm_label": "loadteams()"
+    },
+    {
+      "label": "loadMatches()",
+      "file_type": "code",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "services_knockout_enrichment_service_loadmatches",
+      "community": 25,
+      "norm_label": "loadmatches()"
+    },
+    {
+      "label": "loadTeamName()",
+      "file_type": "code",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L53",
+      "_origin": "ast",
+      "id": "services_knockout_enrichment_service_loadteamname",
+      "community": 25,
+      "norm_label": "loadteamname()"
+    },
+    {
+      "label": "toDomainMatch()",
+      "file_type": "code",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L61",
+      "_origin": "ast",
+      "id": "services_knockout_enrichment_service_todomainmatch",
+      "community": 25,
+      "norm_label": "todomainmatch()"
+    },
+    {
+      "label": "syncComputedGroups()",
+      "file_type": "code",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L77",
+      "_origin": "ast",
+      "id": "services_knockout_enrichment_service_synccomputedgroups",
+      "community": 25,
+      "norm_label": "synccomputedgroups()"
+    },
+    {
+      "label": "enrichKnockoutBracketFromStandings()",
+      "file_type": "code",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L118",
+      "_origin": "ast",
+      "id": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings",
+      "community": 25,
+      "norm_label": "enrichknockoutbracketfromstandings()"
+    },
+    {
+      "label": "summarizeKnockoutEnrichment()",
+      "file_type": "code",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L181",
+      "_origin": "ast",
+      "id": "services_knockout_enrichment_service_summarizeknockoutenrichment",
+      "community": 1,
+      "norm_label": "summarizeknockoutenrichment()"
+    },
+    {
       "label": "match-admin.service.ts",
       "file_type": "code",
       "source_file": "services/match-admin.service.ts",
@@ -2885,7 +3445,7 @@
       "label": "buildPayloadPatch()",
       "file_type": "code",
       "source_file": "services/match-admin.service.ts",
-      "source_location": "L13",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "services_match_admin_service_buildpayloadpatch",
       "community": 8,
@@ -2895,7 +3455,7 @@
       "label": "AdminMatchCreate",
       "file_type": "code",
       "source_file": "services/match-admin.service.ts",
-      "source_location": "L43",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "services_match_admin_service_adminmatchcreate",
       "community": 8,
@@ -2905,7 +3465,7 @@
       "label": "normalizeTeamId()",
       "file_type": "code",
       "source_file": "services/match-admin.service.ts",
-      "source_location": "L50",
+      "source_location": "L52",
       "_origin": "ast",
       "id": "services_match_admin_service_normalizeteamid",
       "community": 8,
@@ -2915,7 +3475,7 @@
       "label": "createMatchFromAdmin()",
       "file_type": "code",
       "source_file": "services/match-admin.service.ts",
-      "source_location": "L56",
+      "source_location": "L58",
       "_origin": "ast",
       "id": "services_match_admin_service_creatematchfromadmin",
       "community": 8,
@@ -2925,7 +3485,7 @@
       "label": "updateMatchFromAdmin()",
       "file_type": "code",
       "source_file": "services/match-admin.service.ts",
-      "source_location": "L96",
+      "source_location": "L98",
       "_origin": "ast",
       "id": "services_match_admin_service_updatematchfromadmin",
       "community": 8,
@@ -2998,7 +3558,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "services_ranking_service_recalculateranking",
-      "community": 8,
+      "community": 1,
       "norm_label": "recalculateranking()"
     },
     {
@@ -3028,7 +3588,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "services_scoring_service",
-      "community": 25,
+      "community": 15,
       "norm_label": "scoring.service.ts"
     },
     {
@@ -3038,7 +3598,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "services_scoring_service_officialtopfour",
-      "community": 25,
+      "community": 15,
       "norm_label": "officialtopfour"
     },
     {
@@ -3048,7 +3608,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "services_scoring_service_getoutcome",
-      "community": 25,
+      "community": 15,
       "norm_label": "getoutcome()"
     },
     {
@@ -3058,7 +3618,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "services_scoring_service_scorematchprediction",
-      "community": 25,
+      "community": 15,
       "norm_label": "scorematchprediction()"
     },
     {
@@ -3068,7 +3628,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "services_scoring_service_scoretopfourprediction",
-      "community": 25,
+      "community": 15,
       "norm_label": "scoretopfourprediction()"
     },
     {
@@ -3078,7 +3638,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "services_scoring_service_resolveofficialtopfour",
-      "community": 25,
+      "community": 15,
       "norm_label": "resolveofficialtopfour()"
     },
     {
@@ -3088,7 +3648,7 @@
       "source_location": "L112",
       "_origin": "ast",
       "id": "services_scoring_service_calculatepredictionscore",
-      "community": 25,
+      "community": 15,
       "norm_label": "calculatepredictionscore()"
     },
     {
@@ -3275,7 +3835,7 @@
       "label": "listMatchSyncSignals()",
       "file_type": "code",
       "source_file": "services/worldcup-sync.service.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "services_worldcup_sync_service_listmatchsyncsignals",
       "community": 1,
@@ -3285,7 +3845,7 @@
       "label": "resolveSyncMaxAgeMinutes()",
       "file_type": "code",
       "source_file": "services/worldcup-sync.service.ts",
-      "source_location": "L35",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "services_worldcup_sync_service_resolvesyncmaxageminutes",
       "community": 1,
@@ -3295,7 +3855,7 @@
       "label": "hasStaleLiveMatchState()",
       "file_type": "code",
       "source_file": "services/worldcup-sync.service.ts",
-      "source_location": "L61",
+      "source_location": "L62",
       "_origin": "ast",
       "id": "services_worldcup_sync_service_hasstalelivematchstate",
       "community": 1,
@@ -3305,17 +3865,27 @@
       "label": "getWorldCupProvider()",
       "file_type": "code",
       "source_file": "services/worldcup-sync.service.ts",
-      "source_location": "L86",
+      "source_location": "L87",
       "_origin": "ast",
       "id": "services_worldcup_sync_service_getworldcupprovider",
       "community": 1,
       "norm_label": "getworldcupprovider()"
     },
     {
+      "label": "refreshKnockoutBracketFromStandings()",
+      "file_type": "code",
+      "source_file": "services/worldcup-sync.service.ts",
+      "source_location": "L91",
+      "_origin": "ast",
+      "id": "services_worldcup_sync_service_refreshknockoutbracketfromstandings",
+      "community": 1,
+      "norm_label": "refreshknockoutbracketfromstandings()"
+    },
+    {
       "label": "syncWorldCupData()",
       "file_type": "code",
       "source_file": "services/worldcup-sync.service.ts",
-      "source_location": "L90",
+      "source_location": "L99",
       "_origin": "ast",
       "id": "services_worldcup_sync_service_syncworldcupdata",
       "community": 1,
@@ -3325,7 +3895,7 @@
       "label": "ensureWorldCupData()",
       "file_type": "code",
       "source_file": "services/worldcup-sync.service.ts",
-      "source_location": "L109",
+      "source_location": "L108",
       "_origin": "ast",
       "id": "services_worldcup_sync_service_ensureworldcupdata",
       "community": 1,
@@ -3345,7 +3915,7 @@
       "label": "WorldCup26Team",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L11",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "services_worldcup26_service_worldcup26team",
       "community": 1,
@@ -3355,7 +3925,7 @@
       "label": "WorldCup26Game",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L21",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "services_worldcup26_service_worldcup26game",
       "community": 1,
@@ -3365,7 +3935,7 @@
       "label": "WorldCup26GameLike",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L40",
+      "source_location": "L44",
       "_origin": "ast",
       "id": "services_worldcup26_service_worldcup26gamelike",
       "community": 1,
@@ -3375,7 +3945,7 @@
       "label": "WorldCup26Group",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L42",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "services_worldcup26_service_worldcup26group",
       "community": 1,
@@ -3385,7 +3955,7 @@
       "label": "WrappedResponse",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L58",
+      "source_location": "L62",
       "_origin": "ast",
       "id": "services_worldcup26_service_wrappedresponse",
       "community": 1,
@@ -3395,7 +3965,7 @@
       "label": "STADIUM_TIMEZONES",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L70",
+      "source_location": "L74",
       "_origin": "ast",
       "id": "services_worldcup26_service_stadium_timezones",
       "community": 1,
@@ -3405,7 +3975,7 @@
       "label": "WORLDCUP26_FETCH_TIMEOUT_MS",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L89",
+      "source_location": "L93",
       "_origin": "ast",
       "id": "services_worldcup26_service_worldcup26_fetch_timeout_ms",
       "community": 1,
@@ -3415,7 +3985,7 @@
       "label": "fetchJson()",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L93",
+      "source_location": "L97",
       "_origin": "ast",
       "id": "services_worldcup26_service_fetchjson",
       "community": 1,
@@ -3425,7 +3995,7 @@
       "label": "fetchTeams()",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L105",
+      "source_location": "L109",
       "_origin": "ast",
       "id": "services_worldcup26_service_fetchteams",
       "community": 1,
@@ -3435,7 +4005,7 @@
       "label": "fetchGames()",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L118",
+      "source_location": "L122",
       "_origin": "ast",
       "id": "services_worldcup26_service_fetchgames",
       "community": 1,
@@ -3445,7 +4015,7 @@
       "label": "fetchGroups()",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L134",
+      "source_location": "L138",
       "_origin": "ast",
       "id": "services_worldcup26_service_fetchgroups",
       "community": 1,
@@ -3455,7 +4025,7 @@
       "label": "sortGroupStandings()",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L147",
+      "source_location": "L151",
       "_origin": "ast",
       "id": "services_worldcup26_service_sortgroupstandings",
       "community": 1,
@@ -3465,7 +4035,7 @@
       "label": "getTimeZoneOffsetMilliseconds()",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L159",
+      "source_location": "L163",
       "_origin": "ast",
       "id": "services_worldcup26_service_gettimezoneoffsetmilliseconds",
       "community": 1,
@@ -3475,7 +4045,7 @@
       "label": "normalizeWorldCup26Kickoff()",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L189",
+      "source_location": "L193",
       "_origin": "ast",
       "id": "services_worldcup26_service_normalizeworldcup26kickoff",
       "community": 1,
@@ -3485,7 +4055,7 @@
       "label": "hasWorldCup26TimezoneDrift()",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L208",
+      "source_location": "L212",
       "_origin": "ast",
       "id": "services_worldcup26_service_hasworldcup26timezonedrift",
       "community": 1,
@@ -3495,7 +4065,7 @@
       "label": "mapWorldCup26Stage()",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L226",
+      "source_location": "L230",
       "_origin": "ast",
       "id": "services_worldcup26_service_mapworldcup26stage",
       "community": 3,
@@ -3505,7 +4075,7 @@
       "label": "mapWorldCup26Status()",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L247",
+      "source_location": "L251",
       "_origin": "ast",
       "id": "services_worldcup26_service_mapworldcup26status",
       "community": 3,
@@ -3515,7 +4085,7 @@
       "label": "parseScore()",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L253",
+      "source_location": "L257",
       "_origin": "ast",
       "id": "services_worldcup26_service_parsescore",
       "community": 1,
@@ -3525,7 +4095,7 @@
       "label": "syncWorldCupFromWorldCup26()",
       "file_type": "code",
       "source_file": "services/worldcup26.service.ts",
-      "source_location": "L259",
+      "source_location": "L263",
       "_origin": "ast",
       "id": "services_worldcup26_service_syncworldcupfromworldcup26",
       "community": 1,
@@ -3738,7 +4308,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "types_domain",
-      "community": 5,
+      "community": 15,
       "norm_label": "domain.ts"
     },
     {
@@ -3748,7 +4318,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "types_domain_user",
-      "community": 5,
+      "community": 4,
       "norm_label": "user"
     },
     {
@@ -3758,7 +4328,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "types_domain_team",
-      "community": 5,
+      "community": 2,
       "norm_label": "team"
     },
     {
@@ -3778,7 +4348,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "types_domain_matchprediction",
-      "community": 5,
+      "community": 15,
       "norm_label": "matchprediction"
     },
     {
@@ -3788,7 +4358,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "types_domain_topfourprediction",
-      "community": 5,
+      "community": 2,
       "norm_label": "topfourprediction"
     },
     {
@@ -3808,7 +4378,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "types_domain_groupstanding",
-      "community": 5,
+      "community": 15,
       "norm_label": "groupstanding"
     },
     {
@@ -3818,7 +4388,7 @@
       "source_location": "L81",
       "_origin": "ast",
       "id": "types_domain_grouptable",
-      "community": 5,
+      "community": 15,
       "norm_label": "grouptable"
     },
     {
@@ -3828,7 +4398,7 @@
       "source_location": "L86",
       "_origin": "ast",
       "id": "types_domain_rankingrow",
-      "community": 5,
+      "community": 15,
       "norm_label": "rankingrow"
     },
     {
@@ -3905,7 +4475,7 @@
       "label": "Banco",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L39",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "readme_banco",
       "community": 9,
@@ -3915,7 +4485,7 @@
       "label": "Modelo DB-first",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L47",
+      "source_location": "L36",
       "_origin": "ast",
       "id": "readme_modelo_db_first",
       "community": 9,
@@ -3925,7 +4495,7 @@
       "label": "Pontuacao",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L56",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "readme_pontuacao",
       "community": 9,
@@ -3935,7 +4505,7 @@
       "label": "Endpoints admin",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L67",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "readme_endpoints_admin",
       "community": 9,
@@ -3945,7 +4515,7 @@
       "label": "Sync automatico",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L76",
+      "source_location": "L65",
       "_origin": "ast",
       "id": "readme_sync_automatico",
       "community": 9,
@@ -3955,7 +4525,7 @@
       "label": "Vercel Hobby (cron diario)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L78",
+      "source_location": "L67",
       "_origin": "ast",
       "id": "readme_vercel_hobby_cron_diario",
       "community": 9,
@@ -3965,7 +4535,7 @@
       "label": "GitHub Actions (recomendado na Copa)",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L82",
+      "source_location": "L71",
       "_origin": "ast",
       "id": "readme_github_actions_recomendado_na_copa",
       "community": 9,
@@ -3975,7 +4545,7 @@
       "label": "Railway",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L90",
+      "source_location": "L79",
       "_origin": "ast",
       "id": "readme_railway",
       "community": 9,
@@ -4035,7 +4605,7 @@
       "label": "Healthcheck",
       "file_type": "document",
       "source_file": "docs/RAILWAY.md",
-      "source_location": "L42",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "docs_railway_healthcheck",
       "community": 0,
@@ -4045,7 +4615,7 @@
       "label": "Sync automatico",
       "file_type": "document",
       "source_file": "docs/RAILWAY.md",
-      "source_location": "L47",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "docs_railway_sync_automatico",
       "community": 0,
@@ -4119,9 +4689,9 @@
       "source_file": "actions/admin.actions.ts",
       "source_location": "L81",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "actions_admin_actions",
-      "target": "actions_admin_actions_creatematchadminaction",
-      "confidence_score": 1.0
+      "target": "actions_admin_actions_creatematchadminaction"
     },
     {
       "relation": "contains",
@@ -4129,9 +4699,9 @@
       "source_file": "actions/admin.actions.ts",
       "source_location": "L40",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "actions_admin_actions",
-      "target": "actions_admin_actions_creatematchschema",
-      "confidence_score": 1.0
+      "target": "actions_admin_actions_creatematchschema"
     },
     {
       "relation": "contains",
@@ -4149,9 +4719,9 @@
       "source_file": "actions/admin.actions.ts",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "actions_admin_actions",
-      "target": "actions_admin_actions_revalidatematchpaths",
-      "confidence_score": 1.0
+      "target": "actions_admin_actions_revalidatematchpaths"
     },
     {
       "relation": "contains",
@@ -4159,9 +4729,9 @@
       "source_file": "actions/admin.actions.ts",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "actions_admin_actions",
-      "target": "actions_admin_actions_syncworldcupadminaction",
-      "confidence_score": 1.0
+      "target": "actions_admin_actions_syncworldcupadminaction"
     },
     {
       "relation": "contains",
@@ -4212,9 +4782,9 @@
       "source_file": "actions/admin.actions.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "actions_admin_actions",
-      "target": "lib_knockout_stages",
-      "confidence_score": 1.0
+      "target": "lib_knockout_stages"
     },
     {
       "relation": "imports",
@@ -4223,9 +4793,9 @@
       "source_file": "actions/admin.actions.ts",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "actions_admin_actions",
-      "target": "lib_knockout_stages_admin_stage_options",
-      "confidence_score": 1.0
+      "target": "lib_knockout_stages_admin_stage_options"
     },
     {
       "relation": "imports_from",
@@ -4267,9 +4837,9 @@
       "source_file": "actions/admin.actions.ts",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "actions_admin_actions",
-      "target": "services_match_admin_service_creatematchfromadmin",
-      "confidence_score": 1.0
+      "target": "services_match_admin_service_creatematchfromadmin"
     },
     {
       "relation": "imports",
@@ -4311,9 +4881,9 @@
       "source_file": "actions/admin.actions.ts",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "actions_admin_actions",
-      "target": "services_worldcup_sync_service",
-      "confidence_score": 1.0
+      "target": "services_worldcup_sync_service"
     },
     {
       "relation": "imports",
@@ -4322,9 +4892,9 @@
       "source_file": "actions/admin.actions.ts",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "actions_admin_actions",
-      "target": "services_worldcup_sync_service_syncworldcupdata",
-      "confidence_score": 1.0
+      "target": "services_worldcup_sync_service_syncworldcupdata"
     },
     {
       "relation": "imports_from",
@@ -4388,9 +4958,9 @@
       "source_file": "actions/admin.actions.ts",
       "source_location": "L132",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "actions_admin_actions_creatematchadminaction",
-      "target": "actions_admin_actions_revalidatematchpaths",
-      "confidence_score": 1.0
+      "target": "actions_admin_actions_revalidatematchpaths"
     },
     {
       "relation": "calls",
@@ -4399,9 +4969,9 @@
       "source_file": "actions/admin.actions.ts",
       "source_location": "L67",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "actions_admin_actions_syncworldcupadminaction",
-      "target": "actions_admin_actions_revalidatematchpaths",
-      "confidence_score": 1.0
+      "target": "actions_admin_actions_revalidatematchpaths"
     },
     {
       "relation": "calls",
@@ -4410,9 +4980,9 @@
       "source_file": "actions/admin.actions.ts",
       "source_location": "L189",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "actions_admin_actions_updatematchadminaction",
-      "target": "actions_admin_actions_revalidatematchpaths",
-      "confidence_score": 1.0
+      "target": "actions_admin_actions_revalidatematchpaths"
     },
     {
       "relation": "calls",
@@ -4454,9 +5024,9 @@
       "source_file": "components/AdminMatchesPanel.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_adminmatchespanel",
-      "target": "actions_admin_actions_syncworldcupadminaction",
-      "confidence_score": 1.0
+      "target": "actions_admin_actions_syncworldcupadminaction"
     },
     {
       "relation": "calls",
@@ -4498,9 +5068,9 @@
       "source_file": "components/AdminMatchesPanel.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_adminmatchespanel",
-      "target": "actions_admin_actions_creatematchadminaction",
-      "confidence_score": 1.0
+      "target": "actions_admin_actions_creatematchadminaction"
     },
     {
       "relation": "calls",
@@ -5655,9 +6225,9 @@
       "source_file": "app/admin/partidas/page.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "partidas_page",
-      "target": "repositories_worldcup_repo_listteams",
-      "confidence_score": 1.0
+      "target": "repositories_worldcup_repo_listteams"
     },
     {
       "relation": "imports_from",
@@ -5948,6 +6518,17 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/api/admin/sync-worldcup/route.ts",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "sync_worldcup_route_post",
+      "target": "services_worldcup_sync_service_ensureworldcupdata"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/api/admin/sync-worldcup/route.ts",
       "source_location": "L31",
       "weight": 1.0,
       "source": "sync_worldcup_route_post",
@@ -6124,6 +6705,137 @@
       "weight": 1.0,
       "source": "matches_route_get",
       "target": "repositories_worldcup_repo_listmatches"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/api/worldcup/matches/route.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "matches_route_get",
+      "target": "services_worldcup_sync_service_ensureworldcupdata"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "chaveamento_page",
+      "target": "chaveamento_page_chaveamentopage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "chaveamento_page",
+      "target": "components_knockoutbracketboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "chaveamento_page",
+      "target": "components_knockoutbracketboard_knockoutbracketboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "chaveamento_page",
+      "target": "lib_knockout_stages",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "chaveamento_page",
+      "target": "lib_knockout_stages_isknockoutstage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "chaveamento_page",
+      "target": "repositories_worldcup_repo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "chaveamento_page",
+      "target": "repositories_worldcup_repo_listmatches",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "chaveamento_page",
+      "target": "services_auth_service",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "chaveamento_page",
+      "target": "services_auth_service_getcurrentuser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "chaveamento_page_chaveamentopage",
+      "target": "repositories_worldcup_repo_listmatches"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "chaveamento_page_chaveamentopage",
+      "target": "services_auth_service_getcurrentuser"
     },
     {
       "relation": "imports_from",
@@ -7383,9 +8095,9 @@
       "source_file": "components/AdminMatchesPanel.tsx",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_adminmatchespanel",
-      "target": "components_adminmatchespanel_sortbykickoff",
-      "confidence_score": 1.0
+      "target": "components_adminmatchespanel_sortbykickoff"
     },
     {
       "relation": "contains",
@@ -7426,9 +8138,9 @@
       "source_file": "components/AdminMatchesPanel.tsx",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_adminmatchespanel",
-      "target": "lib_knockout_stages",
-      "confidence_score": 1.0
+      "target": "lib_knockout_stages"
     },
     {
       "relation": "imports",
@@ -7437,9 +8149,9 @@
       "source_file": "components/AdminMatchesPanel.tsx",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_adminmatchespanel",
-      "target": "lib_knockout_stages_admin_stage_options",
-      "confidence_score": 1.0
+      "target": "lib_knockout_stages_admin_stage_options"
     },
     {
       "relation": "imports",
@@ -7448,9 +8160,9 @@
       "source_file": "components/AdminMatchesPanel.tsx",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_adminmatchespanel",
-      "target": "lib_knockout_stages_isknockoutstage",
-      "confidence_score": 1.0
+      "target": "lib_knockout_stages_isknockoutstage"
     },
     {
       "relation": "imports_from",
@@ -7536,9 +8248,9 @@
       "source_file": "components/AdminMatchesPanel.tsx",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_adminmatchespanel",
-      "target": "types_domain_team",
-      "confidence_score": 1.0
+      "target": "types_domain_team"
     },
     {
       "relation": "contains",
@@ -7741,6 +8453,392 @@
       "confidence_score": 1.0,
       "source": "components_communitypredictionsboard",
       "target": "types_domain_topfourprediction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L179",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "components_knockoutbracketboard_bracketfinalboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L123",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "components_knockoutbracketboard_brackethalfboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "components_knockoutbracketboard_bracketmatchcard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "components_knockoutbracketboard_bracketr32pair",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "components_knockoutbracketboard_bracketteamrow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "components_knockoutbracketboard_bracketview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "components_knockoutbracketboard_buildmatchmap",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L203",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "components_knockoutbracketboard_knockoutbracketboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "components_knockoutbracketboard_knockoutbracketboardprops",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "components_knockoutbracketboard_teamwonside",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_date",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_date_formatcompactdatetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_knockout_bracket_tree",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_knockout_bracket_tree_bottom_bracket_half",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_knockout_bracket_tree_bracket_halves",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_knockout_bracket_tree_brackethalf",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_knockout_bracket_tree_bracketpair",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_knockout_bracket_tree_top_bracket_half",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_match_score",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_match_score_getdisplayofficialscore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_match_status",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_match_status_ismatchfinished",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_match_status_ismatchlive",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_match_visibility",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_match_visibility_getmatchteamlabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "lib_match_visibility_ismatchpredictable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "types_domain",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard",
+      "target": "types_domain_match",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard_bracketmatchcard",
+      "target": "components_knockoutbracketboard_teamwonside",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard_teamwonside",
+      "target": "lib_match_status_ismatchfinished",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L84",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard_bracketmatchcard",
+      "target": "lib_date_formatcompactdatetime"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard_bracketmatchcard",
+      "target": "lib_match_score_getdisplayofficialscore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L74",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard_bracketmatchcard",
+      "target": "lib_match_status_ismatchfinished"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L73",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard_bracketmatchcard",
+      "target": "lib_match_status_ismatchlive"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard_bracketmatchcard",
+      "target": "lib_match_visibility_getmatchteamlabel"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "components/KnockoutBracketBoard.tsx",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "components_knockoutbracketboard_bracketmatchcard",
+      "target": "lib_match_visibility_ismatchpredictable"
     },
     {
       "relation": "contains",
@@ -7969,6 +9067,28 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "components_palpitesworkspace",
+      "target": "lib_knockout_stages"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_palpitesworkspace",
+      "target": "lib_knockout_stages_isknockoutstage"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_palpitesworkspace",
       "target": "lib_match_lock"
     },
     {
@@ -8047,6 +9167,17 @@
       "confidence_score": 1.0,
       "source": "components_palpitesworkspace",
       "target": "lib_match_visibility_getmatchteamlabel"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_palpitesworkspace",
+      "target": "lib_match_visibility_ismatchpredictable"
     },
     {
       "relation": "imports_from",
@@ -8245,6 +9376,17 @@
       "weight": 1.0,
       "source": "components_palpitesworkspace_palpitematchrow",
       "target": "lib_match_visibility_getmatchteamlabel"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "components_palpitesworkspace_palpitematchrow",
+      "target": "lib_match_visibility_ismatchpredictable"
     },
     {
       "relation": "contains",
@@ -8784,17 +9926,6 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "lib_cache_sync"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "services/worldcup26.service.ts",
       "source_location": "L2",
       "weight": 1.0,
@@ -8823,28 +9954,6 @@
       "weight": 1.0,
       "source": "lib_cache_sync_upsertteams",
       "target": "lib_db_query"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "lib_cache_sync_upsertteams"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L190",
-      "weight": 1.0,
-      "source": "services_api_football_service_syncworldcupfromapifootball",
-      "target": "lib_cache_sync_upsertteams"
     },
     {
       "relation": "imports",
@@ -8883,28 +9992,6 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "lib_cache_sync_pruneteams"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L191",
-      "weight": 1.0,
-      "source": "services_api_football_service_syncworldcupfromapifootball",
-      "target": "lib_cache_sync_pruneteams"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "services/worldcup26.service.ts",
       "source_location": "L2",
       "weight": 1.0,
@@ -8933,28 +10020,6 @@
       "weight": 1.0,
       "source": "lib_cache_sync_upsertmatches",
       "target": "lib_db_query"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "lib_cache_sync_upsertmatches"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L215",
-      "weight": 1.0,
-      "source": "services_api_football_service_syncworldcupfromapifootball",
-      "target": "lib_cache_sync_upsertmatches"
     },
     {
       "relation": "imports",
@@ -9026,39 +10091,6 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "lib_cache_sync_insertsynclog"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L265",
-      "weight": 1.0,
-      "source": "services_api_football_service_ensureworldcupdata",
-      "target": "lib_cache_sync_insertsynclog"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L218",
-      "weight": 1.0,
-      "source": "services_api_football_service_syncworldcupfromapifootball",
-      "target": "lib_cache_sync_insertsynclog"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "services/worldcup26.service.ts",
       "source_location": "L2",
       "weight": 1.0,
@@ -9103,28 +10135,6 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "lib_cache_sync_countmatches"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L245",
-      "weight": 1.0,
-      "source": "services_api_football_service_ensureworldcupdata",
-      "target": "lib_cache_sync_countmatches"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "services/worldcup-sync.service.ts",
       "source_location": "L2",
       "weight": 1.0,
@@ -9142,28 +10152,6 @@
       "weight": 1.0,
       "source": "services_worldcup_sync_service_ensureworldcupdata",
       "target": "lib_cache_sync_countmatches"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L2",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "lib_cache_sync_getlatestsuccessfulsync"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L246",
-      "weight": 1.0,
-      "source": "services_api_football_service_ensureworldcupdata",
-      "target": "lib_cache_sync_getlatestsuccessfulsync"
     },
     {
       "relation": "imports",
@@ -9276,22 +10264,22 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L1",
+      "source_file": "services/auth.service.ts",
+      "source_location": "L2",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "services_api_football_service",
+      "source": "services_auth_service",
       "target": "lib_constants"
     },
     {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "services/auth.service.ts",
-      "source_location": "L2",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "services_auth_service",
+      "source": "services_knockout_enrichment_service",
       "target": "lib_constants"
     },
     {
@@ -9546,6 +10534,17 @@
       "target": "lib_crypto_hashtoken"
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/wc26-annex-c.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_wc26_annex_c",
+      "target": "data_wc26_annex_c_rows"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/date.ts",
@@ -9748,6 +10747,17 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "lib_db"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "services/match-admin.service.ts",
       "source_location": "L3",
       "weight": 1.0,
@@ -9869,6 +10879,39 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "lib_db_query"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L161",
+      "weight": 1.0,
+      "source": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings",
+      "target": "lib_db_query"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L81",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service_synccomputedgroups",
+      "target": "lib_db_query"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "services/match-admin.service.ts",
       "source_location": "L3",
       "weight": 1.0,
@@ -9934,12 +10977,883 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute",
+      "target": "lib_group_standings_compute_buildteamgroupmap"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute",
+      "target": "lib_group_standings_compute_computedgrouptable"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute",
+      "target": "lib_group_standings_compute_computedstandingrow"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L55",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute",
+      "target": "lib_group_standings_compute_computegroupstandingsfrommatches"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute",
+      "target": "lib_group_standings_compute_getgroupfrommatch"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L132",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute",
+      "target": "lib_group_standings_compute_getqualifiedthirdplacegroups"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute",
+      "target": "lib_group_standings_compute_sortstandings"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute",
+      "target": "lib_match_status"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute",
+      "target": "lib_match_status_ismatchfinished"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute",
+      "target": "types_domain"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute",
+      "target": "types_domain_match"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute",
+      "target": "types_domain_team"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_group_standings_compute"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "lib_group_standings_compute"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_group_standings_compute_computedgrouptable"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "lib_group_standings_compute_computedgrouptable"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L59",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute_computegroupstandingsfrommatches",
+      "target": "lib_group_standings_compute_buildteamgroupmap"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L63",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_group_standings_compute_computegroupstandingsfrommatches",
+      "target": "lib_group_standings_compute_getgroupfrommatch"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/group-standings-compute.ts",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "lib_group_standings_compute_computegroupstandingsfrommatches",
+      "target": "lib_match_status_ismatchfinished"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_group_standings_compute_computegroupstandingsfrommatches"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L196",
+      "weight": 1.0,
+      "source": "lib_knockout_resolver_resolveallknockoutteams",
+      "target": "lib_group_standings_compute_computegroupstandingsfrommatches"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "lib_group_standings_compute_computegroupstandingsfrommatches"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_group_standings_compute_getqualifiedthirdplacegroups"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L197",
+      "weight": 1.0,
+      "source": "lib_knockout_resolver_resolveallknockoutteams",
+      "target": "lib_group_standings_compute_getqualifiedthirdplacegroups"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-bracket-tree.ts",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "lib_knockout_bracket_tree",
+      "target": "lib_knockout_bracket_tree_bottom_bracket_half",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-bracket-tree.ts",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "lib_knockout_bracket_tree",
+      "target": "lib_knockout_bracket_tree_bracket_halves",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-bracket-tree.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "lib_knockout_bracket_tree",
+      "target": "lib_knockout_bracket_tree_brackethalf",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-bracket-tree.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "lib_knockout_bracket_tree",
+      "target": "lib_knockout_bracket_tree_bracketpair",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-bracket-tree.ts",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "lib_knockout_bracket_tree",
+      "target": "lib_knockout_bracket_tree_collectbracketmatchids",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-bracket-tree.ts",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "lib_knockout_bracket_tree",
+      "target": "lib_knockout_bracket_tree_top_bracket_half",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L247",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_findknockoutmismatches"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L90",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_getgrouptable"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L107",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_getmatchloserid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L94",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_getmatchparticipant"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L81",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_getmatchsidelabel"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L99",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_getmatchwinnerid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L243",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_hasrealteamid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L277",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_isthirdplacewinnermatch"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_knockoutresolutionmismatch"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_knockoutslot"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L42",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_normalizelabel"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L46",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_parsecandidategroups"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L155",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_parsehomewinnergroup"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L53",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_parseknockoutslot"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L195",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_resolveallknockoutteams"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_resolvedknockoutteams"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L159",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_resolveknockoutmatchteams"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L115",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_knockout_resolver_resolveslot"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_match_status"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_match_status_ismatchfinished"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_wc26_annex_c"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_wc26_annex_c_annex_c_winner_groups"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_wc26_annex_c_findannexcrow"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "lib_wc26_annex_c_getthirdplacegroupforwinner"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "types_domain"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "types_domain_match"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver",
+      "target": "types_domain_team"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "lib_knockout_resolver"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_getmatchsidelabel",
+      "target": "lib_knockout_resolver_normalizelabel"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L54",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_parseknockoutslot",
+      "target": "lib_knockout_resolver_normalizelabel"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L68",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_parseknockoutslot",
+      "target": "lib_knockout_resolver_parsecandidategroups"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L278",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_isthirdplacewinnermatch",
+      "target": "lib_knockout_resolver_parseknockoutslot"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L166",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_resolveknockoutmatchteams",
+      "target": "lib_knockout_resolver_parseknockoutslot"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L278",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_isthirdplacewinnermatch",
+      "target": "lib_knockout_resolver_getmatchsidelabel"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L166",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_resolveknockoutmatchteams",
+      "target": "lib_knockout_resolver_getmatchsidelabel"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L127",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_resolveslot",
+      "target": "lib_knockout_resolver_getgrouptable"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L100",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_getmatchwinnerid",
+      "target": "lib_match_status_ismatchfinished"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L147",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_resolveslot",
+      "target": "lib_knockout_resolver_getmatchwinnerid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L108",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_getmatchloserid",
+      "target": "lib_match_status_ismatchfinished"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L149",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_resolveslot",
+      "target": "lib_knockout_resolver_getmatchloserid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L184",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_resolveknockoutmatchteams",
+      "target": "lib_knockout_resolver_resolveslot"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L136",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_resolveslot",
+      "target": "lib_wc26_annex_c_getthirdplacegroupforwinner"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L168",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_resolveknockoutmatchteams",
+      "target": "lib_knockout_resolver_parsehomewinnergroup"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L209",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_resolveallknockoutteams",
+      "target": "lib_knockout_resolver_resolveknockoutmatchteams"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L248",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_findknockoutmismatches",
+      "target": "lib_knockout_resolver_resolveallknockoutteams"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L199",
+      "weight": 1.0,
+      "source": "lib_knockout_resolver_resolveallknockoutteams",
+      "target": "lib_wc26_annex_c_findannexcrow"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "lib_knockout_resolver_resolveallknockoutteams"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L121",
+      "weight": 1.0,
+      "source": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings",
+      "target": "lib_knockout_resolver_resolveallknockoutteams"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-resolver.ts",
+      "source_location": "L260",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_resolver_findknockoutmismatches",
+      "target": "lib_knockout_resolver_hasrealteamid"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "lib_knockout_resolver_hasrealteamid"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "lib_knockout_resolver_findknockoutmismatches"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L122",
+      "weight": 1.0,
+      "source": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings",
+      "target": "lib_knockout_resolver_findknockoutmismatches"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "lib/knockout-stages.ts",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_knockout_stages",
-      "target": "lib_knockout_stages_admin_stage_options",
-      "confidence_score": 1.0
+      "target": "lib_knockout_stages_admin_stage_options"
     },
     {
       "relation": "contains",
@@ -9947,9 +11861,9 @@
       "source_file": "lib/knockout-stages.ts",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_knockout_stages",
-      "target": "lib_knockout_stages_isknockoutstage",
-      "confidence_score": 1.0
+      "target": "lib_knockout_stages_isknockoutstage"
     },
     {
       "relation": "contains",
@@ -9957,9 +11871,9 @@
       "source_file": "lib/knockout-stages.ts",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_knockout_stages",
-      "target": "lib_knockout_stages_knockout_stages",
-      "confidence_score": 1.0
+      "target": "lib_knockout_stages_knockout_stages"
     },
     {
       "relation": "contains",
@@ -9967,9 +11881,42 @@
       "source_file": "lib/knockout-stages.ts",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_knockout_stages",
-      "target": "lib_knockout_stages_knockoutstage",
-      "confidence_score": 1.0
+      "target": "lib_knockout_stages_knockoutstage"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-visibility.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_visibility",
+      "target": "lib_knockout_stages"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-visibility.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_visibility",
+      "target": "lib_knockout_stages_isknockoutstage"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/match-visibility.ts",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "lib_match_visibility_shouldshowmatchinpalpites",
+      "target": "lib_knockout_stages_isknockoutstage"
     },
     {
       "relation": "contains",
@@ -10173,6 +12120,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/match-visibility.ts",
+      "source_location": "L43",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_visibility",
+      "target": "lib_match_visibility_hasrealteamid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-visibility.ts",
       "source_location": "L29",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -10286,6 +12243,17 @@
       "confidence_score": 1.0,
       "source": "lib_match_visibility_isplaceholderside",
       "target": "lib_match_visibility_getplaceholderlabel"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-visibility.ts",
+      "source_location": "L51",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_visibility_isplaceholderside",
+      "target": "lib_match_visibility_hasrealteamid"
     },
     {
       "relation": "calls",
@@ -10552,17 +12520,6 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "lib_team_names_pt"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "services/worldcup26.service.ts",
       "source_location": "L3",
       "weight": 1.0,
@@ -10618,17 +12575,6 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "lib_team_names_pt_getteamdisplayname"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
       "source_file": "services/worldcup26.service.ts",
       "source_location": "L3",
       "weight": 1.0,
@@ -10657,6 +12603,56 @@
       "confidence_score": 1.0,
       "source": "repositories_worldcup_repo",
       "target": "lib_team_names_pt_localizeteam"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/wc26-annex-c.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_wc26_annex_c",
+      "target": "lib_wc26_annex_c_annex_c_winner_groups"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/wc26-annex-c.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_wc26_annex_c",
+      "target": "lib_wc26_annex_c_findannexcrow"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/wc26-annex-c.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_wc26_annex_c",
+      "target": "lib_wc26_annex_c_getthirdplacegroupforwinner"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/wc26-annex-c.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_wc26_annex_c",
+      "target": "lib_wc26_annex_c_rowbycombination"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/wc26-annex-c.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_wc26_annex_c",
+      "target": "lib_wc26_annex_c_rows"
     },
     {
       "relation": "contains",
@@ -11451,6 +13447,17 @@
       "target": "repositories_worldcup_repo_listmatches"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "repositories/worldcup.repo.ts",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "repositories_worldcup_repo_listmatches",
+      "target": "services_worldcup_sync_service_ensureworldcupdata"
+    },
+    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -11502,6 +13509,46 @@
       "confidence_score": 1.0,
       "source": "scripts_docker_entrypoint",
       "target": "c_users_chari_dev_bolao_scripts_docker_entrypoint_sh__entry"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/extract-annex-c.mjs",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_extract_annex_c",
+      "target": "scripts_extract_annex_c_block"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/extract-annex-c.mjs",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_extract_annex_c",
+      "target": "scripts_extract_annex_c_end"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/extract-annex-c.mjs",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_extract_annex_c",
+      "target": "scripts_extract_annex_c_rows"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/extract-annex-c.mjs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_extract_annex_c",
+      "target": "scripts_extract_annex_c_start"
     },
     {
       "relation": "contains",
@@ -11711,212 +13758,6 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L53",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_api_football_league_id"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L54",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_api_football_season"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L20",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_apifootballfixtureresponse"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L67",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_apifootballget"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_apifootballresponse"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_apifootballteamresponse"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L55",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_auto_sync_max_age_minutes"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L242",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_ensureworldcupdata"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L121",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_extractgroupname"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L59",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_getapifootballkey"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L141",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_mapstatus"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L97",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_normalizeiso2"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L153",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_syncworldcupfromapifootball"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L127",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service",
-      "target": "services_api_football_service_translatestage"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "services/worldcup-sync.service.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_worldcup_sync_service",
-      "target": "services_api_football_service"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L71",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service_apifootballget",
-      "target": "services_api_football_service_getapifootballkey"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L155",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service_syncworldcupfromapifootball",
-      "target": "services_api_football_service_apifootballget"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "services/api-football.service.ts",
-      "source_location": "L281",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_api_football_service_ensureworldcupdata",
-      "target": "services_api_football_service_syncworldcupfromapifootball"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "services/worldcup-sync.service.ts",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "services_worldcup_sync_service",
-      "target": "services_api_football_service_syncworldcupfromapifootball"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "services/worldcup-sync.service.ts",
-      "source_location": "L25",
-      "weight": 1.0,
-      "source": "services_worldcup_sync_service_syncworldcupdata",
-      "target": "services_api_football_service_syncworldcupfromapifootball"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "services/auth.service.ts",
       "source_location": "L5",
       "weight": 1.0,
@@ -11937,12 +13778,277 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "services_knockout_enrichment_service_cachedmatch"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "services_knockout_enrichment_service_cachedteam"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L118",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L28",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "services_knockout_enrichment_service_knockoutenrichmentresult"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L42",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "services_knockout_enrichment_service_loadmatches"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L53",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "services_knockout_enrichment_service_loadteamname"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "services_knockout_enrichment_service_loadteams"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L181",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "services_knockout_enrichment_service_summarizeknockoutenrichment"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L77",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "services_knockout_enrichment_service_synccomputedgroups"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L61",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "services_knockout_enrichment_service_todomainmatch"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "types_domain"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "types_domain_match"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service",
+      "target": "types_domain_team"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/worldcup26.service.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_worldcup26_service",
+      "target": "services_knockout_enrichment_service"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/worldcup-sync.service.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_worldcup_sync_service",
+      "target": "services_knockout_enrichment_service"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L119",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings",
+      "target": "services_knockout_enrichment_service_loadteams"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L119",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings",
+      "target": "services_knockout_enrichment_service_loadmatches"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L145",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings",
+      "target": "services_knockout_enrichment_service_loadteamname"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "services/knockout-enrichment.service.ts",
+      "source_location": "L172",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings",
+      "target": "services_knockout_enrichment_service_synccomputedgroups"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/worldcup26.service.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_worldcup26_service",
+      "target": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/worldcup26.service.ts",
+      "source_location": "L360",
+      "weight": 1.0,
+      "source": "services_worldcup26_service_syncworldcupfromworldcup26",
+      "target": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/worldcup-sync.service.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_worldcup_sync_service",
+      "target": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "services/worldcup-sync.service.ts",
+      "source_location": "L94",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_worldcup_sync_service_refreshknockoutbracketfromstandings",
+      "target": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/worldcup26.service.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_worldcup26_service",
+      "target": "services_knockout_enrichment_service_summarizeknockoutenrichment"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/worldcup26.service.ts",
+      "source_location": "L361",
+      "weight": 1.0,
+      "source": "services_worldcup26_service_syncworldcupfromworldcup26",
+      "target": "services_knockout_enrichment_service_summarizeknockoutenrichment"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "services/match-admin.service.ts",
       "source_location": "L43",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_match_admin_service",
-      "target": "services_match_admin_service_adminmatchcreate",
-      "confidence_score": 1.0
+      "target": "services_match_admin_service_adminmatchcreate"
     },
     {
       "relation": "contains",
@@ -11970,9 +14076,9 @@
       "source_file": "services/match-admin.service.ts",
       "source_location": "L56",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_match_admin_service",
-      "target": "services_match_admin_service_creatematchfromadmin",
-      "confidence_score": 1.0
+      "target": "services_match_admin_service_creatematchfromadmin"
     },
     {
       "relation": "contains",
@@ -11980,9 +14086,9 @@
       "source_file": "services/match-admin.service.ts",
       "source_location": "L50",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_match_admin_service",
-      "target": "services_match_admin_service_normalizeteamid",
-      "confidence_score": 1.0
+      "target": "services_match_admin_service_normalizeteamid"
     },
     {
       "relation": "contains",
@@ -12001,9 +14107,9 @@
       "source_file": "services/match-admin.service.ts",
       "source_location": "L70",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_match_admin_service_creatematchfromadmin",
-      "target": "services_match_admin_service_buildpayloadpatch",
-      "confidence_score": 1.0
+      "target": "services_match_admin_service_buildpayloadpatch"
     },
     {
       "relation": "calls",
@@ -12023,9 +14129,20 @@
       "source_file": "services/match-admin.service.ts",
       "source_location": "L83",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_match_admin_service_creatematchfromadmin",
-      "target": "services_match_admin_service_normalizeteamid",
-      "confidence_score": 1.0
+      "target": "services_match_admin_service_normalizeteamid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "services/match-admin.service.ts",
+      "source_location": "L119",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_match_admin_service_updatematchfromadmin",
+      "target": "services_match_admin_service_normalizeteamid"
     },
     {
       "relation": "contains",
@@ -12261,6 +14378,17 @@
       "weight": 1.0,
       "source": "services_ranking_service_recalculateranking",
       "target": "services_scoring_service_calculatepredictionscore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/ranking.service.ts",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "services_ranking_service_recalculateranking",
+      "target": "services_worldcup_sync_service_ensureworldcupdata"
     },
     {
       "relation": "calls",
@@ -12757,6 +14885,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "services/worldcup-sync.service.ts",
+      "source_location": "L91",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_worldcup_sync_service",
+      "target": "services_worldcup_sync_service_refreshknockoutbracketfromstandings"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/worldcup-sync.service.ts",
       "source_location": "L16",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -12833,11 +14971,33 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "services/worldcup-sync.service.ts",
+      "source_location": "L92",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_worldcup_sync_service_refreshknockoutbracketfromstandings",
+      "target": "services_worldcup_sync_service_getworldcupprovider"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "services/worldcup-sync.service.ts",
       "source_location": "L18",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "services_worldcup_sync_service_syncworldcupdata",
       "target": "services_worldcup_sync_service_getworldcupprovider"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "services/worldcup-sync.service.ts",
+      "source_location": "L138",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_worldcup_sync_service_ensureworldcupdata",
+      "target": "services_worldcup_sync_service_refreshknockoutbracketfromstandings"
     },
     {
       "relation": "calls",
@@ -13621,5 +15781,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "fde485d8ff26edb5a143f7f6f8a4533893ff64ba"
+  "built_at_commit": "6db8666c466ac65402062b55d8e423ffed9d5016"
 }

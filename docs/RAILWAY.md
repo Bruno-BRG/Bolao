@@ -11,7 +11,9 @@ docker compose up --build
 - App: http://localhost:3000
 - Health: http://localhost:3000/api/health
 
-Na primeira subida o container `web` roda as migrations em `db/migrations/`.
+Na primeira subida o container `web` roda apenas migrations **pendentes** em
+`db/migrations/` (controle em `schema_migrations`). Patches em `db/patches/`
+nao rodam automaticamente.
 
 ## Deploy na Railway (2 servicos)
 
@@ -32,7 +34,7 @@ Na primeira subida o container `web` roda as migrations em `db/migrations/`.
 O entrypoint:
 
 1. Espera o Postgres
-2. Roda migrations em `db/migrations/`
+2. Roda migrations pendentes em `db/migrations/`
 3. Sobe `next start`
 
 Para pular migrations: `SKIP_MIGRATIONS=1`.

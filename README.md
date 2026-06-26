@@ -38,9 +38,9 @@ API_FOOTBALL_SEASON=2026
 
 ## Banco
 
-As migrations ficam em `db/migrations/`. No Docker/Railway elas rodam
-automaticamente na subida do app. Em desenvolvimento local, aponte `DATABASE_URL`
-para um Postgres e rode os arquivos em ordem.
+As migrations ficam em `db/migrations/`. No Docker/Railway so as **pendentes**
+rodam na subida (tabela `schema_migrations` controla o que ja foi aplicado).
+Correcoes pontuais de dados ficam em `db/patches/` e rodam so manualmente.
 
 Deploy com Docker: veja `docs/RAILWAY.md` e `docker-compose.yml`.
 

@@ -146,7 +146,7 @@ export function AdminMatchesPanel({
         <div className="admin-matches__sync-row">
           <button
             className="button"
-            disabled={!adminToken || syncing}
+            disabled={syncing}
             onClick={() => void handleSync()}
             type="button"
           >
@@ -251,7 +251,7 @@ export function AdminMatchesPanel({
             Recalcular ranking apos criar
           </label>
 
-          <button className="button" disabled={!adminToken || creating} type="submit">
+          <button className="button" disabled={creating} type="submit">
             {creating ? "Criando..." : "Criar jogo"}
           </button>
         </form>
@@ -363,7 +363,7 @@ export function AdminMatchesPanel({
 
               <button
                 className="button"
-                disabled={!adminToken || savingId === match.external_id}
+                disabled={savingId === match.external_id}
                 type="submit"
               >
                 {savingId === match.external_id ? "Salvando..." : "Salvar jogo"}

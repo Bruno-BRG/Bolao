@@ -260,7 +260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "actions_predictions_actions",
-      "community": 2,
+      "community": 15,
       "norm_label": "predictions.actions.ts"
     },
     {
@@ -270,7 +270,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "actions_predictions_actions_predictionschema",
-      "community": 2,
+      "community": 15,
       "norm_label": "predictionschema"
     },
     {
@@ -280,7 +280,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "actions_predictions_actions_bulkpredictionschema",
-      "community": 2,
+      "community": 15,
       "norm_label": "bulkpredictionschema"
     },
     {
@@ -290,7 +290,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "actions_predictions_actions_topfourschema",
-      "community": 2,
+      "community": 15,
       "norm_label": "topfourschema"
     },
     {
@@ -310,7 +310,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "actions_predictions_actions_matchsaveresult",
-      "community": 2,
+      "community": 15,
       "norm_label": "matchsaveresult"
     },
     {
@@ -320,7 +320,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "actions_predictions_actions_ensureunique",
-      "community": 2,
+      "community": 15,
       "norm_label": "ensureunique()"
     },
     {
@@ -330,7 +330,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "actions_predictions_actions_ismatchlocked",
-      "community": 2,
+      "community": 15,
       "norm_label": "ismatchlocked()"
     },
     {
@@ -510,7 +510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "ranking_route",
-      "community": 8,
+      "community": 1,
       "norm_label": "route.ts"
     },
     {
@@ -520,7 +520,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "ranking_route_get",
-      "community": 8,
+      "community": 1,
       "norm_label": "get()"
     },
     {
@@ -557,7 +557,7 @@
       "label": "ChaveamentoPage()",
       "file_type": "code",
       "source_file": "app/chaveamento/page.tsx",
-      "source_location": "L13",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "chaveamento_page_chaveamentopage",
       "community": 2,
@@ -720,7 +720,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "ranking_page",
-      "community": 8,
+      "community": 29,
       "norm_label": "page.tsx"
     },
     {
@@ -730,8 +730,48 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "ranking_page_rankingpage",
-      "community": 8,
+      "community": 29,
       "norm_label": "rankingpage()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "seu_chaveamento_page",
+      "community": 2,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "SeuChaveamentoPage()",
+      "file_type": "code",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "seu_chaveamento_page_seuchaveamentopage",
+      "community": 2,
+      "norm_label": "seuchaveamentopage()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/sobre/page.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "sobre_page",
+      "community": 15,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "SobrePage()",
+      "file_type": "code",
+      "source_file": "app/sobre/page.tsx",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "sobre_page_sobrepage",
+      "community": 15,
+      "norm_label": "sobrepage()"
     },
     {
       "label": "page.tsx",
@@ -760,7 +800,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_adminmatchespanel",
-      "community": 5,
+      "community": 8,
       "norm_label": "adminmatchespanel.tsx"
     },
     {
@@ -770,7 +810,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "components_adminmatchespanel_filter",
-      "community": 5,
+      "community": 8,
       "norm_label": "filter"
     },
     {
@@ -780,7 +820,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "components_adminmatchespanel_todatetimelocalvalue",
-      "community": 5,
+      "community": 8,
       "norm_label": "todatetimelocalvalue()"
     },
     {
@@ -790,7 +830,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "components_adminmatchespanel_sortbykickoff",
-      "community": 5,
+      "community": 8,
       "norm_label": "sortbykickoff()"
     },
     {
@@ -800,7 +840,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "components_adminmatchespanel_adminmatchespanel",
-      "community": 5,
+      "community": 8,
       "norm_label": "adminmatchespanel()"
     },
     {
@@ -980,7 +1020,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_communitypredictionsboard",
-      "community": 27,
+      "community": 29,
       "norm_label": "communitypredictionsboard.tsx"
     },
     {
@@ -990,7 +1030,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "components_communitypredictionsboard_communitymember",
-      "community": 27,
+      "community": 29,
       "norm_label": "communitymember"
     },
     {
@@ -1000,7 +1040,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "components_communitypredictionsboard_topfourline",
-      "community": 27,
+      "community": 29,
       "norm_label": "topfourline()"
     },
     {
@@ -1010,7 +1050,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "components_communitypredictionsboard_communitypredictionsboard",
-      "community": 27,
+      "community": 29,
       "norm_label": "communitypredictionsboard()"
     },
     {
@@ -1100,7 +1140,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_knockoutpredictionfields",
-      "community": 29,
+      "community": 15,
       "norm_label": "knockoutpredictionfields.tsx"
     },
     {
@@ -1110,7 +1150,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "components_knockoutpredictionfields_knockoutpredictionfieldsprops",
-      "community": 29,
+      "community": 15,
       "norm_label": "knockoutpredictionfieldsprops"
     },
     {
@@ -1120,7 +1160,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "components_knockoutpredictionfields_method_icon",
-      "community": 29,
+      "community": 15,
       "norm_label": "method_icon"
     },
     {
@@ -1130,7 +1170,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "components_knockoutpredictionfields_parsegoals",
-      "community": 29,
+      "community": 15,
       "norm_label": "parsegoals()"
     },
     {
@@ -1140,7 +1180,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "components_knockoutpredictionfields_teamchip",
-      "community": 29,
+      "community": 15,
       "norm_label": "teamchip()"
     },
     {
@@ -1150,7 +1190,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "components_knockoutpredictionfields_knockoutpredictionfields",
-      "community": 29,
+      "community": 15,
       "norm_label": "knockoutpredictionfields()"
     },
     {
@@ -1340,7 +1380,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_rankingliveboard",
-      "community": 8,
+      "community": 29,
       "norm_label": "rankingliveboard.tsx"
     },
     {
@@ -1350,7 +1390,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "components_rankingliveboard_ranking_poll_ms",
-      "community": 8,
+      "community": 29,
       "norm_label": "ranking_poll_ms"
     },
     {
@@ -1360,7 +1400,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "components_rankingliveboard_rankingliveboard",
-      "community": 8,
+      "community": 29,
       "norm_label": "rankingliveboard()"
     },
     {
@@ -1370,7 +1410,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_rankingtable",
-      "community": 8,
+      "community": 29,
       "norm_label": "rankingtable.tsx"
     },
     {
@@ -1380,7 +1420,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "components_rankingtable_rankingtable",
-      "community": 8,
+      "community": 29,
       "norm_label": "rankingtable()"
     },
     {
@@ -1480,7 +1520,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_topfourform",
-      "community": 27,
+      "community": 29,
       "norm_label": "topfourform.tsx"
     },
     {
@@ -1490,7 +1530,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "components_topfourform_selectteam",
-      "community": 27,
+      "community": 29,
       "norm_label": "selectteam()"
     },
     {
@@ -1500,7 +1540,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "components_topfourform_lockedrow",
-      "community": 27,
+      "community": 29,
       "norm_label": "lockedrow()"
     },
     {
@@ -1510,7 +1550,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "components_topfourform_topfourform",
-      "community": 27,
+      "community": 29,
       "norm_label": "topfourform()"
     },
     {
@@ -1800,7 +1840,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "lib_constants_scoring_rules",
-      "community": 29,
+      "community": 15,
       "norm_label": "scoring_rules"
     },
     {
@@ -1810,7 +1850,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "lib_constants_finished_statuses",
-      "community": 15,
+      "community": 1,
       "norm_label": "finished_statuses"
     },
     {
@@ -1910,7 +1950,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "lib_date_formatcompactdatetime",
-      "community": 15,
+      "community": 27,
       "norm_label": "formatcompactdatetime()"
     },
     {
@@ -1990,7 +2030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_decision_method",
-      "community": 29,
+      "community": 15,
       "norm_label": "decision-method.ts"
     },
     {
@@ -2000,7 +2040,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_decision_method_decisionmethod",
-      "community": 29,
+      "community": 15,
       "norm_label": "decisionmethod"
     },
     {
@@ -2010,7 +2050,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "lib_decision_method_decision_method_options",
-      "community": 29,
+      "community": 8,
       "norm_label": "decision_method_options"
     },
     {
@@ -2020,7 +2060,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "lib_decision_method_decision_method_labels",
-      "community": 29,
+      "community": 15,
       "norm_label": "decision_method_labels"
     },
     {
@@ -2030,7 +2070,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "lib_decision_method_isdecisionmethod",
-      "community": 5,
+      "community": 8,
       "norm_label": "isdecisionmethod()"
     },
     {
@@ -2170,7 +2210,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_knockout_prediction_validation",
-      "community": 29,
+      "community": 15,
       "norm_label": "knockout-prediction-validation.ts"
     },
     {
@@ -2180,7 +2220,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "lib_knockout_prediction_validation_knockoutpredictioninput",
-      "community": 29,
+      "community": 15,
       "norm_label": "knockoutpredictioninput"
     },
     {
@@ -2190,7 +2230,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "lib_knockout_prediction_validation_inferwinnerfromscore",
-      "community": 29,
+      "community": 15,
       "norm_label": "inferwinnerfromscore()"
     },
     {
@@ -2200,7 +2240,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "lib_knockout_prediction_validation_alloweddecisionmethods",
-      "community": 29,
+      "community": 15,
       "norm_label": "alloweddecisionmethods()"
     },
     {
@@ -2210,7 +2250,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "lib_knockout_prediction_validation_validateknockoutprediction",
-      "community": 29,
+      "community": 15,
       "norm_label": "validateknockoutprediction()"
     },
     {
@@ -2220,7 +2260,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "lib_knockout_prediction_validation_normalizeknockoutprediction",
-      "community": 29,
+      "community": 15,
       "norm_label": "normalizeknockoutprediction()"
     },
     {
@@ -2420,7 +2460,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_knockout_scoring",
-      "community": 29,
+      "community": 15,
       "norm_label": "knockout-scoring.ts"
     },
     {
@@ -2430,7 +2470,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "lib_knockout_scoring_knockoutmatchresult",
-      "community": 29,
+      "community": 15,
       "norm_label": "knockoutmatchresult"
     },
     {
@@ -2440,7 +2480,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "lib_knockout_scoring_knockoutmatchprediction",
-      "community": 29,
+      "community": 15,
       "norm_label": "knockoutmatchprediction"
     },
     {
@@ -2450,7 +2490,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "lib_knockout_scoring_scorebreakdown",
-      "community": 29,
+      "community": 15,
       "norm_label": "scorebreakdown"
     },
     {
@@ -2460,7 +2500,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "lib_knockout_scoring_calculatematchpredictionpoints",
-      "community": 29,
+      "community": 15,
       "norm_label": "calculatematchpredictionpoints()"
     },
     {
@@ -2470,7 +2510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_knockout_stages",
-      "community": 5,
+      "community": 8,
       "norm_label": "knockout-stages.ts"
     },
     {
@@ -2480,7 +2520,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_knockout_stages_knockout_stages",
-      "community": 5,
+      "community": 8,
       "norm_label": "knockout_stages"
     },
     {
@@ -2490,7 +2530,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_knockout_stages_knockoutstage",
-      "community": 5,
+      "community": 8,
       "norm_label": "knockoutstage"
     },
     {
@@ -2500,7 +2540,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "lib_knockout_stages_admin_stage_options",
-      "community": 5,
+      "community": 8,
       "norm_label": "admin_stage_options"
     },
     {
@@ -2590,7 +2630,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_match_score",
-      "community": 15,
+      "community": 27,
       "norm_label": "match-score.ts"
     },
     {
@@ -2600,7 +2640,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "lib_match_score_displayofficialscore",
-      "community": 15,
+      "community": 27,
       "norm_label": "displayofficialscore"
     },
     {
@@ -2610,7 +2650,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_match_score_parsescorevalue",
-      "community": 15,
+      "community": 27,
       "norm_label": "parsescorevalue()"
     },
     {
@@ -2620,7 +2660,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "lib_match_score_getdisplayofficialscore",
-      "community": 15,
+      "community": 27,
       "norm_label": "getdisplayofficialscore()"
     },
     {
@@ -2630,7 +2670,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_match_status",
-      "community": 5,
+      "community": 8,
       "norm_label": "match-status.ts"
     },
     {
@@ -2640,7 +2680,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "lib_match_status_live_statuses",
-      "community": 5,
+      "community": 8,
       "norm_label": "live_statuses"
     },
     {
@@ -2650,7 +2690,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "lib_match_status_match_status_options",
-      "community": 5,
+      "community": 8,
       "norm_label": "match_status_options"
     },
     {
@@ -2660,7 +2700,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "lib_match_status_matchstatusoption",
-      "community": 5,
+      "community": 8,
       "norm_label": "matchstatusoption"
     },
     {
@@ -3400,7 +3440,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "repositories_predictions_repo_listpredictionrows",
-      "community": 8,
+      "community": 2,
       "norm_label": "listpredictionrows()"
     },
     {
@@ -4118,7 +4158,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "services_ranking_service",
-      "community": 8,
+      "community": 1,
       "norm_label": "ranking.service.ts"
     },
     {
@@ -4128,7 +4168,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "services_ranking_service_predictionrow",
-      "community": 8,
+      "community": 1,
       "norm_label": "predictionrow"
     },
     {
@@ -4158,7 +4198,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "services_ranking_service_shouldrefreshranking",
-      "community": 8,
+      "community": 1,
       "norm_label": "shouldrefreshranking()"
     },
     {
@@ -4168,7 +4208,7 @@
       "source_location": "L109",
       "_origin": "ast",
       "id": "services_ranking_service_getlatestranking",
-      "community": 8,
+      "community": 1,
       "norm_label": "getlatestranking()"
     },
     {
@@ -4668,7 +4708,7 @@
       "source_location": "L230",
       "_origin": "ast",
       "id": "services_worldcup26_service_mapworldcup26stage",
-      "community": 3,
+      "community": 1,
       "norm_label": "mapworldcup26stage()"
     },
     {
@@ -4678,7 +4718,7 @@
       "source_location": "L251",
       "_origin": "ast",
       "id": "services_worldcup26_service_mapworldcup26status",
-      "community": 3,
+      "community": 1,
       "norm_label": "mapworldcup26status()"
     },
     {
@@ -4908,7 +4948,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "types_domain",
-      "community": 27,
+      "community": 29,
       "norm_label": "domain.ts"
     },
     {
@@ -4928,7 +4968,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "types_domain_team",
-      "community": 27,
+      "community": 29,
       "norm_label": "team"
     },
     {
@@ -4938,7 +4978,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "types_domain_match",
-      "community": 27,
+      "community": 5,
       "norm_label": "match"
     },
     {
@@ -4948,7 +4988,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "types_domain_matchpredictionpoints",
-      "community": 27,
+      "community": 29,
       "norm_label": "matchpredictionpoints"
     },
     {
@@ -4958,7 +4998,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "types_domain_matchprediction",
-      "community": 27,
+      "community": 29,
       "norm_label": "matchprediction"
     },
     {
@@ -4968,7 +5008,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "types_domain_topfourprediction",
-      "community": 27,
+      "community": 29,
       "norm_label": "topfourprediction"
     },
     {
@@ -4978,7 +5018,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "types_domain_bracketslotprediction",
-      "community": 27,
+      "community": 29,
       "norm_label": "bracketslotprediction"
     },
     {
@@ -4988,7 +5028,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "types_domain_brackettopfourslot",
-      "community": 27,
+      "community": 29,
       "norm_label": "brackettopfourslot"
     },
     {
@@ -5028,7 +5068,7 @@
       "source_location": "L124",
       "_origin": "ast",
       "id": "types_domain_groupstanding",
-      "community": 27,
+      "community": 29,
       "norm_label": "groupstanding"
     },
     {
@@ -5038,7 +5078,7 @@
       "source_location": "L136",
       "_origin": "ast",
       "id": "types_domain_grouptable",
-      "community": 27,
+      "community": 29,
       "norm_label": "grouptable"
     },
     {
@@ -5048,7 +5088,7 @@
       "source_location": "L141",
       "_origin": "ast",
       "id": "types_domain_rankingrow",
-      "community": 8,
+      "community": 29,
       "norm_label": "rankingrow"
     },
     {
@@ -6248,9 +6288,9 @@
       "source_file": "actions/bracket.actions.ts",
       "source_location": "L17",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "actions_bracket_actions",
-      "target": "actions_bracket_actions_editorschema",
-      "confidence_score": 1.0
+      "target": "actions_bracket_actions_editorschema"
     },
     {
       "relation": "contains",
@@ -9148,6 +9188,279 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "components_bracketpredictionboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "components_bracketpredictionboard_bracketpredictionboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "lib_bracket_scoring",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "lib_bracket_scoring_isbracketlocked",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "lib_knockout_stages",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "lib_knockout_stages_isknockoutstage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "repositories_predictions_repo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "repositories_predictions_repo_getorcreatepredictiondocument",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "repositories_worldcup_repo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "repositories_worldcup_repo_listmatches",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "repositories_worldcup_repo_listteams",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "services_auth_service",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "services_auth_service_getcurrentuser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "services_prediction_document",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "services_prediction_document_normalizepredictiondocument",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "seu_chaveamento_page_seuchaveamentopage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page_seuchaveamentopage",
+      "target": "lib_bracket_scoring_isbracketlocked"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page_seuchaveamentopage",
+      "target": "repositories_predictions_repo_getorcreatepredictiondocument"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page_seuchaveamentopage",
+      "target": "repositories_worldcup_repo_listmatches"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page_seuchaveamentopage",
+      "target": "repositories_worldcup_repo_listteams"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page_seuchaveamentopage",
+      "target": "services_auth_service_getcurrentuser"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page_seuchaveamentopage",
+      "target": "services_prediction_document_normalizepredictiondocument"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/sobre/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "sobre_page",
+      "target": "lib_constants",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/sobre/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "sobre_page",
+      "target": "lib_constants_scoring_rules",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/sobre/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "sobre_page",
+      "target": "sobre_page_sobrepage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "app/top-4/page.tsx",
       "source_location": "L2",
       "weight": 1.0,
@@ -9634,9 +9947,9 @@
       "source_file": "components/BracketPredictionBoard.tsx",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_bracketpredictionboard",
-      "target": "components_bracketpredictionboard_effectivefirstround",
-      "confidence_score": 1.0
+      "target": "components_bracketpredictionboard_effectivefirstround"
     },
     {
       "relation": "contains",
@@ -9644,9 +9957,9 @@
       "source_file": "components/BracketPredictionBoard.tsx",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_bracketpredictionboard",
-      "target": "components_bracketpredictionboard_firstroundteams",
-      "confidence_score": 1.0
+      "target": "components_bracketpredictionboard_firstroundteams"
     },
     {
       "relation": "contains",
@@ -9654,9 +9967,9 @@
       "source_file": "components/BracketPredictionBoard.tsx",
       "source_location": "L86",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_bracketpredictionboard",
-      "target": "components_bracketpredictionboard_loserof",
-      "confidence_score": 1.0
+      "target": "components_bracketpredictionboard_loserof"
     },
     {
       "relation": "contains",
@@ -9664,9 +9977,9 @@
       "source_file": "components/BracketPredictionBoard.tsx",
       "source_location": "L52",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_bracketpredictionboard",
-      "target": "components_bracketpredictionboard_resolvebracket",
-      "confidence_score": 1.0
+      "target": "components_bracketpredictionboard_resolvebracket"
     },
     {
       "relation": "contains",
@@ -9674,9 +9987,9 @@
       "source_file": "components/BracketPredictionBoard.tsx",
       "source_location": "L27",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_bracketpredictionboard",
-      "target": "components_bracketpredictionboard_roundparticipants",
-      "confidence_score": 1.0
+      "target": "components_bracketpredictionboard_roundparticipants"
     },
     {
       "relation": "contains",
@@ -9684,9 +9997,9 @@
       "source_file": "components/BracketPredictionBoard.tsx",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_bracketpredictionboard",
-      "target": "components_bracketpredictionboard_roundpicks",
-      "confidence_score": 1.0
+      "target": "components_bracketpredictionboard_roundpicks"
     },
     {
       "relation": "contains",
@@ -9694,9 +10007,9 @@
       "source_file": "components/BracketPredictionBoard.tsx",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_bracketpredictionboard",
-      "target": "components_bracketpredictionboard_side",
-      "confidence_score": 1.0
+      "target": "components_bracketpredictionboard_side"
     },
     {
       "relation": "contains",
@@ -9704,9 +10017,9 @@
       "source_file": "components/BracketPredictionBoard.tsx",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_bracketpredictionboard",
-      "target": "components_bracketpredictionboard_slot",
-      "confidence_score": 1.0
+      "target": "components_bracketpredictionboard_slot"
     },
     {
       "relation": "imports_from",
@@ -9726,9 +10039,9 @@
       "source_file": "components/BracketPredictionBoard.tsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_bracketpredictionboard",
-      "target": "lib_knockout_bracket_tree_bracketround",
-      "confidence_score": 1.0
+      "target": "lib_knockout_bracket_tree_bracketround"
     },
     {
       "relation": "imports",
@@ -9781,9 +10094,9 @@
       "source_file": "components/BracketPredictionBoard.tsx",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_bracketpredictionboard",
-      "target": "types_domain_bracketeditorstate",
-      "confidence_score": 1.0
+      "target": "types_domain_bracketeditorstate"
     },
     {
       "relation": "imports",
@@ -9825,9 +10138,9 @@
       "source_file": "components/BracketPredictionBoard.tsx",
       "source_location": "L130",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_bracketpredictionboard_bracketpredictionboard",
-      "target": "components_bracketpredictionboard_loserof",
-      "confidence_score": 1.0
+      "target": "components_bracketpredictionboard_loserof"
     },
     {
       "relation": "calls",
@@ -10307,9 +10620,9 @@
       "source_file": "components/KnockoutPredictionFields.tsx",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_knockoutpredictionfields",
-      "target": "components_knockoutpredictionfields_method_icon",
-      "confidence_score": 1.0
+      "target": "components_knockoutpredictionfields_method_icon"
     },
     {
       "relation": "contains",
@@ -10327,9 +10640,9 @@
       "source_file": "components/KnockoutPredictionFields.tsx",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_knockoutpredictionfields",
-      "target": "components_knockoutpredictionfields_teamchip",
-      "confidence_score": 1.0
+      "target": "components_knockoutpredictionfields_teamchip"
     },
     {
       "relation": "imports_from",
@@ -18305,9 +18618,9 @@
       "source_file": "types/domain.ts",
       "source_location": "L75",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "types_domain",
-      "target": "types_domain_bracketeditorstate",
-      "confidence_score": 1.0
+      "target": "types_domain_bracketeditorstate"
     },
     {
       "relation": "contains",
@@ -18641,5 +18954,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d28646e1cb4b1e45f393fa6bccf8ab44263cbe6c"
+  "built_at_commit": "d69c487e44b0e6c43d0496d474c3ed4ba7351582"
 }

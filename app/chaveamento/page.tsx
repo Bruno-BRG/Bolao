@@ -1,12 +1,9 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
-import { BracketPredictionBoard } from "@/components/BracketPredictionBoard";
 import { KnockoutBracketBoard } from "@/components/KnockoutBracketBoard";
-import { isBracketLocked } from "@/lib/bracket-scoring";
 import { isKnockoutStage } from "@/lib/knockout-stages";
-import { getOrCreatePredictionDocument } from "@/repositories/predictions.repo";
-import { listMatches, listTeams } from "@/repositories/worldcup.repo";
+import { listMatches } from "@/repositories/worldcup.repo";
 import { getCurrentUser } from "@/services/auth.service";
-import { normalizePredictionDocument } from "@/services/prediction-document";
 
 export const dynamic = "force-dynamic";
 
@@ -14,14 +11,8 @@ export default async function ChaveamentoPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
-  const [matches, teams, row] = await Promise.all([
-    listMatches({ refreshIfStale: true }),
-    listTeams(),
-    getOrCreatePredictionDocument(user.id)
-  ]);
-  const document = normalizePredictionDocument(row.predictions);
+  const matches = await listMatches({ refreshIfStale: true });
   const knockoutMatches = matches.filter((match) => isKnockoutStage(match.stage));
-  const bracketLocked = isBracketLocked(matches);
 
   return (
     <main className="container">
@@ -29,27 +20,13 @@ export default async function ChaveamentoPage() {
         <div>
           <h1>Chaveamento</h1>
           <p className="muted">
-            Preveja o mata-mata ate a final e acompanhe o chaveamento oficial. O
-            chaveamento trava no inicio das oitavas.
+            Mata-mata oficial da Copa — resultados reais, times atualizados conforme os
+            jogos acontecem.
           </p>
         </div>
-      </section>
-
-      <section className="card">
-        <h2>Meu chaveamento</h2>
-        <p className="muted">
-          Escolha os vencedores de cada fase. Campeao e vice saem da final.
-        </p>
-        <BracketPredictionBoard
-          locked={bracketLocked}
-          matches={knockoutMatches}
-          savedBracket={document.bracket}
-          teams={teams}
-        />
-      </section>
-
-      <section className="page-header">
-        <h2>Chaveamento oficial</h2>
+        <Link className="button secondary" href="/seu_chaveamento">
+          Meu chaveamento
+        </Link>
       </section>
 
       {knockoutMatches.length === 0 ? (

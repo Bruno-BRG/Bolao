@@ -2310,3 +2310,46 @@ tbody tr:hover {
   border-color: var(--accent);
   color: #fff;
 }
+
+.page-header__actions {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rules-card {
+  display: grid;
+  gap: 12px;
+}
+
+.rules-card h2 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.rules-card__lead {
+  margin: 0;
+}
+
+.rules-list {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rules-list li {
+  border-left: 3px solid var(--accent);
+  padding-left: 12px;
+}
+
+.rules-callout {
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  padding: 12px 14px;
+}

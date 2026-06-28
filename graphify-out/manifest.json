@@ -40,8 +40,8 @@
     "semantic_hash": ""
   },
   "app/layout.tsx": {
-    "mtime": 1782655665.158405,
-    "ast_hash": "32ef1f56065c4f72b7ce046851e6064d",
+    "mtime": 1782657301.8995311,
+    "ast_hash": "f78ab16a39afac6c619b923857b1ee25",
     "semantic_hash": ""
   },
   "app/login/page.tsx": {
@@ -475,8 +475,8 @@
     "semantic_hash": ""
   },
   "app/chaveamento/page.tsx": {
-    "mtime": 1782655662.2026658,
-    "ast_hash": "80186c12edbb742da02bf91b610f4816",
+    "mtime": 1782657284.7388783,
+    "ast_hash": "05cf1a9811bd52cef8030ab8b7bae2f6",
     "semantic_hash": ""
   },
   "components/KnockoutBracketBoard.tsx": {
@@ -490,8 +490,8 @@
     "semantic_hash": ""
   },
   "actions/bracket.actions.ts": {
-    "mtime": 1782656766.2087295,
-    "ast_hash": "198aa9e5a8f7b096cffae1e5ed483646",
+    "mtime": 1782657302.2391546,
+    "ast_hash": "775075294be68d503ed1e69ff5333f28",
     "semantic_hash": ""
   },
   "components/BracketPredictionBoard.tsx": {
@@ -537,6 +537,16 @@
   "scripts/verify-knockout-scoring.mjs": {
     "mtime": 1782655696.8785517,
     "ast_hash": "d5f9afd946f5cd6318d4f57fe4687d37",
+    "semantic_hash": ""
+  },
+  "app/seu_chaveamento/page.tsx": {
+    "mtime": 1782657288.688593,
+    "ast_hash": "a95047b1fda4ab5c7a0ae045e7433d4d",
+    "semantic_hash": ""
+  },
+  "app/sobre/page.tsx": {
+    "mtime": 1782657299.4586217,
+    "ast_hash": "f06b0336a919997efb0fc9b40804b980",
     "semantic_hash": ""
   }
 }

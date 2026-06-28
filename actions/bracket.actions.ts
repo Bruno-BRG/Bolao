@@ -90,6 +90,7 @@ export async function saveBracketPredictionAction(
     document.bracket = bracket;
     await updatePredictionDocument(user.id, document);
 
+    revalidatePath("/seu_chaveamento");
     revalidatePath("/chaveamento");
     revalidatePath("/ranking");
     return { ok: true };

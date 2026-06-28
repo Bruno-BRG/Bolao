@@ -93,24 +93,9 @@ export default function SobrePage() {
           </li>
         </ul>
         <p className="muted">
-          O chaveamento trava no inicio do primeiro jogo das oitavas. Depois disso nao
-          da para editar.
+          O chaveamento (incluindo campeao, vice e podio) trava no inicio do primeiro jogo
+          das oitavas. Depois disso nao da para editar.
         </p>
-      </section>
-
-      <section className="card rules-card">
-        <h2>Top 4 (palpite unico)</h2>
-        <ul className="rules-list">
-          <li>
-            <strong>{SCORING_RULES.topFourExactPosition} pts</strong> por posicao exata
-            (1o, 2o, 3o ou 4o)
-          </li>
-          <li>
-            <strong>{SCORING_RULES.topFourIncluded} pts</strong> se o time estiver no Top
-            4, mas na posicao errada
-          </li>
-        </ul>
-        <p className="muted">Salvo uma vez e nao pode ser alterado depois.</p>
       </section>
 
       <section className="card rules-card">
@@ -120,10 +105,7 @@ export default function SobrePage() {
             <strong>Palpite de jogo</strong> — trava na hora do inicio da partida
           </li>
           <li>
-            <strong>Seu chaveamento</strong> — trava no inicio das oitavas
-          </li>
-          <li>
-            <strong>Top 4</strong> — trava no primeiro envio
+            <strong>Seu chaveamento</strong> — trava no inicio das oitavas (inclui o podio)
           </li>
         </ul>
       </section>
@@ -131,8 +113,8 @@ export default function SobrePage() {
       <section className="card rules-card">
         <h2>Ranking</h2>
         <p className="muted">
-          O ranking geral soma tudo: jogos da fase de grupos, bonus do mata-mata, Top 4 e
-          pontos do chaveamento. No ranking voce tambem ve a divisao por categoria.
+          O ranking geral soma tudo: jogos da fase de grupos, bonus do mata-mata e pontos do
+          chaveamento. No ranking voce tambem ve a divisao por categoria.
         </p>
       </section>
     </main>

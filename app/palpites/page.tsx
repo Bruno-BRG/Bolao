@@ -27,7 +27,7 @@ export default async function PalpitesPage({
   const visibleMatches = matches.filter((match) =>
     shouldShowMatchInPalpites(match, savedMatchIds)
   );
-  const hasTopFour = Boolean(document.topFour);
+  const hasBracket = Boolean(document.bracket?.championTeamId);
 
   return (
     <main className="container">
@@ -41,14 +41,16 @@ export default async function PalpitesPage({
         </div>
       </section>
 
-      {!hasTopFour ? (
+      {!hasBracket ? (
         <section className="card action-card">
           <div>
-            <h2>Faca tambem seu Top 4</h2>
-            <p className="muted">Campeao, vice, terceiro e quarto. Vale mais pontos.</p>
+            <h2>Monte seu chaveamento</h2>
+            <p className="muted">
+              Preveja o mata-mata ate a final e o podio (campeao, vice, 3o e 4o).
+            </p>
           </div>
-          <Link className="button" href="/top-4">
-            Ir para o Top 4
+          <Link className="button" href="/seu_chaveamento">
+            Ir para seu chaveamento
           </Link>
         </section>
       ) : null}

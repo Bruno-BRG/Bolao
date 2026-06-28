@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Bolao da Copa",
-  description: "Palpites e Top 4 da Copa do Mundo."
+  description: "Palpites, chaveamento e ranking da Copa do Mundo."
 };
 
 export default async function RootLayout({
@@ -17,8 +17,7 @@ export default async function RootLayout({
   const mainLinks = user
     ? [
         { href: "/palpites", label: "Meus palpites", prominent: true },
-        { href: "/seu_chaveamento", label: "Seu chaveamento", prominent: true },
-        { href: "/top-4", label: "Top 4", prominent: true }
+        { href: "/seu_chaveamento", label: "Seu chaveamento", prominent: true }
       ]
     : [{ href: "/login", label: "Entrar", prominent: true }];
 

@@ -3,6 +3,8 @@ import { AppShell } from "@/components/AppShell";
 import { getCurrentUser } from "@/services/auth.service";
 import "./globals.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Bolao da Copa",
   description: "Palpites, chaveamento e ranking da Copa do Mundo."

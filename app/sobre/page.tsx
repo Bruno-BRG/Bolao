@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { SCORING_RULES } from "@/lib/constants";
 
-export const dynamic = "force-static";
-
 export default function SobrePage() {
   return (
     <main className="container container--narrow">

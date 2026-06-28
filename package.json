@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "test:scoring": "node scripts/verify-scoring.mjs && node scripts/verify-knockout-scoring.mjs",
     "docker:up": "docker compose up --build"
   },
   "dependencies": {

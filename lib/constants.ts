@@ -5,6 +5,10 @@ export const SCORING_RULES = {
   exactScore: 10,
   correctWinner: 7,
   correctDraw: 5,
+  knockoutQualified: 5,
+  knockoutMethodRegular: 2,
+  knockoutMethodExtraTime: 3,
+  knockoutMethodPenalties: 4,
   topFourExactPosition: 10,
   topFourIncluded: 5
 } as const;

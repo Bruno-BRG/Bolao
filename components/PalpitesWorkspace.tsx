@@ -3,7 +3,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveMatchPredictionAction } from "@/actions/predictions.actions";
+import { KnockoutPredictionFields } from "@/components/KnockoutPredictionFields";
 import { formatCompactDateTime, formatDayHeading, appLocalDayKey, isSameAppDay } from "@/lib/date";
+import type { DecisionMethod } from "@/lib/decision-method";
+import { isKnockoutMatch } from "@/lib/match-knockout";
+import {
+  allowedDecisionMethods,
+  inferWinnerFromScore
+} from "@/lib/knockout-prediction-validation";
 import { isMatchLockedForPrediction } from "@/lib/match-lock";
 import { getDisplayOfficialScore } from "@/lib/match-score";
 import { isMatchLive } from "@/lib/match-status";
@@ -18,6 +25,8 @@ import type { Match, MatchPrediction } from "@/types/domain";
 type ScoreState = {
   homeGoals: string;
   awayGoals: string;
+  predictedWinnerTeamId: string | null;
+  predictedDecidedBy: DecisionMethod | null;
 };
 
 type RowStatus = "idle" | "saving" | "saved" | "error";
@@ -68,11 +77,18 @@ function toScoreState(matchId: string, saved?: MatchPrediction): ScoreState {
   if (saved) {
     return {
       homeGoals: String(saved.homeGoals),
-      awayGoals: String(saved.awayGoals)
+      awayGoals: String(saved.awayGoals),
+      predictedWinnerTeamId: saved.predictedWinnerTeamId ?? null,
+      predictedDecidedBy: saved.predictedDecidedBy ?? null
     };
   }
 
-  return { homeGoals: "", awayGoals: "" };
+  return {
+    homeGoals: "",
+    awayGoals: "",
+    predictedWinnerTeamId: null,
+    predictedDecidedBy: null
+  };
 }
 
 function parseScore(value: string) {
@@ -97,7 +113,9 @@ function PalpiteMatchRow({
   current,
   status,
   showGroupLabel,
-  onUpdateScore
+  onUpdateScore,
+  onWinnerChange,
+  onMethodChange
 }: {
   match: Match;
   now: number;
@@ -106,9 +124,12 @@ function PalpiteMatchRow({
   status?: RowStatus;
   showGroupLabel?: boolean;
   onUpdateScore: (match: Match, side: "homeGoals" | "awayGoals", value: string) => void;
+  onWinnerChange: (match: Match, teamId: string) => void;
+  onMethodChange: (match: Match, method: DecisionMethod) => void;
 }) {
   const locked = isMatchLockedForPrediction(match, now) || !isMatchPredictable(match);
   const live = isMatchLive(match);
+  const knockout = isKnockoutMatch(match);
   const homeName = getMatchTeamLabel(match, "home");
   const awayName = getMatchTeamLabel(match, "away");
   const officialScore = getDisplayOfficialScore(match);
@@ -203,6 +224,19 @@ function PalpiteMatchRow({
           <span>{awayName}</span>
         </div>
       </div>
+
+      {knockout ? (
+        <KnockoutPredictionFields
+          awayGoals={current.awayGoals}
+          homeGoals={current.homeGoals}
+          locked={locked}
+          match={match}
+          onMethodChange={(method) => onMethodChange(match, method)}
+          onWinnerChange={(teamId) => onWinnerChange(match, teamId)}
+          predictedDecidedBy={current.predictedDecidedBy}
+          predictedWinnerTeamId={current.predictedWinnerTeamId}
+        />
+      ) : null}
     </article>
   );
 }
@@ -276,7 +310,11 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
         if (!draft) continue;
         next[match.external_id] = {
           homeGoals: String(draft.homeGoals),
-          awayGoals: String(draft.awayGoals)
+          awayGoals: String(draft.awayGoals),
+          predictedWinnerTeamId:
+            savedPredictions[match.external_id]?.predictedWinnerTeamId ?? null,
+          predictedDecidedBy:
+            savedPredictions[match.external_id]?.predictedDecidedBy ?? null
         };
       }
       return next;
@@ -328,11 +366,19 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
   async function persistMatch(
     match: Match,
     homeGoals: number,
-    awayGoals: number
+    awayGoals: number,
+    predictedWinnerTeamId: string | null,
+    predictedDecidedBy: DecisionMethod | null
   ) {
     const matchId = match.external_id;
     const saved = savedBaseline.current[matchId];
-    if (saved && saved.homeGoals === homeGoals && saved.awayGoals === awayGoals) {
+    if (
+      saved &&
+      saved.homeGoals === homeGoals &&
+      saved.awayGoals === awayGoals &&
+      (saved.predictedWinnerTeamId ?? null) === predictedWinnerTeamId &&
+      (saved.predictedDecidedBy ?? null) === predictedDecidedBy
+    ) {
       setRowStatus((current) => ({ ...current, [matchId]: "saved" }));
       return;
     }
@@ -342,7 +388,9 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
     const result = await saveMatchPredictionAction({
       matchId,
       homeGoals,
-      awayGoals
+      awayGoals,
+      predictedWinnerTeamId,
+      predictedDecidedBy
     });
 
     if (result.ok) {
@@ -366,6 +414,30 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
       return;
     }
 
+    const knockout = isKnockoutMatch(match);
+    let predictedWinnerTeamId = nextScore.predictedWinnerTeamId;
+    let predictedDecidedBy = nextScore.predictedDecidedBy;
+
+    if (knockout && match.home_team_id && match.away_team_id) {
+      const inferred = inferWinnerFromScore(
+        home,
+        away,
+        match.home_team_id,
+        match.away_team_id
+      );
+      if (inferred) predictedWinnerTeamId = inferred;
+
+      if (!predictedDecidedBy) {
+        const methods = allowedDecisionMethods(home, away);
+        if (methods.length === 1) predictedDecidedBy = methods[0];
+      }
+
+      if (!predictedWinnerTeamId || !predictedDecidedBy) {
+        setRowStatus((current) => ({ ...current, [matchId]: "idle" }));
+        return;
+      }
+    }
+
     upsertPredictionDraft(matchId, home, away);
     setRowStatus((current) => ({ ...current, [matchId]: "idle" }));
 
@@ -374,15 +446,83 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
     }
 
     saveTimers.current[matchId] = setTimeout(() => {
-      void persistMatch(match, home, away);
+      void persistMatch(
+        match,
+        home,
+        away,
+        knockout ? predictedWinnerTeamId : null,
+        knockout ? predictedDecidedBy : null
+      );
     }, 700);
   }
 
   function updateScore(match: Match, side: "homeGoals" | "awayGoals", value: string) {
     setScores((current) => {
+      const previous = current[match.external_id] ?? toScoreState(match.external_id);
+      const home =
+        side === "homeGoals" ? value : previous.homeGoals;
+      const away =
+        side === "awayGoals" ? value : previous.awayGoals;
+      const homeNum = parseScore(home);
+      const awayNum = parseScore(away);
+
+      let predictedWinnerTeamId = previous.predictedWinnerTeamId;
+      let predictedDecidedBy = previous.predictedDecidedBy;
+
+      if (
+        isKnockoutMatch(match) &&
+        homeNum !== null &&
+        awayNum !== null &&
+        match.home_team_id &&
+        match.away_team_id
+      ) {
+        const inferred = inferWinnerFromScore(
+          homeNum,
+          awayNum,
+          match.home_team_id,
+          match.away_team_id
+        );
+        if (inferred) {
+          predictedWinnerTeamId = inferred;
+        } else {
+          predictedWinnerTeamId = null;
+        }
+
+        const methods = allowedDecisionMethods(homeNum, awayNum);
+        if (!methods.includes(predictedDecidedBy as DecisionMethod)) {
+          predictedDecidedBy = methods.length === 1 ? methods[0] : null;
+        }
+      }
+
       const nextScore = {
-        ...current[match.external_id],
-        [side]: value
+        homeGoals: home,
+        awayGoals: away,
+        predictedWinnerTeamId,
+        predictedDecidedBy
+      };
+      const next = { ...current, [match.external_id]: nextScore };
+      scheduleAutoSave(match, nextScore);
+      return next;
+    });
+  }
+
+  function updateWinner(match: Match, teamId: string) {
+    setScores((current) => {
+      const nextScore = {
+        ...(current[match.external_id] ?? toScoreState(match.external_id)),
+        predictedWinnerTeamId: teamId
+      };
+      const next = { ...current, [match.external_id]: nextScore };
+      scheduleAutoSave(match, nextScore);
+      return next;
+    });
+  }
+
+  function updateMethod(match: Match, method: DecisionMethod) {
+    setScores((current) => {
+      const nextScore = {
+        ...(current[match.external_id] ?? toScoreState(match.external_id)),
+        predictedDecidedBy: method
       };
       const next = { ...current, [match.external_id]: nextScore };
       scheduleAutoSave(match, nextScore);
@@ -410,6 +550,8 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
                 match={match}
                 now={now}
                 onUpdateScore={updateScore}
+                onWinnerChange={updateWinner}
+                onMethodChange={updateMethod}
                 saved={savedPredictions[match.external_id]}
                 showGroupLabel
                 status={rowStatus[match.external_id]}
@@ -437,6 +579,8 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
                 match={match}
                 now={now}
                 onUpdateScore={updateScore}
+                onWinnerChange={updateWinner}
+                onMethodChange={updateMethod}
                 saved={savedPredictions[match.external_id]}
                 showGroupLabel
                 status={rowStatus[match.external_id]}
@@ -463,6 +607,8 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
                 match={match}
                 now={now}
                 onUpdateScore={updateScore}
+                onWinnerChange={updateWinner}
+                onMethodChange={updateMethod}
                 saved={savedPredictions[match.external_id]}
                 showGroupLabel
                 status={rowStatus[match.external_id]}

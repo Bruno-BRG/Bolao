@@ -21,7 +21,8 @@ export const listTeams = cache(async (): Promise<Team[]> => {
 async function readMatchesFromCache(): Promise<Match[]> {
   const { rows } = await query<Match>(
     `SELECT external_id, tournament_code, home_team_id, away_team_id, starts_at,
-            stage, group_name, status, score_home, score_away, payload
+            stage, group_name, status, score_home, score_away,
+            winner_team_id, decided_by, payload
      FROM matches_cache
      WHERE tournament_code = $1
      ORDER BY starts_at, external_id`,

@@ -17,6 +17,7 @@ export default async function RootLayout({
   const mainLinks = user
     ? [
         { href: "/palpites", label: "Meus palpites", prominent: true },
+        { href: "/chaveamento", label: "Chaveamento", prominent: true },
         { href: "/top-4", label: "Top 4", prominent: true }
       ]
     : [{ href: "/login", label: "Entrar", prominent: true }];

@@ -8,6 +8,7 @@ import {
   updateMatchAdminAction
 } from "@/actions/admin.actions";
 import { isSameAppDay } from "@/lib/date";
+import { DECISION_METHOD_LABELS, DECISION_METHOD_OPTIONS } from "@/lib/decision-method";
 import { ADMIN_STAGE_OPTIONS, isKnockoutStage } from "@/lib/knockout-stages";
 import { getMatchTeamLabel } from "@/lib/match-visibility";
 import { isMatchLive, MATCH_STATUS_OPTIONS } from "@/lib/match-status";
@@ -378,6 +379,37 @@ export function AdminMatchesPanel({
                     type="datetime-local"
                   />
                 </div>
+
+                {isKnockoutStage(match.stage) ? (
+                  <>
+                    <div className="field">
+                      <label>Classificado</label>
+                      <select
+                        defaultValue={match.winner_team_id ?? ""}
+                        name="winnerTeamId"
+                      >
+                        <option value="">A definir</option>
+                        {teams.map((team) => (
+                          <option key={team.external_id} value={team.external_id}>
+                            {team.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="field">
+                      <label>Forma de decisao</label>
+                      <select defaultValue={match.decided_by ?? ""} name="decidedBy">
+                        <option value="">A definir</option>
+                        {DECISION_METHOD_OPTIONS.map((method) => (
+                          <option key={method} value={method}>
+                            {DECISION_METHOD_LABELS[method]}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </>
+                ) : null}
               </div>
 
               <label className="admin-match-card__recalc">

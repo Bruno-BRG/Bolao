@@ -5,15 +5,24 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { isMatchPredictable } from "@/lib/match-visibility";
 import { isMatchLockedForPrediction } from "@/lib/match-lock";
+import { isKnockoutMatch } from "@/lib/match-knockout";
+import {
+  normalizeKnockoutPrediction,
+  validateKnockoutPrediction
+} from "@/lib/knockout-prediction-validation";
+import { isDecisionMethod } from "@/lib/decision-method";
 import { getOrCreatePredictionDocument, updatePredictionDocument } from "@/repositories/predictions.repo";
 import { findMatch } from "@/repositories/worldcup.repo";
 import { getCurrentUser } from "@/services/auth.service";
 import { normalizePredictionDocument } from "@/services/prediction-document";
+import type { DecisionMethod } from "@/lib/decision-method";
 
 const predictionSchema = z.object({
   matchId: z.string().min(1),
   homeGoals: z.coerce.number().int().min(0).max(30),
-  awayGoals: z.coerce.number().int().min(0).max(30)
+  awayGoals: z.coerce.number().int().min(0).max(30),
+  predictedWinnerTeamId: z.string().nullable().optional(),
+  predictedDecidedBy: z.string().nullable().optional()
 });
 
 const bulkPredictionSchema = z.object({
@@ -22,7 +31,9 @@ const bulkPredictionSchema = z.object({
       z.object({
         matchId: z.string().min(1),
         homeGoals: z.number().int().min(0).max(30),
-        awayGoals: z.number().int().min(0).max(30)
+        awayGoals: z.number().int().min(0).max(30),
+        predictedWinnerTeamId: z.string().nullable().optional(),
+        predictedDecidedBy: z.string().nullable().optional()
       })
     )
     .min(1)
@@ -67,6 +78,42 @@ async function persistMatchPrediction(
   if (!isMatchPredictable(match)) return { status: "unpredictable" as const };
   if (isMatchLocked(match)) return { status: "locked" as const };
 
+  const knockout = isKnockoutMatch(match);
+  let predictedWinnerTeamId = input.predictedWinnerTeamId ?? null;
+  let predictedDecidedBy = isDecisionMethod(input.predictedDecidedBy)
+    ? input.predictedDecidedBy
+    : null;
+
+  if (knockout) {
+    if (!match.home_team_id || !match.away_team_id) {
+      return { status: "unpredictable" as const };
+    }
+
+    const validationError = validateKnockoutPrediction({
+      homeGoals: input.homeGoals,
+      awayGoals: input.awayGoals,
+      predictedWinnerTeamId,
+      predictedDecidedBy,
+      homeTeamId: match.home_team_id,
+      awayTeamId: match.away_team_id
+    });
+
+    if (validationError) {
+      return { status: "invalid" as const, error: validationError };
+    }
+
+    const normalized = normalizeKnockoutPrediction({
+      homeGoals: input.homeGoals,
+      awayGoals: input.awayGoals,
+      predictedWinnerTeamId,
+      predictedDecidedBy,
+      homeTeamId: match.home_team_id,
+      awayTeamId: match.away_team_id
+    });
+    predictedWinnerTeamId = normalized.predictedWinnerTeamId;
+    predictedDecidedBy = normalized.predictedDecidedBy;
+  }
+
   const row = await getOrCreatePredictionDocument(userId);
   const document = normalizePredictionDocument(row.predictions);
   const existing = document.matches[input.matchId];
@@ -74,7 +121,9 @@ async function persistMatchPrediction(
   if (
     existing &&
     existing.homeGoals === input.homeGoals &&
-    existing.awayGoals === input.awayGoals
+    existing.awayGoals === input.awayGoals &&
+    (existing.predictedWinnerTeamId ?? null) === predictedWinnerTeamId &&
+    (existing.predictedDecidedBy ?? null) === predictedDecidedBy
   ) {
     return { status: "unchanged" as const };
   }
@@ -86,6 +135,8 @@ async function persistMatchPrediction(
     awayTeamId: match.away_team_id,
     homeGoals: input.homeGoals,
     awayGoals: input.awayGoals,
+    predictedWinnerTeamId: knockout ? predictedWinnerTeamId : undefined,
+    predictedDecidedBy: knockout ? predictedDecidedBy : undefined,
     savedAt: now,
     locked: false,
     points: null
@@ -99,6 +150,8 @@ export async function saveMatchPredictionAction(input: {
   matchId: string;
   homeGoals: number;
   awayGoals: number;
+  predictedWinnerTeamId?: string | null;
+  predictedDecidedBy?: DecisionMethod | null;
 }): Promise<MatchSaveResult> {
   const user = await getCurrentUser();
   if (!user) return { ok: false, error: "Faca login para salvar." };
@@ -114,6 +167,9 @@ export async function saveMatchPredictionAction(input: {
     }
 
     if (result.status === "unchanged") return { ok: true, unchanged: true };
+    if (result.status === "invalid") {
+      return { ok: false, error: result.error ?? "Palpite invalido." };
+    }
     if (result.status === "locked") {
       return { ok: false, error: "Palpite bloqueado: o jogo ja comecou." };
     }

@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { isValidAdminToken } from "@/lib/admin-auth";
 import { ADMIN_STAGE_OPTIONS } from "@/lib/knockout-stages";
+import { isDecisionMethod } from "@/lib/decision-method";
 import { MATCH_STATUS_OPTIONS } from "@/lib/match-status";
 import { createMatchFromAdmin, updateMatchFromAdmin } from "@/services/match-admin.service";
 import { recalculateRanking } from "@/services/ranking.service";
@@ -17,7 +18,9 @@ const updateMatchSchema = z.object({
   scoreAway: z.coerce.number().int().min(0).max(30).optional(),
   startsAt: z.string().optional(),
   homeTeamId: z.string().optional(),
-  awayTeamId: z.string().optional()
+  awayTeamId: z.string().optional(),
+  winnerTeamId: z.string().optional(),
+  decidedBy: z.string().optional()
 });
 
 export async function recalculateRankingAction(formData: FormData) {
@@ -156,6 +159,8 @@ export async function updateMatchAdminAction(formData: FormData) {
   const startsAtRaw = String(formData.get("startsAt") ?? "").trim();
   const homeTeamId = String(formData.get("homeTeamId") ?? "").trim();
   const awayTeamId = String(formData.get("awayTeamId") ?? "").trim();
+  const winnerTeamId = String(formData.get("winnerTeamId") ?? "").trim();
+  const decidedByRaw = String(formData.get("decidedBy") ?? "").trim();
 
   const parsed = updateMatchSchema.safeParse({
     matchId: formData.get("matchId"),
@@ -164,7 +169,9 @@ export async function updateMatchAdminAction(formData: FormData) {
     scoreAway: scoreAwayRaw === "" ? undefined : scoreAwayRaw,
     startsAt: startsAtRaw || undefined,
     homeTeamId: homeTeamId || undefined,
-    awayTeamId: awayTeamId || undefined
+    awayTeamId: awayTeamId || undefined,
+    winnerTeamId: winnerTeamId || undefined,
+    decidedBy: decidedByRaw || undefined
   });
 
   if (!parsed.success) {
@@ -187,7 +194,9 @@ export async function updateMatchAdminAction(formData: FormData) {
       scoreAway: scoreAwayRaw === "" ? null : (parsed.data.scoreAway ?? null),
       startsAt,
       homeTeamId: homeTeamId || null,
-      awayTeamId: awayTeamId || null
+      awayTeamId: awayTeamId || null,
+      winnerTeamId: winnerTeamId || null,
+      decidedBy: isDecisionMethod(decidedByRaw) ? decidedByRaw : null
     });
 
     if (formData.get("recalculateRanking") === "on") {

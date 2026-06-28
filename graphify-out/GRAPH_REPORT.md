@@ -1,16 +1,16 @@
-# Graph Report - Bolao  (2026-06-26)
+# Graph Report - Bolao  (2026-06-28)
 
 ## Corpus Check
-- 90 files · ~55,123 words
+- 102 files · ~60,485 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 456 nodes · 1043 edges · 28 communities (20 shown, 8 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
+- 529 nodes · 1277 edges · 30 communities (21 shown, 9 thin omitted)
+- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 1 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `42be3726`
+- Built from commit: `d69c487e`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -41,18 +41,20 @@
 - [[_COMMUNITY_Community 25|Community 25]]
 - [[_COMMUNITY_Community 26|Community 26]]
 - [[_COMMUNITY_Community 27|Community 27]]
+- [[_COMMUNITY_Community 28|Community 28]]
+- [[_COMMUNITY_Community 29|Community 29]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `query()` - 25 edges
-2. `getCurrentUser` - 25 edges
-3. `listMatches()` - 19 edges
-4. `recalculateRanking()` - 19 edges
-5. `ensureWorldCupData()` - 17 edges
-6. `compilerOptions` - 16 edges
-7. `normalizePredictionDocument()` - 15 edges
-8. `getLatestRanking()` - 14 edges
-9. `Match` - 14 edges
-10. `syncWorldCupFromWorldCup26()` - 13 edges
+1. `getCurrentUser` - 29 edges
+2. `query()` - 25 edges
+3. `listMatches()` - 23 edges
+4. `normalizePredictionDocument()` - 21 edges
+5. `recalculateRanking()` - 19 edges
+6. `getOrCreatePredictionDocument()` - 18 edges
+7. `Match` - 18 edges
+8. `isMatchFinished()` - 17 edges
+9. `ensureWorldCupData()` - 17 edges
+10. `listTeams` - 16 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `RootLayout()` --calls--> `getCurrentUser`  [EXTRACTED]
@@ -61,15 +63,15 @@
   app/login/page.tsx → services/auth.service.ts
 - `RankingPage()` --calls--> `getLatestRanking()`  [EXTRACTED]
   app/ranking/page.tsx → services/ranking.service.ts
-- `recalculateRankingAction()` --calls--> `recalculateRanking()`  [EXTRACTED]
-  actions/admin.actions.ts → services/ranking.service.ts
-- `syncWorldCupAdminAction()` --calls--> `recalculateRanking()`  [EXTRACTED]
-  actions/admin.actions.ts → services/ranking.service.ts
+- `syncWorldCupAdminAction()` --calls--> `syncWorldCupData()`  [EXTRACTED]
+  actions/admin.actions.ts → services/worldcup-sync.service.ts
+- `persistMatchPrediction()` --calls--> `isDecisionMethod()`  [EXTRACTED]
+  actions/predictions.actions.ts → lib/decision-method.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (28 total, 8 thin omitted)
+## Communities (30 total, 9 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.29
@@ -77,43 +79,43 @@ Nodes (6): Deploy na Railway (2 servicos), Deploy na Railway (branch `feature/ra
 
 ### Community 1 - "Community 1"
 Cohesion: 0.08
-Nodes (50): GET(), countMatches(), getLatestSuccessfulSync(), GroupRow, insertSyncLog(), MatchRow, pruneTeams(), TeamRow (+42 more)
+Nodes (49): GET(), countMatches(), getLatestSuccessfulSync(), GroupRow, insertSyncLog(), MatchRow, pruneTeams(), TeamRow (+41 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.11
-Nodes (37): bulkPredictionSchema, ensureUnique(), isMatchLocked(), MatchSaveResult, persistMatchPrediction(), predictionSchema, saveBulkPredictionsAction(), saveMatchPredictionAction() (+29 more)
+Cohesion: 0.14
+Nodes (35): BracketSaveResult, bracketSchema, editorSchema, saveBracketPredictionAction(), slotSchema, persistMatchPrediction(), saveBulkPredictionsAction(), saveMatchPredictionAction() (+27 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.15
-Nodes (15): HomePage(), mapWorldCup26Stage(), mapWorldCup26Status(), fetchCollection(), fetchJson(), getLiveFeedHighlights(), getLiveWorldCupData(), LiveGameResponse (+7 more)
+Cohesion: 0.17
+Nodes (13): HomePage(), fetchCollection(), fetchJson(), getLiveFeedHighlights(), getLiveWorldCupData(), LiveGameResponse, LiveGroupResponse, LiveGroupStanding (+5 more)
 
 ### Community 4 - "Community 4"
 Cohesion: 0.10
 Nodes (30): changePasswordAction(), loginAction(), logoutAction(), registerAction(), setSessionCookie(), validateCredentials(), metadata, RootLayout() (+22 more)
 
 ### Community 5 - "Community 5"
-Cohesion: 0.13
-Nodes (17): RANKING_POLL_MS, RankingLiveBoard(), RankingTable(), TopFourForm(), SCORING_RULES, RankingPage(), calculatePredictionScore(), getOutcome() (+9 more)
+Cohesion: 0.16
+Nodes (26): BracketPointsBreakdown, BracketSlotPick, BracketTopFourPick, calculateBracketPoints(), countSetOverlap(), getFirstKnockoutRoundStart(), OfficialBracket, resolveOfficialBracket() (+18 more)
 
 ### Community 6 - "Community 6"
 Cohesion: 0.08
-Nodes (24): dependencies, bcryptjs, next, pg, react, react-dom, zod, devDependencies (+16 more)
+Nodes (25): dependencies, bcryptjs, next, pg, react, react-dom, zod, devDependencies (+17 more)
 
 ### Community 7 - "Community 7"
 Cohesion: 0.10
 Nodes (19): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+11 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.13
-Nodes (22): createMatchAdminAction(), createMatchSchema, recalculateRankingAction(), revalidateMatchPaths(), syncWorldCupAdminAction(), updateMatchAdminAction(), updateMatchSchema, Filter (+14 more)
+Cohesion: 0.11
+Nodes (28): createMatchAdminAction(), createMatchSchema, recalculateRankingAction(), revalidateMatchPaths(), syncWorldCupAdminAction(), updateMatchAdminAction(), updateMatchSchema, AdminMatchesPanel() (+20 more)
 
 ### Community 9 - "Community 9"
 Cohesion: 0.17
 Nodes (11): Banco, Bolao da Copa, Comandos, Endpoints admin, GitHub Actions (recomendado na Copa), Modelo DB-first, Pontuacao, Railway (+3 more)
 
 ### Community 15 - "Community 15"
-Cohesion: 0.09
-Nodes (31): BulkSaveResult, isMatchToday(), PalpiteMatchRow(), PalpitesWorkspace(), PalpitesWorkspaceProps, RowStatus, ScoreState, stageChip() (+23 more)
+Cohesion: 0.06
+Nodes (48): bulkPredictionSchema, BulkSaveResult, ensureUnique(), isMatchLocked(), MatchSaveResult, predictionSchema, topFourSchema, KnockoutPredictionFields() (+40 more)
 
 ### Community 16 - "Community 16"
 Cohesion: 0.50
@@ -133,35 +135,39 @@ Nodes (3): run-migrations.sh script, bootstrap_existing_database(), mark_migrati
 
 ### Community 25 - "Community 25"
 Cohesion: 0.08
-Nodes (37): buildTeamGroupMap(), ComputedGroupTable, ComputedStandingRow, computeGroupStandingsFromMatches(), getGroupFromMatch(), getQualifiedThirdPlaceGroups(), findKnockoutMismatches(), getGroupTable() (+29 more)
+Nodes (36): buildTeamGroupMap(), ComputedGroupTable, ComputedStandingRow, computeGroupStandingsFromMatches(), getGroupFromMatch(), getQualifiedThirdPlaceGroups(), findKnockoutMismatches(), getGroupTable() (+28 more)
 
 ### Community 26 - "Community 26"
 Cohesion: 0.40
 Nodes (4): block, end, rows, start
 
 ### Community 27 - "Community 27"
-Cohesion: 0.13
-Nodes (22): BracketMatchCard(), KnockoutBracketBoardProps, teamWonSide(), formatCompactDateTime(), BracketRound, KNOCKOUT_ROUNDS, isKnockoutStage(), isMatchFinished() (+14 more)
+Cohesion: 0.07
+Nodes (35): BracketPredictionBoard(), BracketPredictionBoardProps, FirstRoundTeams, loserOf(), RoundParticipants, RoundPicks, Side, Slot (+27 more)
+
+### Community 29 - "Community 29"
+Cohesion: 0.12
+Nodes (16): CommunityMember, CommunityPredictionsBoard(), RANKING_POLL_MS, RankingLiveBoard(), RankingTable(), TopFourForm(), RankingPage(), BracketSlotPrediction (+8 more)
 
 ## Knowledge Gaps
-- **134 isolated node(s):** `enabled`, `updateMatchSchema`, `createMatchSchema`, `predictionSchema`, `bulkPredictionSchema` (+129 more)
+- **159 isolated node(s):** `enabled`, `updateMatchSchema`, `createMatchSchema`, `slotSchema`, `editorSchema` (+154 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
+- **Why does `Match` connect `Community 5` to `Community 2`, `Community 3`, `Community 8`, `Community 15`, `Community 25`, `Community 27`, `Community 29`?**
+  _High betweenness centrality (0.035) - this node is a cross-community bridge._
 - **Why does `query()` connect `Community 1` to `Community 8`, `Community 25`, `Community 2`, `Community 4`?**
-  _High betweenness centrality (0.033) - this node is a cross-community bridge._
-- **Why does `Match` connect `Community 25` to `Community 2`, `Community 3`, `Community 5`, `Community 8`, `Community 15`, `Community 27`?**
-  _High betweenness centrality (0.029) - this node is a cross-community bridge._
-- **Why does `getCurrentUser` connect `Community 2` to `Community 3`, `Community 4`?**
-  _High betweenness centrality (0.027) - this node is a cross-community bridge._
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
+- **Why does `getCurrentUser` connect `Community 2` to `Community 3`, `Community 4`, `Community 15`?**
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
 - **What connects `enabled`, `updateMatchSchema`, `createMatchSchema` to the rest of the system?**
-  _134 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _159 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.07615018508725542 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07514124293785311 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.11236802413273002 - nodes in this community are weakly interconnected._
-- **Should `Community 3` be split into smaller, more focused modules?**
-  _Cohesion score 0.14619883040935672 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.1445578231292517 - nodes in this community are weakly interconnected._
+- **Should `Community 4` be split into smaller, more focused modules?**
+  _Cohesion score 0.09634146341463415 - nodes in this community are weakly interconnected._

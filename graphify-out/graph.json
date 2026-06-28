@@ -57,7 +57,7 @@
       "label": "updateMatchSchema",
       "file_type": "code",
       "source_file": "actions/admin.actions.ts",
-      "source_location": "L13",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "actions_admin_actions_updatematchschema",
       "community": 8,
@@ -67,7 +67,7 @@
       "label": "recalculateRankingAction()",
       "file_type": "code",
       "source_file": "actions/admin.actions.ts",
-      "source_location": "L23",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "actions_admin_actions_recalculaterankingaction",
       "community": 8,
@@ -77,7 +77,7 @@
       "label": "createMatchSchema",
       "file_type": "code",
       "source_file": "actions/admin.actions.ts",
-      "source_location": "L42",
+      "source_location": "L45",
       "_origin": "ast",
       "id": "actions_admin_actions_creatematchschema",
       "community": 8,
@@ -87,7 +87,7 @@
       "label": "revalidateMatchPaths()",
       "file_type": "code",
       "source_file": "actions/admin.actions.ts",
-      "source_location": "L49",
+      "source_location": "L52",
       "_origin": "ast",
       "id": "actions_admin_actions_revalidatematchpaths",
       "community": 8,
@@ -97,7 +97,7 @@
       "label": "syncWorldCupAdminAction()",
       "file_type": "code",
       "source_file": "actions/admin.actions.ts",
-      "source_location": "L56",
+      "source_location": "L59",
       "_origin": "ast",
       "id": "actions_admin_actions_syncworldcupadminaction",
       "community": 8,
@@ -107,7 +107,7 @@
       "label": "createMatchAdminAction()",
       "file_type": "code",
       "source_file": "actions/admin.actions.ts",
-      "source_location": "L83",
+      "source_location": "L86",
       "_origin": "ast",
       "id": "actions_admin_actions_creatematchadminaction",
       "community": 8,
@@ -117,7 +117,7 @@
       "label": "updateMatchAdminAction()",
       "file_type": "code",
       "source_file": "actions/admin.actions.ts",
-      "source_location": "L148",
+      "source_location": "L151",
       "_origin": "ast",
       "id": "actions_admin_actions_updatematchadminaction",
       "community": 8,
@@ -194,50 +194,110 @@
       "norm_label": "logoutaction()"
     },
     {
+      "label": "bracket.actions.ts",
+      "file_type": "code",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "actions_bracket_actions",
+      "community": 2,
+      "norm_label": "bracket.actions.ts"
+    },
+    {
+      "label": "slotSchema",
+      "file_type": "code",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "actions_bracket_actions_slotschema",
+      "community": 2,
+      "norm_label": "slotschema"
+    },
+    {
+      "label": "editorSchema",
+      "file_type": "code",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "actions_bracket_actions_editorschema",
+      "community": 2,
+      "norm_label": "editorschema"
+    },
+    {
+      "label": "bracketSchema",
+      "file_type": "code",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "actions_bracket_actions_bracketschema",
+      "community": 2,
+      "norm_label": "bracketschema"
+    },
+    {
+      "label": "BracketSaveResult",
+      "file_type": "code",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "actions_bracket_actions_bracketsaveresult",
+      "community": 2,
+      "norm_label": "bracketsaveresult"
+    },
+    {
+      "label": "saveBracketPredictionAction()",
+      "file_type": "code",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L44",
+      "_origin": "ast",
+      "id": "actions_bracket_actions_savebracketpredictionaction",
+      "community": 2,
+      "norm_label": "savebracketpredictionaction()"
+    },
+    {
       "label": "predictions.actions.ts",
       "file_type": "code",
       "source_file": "actions/predictions.actions.ts",
       "source_location": "L1",
       "_origin": "ast",
       "id": "actions_predictions_actions",
-      "community": 2,
+      "community": 15,
       "norm_label": "predictions.actions.ts"
     },
     {
       "label": "predictionSchema",
       "file_type": "code",
       "source_file": "actions/predictions.actions.ts",
-      "source_location": "L13",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "actions_predictions_actions_predictionschema",
-      "community": 2,
+      "community": 15,
       "norm_label": "predictionschema"
     },
     {
       "label": "bulkPredictionSchema",
       "file_type": "code",
       "source_file": "actions/predictions.actions.ts",
-      "source_location": "L19",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "actions_predictions_actions_bulkpredictionschema",
-      "community": 2,
+      "community": 15,
       "norm_label": "bulkpredictionschema"
     },
     {
       "label": "topFourSchema",
       "file_type": "code",
       "source_file": "actions/predictions.actions.ts",
-      "source_location": "L31",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "actions_predictions_actions_topfourschema",
-      "community": 2,
+      "community": 15,
       "norm_label": "topfourschema"
     },
     {
       "label": "BulkSaveResult",
       "file_type": "code",
       "source_file": "actions/predictions.actions.ts",
-      "source_location": "L38",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "actions_predictions_actions_bulksaveresult",
       "community": 15,
@@ -247,37 +307,37 @@
       "label": "MatchSaveResult",
       "file_type": "code",
       "source_file": "actions/predictions.actions.ts",
-      "source_location": "L46",
+      "source_location": "L57",
       "_origin": "ast",
       "id": "actions_predictions_actions_matchsaveresult",
-      "community": 2,
+      "community": 15,
       "norm_label": "matchsaveresult"
     },
     {
       "label": "ensureUnique()",
       "file_type": "code",
       "source_file": "actions/predictions.actions.ts",
-      "source_location": "L52",
+      "source_location": "L63",
       "_origin": "ast",
       "id": "actions_predictions_actions_ensureunique",
-      "community": 2,
+      "community": 15,
       "norm_label": "ensureunique()"
     },
     {
       "label": "isMatchLocked()",
       "file_type": "code",
       "source_file": "actions/predictions.actions.ts",
-      "source_location": "L56",
+      "source_location": "L67",
       "_origin": "ast",
       "id": "actions_predictions_actions_ismatchlocked",
-      "community": 2,
+      "community": 15,
       "norm_label": "ismatchlocked()"
     },
     {
       "label": "persistMatchPrediction()",
       "file_type": "code",
       "source_file": "actions/predictions.actions.ts",
-      "source_location": "L61",
+      "source_location": "L72",
       "_origin": "ast",
       "id": "actions_predictions_actions_persistmatchprediction",
       "community": 2,
@@ -287,7 +347,7 @@
       "label": "saveMatchPredictionAction()",
       "file_type": "code",
       "source_file": "actions/predictions.actions.ts",
-      "source_location": "L98",
+      "source_location": "L149",
       "_origin": "ast",
       "id": "actions_predictions_actions_savematchpredictionaction",
       "community": 2,
@@ -297,7 +357,7 @@
       "label": "savePredictionAction()",
       "file_type": "code",
       "source_file": "actions/predictions.actions.ts",
-      "source_location": "L130",
+      "source_location": "L186",
       "_origin": "ast",
       "id": "actions_predictions_actions_savepredictionaction",
       "community": 2,
@@ -307,7 +367,7 @@
       "label": "saveBulkPredictionsAction()",
       "file_type": "code",
       "source_file": "actions/predictions.actions.ts",
-      "source_location": "L154",
+      "source_location": "L210",
       "_origin": "ast",
       "id": "actions_predictions_actions_savebulkpredictionsaction",
       "community": 2,
@@ -317,7 +377,7 @@
       "label": "saveTopFourAction()",
       "file_type": "code",
       "source_file": "actions/predictions.actions.ts",
-      "source_location": "L208",
+      "source_location": "L264",
       "_origin": "ast",
       "id": "actions_predictions_actions_savetopfouraction",
       "community": 2,
@@ -360,7 +420,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "recalculate_ranking_route",
-      "community": 1,
+      "community": 8,
       "norm_label": "route.ts"
     },
     {
@@ -370,7 +430,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "recalculate_ranking_route_post",
-      "community": 1,
+      "community": 8,
       "norm_label": "post()"
     },
     {
@@ -497,7 +557,7 @@
       "label": "ChaveamentoPage()",
       "file_type": "code",
       "source_file": "app/chaveamento/page.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "chaveamento_page_chaveamentopage",
       "community": 2,
@@ -660,7 +720,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "ranking_page",
-      "community": 5,
+      "community": 29,
       "norm_label": "page.tsx"
     },
     {
@@ -670,8 +730,48 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "ranking_page_rankingpage",
-      "community": 5,
+      "community": 29,
       "norm_label": "rankingpage()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "seu_chaveamento_page",
+      "community": 2,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "SeuChaveamentoPage()",
+      "file_type": "code",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "seu_chaveamento_page_seuchaveamentopage",
+      "community": 2,
+      "norm_label": "seuchaveamentopage()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/sobre/page.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "sobre_page",
+      "community": 15,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "SobrePage()",
+      "file_type": "code",
+      "source_file": "app/sobre/page.tsx",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "sobre_page_sobrepage",
+      "community": 15,
+      "norm_label": "sobrepage()"
     },
     {
       "label": "page.tsx",
@@ -707,7 +807,7 @@
       "label": "Filter",
       "file_type": "code",
       "source_file": "components/AdminMatchesPanel.tsx",
-      "source_location": "L16",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "components_adminmatchespanel_filter",
       "community": 8,
@@ -717,7 +817,7 @@
       "label": "toDatetimeLocalValue()",
       "file_type": "code",
       "source_file": "components/AdminMatchesPanel.tsx",
-      "source_location": "L18",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "components_adminmatchespanel_todatetimelocalvalue",
       "community": 8,
@@ -727,7 +827,7 @@
       "label": "sortByKickoff()",
       "file_type": "code",
       "source_file": "components/AdminMatchesPanel.tsx",
-      "source_location": "L26",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "components_adminmatchespanel_sortbykickoff",
       "community": 8,
@@ -737,10 +837,10 @@
       "label": "AdminMatchesPanel()",
       "file_type": "code",
       "source_file": "components/AdminMatchesPanel.tsx",
-      "source_location": "L33",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "components_adminmatchespanel_adminmatchespanel",
-      "community": 2,
+      "community": 8,
       "norm_label": "adminmatchespanel()"
     },
     {
@@ -804,13 +904,123 @@
       "norm_label": "authforms()"
     },
     {
+      "label": "BracketPredictionBoard.tsx",
+      "file_type": "code",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "components_bracketpredictionboard",
+      "community": 27,
+      "norm_label": "bracketpredictionboard.tsx"
+    },
+    {
+      "label": "BracketPredictionBoardProps",
+      "file_type": "code",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "components_bracketpredictionboard_bracketpredictionboardprops",
+      "community": 27,
+      "norm_label": "bracketpredictionboardprops"
+    },
+    {
+      "label": "Side",
+      "file_type": "code",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "components_bracketpredictionboard_side",
+      "community": 27,
+      "norm_label": "side"
+    },
+    {
+      "label": "Slot",
+      "file_type": "code",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "components_bracketpredictionboard_slot",
+      "community": 27,
+      "norm_label": "slot"
+    },
+    {
+      "label": "RoundParticipants",
+      "file_type": "code",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "components_bracketpredictionboard_roundparticipants",
+      "community": 27,
+      "norm_label": "roundparticipants"
+    },
+    {
+      "label": "RoundPicks",
+      "file_type": "code",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "components_bracketpredictionboard_roundpicks",
+      "community": 27,
+      "norm_label": "roundpicks"
+    },
+    {
+      "label": "FirstRoundTeams",
+      "file_type": "code",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L29",
+      "_origin": "ast",
+      "id": "components_bracketpredictionboard_firstroundteams",
+      "community": 27,
+      "norm_label": "firstroundteams"
+    },
+    {
+      "label": "effectiveFirstRound()",
+      "file_type": "code",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L36",
+      "_origin": "ast",
+      "id": "components_bracketpredictionboard_effectivefirstround",
+      "community": 27,
+      "norm_label": "effectivefirstround()"
+    },
+    {
+      "label": "resolveBracket()",
+      "file_type": "code",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L52",
+      "_origin": "ast",
+      "id": "components_bracketpredictionboard_resolvebracket",
+      "community": 27,
+      "norm_label": "resolvebracket()"
+    },
+    {
+      "label": "loserOf()",
+      "file_type": "code",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L86",
+      "_origin": "ast",
+      "id": "components_bracketpredictionboard_loserof",
+      "community": 27,
+      "norm_label": "loserof()"
+    },
+    {
+      "label": "BracketPredictionBoard()",
+      "file_type": "code",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L93",
+      "_origin": "ast",
+      "id": "components_bracketpredictionboard_bracketpredictionboard",
+      "community": 27,
+      "norm_label": "bracketpredictionboard()"
+    },
+    {
       "label": "CommunityPredictionsBoard.tsx",
       "file_type": "code",
       "source_file": "components/CommunityPredictionsBoard.tsx",
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_communitypredictionsboard",
-      "community": 2,
+      "community": 29,
       "norm_label": "communitypredictionsboard.tsx"
     },
     {
@@ -820,7 +1030,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "components_communitypredictionsboard_communitymember",
-      "community": 2,
+      "community": 29,
       "norm_label": "communitymember"
     },
     {
@@ -830,7 +1040,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "components_communitypredictionsboard_topfourline",
-      "community": 2,
+      "community": 29,
       "norm_label": "topfourline()"
     },
     {
@@ -840,7 +1050,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "components_communitypredictionsboard_communitypredictionsboard",
-      "community": 2,
+      "community": 29,
       "norm_label": "communitypredictionsboard()"
     },
     {
@@ -920,8 +1130,68 @@
       "source_location": "L136",
       "_origin": "ast",
       "id": "components_knockoutbracketboard_knockoutbracketboard",
-      "community": 2,
+      "community": 27,
       "norm_label": "knockoutbracketboard()"
+    },
+    {
+      "label": "KnockoutPredictionFields.tsx",
+      "file_type": "code",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "components_knockoutpredictionfields",
+      "community": 15,
+      "norm_label": "knockoutpredictionfields.tsx"
+    },
+    {
+      "label": "KnockoutPredictionFieldsProps",
+      "file_type": "code",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "components_knockoutpredictionfields_knockoutpredictionfieldsprops",
+      "community": 15,
+      "norm_label": "knockoutpredictionfieldsprops"
+    },
+    {
+      "label": "METHOD_ICON",
+      "file_type": "code",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "components_knockoutpredictionfields_method_icon",
+      "community": 15,
+      "norm_label": "method_icon"
+    },
+    {
+      "label": "parseGoals()",
+      "file_type": "code",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L30",
+      "_origin": "ast",
+      "id": "components_knockoutpredictionfields_parsegoals",
+      "community": 15,
+      "norm_label": "parsegoals()"
+    },
+    {
+      "label": "TeamChip()",
+      "file_type": "code",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L36",
+      "_origin": "ast",
+      "id": "components_knockoutpredictionfields_teamchip",
+      "community": 15,
+      "norm_label": "teamchip()"
+    },
+    {
+      "label": "KnockoutPredictionFields()",
+      "file_type": "code",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L67",
+      "_origin": "ast",
+      "id": "components_knockoutpredictionfields_knockoutpredictionfields",
+      "community": 15,
+      "norm_label": "knockoutpredictionfields()"
     },
     {
       "label": "PalpitesWorkspace.tsx",
@@ -937,7 +1207,7 @@
       "label": "ScoreState",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L18",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "components_palpitesworkspace_scorestate",
       "community": 15,
@@ -947,7 +1217,7 @@
       "label": "RowStatus",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L23",
+      "source_location": "L32",
       "_origin": "ast",
       "id": "components_palpitesworkspace_rowstatus",
       "community": 15,
@@ -957,7 +1227,7 @@
       "label": "PalpitesWorkspaceProps",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L25",
+      "source_location": "L34",
       "_origin": "ast",
       "id": "components_palpitesworkspace_palpitesworkspaceprops",
       "community": 15,
@@ -967,7 +1237,7 @@
       "label": "stageChip()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L30",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "components_palpitesworkspace_stagechip",
       "community": 15,
@@ -977,7 +1247,7 @@
       "label": "isMatchToday()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L35",
+      "source_location": "L44",
       "_origin": "ast",
       "id": "components_palpitesworkspace_ismatchtoday",
       "community": 15,
@@ -987,7 +1257,7 @@
       "label": "todayHeading()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L41",
+      "source_location": "L50",
       "_origin": "ast",
       "id": "components_palpitesworkspace_todayheading",
       "community": 15,
@@ -997,7 +1267,7 @@
       "label": "sortMatchesByStart()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L45",
+      "source_location": "L54",
       "_origin": "ast",
       "id": "components_palpitesworkspace_sortmatchesbystart",
       "community": 15,
@@ -1007,7 +1277,7 @@
       "label": "sortDayGroups()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L52",
+      "source_location": "L61",
       "_origin": "ast",
       "id": "components_palpitesworkspace_sortdaygroups",
       "community": 15,
@@ -1017,7 +1287,7 @@
       "label": "toScoreState()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L67",
+      "source_location": "L76",
       "_origin": "ast",
       "id": "components_palpitesworkspace_toscorestate",
       "community": 15,
@@ -1027,7 +1297,7 @@
       "label": "parseScore()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L78",
+      "source_location": "L94",
       "_origin": "ast",
       "id": "components_palpitesworkspace_parsescore",
       "community": 15,
@@ -1037,7 +1307,7 @@
       "label": "statusLabel()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L85",
+      "source_location": "L101",
       "_origin": "ast",
       "id": "components_palpitesworkspace_statuslabel",
       "community": 15,
@@ -1047,7 +1317,7 @@
       "label": "PalpiteMatchRow()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L93",
+      "source_location": "L109",
       "_origin": "ast",
       "id": "components_palpitesworkspace_palpitematchrow",
       "community": 15,
@@ -1057,7 +1327,7 @@
       "label": "PalpitesWorkspace()",
       "file_type": "code",
       "source_file": "components/PalpitesWorkspace.tsx",
-      "source_location": "L210",
+      "source_location": "L244",
       "_origin": "ast",
       "id": "components_palpitesworkspace_palpitesworkspace",
       "community": 15,
@@ -1090,7 +1360,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "components_predictionform_teamname",
-      "community": 15,
+      "community": 27,
       "norm_label": "teamname()"
     },
     {
@@ -1110,7 +1380,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_rankingliveboard",
-      "community": 5,
+      "community": 29,
       "norm_label": "rankingliveboard.tsx"
     },
     {
@@ -1120,7 +1390,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "components_rankingliveboard_ranking_poll_ms",
-      "community": 5,
+      "community": 29,
       "norm_label": "ranking_poll_ms"
     },
     {
@@ -1130,7 +1400,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "components_rankingliveboard_rankingliveboard",
-      "community": 5,
+      "community": 29,
       "norm_label": "rankingliveboard()"
     },
     {
@@ -1140,7 +1410,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_rankingtable",
-      "community": 5,
+      "community": 29,
       "norm_label": "rankingtable.tsx"
     },
     {
@@ -1150,7 +1420,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "components_rankingtable_rankingtable",
-      "community": 5,
+      "community": 29,
       "norm_label": "rankingtable()"
     },
     {
@@ -1250,7 +1520,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_topfourform",
-      "community": 5,
+      "community": 29,
       "norm_label": "topfourform.tsx"
     },
     {
@@ -1260,7 +1530,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "components_topfourform_selectteam",
-      "community": 5,
+      "community": 29,
       "norm_label": "selectteam()"
     },
     {
@@ -1270,7 +1540,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "components_topfourform_lockedrow",
-      "community": 5,
+      "community": 29,
       "norm_label": "lockedrow()"
     },
     {
@@ -1280,7 +1550,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "components_topfourform_topfourform",
-      "community": 5,
+      "community": 29,
       "norm_label": "topfourform()"
     },
     {
@@ -1302,6 +1572,146 @@
       "id": "lib_admin_auth_isvalidadmintoken",
       "community": 8,
       "norm_label": "isvalidadmintoken()"
+    },
+    {
+      "label": "bracket-scoring.ts",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring",
+      "community": 5,
+      "norm_label": "bracket-scoring.ts"
+    },
+    {
+      "label": "BracketSlotPick",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring_bracketslotpick",
+      "community": 5,
+      "norm_label": "bracketslotpick"
+    },
+    {
+      "label": "BracketTopFourPick",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring_brackettopfourpick",
+      "community": 5,
+      "norm_label": "brackettopfourpick"
+    },
+    {
+      "label": "UserBracketPrediction",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring_userbracketprediction",
+      "community": 5,
+      "norm_label": "userbracketprediction"
+    },
+    {
+      "label": "OfficialBracket",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L26",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring_officialbracket",
+      "community": 5,
+      "norm_label": "officialbracket"
+    },
+    {
+      "label": "BracketPointsBreakdown",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L35",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring_bracketpointsbreakdown",
+      "community": 5,
+      "norm_label": "bracketpointsbreakdown"
+    },
+    {
+      "label": "stageTitleForRound()",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring_stagetitleforround",
+      "community": 5,
+      "norm_label": "stagetitleforround()"
+    },
+    {
+      "label": "winnersFromRound()",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L49",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring_winnersfromround",
+      "community": 5,
+      "norm_label": "winnersfromround()"
+    },
+    {
+      "label": "resolveOfficialBracket()",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L59",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring_resolveofficialbracket",
+      "community": 5,
+      "norm_label": "resolveofficialbracket()"
+    },
+    {
+      "label": "countSetOverlap()",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L109",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring_countsetoverlap",
+      "community": 5,
+      "norm_label": "countsetoverlap()"
+    },
+    {
+      "label": "topFourFromPrediction()",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L114",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring_topfourfromprediction",
+      "community": 5,
+      "norm_label": "topfourfromprediction()"
+    },
+    {
+      "label": "calculateBracketPoints()",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L131",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring_calculatebracketpoints",
+      "community": 5,
+      "norm_label": "calculatebracketpoints()"
+    },
+    {
+      "label": "getFirstKnockoutRoundStart()",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L188",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring_getfirstknockoutroundstart",
+      "community": 5,
+      "norm_label": "getfirstknockoutroundstart()"
+    },
+    {
+      "label": "isBracketLocked()",
+      "file_type": "code",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L206",
+      "_origin": "ast",
+      "id": "lib_bracket_scoring_isbracketlocked",
+      "community": 2,
+      "norm_label": "isbracketlocked()"
     },
     {
       "label": "cache-sync.ts",
@@ -1430,24 +1840,24 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "lib_constants_scoring_rules",
-      "community": 5,
+      "community": 15,
       "norm_label": "scoring_rules"
     },
     {
       "label": "FINISHED_STATUSES",
       "file_type": "code",
       "source_file": "lib/constants.ts",
-      "source_location": "L12",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "lib_constants_finished_statuses",
-      "community": 15,
+      "community": 1,
       "norm_label": "finished_statuses"
     },
     {
       "label": "LOCKED_STATUSES",
       "file_type": "code",
       "source_file": "lib/constants.ts",
-      "source_location": "L20",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "lib_constants_locked_statuses",
       "community": 15,
@@ -1614,6 +2024,56 @@
       "norm_label": "query()"
     },
     {
+      "label": "decision-method.ts",
+      "file_type": "code",
+      "source_file": "lib/decision-method.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "lib_decision_method",
+      "community": 15,
+      "norm_label": "decision-method.ts"
+    },
+    {
+      "label": "DecisionMethod",
+      "file_type": "code",
+      "source_file": "lib/decision-method.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "lib_decision_method_decisionmethod",
+      "community": 15,
+      "norm_label": "decisionmethod"
+    },
+    {
+      "label": "DECISION_METHOD_OPTIONS",
+      "file_type": "code",
+      "source_file": "lib/decision-method.ts",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "lib_decision_method_decision_method_options",
+      "community": 8,
+      "norm_label": "decision_method_options"
+    },
+    {
+      "label": "DECISION_METHOD_LABELS",
+      "file_type": "code",
+      "source_file": "lib/decision-method.ts",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "lib_decision_method_decision_method_labels",
+      "community": 15,
+      "norm_label": "decision_method_labels"
+    },
+    {
+      "label": "isDecisionMethod()",
+      "file_type": "code",
+      "source_file": "lib/decision-method.ts",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "lib_decision_method_isdecisionmethod",
+      "community": 8,
+      "norm_label": "isdecisionmethod()"
+    },
+    {
       "label": "group-standings-compute.ts",
       "file_type": "code",
       "source_file": "lib/group-standings-compute.ts",
@@ -1742,6 +2202,66 @@
       "id": "lib_knockout_bracket_tree_collectbracketmatchids",
       "community": 27,
       "norm_label": "collectbracketmatchids()"
+    },
+    {
+      "label": "knockout-prediction-validation.ts",
+      "file_type": "code",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "lib_knockout_prediction_validation",
+      "community": 15,
+      "norm_label": "knockout-prediction-validation.ts"
+    },
+    {
+      "label": "KnockoutPredictionInput",
+      "file_type": "code",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "lib_knockout_prediction_validation_knockoutpredictioninput",
+      "community": 15,
+      "norm_label": "knockoutpredictioninput"
+    },
+    {
+      "label": "inferWinnerFromScore()",
+      "file_type": "code",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "lib_knockout_prediction_validation_inferwinnerfromscore",
+      "community": 15,
+      "norm_label": "inferwinnerfromscore()"
+    },
+    {
+      "label": "allowedDecisionMethods()",
+      "file_type": "code",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "lib_knockout_prediction_validation_alloweddecisionmethods",
+      "community": 15,
+      "norm_label": "alloweddecisionmethods()"
+    },
+    {
+      "label": "validateKnockoutPrediction()",
+      "file_type": "code",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L31",
+      "_origin": "ast",
+      "id": "lib_knockout_prediction_validation_validateknockoutprediction",
+      "community": 15,
+      "norm_label": "validateknockoutprediction()"
+    },
+    {
+      "label": "normalizeKnockoutPrediction()",
+      "file_type": "code",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L72",
+      "_origin": "ast",
+      "id": "lib_knockout_prediction_validation_normalizeknockoutprediction",
+      "community": 15,
+      "norm_label": "normalizeknockoutprediction()"
     },
     {
       "label": "knockout-resolver.ts",
@@ -1934,6 +2454,56 @@
       "norm_label": "isthirdplacewinnermatch()"
     },
     {
+      "label": "knockout-scoring.ts",
+      "file_type": "code",
+      "source_file": "lib/knockout-scoring.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "lib_knockout_scoring",
+      "community": 15,
+      "norm_label": "knockout-scoring.ts"
+    },
+    {
+      "label": "KnockoutMatchResult",
+      "file_type": "code",
+      "source_file": "lib/knockout-scoring.ts",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "lib_knockout_scoring_knockoutmatchresult",
+      "community": 15,
+      "norm_label": "knockoutmatchresult"
+    },
+    {
+      "label": "KnockoutMatchPrediction",
+      "file_type": "code",
+      "source_file": "lib/knockout-scoring.ts",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "lib_knockout_scoring_knockoutmatchprediction",
+      "community": 15,
+      "norm_label": "knockoutmatchprediction"
+    },
+    {
+      "label": "ScoreBreakdown",
+      "file_type": "code",
+      "source_file": "lib/knockout-scoring.ts",
+      "source_location": "L21",
+      "_origin": "ast",
+      "id": "lib_knockout_scoring_scorebreakdown",
+      "community": 15,
+      "norm_label": "scorebreakdown"
+    },
+    {
+      "label": "calculateMatchPredictionPoints()",
+      "file_type": "code",
+      "source_file": "lib/knockout-scoring.ts",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "lib_knockout_scoring_calculatematchpredictionpoints",
+      "community": 15,
+      "norm_label": "calculatematchpredictionpoints()"
+    },
+    {
       "label": "knockout-stages.ts",
       "file_type": "code",
       "source_file": "lib/knockout-stages.ts",
@@ -1980,8 +2550,58 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "lib_knockout_stages_isknockoutstage",
-      "community": 27,
+      "community": 5,
       "norm_label": "isknockoutstage()"
+    },
+    {
+      "label": "match-knockout.ts",
+      "file_type": "code",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "lib_match_knockout",
+      "community": 5,
+      "norm_label": "match-knockout.ts"
+    },
+    {
+      "label": "isKnockoutMatch()",
+      "file_type": "code",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "lib_match_knockout_isknockoutmatch",
+      "community": 5,
+      "norm_label": "isknockoutmatch()"
+    },
+    {
+      "label": "getMatchWinnerTeamId()",
+      "file_type": "code",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "lib_match_knockout_getmatchwinnerteamid",
+      "community": 5,
+      "norm_label": "getmatchwinnerteamid()"
+    },
+    {
+      "label": "getMatchDecidedBy()",
+      "file_type": "code",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L22",
+      "_origin": "ast",
+      "id": "lib_match_knockout_getmatchdecidedby",
+      "community": 5,
+      "norm_label": "getmatchdecidedby()"
+    },
+    {
+      "label": "inferWinnerFromFinishedKnockout()",
+      "file_type": "code",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "lib_match_knockout_inferwinnerfromfinishedknockout",
+      "community": 5,
+      "norm_label": "inferwinnerfromfinishedknockout()"
     },
     {
       "label": "match-lock.ts",
@@ -2010,7 +2630,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_match_score",
-      "community": 15,
+      "community": 27,
       "norm_label": "match-score.ts"
     },
     {
@@ -2020,7 +2640,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "lib_match_score_displayofficialscore",
-      "community": 15,
+      "community": 27,
       "norm_label": "displayofficialscore"
     },
     {
@@ -2030,7 +2650,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_match_score_parsescorevalue",
-      "community": 15,
+      "community": 27,
       "norm_label": "parsescorevalue()"
     },
     {
@@ -2040,7 +2660,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "lib_match_score_getdisplayofficialscore",
-      "community": 15,
+      "community": 27,
       "norm_label": "getdisplayofficialscore()"
     },
     {
@@ -2100,7 +2720,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "lib_match_status_ismatchfinished",
-      "community": 27,
+      "community": 5,
       "norm_label": "ismatchfinished()"
     },
     {
@@ -2534,10 +3154,20 @@
       "norm_label": "typecheck"
     },
     {
-      "label": "docker:up",
+      "label": "test:scoring",
       "file_type": "code",
       "source_file": "package.json",
       "source_location": "L11",
+      "_origin": "ast",
+      "id": "package_scripts_test_scoring",
+      "community": 6,
+      "norm_label": "test:scoring"
+    },
+    {
+      "label": "docker:up",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L12",
       "_origin": "ast",
       "id": "package_scripts_docker_up",
       "community": 6,
@@ -2547,7 +3177,7 @@
       "label": "dependencies",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L13",
+      "source_location": "L14",
       "_origin": "ast",
       "id": "package_dependencies",
       "community": 6,
@@ -2557,7 +3187,7 @@
       "label": "bcryptjs",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L14",
+      "source_location": "L15",
       "_origin": "ast",
       "id": "package_dependencies_bcryptjs",
       "community": 6,
@@ -2567,7 +3197,7 @@
       "label": "next",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L15",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "package_dependencies_next",
       "community": 6,
@@ -2577,7 +3207,7 @@
       "label": "pg",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L16",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "package_dependencies_pg",
       "community": 6,
@@ -2587,7 +3217,7 @@
       "label": "react",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "package_dependencies_react",
       "community": 6,
@@ -2597,7 +3227,7 @@
       "label": "react-dom",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L18",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "package_dependencies_react_dom",
       "community": 6,
@@ -2607,7 +3237,7 @@
       "label": "zod",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L19",
+      "source_location": "L20",
       "_origin": "ast",
       "id": "package_dependencies_zod",
       "community": 6,
@@ -2617,7 +3247,7 @@
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L21",
+      "source_location": "L22",
       "_origin": "ast",
       "id": "package_devdependencies",
       "community": 6,
@@ -2627,7 +3257,7 @@
       "label": "@types/bcryptjs",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L22",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "package_devdependencies_types_bcryptjs",
       "community": 6,
@@ -2637,7 +3267,7 @@
       "label": "@types/node",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L23",
+      "source_location": "L24",
       "_origin": "ast",
       "id": "package_devdependencies_types_node",
       "community": 6,
@@ -2647,7 +3277,7 @@
       "label": "@types/pg",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L24",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "package_devdependencies_types_pg",
       "community": 6,
@@ -2657,7 +3287,7 @@
       "label": "@types/react",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L25",
+      "source_location": "L26",
       "_origin": "ast",
       "id": "package_devdependencies_types_react",
       "community": 6,
@@ -2667,7 +3297,7 @@
       "label": "@types/react-dom",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L26",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "package_devdependencies_types_react_dom",
       "community": 6,
@@ -2677,7 +3307,7 @@
       "label": "typescript",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L27",
+      "source_location": "L28",
       "_origin": "ast",
       "id": "package_devdependencies_typescript",
       "community": 6,
@@ -2810,7 +3440,7 @@
       "source_location": "L79",
       "_origin": "ast",
       "id": "repositories_predictions_repo_listpredictionrows",
-      "community": 1,
+      "community": 2,
       "norm_label": "listpredictionrows()"
     },
     {
@@ -2847,7 +3477,7 @@
       "label": "listMatches()",
       "file_type": "code",
       "source_file": "repositories/worldcup.repo.ts",
-      "source_location": "L41",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "repositories_worldcup_repo_listmatches",
       "community": 2,
@@ -2857,7 +3487,7 @@
       "label": "listMatchesCached",
       "file_type": "code",
       "source_file": "repositories/worldcup.repo.ts",
-      "source_location": "L51",
+      "source_location": "L52",
       "_origin": "ast",
       "id": "repositories_worldcup_repo_listmatchescached",
       "community": 2,
@@ -2867,7 +3497,7 @@
       "label": "findMatch()",
       "file_type": "code",
       "source_file": "repositories/worldcup.repo.ts",
-      "source_location": "L53",
+      "source_location": "L54",
       "_origin": "ast",
       "id": "repositories_worldcup_repo_findmatch",
       "community": 2,
@@ -2877,7 +3507,7 @@
       "label": "sortStandings()",
       "file_type": "code",
       "source_file": "repositories/worldcup.repo.ts",
-      "source_location": "L58",
+      "source_location": "L59",
       "_origin": "ast",
       "id": "repositories_worldcup_repo_sortstandings",
       "community": 2,
@@ -2887,7 +3517,7 @@
       "label": "listGroupStandings()",
       "file_type": "code",
       "source_file": "repositories/worldcup.repo.ts",
-      "source_location": "L70",
+      "source_location": "L71",
       "_origin": "ast",
       "id": "repositories_worldcup_repo_listgroupstandings",
       "community": 2,
@@ -2897,7 +3527,7 @@
       "label": "getLatestSyncLog()",
       "file_type": "code",
       "source_file": "repositories/worldcup.repo.ts",
-      "source_location": "L119",
+      "source_location": "L120",
       "_origin": "ast",
       "id": "repositories_worldcup_repo_getlatestsynclog",
       "community": 2,
@@ -3164,6 +3794,46 @@
       "norm_label": "bootstrap_existing_database()"
     },
     {
+      "label": "verify-knockout-scoring.mjs",
+      "file_type": "code",
+      "source_file": "scripts/verify-knockout-scoring.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_verify_knockout_scoring",
+      "community": 28,
+      "norm_label": "verify-knockout-scoring.mjs"
+    },
+    {
+      "label": "SCORING_RULES",
+      "file_type": "code",
+      "source_file": "scripts/verify-knockout-scoring.mjs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "scripts_verify_knockout_scoring_scoring_rules",
+      "community": 28,
+      "norm_label": "scoring_rules"
+    },
+    {
+      "label": "calculateMatchPredictionPoints()",
+      "file_type": "code",
+      "source_file": "scripts/verify-knockout-scoring.mjs",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "scripts_verify_knockout_scoring_calculatematchpredictionpoints",
+      "community": 28,
+      "norm_label": "calculatematchpredictionpoints()"
+    },
+    {
+      "label": "runTest()",
+      "file_type": "code",
+      "source_file": "scripts/verify-knockout-scoring.mjs",
+      "source_location": "L76",
+      "_origin": "ast",
+      "id": "scripts_verify_knockout_scoring_runtest",
+      "community": 28,
+      "norm_label": "runtest()"
+    },
+    {
       "label": "verify-scoring.mjs",
       "file_type": "code",
       "source_file": "scripts/verify-scoring.mjs",
@@ -3395,7 +4065,7 @@
       "label": "AdminMatchUpdate",
       "file_type": "code",
       "source_file": "services/match-admin.service.ts",
-      "source_location": "L5",
+      "source_location": "L7",
       "_origin": "ast",
       "id": "services_match_admin_service_adminmatchupdate",
       "community": 8,
@@ -3405,7 +4075,7 @@
       "label": "buildPayloadPatch()",
       "file_type": "code",
       "source_file": "services/match-admin.service.ts",
-      "source_location": "L15",
+      "source_location": "L19",
       "_origin": "ast",
       "id": "services_match_admin_service_buildpayloadpatch",
       "community": 8,
@@ -3415,7 +4085,7 @@
       "label": "AdminMatchCreate",
       "file_type": "code",
       "source_file": "services/match-admin.service.ts",
-      "source_location": "L45",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "services_match_admin_service_adminmatchcreate",
       "community": 8,
@@ -3425,7 +4095,7 @@
       "label": "normalizeTeamId()",
       "file_type": "code",
       "source_file": "services/match-admin.service.ts",
-      "source_location": "L52",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "services_match_admin_service_normalizeteamid",
       "community": 8,
@@ -3435,7 +4105,7 @@
       "label": "createMatchFromAdmin()",
       "file_type": "code",
       "source_file": "services/match-admin.service.ts",
-      "source_location": "L58",
+      "source_location": "L62",
       "_origin": "ast",
       "id": "services_match_admin_service_creatematchfromadmin",
       "community": 8,
@@ -3445,7 +4115,7 @@
       "label": "updateMatchFromAdmin()",
       "file_type": "code",
       "source_file": "services/match-admin.service.ts",
-      "source_location": "L98",
+      "source_location": "L102",
       "_origin": "ast",
       "id": "services_match_admin_service_updatematchfromadmin",
       "community": 8,
@@ -3475,7 +4145,7 @@
       "label": "normalizePredictionDocument()",
       "file_type": "code",
       "source_file": "services/prediction-document.ts",
-      "source_location": "L24",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "services_prediction_document_normalizepredictiondocument",
       "community": 2,
@@ -3508,7 +4178,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "services_ranking_service_getuserinfo",
-      "community": 1,
+      "community": 8,
       "norm_label": "getuserinfo()"
     },
     {
@@ -3518,14 +4188,14 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "services_ranking_service_recalculateranking",
-      "community": 1,
+      "community": 8,
       "norm_label": "recalculateranking()"
     },
     {
       "label": "shouldRefreshRanking()",
       "file_type": "code",
       "source_file": "services/ranking.service.ts",
-      "source_location": "L77",
+      "source_location": "L79",
       "_origin": "ast",
       "id": "services_ranking_service_shouldrefreshranking",
       "community": 1,
@@ -3535,7 +4205,7 @@
       "label": "getLatestRanking()",
       "file_type": "code",
       "source_file": "services/ranking.service.ts",
-      "source_location": "L107",
+      "source_location": "L109",
       "_origin": "ast",
       "id": "services_ranking_service_getlatestranking",
       "community": 1,
@@ -3555,7 +4225,7 @@
       "label": "OfficialTopFour",
       "file_type": "code",
       "source_file": "services/scoring.service.ts",
-      "source_location": "L5",
+      "source_location": "L16",
       "_origin": "ast",
       "id": "services_scoring_service_officialtopfour",
       "community": 5,
@@ -3565,7 +4235,7 @@
       "label": "getOutcome()",
       "file_type": "code",
       "source_file": "services/scoring.service.ts",
-      "source_location": "L12",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "services_scoring_service_getoutcome",
       "community": 5,
@@ -3575,7 +4245,7 @@
       "label": "scoreMatchPrediction()",
       "file_type": "code",
       "source_file": "services/scoring.service.ts",
-      "source_location": "L18",
+      "source_location": "L29",
       "_origin": "ast",
       "id": "services_scoring_service_scorematchprediction",
       "community": 5,
@@ -3585,7 +4255,7 @@
       "label": "scoreTopFourPrediction()",
       "file_type": "code",
       "source_file": "services/scoring.service.ts",
-      "source_location": "L59",
+      "source_location": "L114",
       "_origin": "ast",
       "id": "services_scoring_service_scoretopfourprediction",
       "community": 5,
@@ -3595,17 +4265,27 @@
       "label": "resolveOfficialTopFour()",
       "file_type": "code",
       "source_file": "services/scoring.service.ts",
-      "source_location": "L94",
+      "source_location": "L149",
       "_origin": "ast",
       "id": "services_scoring_service_resolveofficialtopfour",
       "community": 5,
       "norm_label": "resolveofficialtopfour()"
     },
     {
+      "label": "scoreBracketPrediction()",
+      "file_type": "code",
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L167",
+      "_origin": "ast",
+      "id": "services_scoring_service_scorebracketprediction",
+      "community": 5,
+      "norm_label": "scorebracketprediction()"
+    },
+    {
       "label": "calculatePredictionScore()",
       "file_type": "code",
       "source_file": "services/scoring.service.ts",
-      "source_location": "L112",
+      "source_location": "L187",
       "_origin": "ast",
       "id": "services_scoring_service_calculatepredictionscore",
       "community": 5,
@@ -4028,7 +4708,7 @@
       "source_location": "L230",
       "_origin": "ast",
       "id": "services_worldcup26_service_mapworldcup26stage",
-      "community": 3,
+      "community": 1,
       "norm_label": "mapworldcup26stage()"
     },
     {
@@ -4038,7 +4718,7 @@
       "source_location": "L251",
       "_origin": "ast",
       "id": "services_worldcup26_service_mapworldcup26status",
-      "community": 3,
+      "community": 1,
       "norm_label": "mapworldcup26status()"
     },
     {
@@ -4268,14 +4948,14 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "types_domain",
-      "community": 5,
+      "community": 29,
       "norm_label": "domain.ts"
     },
     {
       "label": "User",
       "file_type": "code",
       "source_file": "types/domain.ts",
-      "source_location": "L1",
+      "source_location": "L3",
       "_origin": "ast",
       "id": "types_domain_user",
       "community": 4,
@@ -4285,47 +4965,97 @@
       "label": "Team",
       "file_type": "code",
       "source_file": "types/domain.ts",
-      "source_location": "L7",
+      "source_location": "L9",
       "_origin": "ast",
       "id": "types_domain_team",
-      "community": 5,
+      "community": 29,
       "norm_label": "team"
     },
     {
       "label": "Match",
       "file_type": "code",
       "source_file": "types/domain.ts",
-      "source_location": "L16",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "types_domain_match",
-      "community": 25,
+      "community": 5,
       "norm_label": "match"
+    },
+    {
+      "label": "MatchPredictionPoints",
+      "file_type": "code",
+      "source_file": "types/domain.ts",
+      "source_location": "L36",
+      "_origin": "ast",
+      "id": "types_domain_matchpredictionpoints",
+      "community": 29,
+      "norm_label": "matchpredictionpoints"
     },
     {
       "label": "MatchPrediction",
       "file_type": "code",
       "source_file": "types/domain.ts",
-      "source_location": "L32",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "types_domain_matchprediction",
-      "community": 15,
+      "community": 29,
       "norm_label": "matchprediction"
     },
     {
       "label": "TopFourPrediction",
       "file_type": "code",
       "source_file": "types/domain.ts",
-      "source_location": "L42",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "types_domain_topfourprediction",
-      "community": 5,
+      "community": 29,
       "norm_label": "topfourprediction"
+    },
+    {
+      "label": "BracketSlotPrediction",
+      "file_type": "code",
+      "source_file": "types/domain.ts",
+      "source_location": "L65",
+      "_origin": "ast",
+      "id": "types_domain_bracketslotprediction",
+      "community": 29,
+      "norm_label": "bracketslotprediction"
+    },
+    {
+      "label": "BracketTopFourSlot",
+      "file_type": "code",
+      "source_file": "types/domain.ts",
+      "source_location": "L70",
+      "_origin": "ast",
+      "id": "types_domain_brackettopfourslot",
+      "community": 29,
+      "norm_label": "brackettopfourslot"
+    },
+    {
+      "label": "BracketEditorState",
+      "file_type": "code",
+      "source_file": "types/domain.ts",
+      "source_location": "L75",
+      "_origin": "ast",
+      "id": "types_domain_bracketeditorstate",
+      "community": 27,
+      "norm_label": "bracketeditorstate"
+    },
+    {
+      "label": "BracketPrediction",
+      "file_type": "code",
+      "source_file": "types/domain.ts",
+      "source_location": "L81",
+      "_origin": "ast",
+      "id": "types_domain_bracketprediction",
+      "community": 27,
+      "norm_label": "bracketprediction"
     },
     {
       "label": "PredictionDocument",
       "file_type": "code",
       "source_file": "types/domain.ts",
-      "source_location": "L51",
+      "source_location": "L103",
       "_origin": "ast",
       "id": "types_domain_predictiondocument",
       "community": 2,
@@ -4335,30 +5065,30 @@
       "label": "GroupStanding",
       "file_type": "code",
       "source_file": "types/domain.ts",
-      "source_location": "L69",
+      "source_location": "L124",
       "_origin": "ast",
       "id": "types_domain_groupstanding",
-      "community": 5,
+      "community": 29,
       "norm_label": "groupstanding"
     },
     {
       "label": "GroupTable",
       "file_type": "code",
       "source_file": "types/domain.ts",
-      "source_location": "L81",
+      "source_location": "L136",
       "_origin": "ast",
       "id": "types_domain_grouptable",
-      "community": 5,
+      "community": 29,
       "norm_label": "grouptable"
     },
     {
       "label": "RankingRow",
       "file_type": "code",
       "source_file": "types/domain.ts",
-      "source_location": "L86",
+      "source_location": "L141",
       "_origin": "ast",
       "id": "types_domain_rankingrow",
-      "community": 5,
+      "community": 29,
       "norm_label": "rankingrow"
     },
     {
@@ -4740,6 +5470,28 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "actions/admin.actions.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_admin_actions",
+      "target": "lib_decision_method"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/admin.actions.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_admin_actions",
+      "target": "lib_decision_method_isdecisionmethod"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/admin.actions.ts",
       "source_location": "L7",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -5042,6 +5794,17 @@
       "weight": 1.0,
       "source": "actions_admin_actions_updatematchadminaction",
       "target": "lib_admin_auth_isvalidadmintoken"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "actions/admin.actions.ts",
+      "source_location": "L199",
+      "weight": 1.0,
+      "source": "actions_admin_actions_updatematchadminaction",
+      "target": "lib_decision_method_isdecisionmethod"
     },
     {
       "relation": "calls",
@@ -5502,6 +6265,287 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "actions_bracket_actions_bracketsaveresult"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "actions_bracket_actions_bracketschema"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "actions_bracket_actions_editorschema"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L32",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "actions_bracket_actions_savebracketpredictionaction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "actions_bracket_actions_slotschema"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "lib_bracket_scoring"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "lib_bracket_scoring_isbracketlocked"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "repositories_predictions_repo"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "repositories_predictions_repo_getorcreatepredictiondocument"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "repositories_predictions_repo_updatepredictiondocument"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "repositories_worldcup_repo"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "repositories_worldcup_repo_listmatches"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "services_auth_service"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "services_auth_service_getcurrentuser"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "services_prediction_document"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "services_prediction_document_normalizepredictiondocument"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "types_domain"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_bracket_actions",
+      "target": "types_domain_bracketprediction"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "actions_bracket_actions"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "actions_bracket_actions_savebracketpredictionaction",
+      "target": "lib_bracket_scoring_isbracketlocked"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "actions_bracket_actions_savebracketpredictionaction",
+      "target": "repositories_predictions_repo_getorcreatepredictiondocument"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L78",
+      "weight": 1.0,
+      "source": "actions_bracket_actions_savebracketpredictionaction",
+      "target": "repositories_predictions_repo_updatepredictiondocument"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "actions_bracket_actions_savebracketpredictionaction",
+      "target": "repositories_worldcup_repo_listmatches"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L35",
+      "weight": 1.0,
+      "source": "actions_bracket_actions_savebracketpredictionaction",
+      "target": "services_auth_service_getcurrentuser"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "actions/bracket.actions.ts",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "actions_bracket_actions_savebracketpredictionaction",
+      "target": "services_prediction_document_normalizepredictiondocument"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "actions_bracket_actions_savebracketpredictionaction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "actions/predictions.actions.ts",
       "source_location": "L19",
       "weight": 1.0,
@@ -5640,6 +6684,94 @@
       "confidence_score": 1.0,
       "source": "actions_predictions_actions",
       "target": "lib_constants_locked_statuses"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/predictions.actions.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_predictions_actions",
+      "target": "lib_decision_method"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/predictions.actions.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_predictions_actions",
+      "target": "lib_decision_method_decisionmethod"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/predictions.actions.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_predictions_actions",
+      "target": "lib_decision_method_isdecisionmethod"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/predictions.actions.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_predictions_actions",
+      "target": "lib_knockout_prediction_validation"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/predictions.actions.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_predictions_actions",
+      "target": "lib_knockout_prediction_validation_normalizeknockoutprediction"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/predictions.actions.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_predictions_actions",
+      "target": "lib_knockout_prediction_validation_validateknockoutprediction"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/predictions.actions.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_predictions_actions",
+      "target": "lib_match_knockout"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/predictions.actions.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_predictions_actions",
+      "target": "lib_match_knockout_isknockoutmatch"
     },
     {
       "relation": "imports_from",
@@ -5860,6 +6992,50 @@
       "confidence_score": 1.0,
       "source": "actions_predictions_actions_persistmatchprediction",
       "target": "actions_predictions_actions_ismatchlocked"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/predictions.actions.ts",
+      "source_location": "L83",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_predictions_actions_persistmatchprediction",
+      "target": "lib_decision_method_isdecisionmethod"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/predictions.actions.ts",
+      "source_location": "L105",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_predictions_actions_persistmatchprediction",
+      "target": "lib_knockout_prediction_validation_normalizeknockoutprediction"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/predictions.actions.ts",
+      "source_location": "L92",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_predictions_actions_persistmatchprediction",
+      "target": "lib_knockout_prediction_validation_validateknockoutprediction"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "actions/predictions.actions.ts",
+      "source_location": "L81",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "actions_predictions_actions_persistmatchprediction",
+      "target": "lib_match_knockout_isknockoutmatch"
     },
     {
       "relation": "calls",
@@ -6696,6 +7872,28 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "chaveamento_page",
+      "target": "components_bracketpredictionboard"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "chaveamento_page",
+      "target": "components_bracketpredictionboard_bracketpredictionboard"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "chaveamento_page",
       "target": "components_knockoutbracketboard"
     },
     {
@@ -6708,6 +7906,28 @@
       "confidence_score": 1.0,
       "source": "chaveamento_page",
       "target": "components_knockoutbracketboard_knockoutbracketboard"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "chaveamento_page",
+      "target": "lib_bracket_scoring"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "chaveamento_page",
+      "target": "lib_bracket_scoring_isbracketlocked"
     },
     {
       "relation": "imports_from",
@@ -6736,6 +7956,28 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "chaveamento_page",
+      "target": "repositories_predictions_repo"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "chaveamento_page",
+      "target": "repositories_predictions_repo_getorcreatepredictiondocument"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
       "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -6752,6 +7994,17 @@
       "confidence_score": 1.0,
       "source": "chaveamento_page",
       "target": "repositories_worldcup_repo_listmatches"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "chaveamento_page",
+      "target": "repositories_worldcup_repo_listteams"
     },
     {
       "relation": "imports_from",
@@ -6776,6 +8029,50 @@
       "target": "services_auth_service_getcurrentuser"
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "chaveamento_page",
+      "target": "services_prediction_document"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "chaveamento_page",
+      "target": "services_prediction_document_normalizepredictiondocument"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "chaveamento_page_chaveamentopage",
+      "target": "lib_bracket_scoring_isbracketlocked"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "chaveamento_page_chaveamentopage",
+      "target": "repositories_predictions_repo_getorcreatepredictiondocument"
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -6792,10 +8089,32 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "chaveamento_page_chaveamentopage",
+      "target": "repositories_worldcup_repo_listteams"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/chaveamento/page.tsx",
       "source_location": "L10",
       "weight": 1.0,
       "source": "chaveamento_page_chaveamentopage",
       "target": "services_auth_service_getcurrentuser"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/chaveamento/page.tsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "chaveamento_page_chaveamentopage",
+      "target": "services_prediction_document_normalizepredictiondocument"
     },
     {
       "relation": "imports_from",
@@ -7869,6 +9188,279 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "components_bracketpredictionboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "components_bracketpredictionboard_bracketpredictionboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "lib_bracket_scoring",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "lib_bracket_scoring_isbracketlocked",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "lib_knockout_stages",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "lib_knockout_stages_isknockoutstage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "repositories_predictions_repo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "repositories_predictions_repo_getorcreatepredictiondocument",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "repositories_worldcup_repo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "repositories_worldcup_repo_listmatches",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "repositories_worldcup_repo_listteams",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "services_auth_service",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "services_auth_service_getcurrentuser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "services_prediction_document",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "services_prediction_document_normalizepredictiondocument",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page",
+      "target": "seu_chaveamento_page_seuchaveamentopage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page_seuchaveamentopage",
+      "target": "lib_bracket_scoring_isbracketlocked"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page_seuchaveamentopage",
+      "target": "repositories_predictions_repo_getorcreatepredictiondocument"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page_seuchaveamentopage",
+      "target": "repositories_worldcup_repo_listmatches"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page_seuchaveamentopage",
+      "target": "repositories_worldcup_repo_listteams"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page_seuchaveamentopage",
+      "target": "services_auth_service_getcurrentuser"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/seu_chaveamento/page.tsx",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "seu_chaveamento_page_seuchaveamentopage",
+      "target": "services_prediction_document_normalizepredictiondocument"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/sobre/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "sobre_page",
+      "target": "lib_constants",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/sobre/page.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "sobre_page",
+      "target": "lib_constants_scoring_rules",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/sobre/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "sobre_page",
+      "target": "sobre_page_sobrepage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "app/top-4/page.tsx",
       "source_location": "L2",
       "weight": 1.0,
@@ -8100,6 +9692,39 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "components_adminmatchespanel",
+      "target": "lib_decision_method"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/AdminMatchesPanel.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_adminmatchespanel",
+      "target": "lib_decision_method_decision_method_labels"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/AdminMatchesPanel.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_adminmatchespanel",
+      "target": "lib_decision_method_decision_method_options"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/AdminMatchesPanel.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_adminmatchespanel",
       "target": "lib_knockout_stages"
     },
     {
@@ -8295,6 +9920,238 @@
       "confidence_score": 1.0,
       "source": "components_authforms",
       "target": "components_authforms_authforms"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L65",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "components_bracketpredictionboard_bracketpredictionboard"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "components_bracketpredictionboard_bracketpredictionboardprops"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "components_bracketpredictionboard_effectivefirstround"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "components_bracketpredictionboard_firstroundteams"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L86",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "components_bracketpredictionboard_loserof"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L52",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "components_bracketpredictionboard_resolvebracket"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "components_bracketpredictionboard_roundparticipants"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L28",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "components_bracketpredictionboard_roundpicks"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "components_bracketpredictionboard_side"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "components_bracketpredictionboard_slot"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "lib_knockout_bracket_tree"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "lib_knockout_bracket_tree_bracketround"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "lib_knockout_bracket_tree_knockout_rounds"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "lib_match_visibility"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "lib_match_visibility_getmatchteamlabel"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "types_domain"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "types_domain_bracketeditorstate"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "types_domain_bracketprediction"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "types_domain_match"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard",
+      "target": "types_domain_team"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L130",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_bracketpredictionboard_bracketpredictionboard",
+      "target": "components_bracketpredictionboard_loserof"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "components/BracketPredictionBoard.tsx",
+      "source_location": "L357",
+      "weight": 1.0,
+      "source": "components_bracketpredictionboard_bracketpredictionboard",
+      "target": "components_predictionform_teamname"
     },
     {
       "relation": "contains",
@@ -8740,6 +10597,199 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L30",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields",
+      "target": "components_knockoutpredictionfields_knockoutpredictionfields"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields",
+      "target": "components_knockoutpredictionfields_knockoutpredictionfieldsprops"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields",
+      "target": "components_knockoutpredictionfields_method_icon"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields",
+      "target": "components_knockoutpredictionfields_parsegoals"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields",
+      "target": "components_knockoutpredictionfields_teamchip"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields",
+      "target": "lib_decision_method"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields",
+      "target": "lib_decision_method_decision_method_labels"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields",
+      "target": "lib_decision_method_decisionmethod"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields",
+      "target": "lib_knockout_prediction_validation"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields",
+      "target": "lib_knockout_prediction_validation_alloweddecisionmethods"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields",
+      "target": "lib_knockout_prediction_validation_inferwinnerfromscore"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields",
+      "target": "types_domain"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields",
+      "target": "types_domain_match"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_palpitesworkspace",
+      "target": "components_knockoutpredictionfields"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L40",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_knockoutpredictionfields_knockoutpredictionfields",
+      "target": "components_knockoutpredictionfields_parsegoals"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "components_knockoutpredictionfields_knockoutpredictionfields",
+      "target": "lib_knockout_prediction_validation_alloweddecisionmethods"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "components/KnockoutPredictionFields.tsx",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "components_knockoutpredictionfields_knockoutpredictionfields",
+      "target": "lib_knockout_prediction_validation_inferwinnerfromscore"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_palpitesworkspace",
+      "target": "components_knockoutpredictionfields_knockoutpredictionfields"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "components/PalpitesWorkspace.tsx",
       "source_location": "L49",
       "weight": 1.0,
@@ -8960,6 +11010,61 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_palpitesworkspace",
+      "target": "lib_decision_method"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_palpitesworkspace",
+      "target": "lib_decision_method_decisionmethod"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_palpitesworkspace",
+      "target": "lib_knockout_prediction_validation"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_palpitesworkspace",
+      "target": "lib_knockout_prediction_validation_alloweddecisionmethods"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_palpitesworkspace",
+      "target": "lib_knockout_prediction_validation_inferwinnerfromscore"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/PalpitesWorkspace.tsx",
       "source_location": "L7",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -8976,6 +11081,28 @@
       "confidence_score": 1.0,
       "source": "components_palpitesworkspace",
       "target": "lib_knockout_stages_isknockoutstage"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_palpitesworkspace",
+      "target": "lib_match_knockout"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_palpitesworkspace",
+      "target": "lib_match_knockout_isknockoutmatch"
     },
     {
       "relation": "imports_from",
@@ -9229,6 +11356,17 @@
       "weight": 1.0,
       "source": "components_palpitesworkspace_palpitematchrow",
       "target": "lib_date_formatcompactdatetime"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "components/PalpitesWorkspace.tsx",
+      "source_location": "L132",
+      "weight": 1.0,
+      "source": "components_palpitesworkspace_palpitematchrow",
+      "target": "lib_match_knockout_isknockoutmatch"
     },
     {
       "relation": "calls",
@@ -9689,6 +11827,411 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L35",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_bracket_scoring_bracketpointsbreakdown"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_bracket_scoring_bracketslotpick"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_bracket_scoring_brackettopfourpick"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L131",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_bracket_scoring_calculatebracketpoints"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L109",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_bracket_scoring_countsetoverlap"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L188",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_bracket_scoring_getfirstknockoutroundstart"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L206",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_bracket_scoring_isbracketlocked"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_bracket_scoring_officialbracket"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L59",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_bracket_scoring_resolveofficialbracket"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_bracket_scoring_stagetitleforround"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L114",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_bracket_scoring_topfourfromprediction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_bracket_scoring_userbracketprediction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L49",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_bracket_scoring_winnersfromround"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_knockout_bracket_tree"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_knockout_bracket_tree_knockout_rounds"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_knockout_stages"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_knockout_stages_isknockoutstage"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_match_knockout"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_match_knockout_getmatchwinnerteamid"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_match_status"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "lib_match_status_ismatchfinished"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "types_domain"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring",
+      "target": "types_domain_match"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_scoring_service",
+      "target": "lib_bracket_scoring"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_scoring_service",
+      "target": "lib_bracket_scoring_userbracketprediction"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L189",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring_getfirstknockoutroundstart",
+      "target": "lib_bracket_scoring_stagetitleforround"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L61",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring_resolveofficialbracket",
+      "target": "lib_bracket_scoring_stagetitleforround"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L65",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring_resolveofficialbracket",
+      "target": "lib_bracket_scoring_winnersfromround"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L53",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring_winnersfromround",
+      "target": "lib_match_knockout_getmatchwinnerteamid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L52",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring_winnersfromround",
+      "target": "lib_match_status_ismatchfinished"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "lib_bracket_scoring_resolveofficialbracket",
+      "target": "lib_match_knockout_getmatchwinnerteamid"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_scoring_service",
+      "target": "lib_bracket_scoring_resolveofficialbracket"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L173",
+      "weight": 1.0,
+      "source": "services_scoring_service_scorebracketprediction",
+      "target": "lib_bracket_scoring_resolveofficialbracket"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L141",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring_calculatebracketpoints",
+      "target": "lib_bracket_scoring_countsetoverlap"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L138",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring_calculatebracketpoints",
+      "target": "lib_bracket_scoring_topfourfromprediction"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_scoring_service",
+      "target": "lib_bracket_scoring_calculatebracketpoints"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L183",
+      "weight": 1.0,
+      "source": "services_scoring_service_scorebracketprediction",
+      "target": "lib_bracket_scoring_calculatebracketpoints"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/bracket-scoring.ts",
+      "source_location": "L207",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_bracket_scoring_isbracketlocked",
+      "target": "lib_bracket_scoring_getfirstknockoutroundstart"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "lib/cache-sync.ts",
       "source_location": "L167",
       "weight": 1.0,
@@ -10106,6 +12649,17 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-scoring.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_scoring",
+      "target": "lib_constants"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "lib/match-lock.ts",
       "source_location": "L1",
       "weight": 1.0,
@@ -10255,6 +12809,17 @@
       "confidence_score": 1.0,
       "source": "services_worldcup_sync_service",
       "target": "lib_constants"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-scoring.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_scoring",
+      "target": "lib_constants_scoring_rules"
     },
     {
       "relation": "imports",
@@ -10874,6 +13439,189 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "lib/decision-method.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_decision_method",
+      "target": "lib_decision_method_decision_method_labels"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/decision-method.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_decision_method",
+      "target": "lib_decision_method_decision_method_options"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/decision-method.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_decision_method",
+      "target": "lib_decision_method_decisionmethod"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/decision-method.ts",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_decision_method",
+      "target": "lib_decision_method_isdecisionmethod"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_prediction_validation",
+      "target": "lib_decision_method"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-scoring.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_scoring",
+      "target": "lib_decision_method"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout",
+      "target": "lib_decision_method"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/match-admin.service.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_match_admin_service",
+      "target": "lib_decision_method"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "types/domain.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_domain",
+      "target": "lib_decision_method"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_prediction_validation",
+      "target": "lib_decision_method_decisionmethod"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-scoring.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_scoring",
+      "target": "lib_decision_method_decisionmethod"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout",
+      "target": "lib_decision_method_decisionmethod"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/match-admin.service.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_match_admin_service",
+      "target": "lib_decision_method_decisionmethod"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "types/domain.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_domain",
+      "target": "lib_decision_method_decisionmethod"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout",
+      "target": "lib_decision_method_isdecisionmethod"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "lib_match_knockout_getmatchdecidedby",
+      "target": "lib_decision_method_isdecisionmethod"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/match-admin.service.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_match_admin_service",
+      "target": "lib_decision_method_isdecisionmethod"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "lib/group-standings-compute.ts",
       "source_location": "L34",
       "weight": 1.0,
@@ -10937,9 +13685,9 @@
       "source_file": "lib/group-standings-compute.ts",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_group_standings_compute",
-      "target": "lib_group_standings_compute_isgrouptablecomplete",
-      "confidence_score": 1.0
+      "target": "lib_group_standings_compute_isgrouptablecomplete"
     },
     {
       "relation": "contains",
@@ -11167,6 +13915,78 @@
       "confidence_score": 1.0,
       "source": "lib_knockout_bracket_tree",
       "target": "lib_knockout_bracket_tree_knockout_rounds"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_prediction_validation",
+      "target": "lib_knockout_prediction_validation_alloweddecisionmethods"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_prediction_validation",
+      "target": "lib_knockout_prediction_validation_inferwinnerfromscore"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_prediction_validation",
+      "target": "lib_knockout_prediction_validation_knockoutpredictioninput"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L72",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_prediction_validation",
+      "target": "lib_knockout_prediction_validation_normalizeknockoutprediction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_prediction_validation",
+      "target": "lib_knockout_prediction_validation_validateknockoutprediction"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L73",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_prediction_validation_normalizeknockoutprediction",
+      "target": "lib_knockout_prediction_validation_inferwinnerfromscore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-prediction-validation.ts",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_prediction_validation_validateknockoutprediction",
+      "target": "lib_knockout_prediction_validation_inferwinnerfromscore"
     },
     {
       "relation": "contains",
@@ -11725,6 +14545,68 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-scoring.ts",
+      "source_location": "L28",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_scoring",
+      "target": "lib_knockout_scoring_calculatematchpredictionpoints"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-scoring.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_scoring",
+      "target": "lib_knockout_scoring_knockoutmatchprediction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-scoring.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_scoring",
+      "target": "lib_knockout_scoring_knockoutmatchresult"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/knockout-scoring.ts",
+      "source_location": "L21",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_knockout_scoring",
+      "target": "lib_knockout_scoring_scorebreakdown"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_scoring_service",
+      "target": "lib_knockout_scoring"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_scoring_service",
+      "target": "lib_knockout_scoring_calculatematchpredictionpoints"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "lib/knockout-stages.ts",
       "source_location": "L12",
       "weight": 1.0,
@@ -11766,12 +14648,45 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout",
+      "target": "lib_knockout_stages"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "lib/match-visibility.ts",
       "source_location": "L2",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "lib_match_visibility",
       "target": "lib_knockout_stages"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout",
+      "target": "lib_knockout_stages_isknockoutstage"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "lib_match_knockout_isknockoutmatch",
+      "target": "lib_knockout_stages_isknockoutstage"
     },
     {
       "relation": "imports",
@@ -11794,6 +14709,211 @@
       "weight": 1.0,
       "source": "lib_match_visibility_shouldshowmatchinpalpites",
       "target": "lib_knockout_stages_isknockoutstage"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout",
+      "target": "lib_match_knockout_getmatchdecidedby"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout",
+      "target": "lib_match_knockout_getmatchwinnerteamid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout",
+      "target": "lib_match_knockout_inferwinnerfromfinishedknockout"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout",
+      "target": "lib_match_knockout_isknockoutmatch"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout",
+      "target": "lib_match_status"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout",
+      "target": "lib_match_status_ismatchfinished"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout",
+      "target": "types_domain"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout",
+      "target": "types_domain_match"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_scoring_service",
+      "target": "lib_match_knockout"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_scoring_service",
+      "target": "lib_match_knockout_isknockoutmatch"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "services_scoring_service_scorematchprediction",
+      "target": "lib_match_knockout_isknockoutmatch"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "lib_match_knockout_getmatchwinnerteamid",
+      "target": "lib_match_status_ismatchfinished"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_match_knockout_inferwinnerfromfinishedknockout",
+      "target": "lib_match_knockout_getmatchwinnerteamid"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_scoring_service",
+      "target": "lib_match_knockout_getmatchwinnerteamid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "services_scoring_service_scorematchprediction",
+      "target": "lib_match_knockout_getmatchwinnerteamid"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "lib_match_knockout_getmatchdecidedby",
+      "target": "lib_match_status_ismatchfinished"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_scoring_service",
+      "target": "lib_match_knockout_getmatchdecidedby"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "services_scoring_service_scorematchprediction",
+      "target": "lib_match_knockout_getmatchdecidedby"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "lib/match-knockout.ts",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "lib_match_knockout_inferwinnerfromfinishedknockout",
+      "target": "lib_match_status_ismatchfinished"
     },
     {
       "relation": "contains",
@@ -12019,9 +15139,9 @@
       "source_file": "lib/match-visibility.ts",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_match_visibility",
-      "target": "lib_match_visibility_isresolvedteamname",
-      "confidence_score": 1.0
+      "target": "lib_match_visibility_isresolvedteamname"
     },
     {
       "relation": "contains",
@@ -12029,9 +15149,9 @@
       "source_file": "lib/match-visibility.ts",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_match_visibility",
-      "target": "lib_match_visibility_localizeknockoutslotlabel",
-      "confidence_score": 1.0
+      "target": "lib_match_visibility_localizeknockoutslotlabel"
     },
     {
       "relation": "contains",
@@ -12105,9 +15225,9 @@
       "source_file": "lib/match-visibility.ts",
       "source_location": "L70",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_match_visibility_getmatchteamlabel",
-      "target": "lib_match_visibility_localizeknockoutslotlabel",
-      "confidence_score": 1.0
+      "target": "lib_match_visibility_localizeknockoutslotlabel"
     },
     {
       "relation": "calls",
@@ -12127,9 +15247,9 @@
       "source_file": "lib/match-visibility.ts",
       "source_location": "L60",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_match_visibility_getmatchteamlabel",
-      "target": "lib_match_visibility_hasrealteamid",
-      "confidence_score": 1.0
+      "target": "lib_match_visibility_hasrealteamid"
     },
     {
       "relation": "calls",
@@ -12149,9 +15269,9 @@
       "source_file": "lib/match-visibility.ts",
       "source_location": "L61",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_match_visibility_getmatchteamlabel",
-      "target": "lib_match_visibility_isresolvedteamname",
-      "confidence_score": 1.0
+      "target": "lib_match_visibility_isresolvedteamname"
     },
     {
       "relation": "calls",
@@ -12160,9 +15280,9 @@
       "source_file": "lib/match-visibility.ts",
       "source_location": "L92",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_match_visibility_isplaceholderside",
-      "target": "lib_match_visibility_isresolvedteamname",
-      "confidence_score": 1.0
+      "target": "lib_match_visibility_isresolvedteamname"
     },
     {
       "relation": "calls",
@@ -12704,6 +15824,16 @@
       "confidence_score": 1.0,
       "source": "package_scripts",
       "target": "package_scripts_start"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "package_scripts",
+      "target": "package_scripts_test_scoring"
     },
     {
       "relation": "contains",
@@ -13628,6 +16758,36 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "scripts/verify-knockout-scoring.mjs",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_verify_knockout_scoring",
+      "target": "scripts_verify_knockout_scoring_calculatematchpredictionpoints"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/verify-knockout-scoring.mjs",
+      "source_location": "L76",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_verify_knockout_scoring",
+      "target": "scripts_verify_knockout_scoring_runtest"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/verify-knockout-scoring.mjs",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_verify_knockout_scoring",
+      "target": "scripts_verify_knockout_scoring_scoring_rules"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "scripts/verify-scoring.mjs",
       "source_location": "L38",
       "weight": 1.0,
@@ -13712,9 +16872,9 @@
       "source_file": "services/knockout-enrichment.service.ts",
       "source_location": "L109",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_knockout_enrichment_service",
-      "target": "services_knockout_enrichment_service_apihasteamid",
-      "confidence_score": 1.0
+      "target": "services_knockout_enrichment_service_apihasteamid"
     },
     {
       "relation": "contains",
@@ -13901,9 +17061,9 @@
       "source_file": "services/knockout-enrichment.service.ts",
       "source_location": "L130",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_knockout_enrichment_service_enrichknockoutbracketfromstandings",
-      "target": "services_knockout_enrichment_service_apihasteamid",
-      "confidence_score": 1.0
+      "target": "services_knockout_enrichment_service_apihasteamid"
     },
     {
       "relation": "imports",
@@ -14376,6 +17536,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "services/scoring.service.ts",
+      "source_location": "L167",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_scoring_service",
+      "target": "services_scoring_service_scorebracketprediction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "services/scoring.service.ts",
       "source_location": "L18",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -14402,6 +17572,17 @@
       "confidence_score": 1.0,
       "source": "services_scoring_service",
       "target": "types_domain"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_scoring_service",
+      "target": "types_domain_bracketprediction"
     },
     {
       "relation": "imports",
@@ -14479,6 +17660,17 @@
       "confidence_score": 1.0,
       "source": "services_scoring_service_calculatepredictionscore",
       "target": "services_scoring_service_resolveofficialtopfour"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "services/scoring.service.ts",
+      "source_location": "L226",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_scoring_service_calculatepredictionscore",
+      "target": "services_scoring_service_scorebracketprediction"
     },
     {
       "relation": "imports_from",
@@ -15424,6 +18616,46 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "types/domain.ts",
+      "source_location": "L75",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_domain",
+      "target": "types_domain_bracketeditorstate"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "types/domain.ts",
+      "source_location": "L75",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_domain",
+      "target": "types_domain_bracketprediction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "types/domain.ts",
+      "source_location": "L65",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_domain",
+      "target": "types_domain_bracketslotprediction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "types/domain.ts",
+      "source_location": "L70",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_domain",
+      "target": "types_domain_brackettopfourslot"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "types/domain.ts",
       "source_location": "L69",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -15459,6 +18691,16 @@
       "confidence_score": 1.0,
       "source": "types_domain",
       "target": "types_domain_matchprediction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "types/domain.ts",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "types_domain",
+      "target": "types_domain_matchpredictionpoints"
     },
     {
       "relation": "contains",
@@ -15712,5 +18954,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "42be3726fd8389c2d5406d83bb9f9adfbb799140"
+  "built_at_commit": "d69c487e44b0e6c43d0496d474c3ed4ba7351582"
 }

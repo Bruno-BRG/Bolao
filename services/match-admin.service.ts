@@ -1,6 +1,8 @@
+import { isDecisionMethod } from "@/lib/decision-method";
 import { TOURNAMENT_CODE } from "@/lib/constants";
 import { isMatchFinished, isMatchLive } from "@/lib/match-status";
 import { query } from "@/lib/db";
+import type { DecisionMethod } from "@/lib/decision-method";
 
 export type AdminMatchUpdate = {
   externalId: string;
@@ -10,6 +12,8 @@ export type AdminMatchUpdate = {
   startsAt?: string;
   homeTeamId?: string | null;
   awayTeamId?: string | null;
+  winnerTeamId?: string | null;
+  decidedBy?: DecisionMethod | null;
 };
 
 function buildPayloadPatch(
@@ -153,9 +157,11 @@ export async function updateMatchFromAdmin(input: AdminMatchUpdate) {
          starts_at = $4,
          home_team_id = $5,
          away_team_id = $6,
-         payload = $7,
+         winner_team_id = $7,
+         decided_by = $8,
+         payload = $9,
          updated_at = NOW()
-     WHERE external_id = $8 AND tournament_code = $9`,
+     WHERE external_id = $10 AND tournament_code = $11`,
     [
       status,
       input.scoreHome,
@@ -163,6 +169,8 @@ export async function updateMatchFromAdmin(input: AdminMatchUpdate) {
       input.startsAt ?? current.starts_at,
       homeTeamId,
       awayTeamId,
+      input.winnerTeamId ?? null,
+      input.decidedBy ?? null,
       payload,
       input.externalId,
       TOURNAMENT_CODE

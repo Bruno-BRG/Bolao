@@ -1,5 +1,16 @@
 import { FINISHED_STATUSES, SCORING_RULES } from "@/lib/constants";
-import type { Match, PredictionDocument, Team } from "@/types/domain";
+import {
+  calculateBracketPoints,
+  resolveOfficialBracket,
+  type UserBracketPrediction
+} from "@/lib/bracket-scoring";
+import {
+  getMatchDecidedBy,
+  getMatchWinnerTeamId,
+  isKnockoutMatch
+} from "@/lib/match-knockout";
+import { calculateMatchPredictionPoints } from "@/lib/knockout-scoring";
+import type { BracketPrediction, Match, PredictionDocument, Team } from "@/types/domain";
 import { normalizePredictionDocument } from "@/services/prediction-document";
 
 type OfficialTopFour = {
@@ -26,9 +37,49 @@ export function scoreMatchPrediction(match: Match, doc: PredictionDocument) {
   ) {
     return {
       points: 0,
+      pointsScore: 0,
+      pointsQualified: 0,
+      pointsMethod: 0,
       exactScore: false,
       correctOutcome: false,
-      closeScores: 0
+      closeScores: 0,
+      isKnockout: false
+    };
+  }
+
+  const knockout = isKnockoutMatch(match);
+
+  if (knockout) {
+    const breakdown = calculateMatchPredictionPoints(
+      {
+        homeScore: match.score_home,
+        awayScore: match.score_away,
+        winnerTeamId: getMatchWinnerTeamId(match),
+        decidedBy: getMatchDecidedBy(match),
+        homeTeamId: match.home_team_id ?? "",
+        awayTeamId: match.away_team_id ?? "",
+        isKnockout: true
+      },
+      {
+        predictedHomeScore: prediction.homeGoals,
+        predictedAwayScore: prediction.awayGoals,
+        predictedWinnerTeamId: prediction.predictedWinnerTeamId ?? null,
+        predictedDecidedBy: prediction.predictedDecidedBy ?? null
+      }
+    );
+
+    const predictedOutcome = getOutcome(prediction.homeGoals, prediction.awayGoals);
+    const actualOutcome = getOutcome(match.score_home, match.score_away);
+
+    return {
+      points: breakdown.totalPoints,
+      pointsScore: breakdown.pointsScore,
+      pointsQualified: breakdown.pointsQualified,
+      pointsMethod: breakdown.pointsMethod,
+      exactScore: breakdown.pointsScore === SCORING_RULES.exactScore,
+      correctOutcome: predictedOutcome === actualOutcome,
+      closeScores: 0,
+      isKnockout: true
     };
   }
 
@@ -50,9 +101,13 @@ export function scoreMatchPrediction(match: Match, doc: PredictionDocument) {
 
   return {
     points,
+    pointsScore: points,
+    pointsQualified: 0,
+    pointsMethod: 0,
     exactScore,
     correctOutcome,
-    closeScores: 0
+    closeScores: 0,
+    isKnockout: false
   };
 }
 
@@ -109,6 +164,26 @@ export function resolveOfficialTopFour(teams: Team[]): OfficialTopFour {
   };
 }
 
+export function scoreBracketPrediction(
+  doc: PredictionDocument,
+  matches: Match[]
+) {
+  if (!doc.bracket) return { points: 0, breakdown: null };
+
+  const official = resolveOfficialBracket(matches);
+  const userBracket: UserBracketPrediction = {
+    quarterFinals: doc.bracket.quarterFinals,
+    semiFinals: doc.bracket.semiFinals,
+    final: doc.bracket.final,
+    championTeamId: doc.bracket.championTeamId,
+    runnerUpTeamId: doc.bracket.runnerUpTeamId,
+    top4: doc.bracket.top4
+  };
+
+  const breakdown = calculateBracketPoints(official, userBracket);
+  return { points: breakdown.totalPoints, breakdown };
+}
+
 export function calculatePredictionScore(
   rawDocument: unknown,
   matches: Match[],
@@ -118,6 +193,7 @@ export function calculatePredictionScore(
   const calculatedAt = new Date().toISOString();
   const nextMatches = { ...doc.matches };
   let matchPoints = 0;
+  let knockoutPoints = 0;
   let exactScores = 0;
   let correctOutcomes = 0;
   let closeScores = 0;
@@ -128,28 +204,49 @@ export function calculatePredictionScore(
       nextMatches[match.external_id] = {
         ...nextMatches[match.external_id],
         locked: FINISHED_STATUSES.has(match.status),
-        points: FINISHED_STATUSES.has(match.status) ? result.points : null
+        points: FINISHED_STATUSES.has(match.status) ? result.points : null,
+        pointsBreakdown: FINISHED_STATUSES.has(match.status)
+          ? {
+              pointsScore: result.pointsScore,
+              pointsQualified: result.pointsQualified,
+              pointsMethod: result.pointsMethod,
+              totalPoints: result.points
+            }
+          : null
       };
     }
     matchPoints += result.points;
+    if (result.isKnockout) knockoutPoints += result.points;
     if (result.exactScore) exactScores += 1;
     if (result.correctOutcome) correctOutcomes += 1;
     closeScores += result.closeScores;
   }
 
   const topFourPoints = scoreTopFourPrediction(doc, resolveOfficialTopFour(teams));
+  const bracketResult = scoreBracketPrediction(doc, matches);
+  const bracketPoints = bracketResult.points;
   const blanks = matches.filter((match) => !doc.matches[match.external_id]).length;
-  const totalPoints = matchPoints + topFourPoints;
+  const totalPoints = matchPoints + topFourPoints + bracketPoints;
 
   const nextDoc: PredictionDocument = {
     ...doc,
+    version: 2,
     updatedAt: calculatedAt,
     matches: nextMatches,
     topFour: doc.topFour ? { ...doc.topFour, points: topFourPoints } : null,
+    bracket: doc.bracket
+      ? {
+          ...doc.bracket,
+          points: bracketPoints,
+          pointsBreakdown: bracketResult.breakdown
+        }
+      : null,
     summary: {
       totalPoints,
       matchPoints,
+      knockoutPoints,
       topFourPoints,
+      bracketPoints,
       exactScores,
       correctOutcomes,
       closeScores,

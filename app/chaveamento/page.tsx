@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { KnockoutBracketBoard } from "@/components/KnockoutBracketBoard";
 import { isKnockoutStage } from "@/lib/knockout-stages";
@@ -19,10 +20,13 @@ export default async function ChaveamentoPage() {
         <div>
           <h1>Chaveamento</h1>
           <p className="muted">
-            Mata-mata da Copa do Mundo 2026 — da fase inicial ate a final. Times
-            atualizados conforme resultados e classificacao.
+            Mata-mata oficial da Copa — resultados reais, times atualizados conforme os
+            jogos acontecem.
           </p>
         </div>
+        <Link className="button secondary" href="/seu_chaveamento">
+          Meu chaveamento
+        </Link>
       </section>
 
       {knockoutMatches.length === 0 ? (

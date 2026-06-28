@@ -3,9 +3,17 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveBracketPredictionAction } from "@/actions/bracket.actions";
-import { KNOCKOUT_ROUNDS } from "@/lib/knockout-bracket-tree";
+import {
+  KNOCKOUT_ROUNDS,
+  type BracketRound
+} from "@/lib/knockout-bracket-tree";
 import { getMatchTeamLabel } from "@/lib/match-visibility";
-import type { BracketPrediction, Match, Team } from "@/types/domain";
+import type {
+  BracketEditorState,
+  BracketPrediction,
+  Match,
+  Team
+} from "@/types/domain";
 
 type BracketPredictionBoardProps = {
   matches: Match[];
@@ -14,52 +22,72 @@ type BracketPredictionBoardProps = {
   locked: boolean;
 };
 
-type RoundPick = Record<string, string>;
+type Side = "top" | "bottom";
+type Slot = { top: string | null; bottom: string | null };
+type RoundParticipants = Record<string, Record<string, Slot>>;
+type RoundPicks = Record<string, Record<string, string>>;
+type FirstRoundTeams = Record<string, { top: string | null; bottom: string | null }>;
 
-function buildInitialPicks(
-  saved: BracketPrediction | null,
-  matches: Match[]
-): Record<string, RoundPick> {
-  const byRound: Record<string, RoundPick> = {};
-  for (const round of KNOCKOUT_ROUNDS) {
-    byRound[round.id] = {};
+const FINAL_ROUND_ID = KNOCKOUT_ROUNDS[KNOCKOUT_ROUNDS.length - 1].id;
+const FINAL_MATCH_ID = KNOCKOUT_ROUNDS[KNOCKOUT_ROUNDS.length - 1].matchIds[0];
+const SEMI_ROUND_ID = "sf";
+const FIRST_ROUND_ID = KNOCKOUT_ROUNDS[0].id;
+
+function effectiveFirstRound(
+  matchMap: Map<string, Match>,
+  userTeams: FirstRoundTeams
+): FirstRoundTeams {
+  const result: FirstRoundTeams = {};
+  for (const matchId of KNOCKOUT_ROUNDS[0].matchIds) {
+    const match = matchMap.get(matchId);
+    const user = userTeams[matchId];
+    result[matchId] = {
+      top: match?.home_team_id ?? user?.top ?? null,
+      bottom: match?.away_team_id ?? user?.bottom ?? null
+    };
   }
-
-  if (!saved) return byRound;
-
-  const matchById = new Map(matches.map((match) => [match.external_id, match]));
-
-  function fillFromSlots(roundId: string, slots: { slot: string; teamId: string }[]) {
-    for (const entry of slots) {
-      byRound[roundId][entry.slot] = entry.teamId;
-    }
-  }
-
-  fillFromSlots("r16", saved.quarterFinals);
-  fillFromSlots("qf", saved.semiFinals);
-  fillFromSlots("sf", saved.final);
-
-  for (const round of KNOCKOUT_ROUNDS) {
-    for (const matchId of round.matchIds) {
-      const match = matchById.get(matchId);
-      if (!match || !match.home_team_id || !match.away_team_id) continue;
-      const slot = `M${matchId}`;
-      if (byRound[round.id][slot]) continue;
-
-      const homeInQf = saved.quarterFinals.some((s) => s.teamId === match.home_team_id);
-      const awayInQf = saved.quarterFinals.some((s) => s.teamId === match.away_team_id);
-      if (round.id === "r16") {
-        if (homeInQf) byRound[round.id][slot] = match.home_team_id;
-        else if (awayInQf) byRound[round.id][slot] = match.away_team_id;
-      }
-    }
-  }
-
-  return byRound;
+  return result;
 }
 
-function slotKey(matchId: string) {
-  return `M${matchId}`;
+function resolveBracket(
+  firstRound: FirstRoundTeams,
+  picks: RoundPicks
+): { participants: RoundParticipants; picks: RoundPicks } {
+  const participants: RoundParticipants = {};
+  const clean: RoundPicks = {};
+
+  KNOCKOUT_ROUNDS.forEach((round, roundIndex) => {
+    participants[round.id] = {};
+    clean[round.id] = {};
+
+    round.matchIds.forEach((matchId, matchIndex) => {
+      let slot: Slot;
+      if (roundIndex === 0) {
+        slot = firstRound[matchId] ?? { top: null, bottom: null };
+      } else {
+        const prev = KNOCKOUT_ROUNDS[roundIndex - 1];
+        slot = {
+          top: clean[prev.id]?.[prev.matchIds[matchIndex * 2]] ?? null,
+          bottom: clean[prev.id]?.[prev.matchIds[matchIndex * 2 + 1]] ?? null
+        };
+      }
+      participants[round.id][matchId] = slot;
+
+      const pick = picks[round.id]?.[matchId] ?? null;
+      if (pick && (pick === slot.top || pick === slot.bottom)) {
+        clean[round.id][matchId] = pick;
+      }
+    });
+  });
+
+  return { participants, picks: clean };
+}
+
+function loserOf(slot: Slot | undefined, pick: string | null | undefined) {
+  if (!slot || !pick) return null;
+  if (pick === slot.top) return slot.bottom;
+  if (pick === slot.bottom) return slot.top;
+  return null;
 }
 
 export function BracketPredictionBoard({
@@ -78,80 +106,193 @@ export function BracketPredictionBoard({
     [teams]
   );
 
-  const [roundPicks, setRoundPicks] = useState(() =>
-    buildInitialPicks(savedBracket, matches)
+  const [firstRoundTeams, setFirstRoundTeams] = useState<FirstRoundTeams>(
+    () => savedBracket?.editor?.firstRoundTeams ?? {}
   );
-  const [thirdPlace, setThirdPlace] = useState(
-    savedBracket?.top4.find((entry) => entry.position === 3)?.teamId ?? ""
+  const [picks, setPicks] = useState<RoundPicks>(
+    () => savedBracket?.editor?.picks ?? {}
   );
-  const [fourthPlace, setFourthPlace] = useState(
-    savedBracket?.top4.find((entry) => entry.position === 4)?.teamId ?? ""
+  const [thirdPlacePick, setThirdPlacePick] = useState<string | null>(
+    () => savedBracket?.editor?.thirdPlaceTeamId ?? null
   );
+
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
-  function pickWinner(roundId: string, matchId: string, teamId: string) {
+  const { participants, picks: cleanPicks } = useMemo(() => {
+    const firstRound = effectiveFirstRound(matchMap, firstRoundTeams);
+    return resolveBracket(firstRound, picks);
+  }, [matchMap, firstRoundTeams, picks]);
+
+  const finalSlot = participants[FINAL_ROUND_ID]?.[FINAL_MATCH_ID];
+  const championTeamId = cleanPicks[FINAL_ROUND_ID]?.[FINAL_MATCH_ID] ?? null;
+  const runnerUpTeamId = championTeamId ? loserOf(finalSlot, championTeamId) : null;
+
+  const semiLosers = useMemo(() => {
+    const semiRound = KNOCKOUT_ROUNDS.find((round) => round.id === SEMI_ROUND_ID);
+    if (!semiRound) return [] as string[];
+    const losers: string[] = [];
+    for (const matchId of semiRound.matchIds) {
+      const loser = loserOf(
+        participants[SEMI_ROUND_ID]?.[matchId],
+        cleanPicks[SEMI_ROUND_ID]?.[matchId]
+      );
+      if (loser) losers.push(loser);
+    }
+    return losers;
+  }, [participants, cleanPicks]);
+
+  const validThirdPick =
+    thirdPlacePick && semiLosers.includes(thirdPlacePick) ? thirdPlacePick : null;
+  const fourthTeamId =
+    validThirdPick && semiLosers.length === 2
+      ? semiLosers.find((id) => id !== validThirdPick) ?? null
+      : null;
+
+  function advance(roundId: string, matchId: string, teamId: string) {
     if (locked) return;
-    setRoundPicks((current) => ({
+    setPicks((current) => ({
       ...current,
-      [roundId]: {
-        ...current[roundId],
-        [slotKey(matchId)]: teamId
+      [roundId]: { ...current[roundId], [matchId]: teamId }
+    }));
+  }
+
+  function setFirstRoundTeam(matchId: string, side: Side, teamId: string) {
+    if (locked) return;
+    setFirstRoundTeams((current) => ({
+      ...current,
+      [matchId]: {
+        top: current[matchId]?.top ?? null,
+        bottom: current[matchId]?.bottom ?? null,
+        [side]: teamId || null
       }
     }));
   }
 
-  function getAdvancingTeam(roundId: string, matchId: string, side: "home" | "away") {
-    const match = matchMap.get(matchId);
-    if (!match) return null;
-    const picked = roundPicks[roundId]?.[slotKey(matchId)];
-    if (picked) return picked;
-    return side === "home" ? match.home_team_id : match.away_team_id;
+  function teamName(teamId: string | null, fallback: string) {
+    if (!teamId) return fallback;
+    return teamsById.get(teamId)?.name ?? fallback;
   }
 
-  const championTeamId = roundPicks.final?.[slotKey("104")] ?? savedBracket?.championTeamId ?? null;
-  const finalMatch = matchMap.get("104");
-  let runnerUpTeamId = savedBracket?.runnerUpTeamId ?? null;
-  if (finalMatch && championTeamId) {
-    runnerUpTeamId =
-      championTeamId === finalMatch.home_team_id
-        ? finalMatch.away_team_id
-        : finalMatch.home_team_id;
+  function PickRow({
+    roundId,
+    matchId,
+    side,
+    slot
+  }: {
+    roundId: string;
+    matchId: string;
+    side: Side;
+    slot: Slot;
+  }) {
+    const teamId = slot[side];
+    const team = teamId ? teamsById.get(teamId) : null;
+    const isFirstRound = roundId === FIRST_ROUND_ID;
+    const match = matchMap.get(matchId);
+    const realTeamId =
+      side === "top" ? match?.home_team_id ?? null : match?.away_team_id ?? null;
+    const editable = isFirstRound && !realTeamId;
+    const selected = Boolean(teamId) && cleanPicks[roundId]?.[matchId] === teamId;
+    const fallbackLabel = match
+      ? getMatchTeamLabel(match, side === "top" ? "home" : "away")
+      : "A definir";
+
+    return (
+      <div className={`bp-row${selected ? " bp-row--winner" : ""}`}>
+        <button
+          aria-label="Escolher como vencedor"
+          aria-pressed={selected}
+          className="bp-row__pick"
+          disabled={locked || !teamId}
+          onClick={() => teamId && advance(roundId, matchId, teamId)}
+          type="button"
+        >
+          <span className="bp-row__dot" />
+        </button>
+
+        {editable ? (
+          <select
+            className="bp-row__select"
+            disabled={locked}
+            onChange={(event) => setFirstRoundTeam(matchId, side, event.target.value)}
+            value={teamId ?? ""}
+          >
+            <option value="">Escolher time</option>
+            {teams.map((option) => (
+              <option key={option.external_id} value={option.external_id}>
+                {option.name}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <button
+            className="bp-row__team"
+            disabled={locked || !teamId}
+            onClick={() => teamId && advance(roundId, matchId, teamId)}
+            type="button"
+          >
+            {team?.flag_url ? (
+              <img alt="" className="flag-icon flag-icon--sm" loading="lazy" src={team.flag_url} />
+            ) : (
+              <span className="bp-row__crest" aria-hidden="true" />
+            )}
+            <span className="bp-row__name">{team?.name ?? fallbackLabel}</span>
+          </button>
+        )}
+      </div>
+    );
+  }
+
+  function PickCard({
+    round,
+    matchId
+  }: {
+    round: BracketRound;
+    matchId: string;
+  }) {
+    const slot = participants[round.id]?.[matchId] ?? { top: null, bottom: null };
+    return (
+      <article className="bp-card">
+        <header className="bp-card__head">Jogo {matchId}</header>
+        <PickRow matchId={matchId} roundId={round.id} side="top" slot={slot} />
+        <PickRow matchId={matchId} roundId={round.id} side="bottom" slot={slot} />
+      </article>
+    );
   }
 
   async function handleSave() {
     setStatus(null);
     setError(null);
-    setSaving(true);
 
-    const quarterFinals = Object.entries(roundPicks.r16 ?? {}).map(([slot, teamId]) => ({
-      slot,
-      teamId
-    }));
-    const semiFinals = Object.entries(roundPicks.qf ?? {}).map(([slot, teamId]) => ({
-      slot,
-      teamId
-    }));
-    const finalPicks = Object.entries(roundPicks.sf ?? {}).map(([slot, teamId]) => ({
-      slot,
-      teamId
-    }));
-
-    if (!championTeamId || !runnerUpTeamId || !thirdPlace || !fourthPlace) {
-      setSaving(false);
-      setError("Complete o chaveamento e o Top 4 antes de salvar.");
+    if (!championTeamId || !runnerUpTeamId || !validThirdPick || !fourthTeamId) {
+      setError("Complete a final e a disputa de 3o lugar antes de salvar.");
       return;
     }
 
+    setSaving(true);
+
+    const toSlots = (roundId: string) =>
+      Object.entries(cleanPicks[roundId] ?? {}).map(([matchId, teamId]) => ({
+        slot: `M${matchId}`,
+        teamId
+      }));
+
+    const editor: BracketEditorState = {
+      firstRoundTeams,
+      picks: cleanPicks,
+      thirdPlaceTeamId: validThirdPick
+    };
+
     const result = await saveBracketPredictionAction({
-      quarterFinals,
-      semiFinals,
-      final: finalPicks,
+      quarterFinals: toSlots("r16"),
+      semiFinals: toSlots("qf"),
+      final: toSlots("sf"),
       championTeamId,
       runnerUpTeamId,
-      thirdPlaceTeamId: thirdPlace,
-      fourthPlaceTeamId: fourthPlace
+      thirdPlaceTeamId: validThirdPick,
+      fourthPlaceTeamId: fourthTeamId,
+      editor
     });
 
     setSaving(false);
@@ -165,112 +306,89 @@ export function BracketPredictionBoard({
   }
 
   return (
-    <div className="bracket-prediction">
-      {status ? <p className="success">{status}</p> : null}
-      {error ? <p className="error">{error}</p> : null}
+    <div className="bp">
       {locked ? (
-        <p className="badge locked">Chaveamento bloqueado — mata-mata ja comecou.</p>
-      ) : null}
+        <p className="badge locked">Chaveamento bloqueado — o mata-mata ja comecou.</p>
+      ) : (
+        <p className="muted bp__hint">
+          Clique no time que avanca em cada chave. Nas caixas vazias, escolha o time
+          no seletor. O vencedor sobe sozinho para a proxima fase.
+        </p>
+      )}
 
-      {KNOCKOUT_ROUNDS.map((round) => (
-        <section key={round.id} className="bracket-prediction__round card">
-          <h2>{round.title}</h2>
-          <div className="bracket-prediction__matches">
-            {round.matchIds.map((matchId) => {
-              const match = matchMap.get(matchId);
-              if (!match) {
-                return (
-                  <article key={matchId} className="bracket-prediction__match muted">
-                    Jogo {matchId} — a definir
-                  </article>
-                );
-              }
-
-              const homeId = getAdvancingTeam(round.id, matchId, "home");
-              const awayId = getAdvancingTeam(round.id, matchId, "away");
-              const homeTeam = homeId ? teamsById.get(homeId) : null;
-              const awayTeam = awayId ? teamsById.get(awayId) : null;
-              const picked = roundPicks[round.id]?.[slotKey(matchId)];
-
+      <div className="bracket-shell bracket-shell--edit">
+        <div className="bracket-scroll">
+          <div className="bracket-board">
+            {KNOCKOUT_ROUNDS.map((round, roundIndex) => {
+              const isLast = roundIndex === KNOCKOUT_ROUNDS.length - 1;
               return (
-                <article key={matchId} className="bracket-prediction__match">
-                  <p className="muted">Jogo {matchId}</p>
-                  <div className="bracket-prediction__pick">
-                    <button
-                      className={`button secondary small${picked === homeId ? " active" : ""}`}
-                      disabled={locked || !homeId}
-                      onClick={() => homeId && pickWinner(round.id, matchId, homeId)}
-                      type="button"
-                    >
-                      {homeTeam?.name ?? getMatchTeamLabel(match, "home")}
-                    </button>
-                    <span>x</span>
-                    <button
-                      className={`button secondary small${picked === awayId ? " active" : ""}`}
-                      disabled={locked || !awayId}
-                      onClick={() => awayId && pickWinner(round.id, matchId, awayId)}
-                      type="button"
-                    >
-                      {awayTeam?.name ?? getMatchTeamLabel(match, "away")}
-                    </button>
+                <section key={round.id} className={`bracket-col bracket-col--${round.id}`}>
+                  <h3 className="bracket-col__title">{round.title}</h3>
+                  <div className="bracket-col__slots">
+                    {round.matchIds.map((matchId, matchIndex) => {
+                      const isUpper = matchIndex % 2 === 0;
+                      return (
+                        <div
+                          key={matchId}
+                          className={`bracket-slot${isLast ? " bracket-slot--last" : ""}${
+                            isUpper ? " bracket-slot--upper" : " bracket-slot--lower"
+                          }`}
+                        >
+                          <PickCard matchId={matchId} round={round} />
+                          {!isLast && isUpper ? (
+                            <span className="bracket-slot__link" aria-hidden="true" />
+                          ) : null}
+                        </div>
+                      );
+                    })}
                   </div>
-                </article>
+                </section>
               );
             })}
           </div>
-        </section>
-      ))}
+        </div>
+      </div>
 
-      <section className="card">
-        <h2>Top 4</h2>
-        <p className="muted">
-          Campeao e vice sao definidos pela final. Escolha o 3o e 4o lugar.
-        </p>
-        <div className="bracket-prediction__top4">
-          <p>
-            <strong>Campeao:</strong>{" "}
-            {championTeamId
-              ? (teamsById.get(championTeamId)?.name ?? championTeamId)
-              : "Defina a final"}
-          </p>
-          <p>
-            <strong>Vice:</strong>{" "}
-            {runnerUpTeamId
-              ? (teamsById.get(runnerUpTeamId)?.name ?? runnerUpTeamId)
-              : "Defina a final"}
-          </p>
-          <label>
-            3o lugar
-            <select
-              disabled={locked}
-              onChange={(event) => setThirdPlace(event.target.value)}
-              value={thirdPlace}
-            >
-              <option value="">Selecione</option>
-              {teams.map((team) => (
-                <option key={team.external_id} value={team.external_id}>
-                  {team.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            4o lugar
-            <select
-              disabled={locked}
-              onChange={(event) => setFourthPlace(event.target.value)}
-              value={fourthPlace}
-            >
-              <option value="">Selecione</option>
-              {teams.map((team) => (
-                <option key={team.external_id} value={team.external_id}>
-                  {team.name}
-                </option>
-              ))}
-            </select>
-          </label>
+      <section className="bp-podium card">
+        <h3>Pódio</h3>
+        <div className="bp-podium__grid">
+          <div className="bp-podium__item bp-podium__item--gold">
+            <span className="bp-podium__label">Campeão</span>
+            <strong>{teamName(championTeamId, "Defina a final")}</strong>
+          </div>
+          <div className="bp-podium__item bp-podium__item--silver">
+            <span className="bp-podium__label">Vice</span>
+            <strong>{teamName(runnerUpTeamId, "Defina a final")}</strong>
+          </div>
+          <div className="bp-podium__item bp-podium__item--bronze">
+            <span className="bp-podium__label">3º lugar</span>
+            {semiLosers.length === 2 ? (
+              <div className="bp-podium__choice">
+                {semiLosers.map((teamId) => (
+                  <button
+                    key={teamId}
+                    className={`button secondary small${validThirdPick === teamId ? " active" : ""}`}
+                    disabled={locked}
+                    onClick={() => setThirdPlacePick(teamId)}
+                    type="button"
+                  >
+                    {teamName(teamId, teamId)}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <strong className="muted">Defina as semifinais</strong>
+            )}
+          </div>
+          <div className="bp-podium__item">
+            <span className="bp-podium__label">4º lugar</span>
+            <strong>{teamName(fourthTeamId, "Automático")}</strong>
+          </div>
         </div>
       </section>
+
+      {status ? <p className="success">{status}</p> : null}
+      {error ? <p className="error">{error}</p> : null}
 
       {!locked ? (
         <button className="button" disabled={saving} onClick={() => void handleSave()} type="button">

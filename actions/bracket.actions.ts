@@ -14,6 +14,17 @@ const slotSchema = z.object({
   teamId: z.string().min(1)
 });
 
+const editorSchema = z.object({
+  firstRoundTeams: z.record(
+    z.object({
+      top: z.string().nullable(),
+      bottom: z.string().nullable()
+    })
+  ),
+  picks: z.record(z.record(z.string())),
+  thirdPlaceTeamId: z.string().nullable()
+});
+
 const bracketSchema = z.object({
   quarterFinals: z.array(slotSchema),
   semiFinals: z.array(slotSchema),
@@ -21,7 +32,8 @@ const bracketSchema = z.object({
   championTeamId: z.string().min(1),
   runnerUpTeamId: z.string().min(1),
   thirdPlaceTeamId: z.string().min(1),
-  fourthPlaceTeamId: z.string().min(1)
+  fourthPlaceTeamId: z.string().min(1),
+  editor: editorSchema.optional()
 });
 
 export type BracketSaveResult = {
@@ -68,6 +80,7 @@ export async function saveBracketPredictionAction(
         { position: 3, teamId: parsed.thirdPlaceTeamId },
         { position: 4, teamId: parsed.fourthPlaceTeamId }
       ],
+      editor: parsed.editor ?? null,
       savedAt: now,
       locked: false,
       points: null

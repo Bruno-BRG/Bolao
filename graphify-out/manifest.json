@@ -1,7 +1,7 @@
 {
   "actions/admin.actions.ts": {
-    "mtime": 1782479891.1914976,
-    "ast_hash": "cb50c297d02b4c0c3cc23be0835a7c4f",
+    "mtime": 1782655588.7240174,
+    "ast_hash": "a73818b5edc73e051297f8cf5641d59b",
     "semantic_hash": ""
   },
   "actions/auth.actions.ts": {
@@ -10,8 +10,8 @@
     "semantic_hash": ""
   },
   "actions/predictions.actions.ts": {
-    "mtime": 1781202218.424105,
-    "ast_hash": "25b939374995c95769f04211db0b8eb1",
+    "mtime": 1782655578.6955905,
+    "ast_hash": "a03ad6c6eefb03718797e46cda4377ea",
     "semantic_hash": ""
   },
   "app/api/admin/recalculate-ranking/route.ts": {
@@ -40,8 +40,8 @@
     "semantic_hash": ""
   },
   "app/layout.tsx": {
-    "mtime": 1782481160.7117693,
-    "ast_hash": "86146e23d280e291d262d31dc0d8514d",
+    "mtime": 1782655665.158405,
+    "ast_hash": "32ef1f56065c4f72b7ce046851e6064d",
     "semantic_hash": ""
   },
   "app/login/page.tsx": {
@@ -80,8 +80,8 @@
     "semantic_hash": ""
   },
   "components/RankingTable.tsx": {
-    "mtime": 1781202092.1304214,
-    "ast_hash": "87266fab2e9aba572f14c807ee32037d",
+    "mtime": 1782655664.7658517,
+    "ast_hash": "12681a0b05ccb1624de987eb938683d4",
     "semantic_hash": ""
   },
   "components/SidebarNav.tsx": {
@@ -95,8 +95,8 @@
     "semantic_hash": ""
   },
   "lib/constants.ts": {
-    "mtime": 1781202084.6921582,
-    "ast_hash": "9ded530acb6ba259d7c2ddded6e794dd",
+    "mtime": 1782655518.3818226,
+    "ast_hash": "f3266050b507aa8dc18248538c6d1bf2",
     "semantic_hash": ""
   },
   "lib/crypto.ts": {
@@ -115,8 +115,8 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1782422941.148617,
-    "ast_hash": "8fe82b0068521ec114d8329c5f194255",
+    "mtime": 1782655700.7959983,
+    "ast_hash": "ffd693761b1f9afce2339fe8dae5aa66",
     "semantic_hash": ""
   },
   "repositories/auth.repo.ts": {
@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "repositories/worldcup.repo.ts": {
-    "mtime": 1782422855.1852815,
-    "ast_hash": "77e7bfa68b3a5bcb428c9a867511530f",
+    "mtime": 1782655553.2278528,
+    "ast_hash": "ecf19bd181e6854d7b39806a061d6a46",
     "semantic_hash": ""
   },
   "services/auth.service.ts": {
@@ -140,18 +140,18 @@
     "semantic_hash": ""
   },
   "services/prediction-document.ts": {
-    "mtime": 1781184742.289188,
-    "ast_hash": "92f06814c0b8a7f34f8b67eb1df1ab98",
+    "mtime": 1782655549.693445,
+    "ast_hash": "ff64f6299747e3149aa347b573b1d937",
     "semantic_hash": ""
   },
   "services/ranking.service.ts": {
-    "mtime": 1782432906.118091,
-    "ast_hash": "f9d96906cb95b693bf41aa2ace170e6d",
+    "mtime": 1782655592.0992174,
+    "ast_hash": "ae8602bf81cdf2cfb5e94c3c80cf966d",
     "semantic_hash": ""
   },
   "services/scoring.service.ts": {
-    "mtime": 1781202087.7690103,
-    "ast_hash": "13e16a04cfdb900b50c242710b9e2356",
+    "mtime": 1782655545.5532687,
+    "ast_hash": "d7bfdf02b3156cce2d6251aaa8a83fb0",
     "semantic_hash": ""
   },
   "services/worldcup-live.service.ts": {
@@ -175,8 +175,8 @@
     "semantic_hash": ""
   },
   "types/domain.ts": {
-    "mtime": 1781212671.3791497,
-    "ast_hash": "9dfe94fdcfd8a757b71c79c266ef9c44",
+    "mtime": 1782656752.8765883,
+    "ast_hash": "4473a857c8896ec3bfbdeeaf47f87ef2",
     "semantic_hash": ""
   },
   "vercel.json": {
@@ -235,12 +235,12 @@
     "semantic_hash": ""
   },
   "components/PalpitesWorkspace.tsx": {
-    "mtime": 1782482840.1326613,
-    "ast_hash": "f03803176565a95f07f565606089543e",
+    "mtime": 1782655712.6572182,
+    "ast_hash": "d496d52bb6ffec13ddd3f281600279cb",
     "semantic_hash": ""
   },
   "lib/match-visibility.ts": {
-    "mtime": 1782482831.8968675,
+    "mtime": 1782482894.2570176,
     "ast_hash": "1f795fb6399b47b448d4597826de5cf9",
     "semantic_hash": ""
   },
@@ -300,8 +300,8 @@
     "semantic_hash": ""
   },
   "components/AdminMatchesPanel.tsx": {
-    "mtime": 1782479908.483532,
-    "ast_hash": "52b801334e9d5636f4d88f57fcd97c43",
+    "mtime": 1782655680.6232903,
+    "ast_hash": "8dba1a2637a1cdeae624a97aa10372a4",
     "semantic_hash": ""
   },
   "lib/admin-auth.ts": {
@@ -315,8 +315,8 @@
     "semantic_hash": ""
   },
   "services/match-admin.service.ts": {
-    "mtime": 1782479930.1468775,
-    "ast_hash": "e1d056048184b93c9ec6e2a5c6a3f31e",
+    "mtime": 1782655557.8209429,
+    "ast_hash": "e88d5770e62f0aec6ac687bd64a4ea29",
     "semantic_hash": ""
   },
   "scripts/docker-entrypoint.sh": {
@@ -475,8 +475,8 @@
     "semantic_hash": ""
   },
   "app/chaveamento/page.tsx": {
-    "mtime": 1782481127.8349009,
-    "ast_hash": "aa7ae410395d1dd38b0ee4a65621f647",
+    "mtime": 1782655662.2026658,
+    "ast_hash": "80186c12edbb742da02bf91b610f4816",
     "semantic_hash": ""
   },
   "components/KnockoutBracketBoard.tsx": {
@@ -487,6 +487,56 @@
   "lib/knockout-bracket-tree.ts": {
     "mtime": 1782481806.6141562,
     "ast_hash": "76a0190abb8b6511795b89ae5f86f7ff",
+    "semantic_hash": ""
+  },
+  "actions/bracket.actions.ts": {
+    "mtime": 1782656766.2087295,
+    "ast_hash": "198aa9e5a8f7b096cffae1e5ed483646",
+    "semantic_hash": ""
+  },
+  "components/BracketPredictionBoard.tsx": {
+    "mtime": 1782656818.2599878,
+    "ast_hash": "f16e1c071c081733751e9e29108bb365",
+    "semantic_hash": ""
+  },
+  "components/KnockoutPredictionFields.tsx": {
+    "mtime": 1782656840.3025284,
+    "ast_hash": "014c4dfd9ce12a8caf0b5176d6857698",
+    "semantic_hash": ""
+  },
+  "db/migrations/202606280001_knockout_fields.sql": {
+    "mtime": 1782655489.7069118,
+    "ast_hash": "85e2a2acd226aa8e9ff8d633022faf5b",
+    "semantic_hash": ""
+  },
+  "lib/bracket-scoring.ts": {
+    "mtime": 1782655517.37413,
+    "ast_hash": "02f986c32d20e78d7787aa5805ad5b3f",
+    "semantic_hash": ""
+  },
+  "lib/decision-method.ts": {
+    "mtime": 1782655490.876369,
+    "ast_hash": "3ae14c0a7630481ad058572c2457b513",
+    "semantic_hash": ""
+  },
+  "lib/knockout-prediction-validation.ts": {
+    "mtime": 1782655500.168638,
+    "ast_hash": "de26d3833359676d55bed2c391e3814e",
+    "semantic_hash": ""
+  },
+  "lib/knockout-scoring.ts": {
+    "mtime": 1782655495.5931547,
+    "ast_hash": "dc63d04ba614cf44f646c1bedf6c3e07",
+    "semantic_hash": ""
+  },
+  "lib/match-knockout.ts": {
+    "mtime": 1782655713.0441694,
+    "ast_hash": "0d3bfffec1da3f3e97d7963efdd755fa",
+    "semantic_hash": ""
+  },
+  "scripts/verify-knockout-scoring.mjs": {
+    "mtime": 1782655696.8785517,
+    "ast_hash": "d5f9afd946f5cd6318d4f57fe4687d37",
     "semantic_hash": ""
   }
 }

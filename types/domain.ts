@@ -72,6 +72,12 @@ export type BracketTopFourSlot = {
   teamId: string;
 };
 
+export type BracketEditorState = {
+  firstRoundTeams: Record<string, { top: string | null; bottom: string | null }>;
+  picks: Record<string, Record<string, string>>;
+  thirdPlaceTeamId: string | null;
+};
+
 export type BracketPrediction = {
   quarterFinals: BracketSlotPrediction[];
   semiFinals: BracketSlotPrediction[];
@@ -79,6 +85,7 @@ export type BracketPrediction = {
   championTeamId: string | null;
   runnerUpTeamId: string | null;
   top4: BracketTopFourSlot[];
+  editor?: BracketEditorState | null;
   savedAt: string;
   locked: boolean;
   points: number | null;

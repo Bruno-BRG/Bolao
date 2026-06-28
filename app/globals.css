@@ -2353,3 +2353,40 @@ tbody tr:hover {
   line-height: 1.5;
   padding: 12px 14px;
 }
+
+.ranking-board {
+  display: grid;
+  gap: 14px;
+}
+
+.ranking-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ranking-tab {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.ranking-tab:hover {
+  border-color: var(--accent);
+}
+
+.ranking-tab--active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.ranking-board__hint {
+  font-size: 0.88rem;
+  margin: 0;
+}

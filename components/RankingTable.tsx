@@ -1,8 +1,59 @@
 import type { RankingRow } from "@/types/domain";
+import {
+  buildRankingView,
+  getRankingPoints,
+  type RankingView
+} from "@/lib/ranking-views";
 
-export function RankingTable({ rows }: { rows: RankingRow[] }) {
-  if (rows.length === 0) {
+export function RankingTable({
+  rows,
+  view
+}: {
+  rows: RankingRow[];
+  view: RankingView;
+}) {
+  const rankedRows = buildRankingView(rows, view);
+
+  if (rankedRows.length === 0) {
     return <p className="muted">Ainda nao ha participantes no ranking.</p>;
+  }
+
+  if (view === "eliminatorias") {
+    return (
+      <div className="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Pos.</th>
+              <th>Usuario</th>
+              <th>Pontos</th>
+              <th>Jogos</th>
+              <th>Chaveamento</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rankedRows.map((row) => (
+              <tr
+                key={row.userId}
+                className={row.position <= 3 ? "rank-row-top" : undefined}
+              >
+                <td>
+                  <span className="position-pill">{row.position}</span>
+                </td>
+                <td>
+                  <strong>{row.username}</strong>
+                </td>
+                <td>
+                  <strong>{getRankingPoints(row, view)}</strong>
+                </td>
+                <td>{row.knockoutPoints ?? 0}</td>
+                <td>{row.bracketPoints ?? 0}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
   }
 
   return (
@@ -22,7 +73,7 @@ export function RankingTable({ rows }: { rows: RankingRow[] }) {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => (
+          {rankedRows.map((row) => (
             <tr
               key={row.userId}
               className={row.position <= 3 ? "rank-row-top" : undefined}

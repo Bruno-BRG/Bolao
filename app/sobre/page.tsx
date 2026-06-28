@@ -111,8 +111,8 @@ export default function SobrePage() {
       <section className="card rules-card">
         <h2>Ranking</h2>
         <p className="muted">
-          O ranking geral soma tudo: jogos da fase de grupos, bonus do mata-mata e pontos do
-          chaveamento. No ranking voce tambem ve a divisao por categoria.
+          O ranking geral soma tudo. Na aba <strong>Eliminatorias</strong> entram
+          apenas os pontos dos jogos de mata-mata e do chaveamento.
         </p>
       </section>
     </main>

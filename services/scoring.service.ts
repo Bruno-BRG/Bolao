@@ -222,7 +222,10 @@ export function calculatePredictionScore(
     closeScores += result.closeScores;
   }
 
-  const topFourPoints = scoreTopFourPrediction(doc, resolveOfficialTopFour(teams));
+  const topFourPoints =
+    doc.bracket?.championTeamId
+      ? 0
+      : scoreTopFourPrediction(doc, resolveOfficialTopFour(teams));
   const bracketResult = scoreBracketPrediction(doc, matches);
   const bracketPoints = bracketResult.points;
   const blanks = matches.filter((match) => !doc.matches[match.external_id]).length;

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { BracketPodiumSummary } from "@/components/BracketPodiumSummary";
 import { PalpitesWorkspace } from "@/components/PalpitesWorkspace";
 import { shouldShowMatchInPalpites } from "@/lib/match-visibility";
 import { getOrCreatePredictionDocument } from "@/repositories/predictions.repo";
-import { listMatches } from "@/repositories/worldcup.repo";
+import { listMatches, listTeams } from "@/repositories/worldcup.repo";
 import { getCurrentUser } from "@/services/auth.service";
 import { normalizePredictionDocument } from "@/services/prediction-document";
 export const dynamic = "force-dynamic";
@@ -18,16 +19,18 @@ export default async function PalpitesPage({
 
   const params = await searchParams;
 
-  const [row, matches] = await Promise.all([
+  const [row, matches, teams] = await Promise.all([
     getOrCreatePredictionDocument(user.id),
-    listMatches({ refreshIfStale: true })
+    listMatches({ refreshIfStale: true }),
+    listTeams()
   ]);
   const document = normalizePredictionDocument(row.predictions);
   const savedMatchIds = new Set(Object.keys(document.matches));
   const visibleMatches = matches.filter((match) =>
     shouldShowMatchInPalpites(match, savedMatchIds)
   );
-  const hasBracket = Boolean(document.bracket?.championTeamId);
+  const bracket = document.bracket;
+  const hasBracket = Boolean(bracket?.championTeamId);
 
   return (
     <main className="container">
@@ -41,19 +44,22 @@ export default async function PalpitesPage({
         </div>
       </section>
 
-      {!hasBracket ? (
+      {hasBracket && bracket ? (
+        <BracketPodiumSummary bracket={bracket} editable teams={teams} />
+      ) : (
         <section className="card action-card">
           <div>
             <h2>Monte seu chaveamento</h2>
             <p className="muted">
-              Preveja o mata-mata ate a final e o podio (campeao, vice, 3o e 4o).
+              Preveja o mata-mata ate a final e o podio (campeao, vice, 3o e 4o). O Top 4
+              antigo foi substituido por essa previsao completa.
             </p>
           </div>
           <Link className="button" href="/seu_chaveamento">
             Ir para seu chaveamento
           </Link>
         </section>
-      ) : null}
+      )}
 
       {params.error ? <p className="error">{params.error}</p> : null}
       {params.saved ? (

@@ -8,14 +8,20 @@ import { isMatchLockedForPrediction } from "@/lib/match-lock";
 import { isKnockoutMatch } from "@/lib/match-knockout";
 import {
   normalizeKnockoutPrediction,
+  resolveKnockoutPredictionFields,
   validateKnockoutPrediction
 } from "@/lib/knockout-prediction-validation";
 import { isDecisionMethod } from "@/lib/decision-method";
-import { getOrCreatePredictionDocument, updatePredictionDocument } from "@/repositories/predictions.repo";
+import {
+  getOrCreatePredictionDocument,
+  mutatePredictionDocument,
+  updatePredictionDocument
+} from "@/repositories/predictions.repo";
 import { findMatch } from "@/repositories/worldcup.repo";
 import { getCurrentUser } from "@/services/auth.service";
 import { normalizePredictionDocument } from "@/services/prediction-document";
 import type { DecisionMethod } from "@/lib/decision-method";
+import type { Match, MatchPrediction } from "@/types/domain";
 
 const predictionSchema = z.object({
   matchId: z.string().min(1),
@@ -60,6 +66,20 @@ export type MatchSaveResult = {
   error?: string;
 };
 
+type PreparedMatchPrediction =
+  | {
+      ok: true;
+      matchId: string;
+      match: Match;
+      entry: MatchPrediction;
+      knockout: boolean;
+    }
+  | {
+      ok: false;
+      status: "missing" | "unpredictable" | "locked" | "invalid";
+      error?: string;
+    };
+
 function ensureUnique(values: string[]) {
   return new Set(values).size === values.length;
 }
@@ -69,14 +89,26 @@ function isMatchLocked(match: Awaited<ReturnType<typeof findMatch>>) {
   return isMatchLockedForPrediction(match);
 }
 
-async function persistMatchPrediction(
-  userId: string,
-  input: z.infer<typeof predictionSchema>
+function predictionsEqual(
+  existing: MatchPrediction | undefined,
+  next: MatchPrediction
 ) {
+  if (!existing) return false;
+  return (
+    existing.homeGoals === next.homeGoals &&
+    existing.awayGoals === next.awayGoals &&
+    (existing.predictedWinnerTeamId ?? null) === (next.predictedWinnerTeamId ?? null) &&
+    (existing.predictedDecidedBy ?? null) === (next.predictedDecidedBy ?? null)
+  );
+}
+
+async function prepareMatchPrediction(
+  input: z.infer<typeof predictionSchema>
+): Promise<PreparedMatchPrediction> {
   const match = await findMatch(input.matchId);
-  if (!match) return { status: "missing" as const };
-  if (!isMatchPredictable(match)) return { status: "unpredictable" as const };
-  if (isMatchLocked(match)) return { status: "locked" as const };
+  if (!match) return { ok: false, status: "missing" };
+  if (!isMatchPredictable(match)) return { ok: false, status: "unpredictable" };
+  if (isMatchLocked(match)) return { ok: false, status: "locked" };
 
   const knockout = isKnockoutMatch(match);
   let predictedWinnerTeamId = input.predictedWinnerTeamId ?? null;
@@ -86,8 +118,19 @@ async function persistMatchPrediction(
 
   if (knockout) {
     if (!match.home_team_id || !match.away_team_id) {
-      return { status: "unpredictable" as const };
+      return { ok: false, status: "unpredictable" };
     }
+
+    const resolved = resolveKnockoutPredictionFields({
+      homeGoals: input.homeGoals,
+      awayGoals: input.awayGoals,
+      predictedWinnerTeamId,
+      predictedDecidedBy,
+      homeTeamId: match.home_team_id,
+      awayTeamId: match.away_team_id
+    });
+    predictedWinnerTeamId = resolved.predictedWinnerTeamId;
+    predictedDecidedBy = resolved.predictedDecidedBy;
 
     const validationError = validateKnockoutPrediction({
       homeGoals: input.homeGoals,
@@ -99,7 +142,7 @@ async function persistMatchPrediction(
     });
 
     if (validationError) {
-      return { status: "invalid" as const, error: validationError };
+      return { ok: false, status: "invalid", error: validationError };
     }
 
     const normalized = normalizeKnockoutPrediction({
@@ -114,23 +157,8 @@ async function persistMatchPrediction(
     predictedDecidedBy = normalized.predictedDecidedBy;
   }
 
-  const row = await getOrCreatePredictionDocument(userId);
-  const document = normalizePredictionDocument(row.predictions);
-  const existing = document.matches[input.matchId];
-
-  if (
-    existing &&
-    existing.homeGoals === input.homeGoals &&
-    existing.awayGoals === input.awayGoals &&
-    (existing.predictedWinnerTeamId ?? null) === predictedWinnerTeamId &&
-    (existing.predictedDecidedBy ?? null) === predictedDecidedBy
-  ) {
-    return { status: "unchanged" as const };
-  }
-
   const now = new Date().toISOString();
-  document.updatedAt = now;
-  document.matches[input.matchId] = {
+  const entry: MatchPrediction = {
     homeTeamId: match.home_team_id,
     awayTeamId: match.away_team_id,
     homeGoals: input.homeGoals,
@@ -142,8 +170,94 @@ async function persistMatchPrediction(
     points: null
   };
 
-  await updatePredictionDocument(userId, document);
-  return { status: "saved" as const, matchId: input.matchId };
+  return {
+    ok: true,
+    matchId: input.matchId,
+    match,
+    entry,
+    knockout
+  };
+}
+
+async function persistMatchPrediction(
+  userId: string,
+  input: z.infer<typeof predictionSchema>
+): Promise<
+  | { status: "saved"; matchId: string }
+  | { status: "unchanged" }
+  | { status: "missing" }
+  | { status: "unpredictable" }
+  | { status: "locked" }
+  | { status: "invalid"; error?: string }
+> {
+  const prepared = await prepareMatchPrediction(input);
+  if (!prepared.ok) return prepared;
+
+  let result: { status: "saved"; matchId: string } | { status: "unchanged" } = {
+    status: "unchanged"
+  };
+
+  await mutatePredictionDocument(userId, (document) => {
+    const existing = document.matches[prepared.matchId];
+    if (predictionsEqual(existing, prepared.entry)) {
+      return false;
+    }
+
+    document.updatedAt = prepared.entry.savedAt;
+    document.matches[prepared.matchId] = prepared.entry;
+    result = { status: "saved", matchId: prepared.matchId };
+    return true;
+  });
+
+  return result;
+}
+
+async function persistMatchPredictionsBatch(
+  userId: string,
+  inputs: z.infer<typeof bulkPredictionSchema>["predictions"]
+) {
+  const prepared = await Promise.all(inputs.map((input) => prepareMatchPrediction(input)));
+
+  let saved = 0;
+  let unchanged = 0;
+  let skipped = 0;
+
+  const toApply = prepared.filter((item): item is Extract<PreparedMatchPrediction, { ok: true }> => {
+    if (!item.ok) {
+      skipped += 1;
+      return false;
+    }
+    return true;
+  });
+
+  if (toApply.length === 0) {
+    return { saved, unchanged, skipped };
+  }
+
+  await mutatePredictionDocument(userId, (document) => {
+    let changed = false;
+    const now = new Date().toISOString();
+
+    for (const item of toApply) {
+      const existing = document.matches[item.matchId];
+      if (predictionsEqual(existing, item.entry)) {
+        unchanged += 1;
+        continue;
+      }
+
+      document.matches[item.matchId] = item.entry;
+      changed = true;
+      saved += 1;
+    }
+
+    if (changed) {
+      document.updatedAt = now;
+    }
+
+    return changed;
+  });
+
+  return { saved, unchanged, skipped };
 }
 
 export async function saveMatchPredictionAction(input: {
@@ -232,16 +346,10 @@ export async function saveBulkPredictionsAction(
     };
   }
 
-  let saved = 0;
-  let unchanged = 0;
-  let skipped = 0;
-
-  for (const prediction of parsedInput.predictions) {
-    const result = await persistMatchPrediction(user.id, prediction);
-    if (result.status === "saved") saved += 1;
-    else if (result.status === "unchanged") unchanged += 1;
-    else skipped += 1;
-  }
+  const { saved, unchanged, skipped } = await persistMatchPredictionsBatch(
+    user.id,
+    parsedInput.predictions
+  );
 
   if (saved > 0) {
     revalidatePath("/palpites");

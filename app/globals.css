@@ -2305,6 +2305,34 @@ tbody tr:hover {
   gap: 6px;
 }
 
+.bp-podium__team {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.bracket-podium-summary {
+  display: grid;
+  gap: 12px;
+}
+
+.bracket-podium-summary__head {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.bracket-podium-summary__head h2 {
+  font-size: 1.15rem;
+  margin: 0 0 4px;
+}
+
+.bracket-podium-summary__points {
+  margin: 0;
+}
+
 .button.secondary.small.active {
   background: var(--accent);
   border-color: var(--accent);

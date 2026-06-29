@@ -76,9 +76,43 @@ export function normalizeKnockoutPrediction(input: KnockoutPredictionInput) {
     input.homeTeamId,
     input.awayTeamId
   );
+  const isDraw = input.homeGoals === input.awayGoals;
+
+  let predictedDecidedBy = input.predictedDecidedBy;
+  if (!predictedDecidedBy) {
+    predictedDecidedBy = isDraw ? "PENALTIES" : "REGULAR";
+  }
 
   return {
     predictedWinnerTeamId: inferredWinner ?? input.predictedWinnerTeamId,
-    predictedDecidedBy: input.predictedDecidedBy
+    predictedDecidedBy
   };
+}
+
+/** Fills winner/method defaults used by client autosave and server persist. */
+export function resolveKnockoutPredictionFields(
+  input: KnockoutPredictionInput
+): { predictedWinnerTeamId: string | null; predictedDecidedBy: DecisionMethod | null } {
+  const inferredWinner = inferWinnerFromScore(
+    input.homeGoals,
+    input.awayGoals,
+    input.homeTeamId,
+    input.awayTeamId
+  );
+  const isDraw = input.homeGoals === input.awayGoals;
+
+  let predictedWinnerTeamId = inferredWinner ?? input.predictedWinnerTeamId;
+  let predictedDecidedBy = input.predictedDecidedBy;
+
+  if (!predictedDecidedBy) {
+    const methods = allowedDecisionMethods(input.homeGoals, input.awayGoals);
+    predictedDecidedBy =
+      methods.length === 1 ? methods[0] : isDraw ? "PENALTIES" : "REGULAR";
+  }
+
+  if (isDraw && !predictedWinnerTeamId) {
+    predictedWinnerTeamId = input.predictedWinnerTeamId;
+  }
+
+  return { predictedWinnerTeamId, predictedDecidedBy };
 }

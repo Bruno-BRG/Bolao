@@ -1,6 +1,6 @@
 import { TOURNAMENT_CODE } from "@/lib/constants";
-import { query } from "@/lib/db";
-import { createEmptyPredictionDocument } from "@/services/prediction-document";
+import { getPool, query } from "@/lib/db";
+import { createEmptyPredictionDocument, normalizePredictionDocument } from "@/services/prediction-document";
 import type { PredictionDocument } from "@/types/domain";
 
 type PredictionRow = {
@@ -41,6 +41,80 @@ export async function getOrCreatePredictionDocument(userId: string) {
   return created[0];
 }
 
+function predictionSummaryParams(document: PredictionDocument) {
+  return [
+    document,
+    document.summary.totalPoints,
+    document.summary.matchPoints,
+    document.summary.topFourPoints,
+    document.summary.exactScores,
+    document.summary.correctOutcomes,
+    document.summary.closeScores,
+    document.summary.blanks
+  ];
+}
+
+/**
+ * Loads the user's prediction document under row lock, applies `mutator`, and
+ * persists once. Prevents lost updates when several palpites save in parallel.
+ */
+export async function mutatePredictionDocument(
+  userId: string,
+  mutator: (document: PredictionDocument) => boolean
+): Promise<{ document: PredictionDocument; changed: boolean }> {
+  const pool = getPool();
+  const client = await pool.connect();
+
+  try {
+    await client.query("BEGIN");
+
+    const empty = createEmptyPredictionDocument();
+    await client.query(
+      `INSERT INTO user_predictions (user_id, tournament_code, predictions)
+       VALUES ($1, $2, $3)
+       ON CONFLICT (user_id, tournament_code) DO NOTHING`,
+      [userId, TOURNAMENT_CODE, empty]
+    );
+
+    const { rows } = await client.query<{ predictions: PredictionDocument }>(
+      `SELECT predictions
+       FROM user_predictions
+       WHERE user_id = $1 AND tournament_code = $2
+       FOR UPDATE`,
+      [userId, TOURNAMENT_CODE]
+    );
+
+    const document = normalizePredictionDocument(rows[0]?.predictions);
+    const changed = mutator(document);
+
+    if (changed) {
+      const params = predictionSummaryParams(document);
+      await client.query(
+        `UPDATE user_predictions
+         SET predictions = $3,
+             total_points = $4,
+             match_points = $5,
+             top_four_points = $6,
+             exact_scores = $7,
+             correct_outcomes = $8,
+             close_scores = $9,
+             blanks = $10,
+             updated_at = NOW()
+         WHERE user_id = $1 AND tournament_code = $2`,
+        [userId, TOURNAMENT_CODE, ...params]
+      );
+    }
+
+    await client.query("COMMIT");
+    return { document, changed };
+  } catch (error) {
+    await client.query("ROLLBACK");
+    throw error;
+  } finally {
+    client.release();
+  }
+}
+
 export async function updatePredictionDocument(
   userId: string,
   document: PredictionDocument
@@ -61,18 +135,7 @@ export async function updatePredictionDocument(
        close_scores = EXCLUDED.close_scores,
        blanks = EXCLUDED.blanks,
        updated_at = NOW()`,
-    [
-      userId,
-      TOURNAMENT_CODE,
-      document,
-      document.summary.totalPoints,
-      document.summary.matchPoints,
-      document.summary.topFourPoints,
-      document.summary.exactScores,
-      document.summary.correctOutcomes,
-      document.summary.closeScores,
-      document.summary.blanks
-    ]
+    [userId, TOURNAMENT_CODE, ...predictionSummaryParams(document)]
   );
 }
 

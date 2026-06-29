@@ -1,16 +1,17 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { BracketPodiumSummary } from "@/components/BracketPodiumSummary";
 import { formatDateTime } from "@/lib/date";
 import { getMatchTeamLabel } from "@/lib/match-visibility";
-import type { Match, Team, TopFourPrediction } from "@/types/domain";
+import type { BracketPrediction, Match, Team } from "@/types/domain";
 
 export type CommunityMember = {
   userId: string;
   username: string;
   totalPoints: number;
   savedMatches: number;
-  topFour: TopFourPrediction | null;
+  bracket: BracketPrediction | null;
   matchPredictions: Record<
     string,
     {
@@ -20,26 +21,6 @@ export type CommunityMember = {
     }
   >;
 };
-
-function TopFourLine({
-  label,
-  team
-}: {
-  label: string;
-  team: Team | null;
-}) {
-  return (
-    <div className="community-top4__row">
-      <span>{label}</span>
-      <div className="community-top4__team">
-        {team?.flag_url ? (
-          <img className="flag-icon flag-icon--sm" src={team.flag_url} alt="" loading="lazy" />
-        ) : null}
-        <strong>{team?.name ?? "—"}</strong>
-      </div>
-    </div>
-  );
-}
 
 export function CommunityPredictionsBoard({
   members,
@@ -52,7 +33,6 @@ export function CommunityPredictionsBoard({
   teams: Team[];
   currentUserId?: string;
 }) {
-  const teamById = useMemo(() => new Map(teams.map((team) => [team.external_id, team])), [teams]);
   const [selectedUserId, setSelectedUserId] = useState(
     members.find((member) => member.userId !== currentUserId)?.userId ?? members[0]?.userId ?? ""
   );
@@ -107,16 +87,12 @@ export function CommunityPredictionsBoard({
           </div>
         </header>
 
-        {selected.topFour ? (
-          <section className="card community-top4">
-            <span className="eyebrow">Top 4</span>
-            <div className="community-top4__grid">
-              <TopFourLine label="1o" team={teamById.get(selected.topFour.first) ?? null} />
-              <TopFourLine label="2o" team={teamById.get(selected.topFour.second) ?? null} />
-              <TopFourLine label="3o" team={teamById.get(selected.topFour.third) ?? null} />
-              <TopFourLine label="4o" team={teamById.get(selected.topFour.fourth) ?? null} />
-            </div>
-          </section>
+        {selected.bracket?.championTeamId ? (
+          <BracketPodiumSummary
+            bracket={selected.bracket}
+            teams={teams}
+            title={`Podio de ${selected.username}`}
+          />
         ) : null}
 
         <section className="card community-matches">

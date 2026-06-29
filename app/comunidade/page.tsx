@@ -49,11 +49,14 @@ export default async function ComunidadePage() {
         username,
         totalPoints: row.total_points ?? document.summary.totalPoints,
         savedMatches: Object.keys(document.matches).length,
-        topFour: document.topFour,
+        bracket: document.bracket?.championTeamId ? document.bracket : null,
         matchPredictions
       };
     })
-    .filter((member) => member.savedMatches > 0 || member.topFour)
+    .filter(
+      (member) =>
+        member.savedMatches > 0 || Boolean(member.bracket?.championTeamId)
+    )
     .sort((a, b) => b.totalPoints - a.totalPoints || a.username.localeCompare(b.username));
 
   return (

@@ -26,9 +26,10 @@ const { rows: counts } = await client.query(`
     (SELECT count(*)::int FROM user_predictions WHERE tournament_code = 'WC2026') AS users,
     (SELECT count(*)::int FROM match_predictions WHERE tournament_code = 'WC2026') AS normalized_rows,
     (
-      SELECT coalesce(sum(jsonb_object_length(coalesce(predictions->'matches', '{}'::jsonb))), 0)::int
-      FROM user_predictions
-      WHERE tournament_code = 'WC2026'
+      SELECT count(*)::int
+      FROM user_predictions up
+      CROSS JOIN LATERAL jsonb_each(coalesce(up.predictions->'matches', '{}'::jsonb)) AS m
+      WHERE up.tournament_code = 'WC2026'
     ) AS json_match_entries
 `);
 

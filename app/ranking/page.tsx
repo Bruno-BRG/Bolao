@@ -10,7 +10,7 @@ export default async function RankingPage({
   searchParams: Promise<{ error?: string; recalculated?: string }>;
 }) {
   const params = await searchParams;
-  const rows = await getLatestRanking().catch(() => []);
+  const rows = await getLatestRanking({ refreshIfStale: true }).catch(() => []);
 
   return (
     <main className="container">

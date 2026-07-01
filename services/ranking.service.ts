@@ -1,22 +1,14 @@
 import { FINISHED_STATUSES, TOURNAMENT_CODE } from "@/lib/constants";
 import { query } from "@/lib/db";
-import { listPredictionRows, updatePredictionDocument } from "@/repositories/predictions.repo";
+import {
+  loadPredictionDocumentsForRecalc,
+  listPredictionSummaries,
+  updatePredictionDocument
+} from "@/repositories/predictions.repo";
 import { listMatches, listTeams } from "@/repositories/worldcup.repo";
 import { calculatePredictionScore } from "@/services/scoring.service";
 import { ensureWorldCupData } from "@/services/worldcup-sync.service";
 import type { RankingRow } from "@/types/domain";
-
-type PredictionRow = Awaited<ReturnType<typeof listPredictionRows>>[number] & {
-  users?: { username?: string; created_at?: string } | { username?: string; created_at?: string }[];
-};
-
-function getUserInfo(row: PredictionRow) {
-  const users = Array.isArray(row.users) ? row.users[0] : row.users;
-  return {
-    username: users?.username ?? "usuario",
-    createdAt: users?.created_at ?? row.updated_at
-  };
-}
 
 export async function recalculateRanking() {
   await ensureWorldCupData().catch(() => undefined);
@@ -24,17 +16,16 @@ export async function recalculateRanking() {
   const [matches, teams, rows] = await Promise.all([
     listMatches({ refreshIfStale: false }),
     listTeams(),
-    listPredictionRows()
+    loadPredictionDocumentsForRecalc()
   ]);
 
   const scoredRows = [];
   for (const row of rows) {
-    const document = calculatePredictionScore(row.predictions, matches, teams);
-    await updatePredictionDocument(row.user_id, document);
-    const user = getUserInfo(row as PredictionRow);
+    const document = calculatePredictionScore(row.document, matches, teams);
+    await updatePredictionDocument(row.userId, document);
     scoredRows.push({
-      userId: row.user_id,
-      username: user.username,
+      userId: row.userId,
+      username: row.username,
       totalPoints: document.summary.totalPoints,
       matchPoints: document.summary.matchPoints,
       knockoutPoints: document.summary.knockoutPoints,
@@ -45,7 +36,7 @@ export async function recalculateRanking() {
       closeScores: document.summary.closeScores,
       blanks: document.summary.blanks,
       updatedAt: document.updatedAt,
-      createdAt: user.createdAt
+      createdAt: row.createdAt
     });
   }
 
@@ -122,19 +113,19 @@ export async function getLatestRanking(options?: { refreshIfStale?: boolean }) {
 
   if (rows[0]?.snapshot) return rows[0].snapshot;
 
-  const predictionRows = await listPredictionRows();
+  const predictionRows = await listPredictionSummaries();
   return predictionRows
-    .map((row, index) => {
-      const user = getUserInfo(row as PredictionRow);
+    .map((row) => {
+      const users = row.users;
       return {
-        position: index + 1,
+        position: 0,
         userId: row.user_id,
-        username: user.username,
+        username: users?.username ?? "usuario",
         totalPoints: row.total_points ?? 0,
         matchPoints: row.match_points ?? 0,
-        knockoutPoints: 0,
+        knockoutPoints: row.knockout_points ?? 0,
         topFourPoints: row.top_four_points ?? 0,
-        bracketPoints: 0,
+        bracketPoints: row.bracket_points ?? 0,
         exactScores: row.exact_scores ?? 0,
         correctOutcomes: row.correct_outcomes ?? 0,
         closeScores: row.close_scores ?? 0,

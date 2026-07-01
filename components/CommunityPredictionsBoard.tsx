@@ -1,16 +1,20 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { BracketPodiumSummary } from "@/components/BracketPodiumSummary";
 import { formatDateTime } from "@/lib/date";
 import { getMatchTeamLabel } from "@/lib/match-visibility";
 import type { BracketPrediction, Match, Team } from "@/types/domain";
 
-export type CommunityMember = {
+export type CommunityMemberSummary = {
   userId: string;
   username: string;
   totalPoints: number;
   savedMatches: number;
+  hasBracket: boolean;
+};
+
+type MemberPredictions = {
   bracket: BracketPrediction | null;
   matchPredictions: Record<
     string,
@@ -28,7 +32,7 @@ export function CommunityPredictionsBoard({
   teams,
   currentUserId
 }: {
-  members: CommunityMember[];
+  members: CommunityMemberSummary[];
   matches: Match[];
   teams: Team[];
   currentUserId?: string;
@@ -36,12 +40,53 @@ export function CommunityPredictionsBoard({
   const [selectedUserId, setSelectedUserId] = useState(
     members.find((member) => member.userId !== currentUserId)?.userId ?? members[0]?.userId ?? ""
   );
+  const [predictionsByUser, setPredictionsByUser] = useState<Record<string, MemberPredictions>>({});
+  const [loadingUserId, setLoadingUserId] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   const selected = members.find((member) => member.userId === selectedUserId) ?? members[0];
+  const selectedPredictions = selected ? predictionsByUser[selected.userId] : undefined;
+
+  useEffect(() => {
+    if (!selectedUserId || predictionsByUser[selectedUserId]) return;
+
+    let active = true;
+    setLoadingUserId(selectedUserId);
+    setLoadError(null);
+
+    void fetch(`/api/comunidade/predictions?userId=${encodeURIComponent(selectedUserId)}`, {
+      cache: "no-store"
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          throw new Error("Nao foi possivel carregar os palpites.");
+        }
+        return (await response.json()) as MemberPredictions;
+      })
+      .then((payload) => {
+        if (!active) return;
+        setPredictionsByUser((current) => ({
+          ...current,
+          [selectedUserId]: payload
+        }));
+      })
+      .catch((error: Error) => {
+        if (!active) return;
+        setLoadError(error.message);
+      })
+      .finally(() => {
+        if (active) setLoadingUserId(null);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [predictionsByUser, selectedUserId]);
+
   const visibleMatches = useMemo(() => {
-    if (!selected) return [];
-    return matches.filter((match) => selected.matchPredictions[match.external_id]);
-  }, [matches, selected]);
+    if (!selectedPredictions) return [];
+    return matches.filter((match) => selectedPredictions.matchPredictions[match.external_id]);
+  }, [matches, selectedPredictions]);
 
   if (members.length === 0) {
     return (
@@ -87,9 +132,21 @@ export function CommunityPredictionsBoard({
           </div>
         </header>
 
-        {selected.bracket?.championTeamId ? (
+        {loadingUserId === selected.userId ? (
+          <section className="card">
+            <p className="muted">Carregando palpites...</p>
+          </section>
+        ) : null}
+
+        {loadError ? (
+          <section className="card">
+            <p className="error">{loadError}</p>
+          </section>
+        ) : null}
+
+        {selectedPredictions?.bracket?.championTeamId ? (
           <BracketPodiumSummary
-            bracket={selected.bracket}
+            bracket={selectedPredictions.bracket}
             teams={teams}
             title={`Podio de ${selected.username}`}
           />
@@ -101,12 +158,16 @@ export function CommunityPredictionsBoard({
             <strong>{visibleMatches.length}</strong>
           </div>
 
-          {visibleMatches.length === 0 ? (
+          {!selectedPredictions && loadingUserId !== selected.userId ? (
+            <p className="muted">Selecione um participante para ver os palpites.</p>
+          ) : visibleMatches.length === 0 && selectedPredictions ? (
             <p className="muted">Esse participante ainda nao salvou palpites de jogos.</p>
           ) : (
             <div className="community-match-list">
               {visibleMatches.map((match) => {
-                const prediction = selected.matchPredictions[match.external_id];
+                const prediction = selectedPredictions?.matchPredictions[match.external_id];
+                if (!prediction) return null;
+
                 return (
                   <article key={match.external_id} className="community-match-row">
                     <div className="community-match-row__meta">

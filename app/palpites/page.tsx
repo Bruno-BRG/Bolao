@@ -21,7 +21,7 @@ export default async function PalpitesPage({
 
   const [row, matches, teams] = await Promise.all([
     getOrCreatePredictionDocument(user.id),
-    listMatches({ refreshIfStale: true }),
+    listMatches({ refreshIfStale: false }),
     listTeams()
   ]);
   const document = normalizePredictionDocument(row.predictions);

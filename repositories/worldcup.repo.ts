@@ -1,5 +1,7 @@
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { TOURNAMENT_CODE } from "@/lib/constants";
+import { PAGE_CACHE_SECONDS } from "@/lib/server-cache";
 import { query } from "@/lib/db";
 import { localizeTeam } from "@/lib/team-names-pt";
 import {
@@ -8,15 +10,28 @@ import {
 } from "@/services/worldcup-sync.service";
 import type { GroupTable, Match, Team } from "@/types/domain";
 
-export const listTeams = cache(async (): Promise<Team[]> => {
+async function readTeamsFromCache(includePayload: boolean): Promise<Team[]> {
+  const payloadColumn = includePayload ? ", payload" : "";
   const { rows } = await query<Team>(
-    `SELECT external_id, fifa_code, iso2, name, flag_url, payload
+    `SELECT external_id, fifa_code, iso2, name, flag_url${payloadColumn}
      FROM teams_cache
      ORDER BY name`
   );
 
   return rows.map(localizeTeam).sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
-});
+}
+
+const getTeamsCached = unstable_cache(
+  async () => readTeamsFromCache(false),
+  ["teams-cache"],
+  { revalidate: PAGE_CACHE_SECONDS, tags: ["teams"] }
+);
+
+const getTeamsWithPayloadCached = unstable_cache(
+  async () => readTeamsFromCache(true),
+  ["teams-cache-with-payload"],
+  { revalidate: PAGE_CACHE_SECONDS, tags: ["teams"] }
+);
 
 async function readMatchesFromCache(): Promise<Match[]> {
   const { rows } = await query<Match>(
@@ -29,7 +44,7 @@ async function readMatchesFromCache(): Promise<Match[]> {
     [TOURNAMENT_CODE]
   );
 
-  const teams = await listTeams();
+  const teams = await getTeamsCached();
   const byId = new Map(teams.map((team) => [team.external_id, team]));
 
   return rows.map((match) => ({
@@ -39,6 +54,18 @@ async function readMatchesFromCache(): Promise<Match[]> {
   }));
 }
 
+const getMatchesCached = unstable_cache(
+  async () => readMatchesFromCache(),
+  ["matches-cache", TOURNAMENT_CODE],
+  { revalidate: PAGE_CACHE_SECONDS, tags: ["matches"] }
+);
+
+export const listTeams = cache(async (): Promise<Team[]> => getTeamsCached());
+
+export async function listTeamsForScoring(): Promise<Team[]> {
+  return getTeamsWithPayloadCached();
+}
+
 export async function listMatches(options?: {
   refreshIfStale?: boolean;
 }): Promise<Match[]> {
@@ -46,10 +73,10 @@ export async function listMatches(options?: {
     await ensureWorldCupData().catch(() => undefined);
   }
 
-  return readMatchesFromCache();
+  return getMatchesCached();
 }
 
-export const listMatchesCached = cache(() => readMatchesFromCache());
+export const listMatchesCached = cache(() => getMatchesCached());
 
 export async function findMatch(matchId: string): Promise<Match | null> {
   const matches = await listMatches({ refreshIfStale: false });

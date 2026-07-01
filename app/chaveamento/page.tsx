@@ -11,7 +11,7 @@ export default async function ChaveamentoPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login");
 
-  const matches = await listMatches({ refreshIfStale: true });
+  const matches = await listMatches({ refreshIfStale: false });
   const knockoutMatches = matches.filter((match) => isKnockoutStage(match.stage));
 
   return (

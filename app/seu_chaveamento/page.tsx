@@ -15,7 +15,7 @@ export default async function SeuChaveamentoPage() {
   if (!user) redirect("/login");
 
   const [matches, teams, row] = await Promise.all([
-    listMatches({ refreshIfStale: true }),
+    listMatches({ refreshIfStale: false }),
     listTeams(),
     getOrCreatePredictionDocument(user.id)
   ]);

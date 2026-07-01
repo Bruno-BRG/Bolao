@@ -96,6 +96,19 @@ async function refreshKnockoutBracketFromStandings() {
   }
 }
 
+const KNOCKOUT_ENRICHMENT_MIN_MS = Number(
+  process.env.KNOCKOUT_ENRICHMENT_MIN_MINUTES ?? "5"
+) * 60 * 1000;
+
+let lastKnockoutEnrichmentAt = 0;
+
+async function maybeRefreshKnockoutBracketFromStandings() {
+  const now = Date.now();
+  if (now - lastKnockoutEnrichmentAt < KNOCKOUT_ENRICHMENT_MIN_MS) return;
+  lastKnockoutEnrichmentAt = now;
+  await refreshKnockoutBracketFromStandings();
+}
+
 export async function syncWorldCupData(options?: { allowGithubFallback?: boolean }) {
   return {
     provider: WORLDCUP_PROVIDER,
@@ -119,7 +132,7 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
     latestSync?.created_at &&
     latestSync.created_at >= liveStaleThreshold
   ) {
-    await refreshKnockoutBracketFromStandings();
+    await maybeRefreshKnockoutBracketFromStandings();
     return { ran: false, reason: "fresh" as const };
   }
 
@@ -154,7 +167,7 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
     !shouldSyncBecauseLegacyTimezone &&
     !shouldSyncBecauseLiveStateStale
   ) {
-    await refreshKnockoutBracketFromStandings();
+    await maybeRefreshKnockoutBracketFromStandings();
     return { ran: false, reason: "fresh" as const };
   }
 

@@ -3,7 +3,7 @@ import {
   CommunityPredictionsBoard,
   type CommunityMemberSummary
 } from "@/components/CommunityPredictionsBoard";
-import { listPredictionSummaries } from "@/repositories/predictions.repo";
+import { getCachedPredictionSummaries } from "@/lib/server-cache";
 import { listMatchesCached, listTeams } from "@/repositories/worldcup.repo";
 import { getCurrentUser } from "@/services/auth.service";
 
@@ -14,7 +14,7 @@ export default async function ComunidadePage() {
   if (!user) redirect("/login");
 
   const [rows, matches, teams] = await Promise.all([
-    listPredictionSummaries(),
+    getCachedPredictionSummaries(),
     listMatchesCached(),
     listTeams()
   ]);

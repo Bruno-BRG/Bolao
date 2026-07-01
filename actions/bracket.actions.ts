@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 import { isBracketLocked } from "@/lib/bracket-scoring";
 import { mutatePredictionDocument } from "@/repositories/predictions.repo";
@@ -92,6 +92,7 @@ export async function saveBracketPredictionAction(
     revalidatePath("/seu_chaveamento");
     revalidatePath("/chaveamento");
     revalidatePath("/ranking");
+    revalidateTag("predictions");
     return { ok: true };
   } catch {
     return { ok: false, error: "Chaveamento invalido." };

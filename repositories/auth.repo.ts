@@ -52,19 +52,18 @@ export async function createSession(userId: string, token: string) {
 }
 
 export async function findSessionUser(token: string) {
-  const { rows } = await query<{ user_id: string }>(
-    `SELECT user_id
-     FROM sessions
-     WHERE session_token_hash = $1
-       AND revoked_at IS NULL
-       AND expires_at > NOW()
+  const { rows } = await query<User>(
+    `SELECT u.id, u.username, u.created_at
+     FROM sessions s
+     JOIN users u ON u.id = s.user_id
+     WHERE s.session_token_hash = $1
+       AND s.revoked_at IS NULL
+       AND s.expires_at > NOW()
      LIMIT 1`,
     [hashToken(token)]
   );
 
-  const session = rows[0];
-  if (!session) return null;
-  return findUserById(session.user_id);
+  return rows[0] ?? null;
 }
 
 export async function updateUserPassword(username: string, passwordHash: string) {

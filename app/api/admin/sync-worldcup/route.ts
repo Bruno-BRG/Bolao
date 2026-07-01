@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 import { insertSyncLog } from "@/lib/cache-sync";
 import {
   ensureWorldCupData,
@@ -47,6 +48,11 @@ export async function POST(request: NextRequest) {
       force || ensured.ran || (await shouldRefreshRanking())
         ? await recalculateRanking()
         : await getLatestRanking();
+
+    if (ensured.ran) {
+      revalidateTag("teams");
+      revalidateTag("matches");
+    }
 
     return NextResponse.json({
       ok: true,

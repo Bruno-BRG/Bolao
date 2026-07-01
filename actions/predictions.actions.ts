@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { isMatchPredictable } from "@/lib/match-visibility";
@@ -277,6 +277,7 @@ export async function saveMatchPredictionAction(input: {
     if (result.status === "saved") {
       revalidatePath("/palpites");
       revalidatePath("/comunidade");
+      revalidateTag("predictions");
       return { ok: true };
     }
 
@@ -318,6 +319,7 @@ export async function savePredictionAction(formData: FormData) {
   revalidatePath("/palpites");
   revalidatePath("/dashboard");
   revalidatePath("/comunidade");
+  revalidateTag("predictions");
   redirect("/palpites?saved=1");
 }
 
@@ -403,5 +405,6 @@ export async function saveTopFourAction(formData: FormData) {
   revalidatePath("/top-4");
   revalidatePath("/dashboard");
   revalidatePath("/comunidade");
+  revalidateTag("predictions");
   redirect("/top-4?saved=1");
 }

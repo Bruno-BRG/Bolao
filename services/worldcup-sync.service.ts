@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { FINISHED_STATUSES, TOURNAMENT_CODE } from "@/lib/constants";
 import {
   countMatches,
@@ -17,6 +18,9 @@ const AUTO_SYNC_MAX_AGE_MINUTES = Number(
 const LIVE_SYNC_MAX_AGE_MINUTES = Number(
   process.env.LIVE_SYNC_MAX_AGE_MINUTES ?? "5"
 );
+const LIVE_MATCH_SYNC_MAX_AGE_MINUTES = Number(
+  process.env.LIVE_MATCH_SYNC_MAX_AGE_MINUTES ?? "1"
+);
 const WORLDCUP_PROVIDER = "worldcup26";
 
 async function listMatchSyncSignals() {
@@ -35,6 +39,7 @@ async function listMatchSyncSignals() {
 
 async function resolveSyncMaxAgeMinutes() {
   const now = Date.now();
+  const liveMatchesActive = await hasLiveMatchesNow();
   const matches = await listMatchSyncSignals();
   const inActiveWindow = matches.some((match) => {
     const status = String(match.status).toUpperCase();
@@ -56,11 +61,32 @@ async function resolveSyncMaxAgeMinutes() {
     return hoursUntilKickoff >= 0 && hoursUntilKickoff <= 3;
   });
 
-  return inActiveWindow ? LIVE_SYNC_MAX_AGE_MINUTES : AUTO_SYNC_MAX_AGE_MINUTES;
+  return inActiveWindow
+    ? resolveLiveSyncMaxAgeMinutes(liveMatchesActive)
+    : AUTO_SYNC_MAX_AGE_MINUTES;
+}
+
+async function hasLiveMatchesNow() {
+  const { rows } = await query<{ live_now: boolean }>(
+    `SELECT EXISTS (
+       SELECT 1
+       FROM matches_cache
+       WHERE tournament_code = $1
+         AND upper(status) = 'LIVE'
+     ) AS live_now`,
+    [TOURNAMENT_CODE]
+  );
+  return rows[0]?.live_now ?? false;
+}
+
+function resolveLiveSyncMaxAgeMinutes(liveMatchesActive: boolean) {
+  return liveMatchesActive ? LIVE_MATCH_SYNC_MAX_AGE_MINUTES : LIVE_SYNC_MAX_AGE_MINUTES;
 }
 
 async function hasStaleLiveMatchState() {
   const now = Date.now();
+  const liveMatchesActive = await hasLiveMatchesNow();
+  const liveSyncMaxAgeMs = resolveLiveSyncMaxAgeMinutes(liveMatchesActive) * 60 * 1000;
   const matches = await listMatchSyncSignals();
 
   return matches.some((match) => {
@@ -77,7 +103,7 @@ async function hasStaleLiveMatchState() {
     if (status === "LIVE") {
       const updatedAt = new Date(match.updated_at).getTime();
       if (Number.isNaN(updatedAt)) return true;
-      return now - updatedAt > LIVE_SYNC_MAX_AGE_MINUTES * 60 * 1000;
+      return now - updatedAt > liveSyncMaxAgeMs;
     }
 
     return false;
@@ -120,8 +146,10 @@ export async function syncWorldCupData(options?: { allowGithubFallback?: boolean
 
 export async function ensureWorldCupData(options?: { force?: boolean }) {
   const now = Date.now();
+  const liveMatchesActive = await hasLiveMatchesNow();
+  const liveSyncMaxAgeMinutes = resolveLiveSyncMaxAgeMinutes(liveMatchesActive);
   const liveStaleThreshold = new Date(
-    now - LIVE_SYNC_MAX_AGE_MINUTES * 60 * 1000
+    now - liveSyncMaxAgeMinutes * 60 * 1000
   ).toISOString();
   const latestSync = await getLatestSuccessfulSync(WORLDCUP_PROVIDER);
   const liveStateStale = await hasStaleLiveMatchState();
@@ -173,6 +201,8 @@ export async function ensureWorldCupData(options?: { force?: boolean }) {
 
   try {
     const syncResult = await syncWorldCupData();
+    revalidateTag("matches");
+    revalidateTag("teams");
     return {
       ran: true,
       reason: shouldSyncBecauseEmpty

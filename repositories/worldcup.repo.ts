@@ -78,6 +78,11 @@ export async function listMatches(options?: {
 
 export const listMatchesCached = cache(() => getMatchesCached());
 
+/** Leitura direta do banco — para polling de placar ao vivo (sem cache de 45s). */
+export async function listMatchesLive(): Promise<Match[]> {
+  return readMatchesFromCache();
+}
+
 export async function findMatch(matchId: string): Promise<Match | null> {
   const matches = await listMatches({ refreshIfStale: false });
   return matches.find((match) => match.external_id === matchId) ?? null;

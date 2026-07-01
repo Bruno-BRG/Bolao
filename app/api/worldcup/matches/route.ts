@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { listMatches } from "@/repositories/worldcup.repo";
+import { listMatchesLive } from "@/repositories/worldcup.repo";
 import { ensureWorldCupData } from "@/services/worldcup-sync.service";
 
 export const dynamic = "force-dynamic";
@@ -10,7 +10,7 @@ export async function GET() {
     reason: "error" as const,
     error: error.message
   }));
-  const matches = await listMatches({ refreshIfStale: false });
+  const matches = await listMatchesLive();
 
   return NextResponse.json({
     syncedAt: new Date().toISOString(),

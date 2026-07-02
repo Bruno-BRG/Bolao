@@ -84,7 +84,7 @@ export async function listMatchesLive(): Promise<Match[]> {
 }
 
 export async function findMatch(matchId: string): Promise<Match | null> {
-  const matches = await listMatches({ refreshIfStale: false });
+  const matches = await listMatchesLive();
   return matches.find((match) => match.external_id === matchId) ?? null;
 }
 

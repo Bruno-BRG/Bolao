@@ -111,11 +111,17 @@ type DbExecutor = {
   ) => Promise<pg.QueryResult<T>>;
 };
 
+function bindQuery(client?: DbExecutor) {
+  if (!client) return query;
+  return <T extends pg.QueryResultRow>(text: string, params?: unknown[]) =>
+    client.query<T>(text, params);
+}
+
 async function loadMatchPredictionRows(
   userId: string,
   client?: DbExecutor
 ): Promise<MatchPredictionRow[]> {
-  const run = client?.query ?? query;
+  const run = bindQuery(client);
   const { rows } = await run<MatchPredictionRow>(
     `SELECT match_external_id, home_team_id, away_team_id, home_goals, away_goals,
             predicted_winner_team_id, predicted_decided_by, saved_at, locked,
@@ -131,7 +137,7 @@ async function loadPredictionHeader(
   userId: string,
   client?: DbExecutor
 ): Promise<PredictionHeaderRow | null> {
-  const run = client?.query ?? query;
+  const run = bindQuery(client);
   const { rows } = await run<PredictionHeaderRow>(
     `SELECT id, user_id, bracket, top_four, total_points, match_points, knockout_points,
             top_four_points, bracket_points, exact_scores, correct_outcomes, close_scores,

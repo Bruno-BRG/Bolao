@@ -33,7 +33,7 @@ const getTeamsWithPayloadCached = unstable_cache(
   { revalidate: PAGE_CACHE_SECONDS, tags: ["teams"] }
 );
 
-async function readMatchesFromCache(): Promise<Match[]> {
+async function readMatchesFromCache(options?: { bypassCache?: boolean }): Promise<Match[]> {
   const { rows } = await query<Match>(
     `SELECT external_id, tournament_code, home_team_id, away_team_id, starts_at,
             stage, group_name, status, score_home, score_away,
@@ -44,7 +44,9 @@ async function readMatchesFromCache(): Promise<Match[]> {
     [TOURNAMENT_CODE]
   );
 
-  const teams = await getTeamsCached();
+  const teams = options?.bypassCache
+    ? await readTeamsFromCache(false)
+    : await getTeamsCached();
   const byId = new Map(teams.map((team) => [team.external_id, team]));
 
   return rows.map((match) => ({
@@ -78,9 +80,9 @@ export async function listMatches(options?: {
 
 export const listMatchesCached = cache(() => getMatchesCached());
 
-/** Leitura direta do banco — para polling de placar ao vivo (sem cache de 45s). */
+/** Leitura direta do banco — para server actions e polling ao vivo (sem unstable_cache). */
 export async function listMatchesLive(): Promise<Match[]> {
-  return readMatchesFromCache();
+  return readMatchesFromCache({ bypassCache: true });
 }
 
 export async function findMatch(matchId: string): Promise<Match | null> {

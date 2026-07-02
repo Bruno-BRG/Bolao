@@ -264,7 +264,6 @@ function revalidatePredictionViews() {
   try {
     revalidatePath("/palpites");
     revalidatePath("/comunidade");
-    revalidateTag("predictions");
   } catch (error) {
     console.warn("[predictions] cache revalidate failed:", error);
   }

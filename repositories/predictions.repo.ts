@@ -214,12 +214,45 @@ function predictionSummaryParams(document: PredictionDocument) {
   ];
 }
 
+function matchPredictionFingerprint(prediction: MatchPrediction) {
+  return [
+    prediction.homeGoals,
+    prediction.awayGoals,
+    prediction.predictedWinnerTeamId ?? "",
+    prediction.predictedDecidedBy ?? "",
+    prediction.locked,
+    prediction.points ?? "",
+    prediction.savedAt
+  ].join("|");
+}
+
+function findTouchedMatchIds(
+  before: Map<string, string>,
+  after: Record<string, MatchPrediction>
+) {
+  const touched = new Set<string>();
+
+  for (const [matchId, prediction] of Object.entries(after)) {
+    const fingerprint = matchPredictionFingerprint(prediction);
+    if (before.get(matchId) !== fingerprint) {
+      touched.add(matchId);
+    }
+  }
+
+  return [...touched];
+}
+
 async function persistMatchPredictions(
   userId: string,
   matches: Record<string, MatchPrediction>,
-  client: DbExecutor
+  client: DbExecutor,
+  onlyMatchIds?: string[]
 ) {
-  const entries = Object.entries(matches);
+  const entries = onlyMatchIds
+    ? onlyMatchIds
+        .map((matchId) => [matchId, matches[matchId]] as const)
+        .filter((entry): entry is [string, MatchPrediction] => Boolean(entry[1]))
+    : Object.entries(matches);
   for (const [matchId, prediction] of entries) {
     await client.query(
       `INSERT INTO match_predictions (
@@ -261,7 +294,8 @@ async function persistMatchPredictions(
 async function persistPredictionDocument(
   userId: string,
   document: PredictionDocument,
-  client: DbExecutor
+  client: DbExecutor,
+  onlyMatchIds?: string[]
 ) {
   const params = predictionSummaryParams(document);
   await client.query(
@@ -287,7 +321,10 @@ async function persistPredictionDocument(
        updated_at = NOW()`,
     [userId, TOURNAMENT_CODE, ...params]
   );
-  await persistMatchPredictions(userId, document.matches, client);
+
+  if (onlyMatchIds && onlyMatchIds.length === 0) return;
+
+  await persistMatchPredictions(userId, document.matches, client, onlyMatchIds);
 }
 
 export async function getOrCreatePredictionDocument(userId: string) {
@@ -347,10 +384,17 @@ export async function mutatePredictionDocument(
     );
 
     const document = await loadPredictionDocumentWithClient(userId, client);
+    const before = new Map(
+      Object.entries(document.matches).map(([matchId, prediction]) => [
+        matchId,
+        matchPredictionFingerprint(prediction)
+      ])
+    );
     const changed = mutator(document);
 
     if (changed) {
-      await persistPredictionDocument(userId, document, client);
+      const touchedMatchIds = findTouchedMatchIds(before, document.matches);
+      await persistPredictionDocument(userId, document, client, touchedMatchIds);
     }
 
     await client.query("COMMIT");

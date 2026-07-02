@@ -260,6 +260,16 @@ async function persistMatchPredictionsBatch(
   return { saved, unchanged, skipped };
 }
 
+function revalidatePredictionViews() {
+  try {
+    revalidatePath("/palpites");
+    revalidatePath("/comunidade");
+    revalidateTag("predictions");
+  } catch (error) {
+    console.warn("[predictions] cache revalidate failed:", error);
+  }
+}
+
 export async function saveMatchPredictionAction(input: {
   matchId: string;
   homeGoals: number;
@@ -275,9 +285,7 @@ export async function saveMatchPredictionAction(input: {
     const result = await persistMatchPrediction(user.id, parsed);
 
     if (result.status === "saved") {
-      revalidatePath("/palpites");
-      revalidatePath("/comunidade");
-      revalidateTag("predictions");
+      revalidatePredictionViews();
       return { ok: true };
     }
 
@@ -293,8 +301,9 @@ export async function saveMatchPredictionAction(input: {
     }
 
     return { ok: false, error: "Jogo nao encontrado." };
-  } catch {
-    return { ok: false, error: "Placar invalido." };
+  } catch (error) {
+    console.error("[predictions] saveMatchPredictionAction failed:", error);
+    return { ok: false, error: "Erro ao salvar palpite. Tente de novo." };
   }
 }
 

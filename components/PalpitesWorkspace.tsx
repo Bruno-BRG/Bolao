@@ -366,7 +366,9 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
       }
       return next;
     });
-  }, [matches]);
+  }, [matches, savedPredictions]);
+
+  const flushDraftRef = useRef(false);
 
   useEffect(() => {
     return () => {
@@ -531,7 +533,6 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
       predictedWinnerTeamId,
       predictedDecidedBy
     } : undefined);
-    setRowStatus((current) => ({ ...current, [matchId]: "idle" }));
     setRowErrors((current) => ({ ...current, [matchId]: null }));
 
     if (saveTimers.current[matchId]) {
@@ -546,6 +547,41 @@ export function PalpitesWorkspace({ matches, savedPredictions }: PalpitesWorkspa
       });
     }, 900);
   }
+
+  useEffect(() => {
+    if (flushDraftRef.current) return;
+    flushDraftRef.current = true;
+
+    const drafts = readPredictionDrafts();
+    if (Object.keys(drafts).length === 0) return;
+
+    for (const match of matches) {
+      const draft = drafts[match.external_id];
+      if (!draft) continue;
+
+      const saved = savedPredictions[match.external_id];
+      const alreadySaved =
+        saved &&
+        saved.homeGoals === draft.homeGoals &&
+        saved.awayGoals === draft.awayGoals &&
+        (saved.predictedWinnerTeamId ?? null) === (draft.predictedWinnerTeamId ?? null) &&
+        (saved.predictedDecidedBy ?? null) === (draft.predictedDecidedBy ?? null);
+
+      if (alreadySaved) {
+        removePredictionDraft(match.external_id);
+        continue;
+      }
+
+      if (isMatchLockedForPrediction(match)) continue;
+
+      void persistMatch(match, {
+        homeGoals: String(draft.homeGoals),
+        awayGoals: String(draft.awayGoals),
+        predictedWinnerTeamId: draft.predictedWinnerTeamId ?? null,
+        predictedDecidedBy: draft.predictedDecidedBy ?? null
+      });
+    }
+  }, [matches, savedPredictions]);
 
   function updateScore(match: Match, side: "homeGoals" | "awayGoals", value: string) {
     setScores((current) => {

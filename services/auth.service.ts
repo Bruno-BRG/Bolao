@@ -1,9 +1,8 @@
-import { cache } from "react";
 import { cookies } from "next/headers";
 import { SESSION_COOKIE } from "@/lib/constants";
 import { findSessionUser } from "@/repositories/auth.repo";
 
-export const getCurrentUser = cache(async () => {
+export async function getCurrentUser() {
   const cookieStore = await cookies();
   const token = cookieStore.get(SESSION_COOKIE)?.value;
   if (!token) return null;
@@ -13,7 +12,7 @@ export const getCurrentUser = cache(async () => {
   } catch {
     return null;
   }
-});
+}
 
 export function normalizeUsername(username: string) {
   return username.trim().toLowerCase();

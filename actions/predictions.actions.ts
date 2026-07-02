@@ -301,7 +301,10 @@ export async function saveMatchPredictionAction(input: {
 
     return { ok: false, error: "Jogo nao encontrado." };
   } catch (error) {
-    console.error("[predictions] saveMatchPredictionAction failed:", error);
+    console.error(
+      "[predictions] saveMatchPredictionAction failed:",
+      error instanceof Error ? error.stack ?? error.message : error
+    );
     return { ok: false, error: "Erro ao salvar palpite. Tente de novo." };
   }
 }
